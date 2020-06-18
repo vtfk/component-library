@@ -22,7 +22,7 @@
     "generate": "node --experimental-modules node_modules/.bin/plop --plopfile scripts/templates/index.js",
     "update-packages": "npx npm-check-updates -u && npm i",
     "heroku-postbuild": "npm run build-documentation",
-    "now-build": "build-documentation"
+    "now-build": "npm run build-documentation"
   },
   "dependencies": {
     "compression": "^1.7.4",
