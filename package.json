@@ -57,7 +57,7 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "3.0.0",
-    "husky": "4.2.3",
+    "husky": "4.2.5",
     "jest": "25.2.7",
     "jest-junit": "10.0.0",
     "jest-transform-css": "2.0.0",
