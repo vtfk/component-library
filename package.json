@@ -1,0 +1,162 @@
+{
+  "name": "vtfk-component-library",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "author": "kristoffer@koderiet.no",
+  "license": "",
+  "repository": "",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "cross-env STORYBOOK_DEBUG=true SBCONFIG_CONFIG_DIR=scripts/storybook start-storybook -p 4000 --quiet --ci",
+    "build": "rollup -c ./scripts/build/rollup.config.js",
+    "build-watch": "npm run build -- -w",
+    "build-documentation": "build-storybook -c scripts/storybook -o storybook-static",
+    "publish-documentation": "storybook-to-ghpages --out=storybook-static --existing-output-dir=storybook-static",
+    "start-documentation": "npx http-server storybook-static",
+    "test:dev": "jest --watch",
+    "test": "jest",
+    "release": "standard-version",
+    "lint": "node node_modules/eslint/bin/eslint.js --fix --max-warnings=0 src",
+    "precommit": "lint-staged",
+    "generate": "node --experimental-modules node_modules/.bin/plop --plopfile scripts/templates/index.js",
+    "update-packages": "npx npm-check-updates -u && npm i",
+    "heroku-postbuild": "npm run build-documentation"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.9.0",
+    "@babel/preset-env": "7.9.0",
+    "@babel/preset-react": "7.9.4",
+    "@rollup/plugin-commonjs": "11.0.2",
+    "@storybook/addon-actions": "5.3.18",
+    "@storybook/addon-docs": "5.3.18",
+    "@storybook/addon-storysource": "5.3.18",
+    "@storybook/addons": "5.3.18",
+    "@storybook/preset-scss": "1.0.2",
+    "@storybook/react": "5.3.18",
+    "@storybook/theming": "5.3.18",
+    "@testing-library/jest-dom": "5.3.0",
+    "@testing-library/react": "10.0.2",
+    "@testing-library/react-hooks": "3.2.1",
+    "babel-eslint": "10.1.0",
+    "babel-loader": "8.1.0",
+    "babel-polyfill": "6.26.0",
+    "cross-env": "7.0.2",
+    "eslint": "6.8.0",
+    "eslint-config-react-app": "5.2.1",
+    "eslint-plugin-flowtype": "4.7.0",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "3.0.0",
+    "husky": "4.2.3",
+    "jest": "25.2.7",
+    "jest-junit": "10.0.0",
+    "jest-transform-css": "2.0.0",
+    "lint-staged": "10.1.1",
+    "marked": "0.8.2",
+    "node-sass": "4.13.1",
+    "plop": "2.6.0",
+    "prettier": "2.0.2",
+    "prop-types": "15.7.2",
+    "react-hooks-testing-library": "0.6.0",
+    "react-test-renderer": "16.13.1",
+    "rimraf": "3.0.2",
+    "rollup": "2.3.2",
+    "rollup-plugin-auto-external": "2.0.0",
+    "rollup-plugin-babel": "4.4.0",
+    "rollup-plugin-postcss": "2.5.0",
+    "rollup-plugin-terser": "5.3.0",
+    "sass-loader": "8.0.2",
+    "standard-version": "7.1.0"
+  },
+  "peerDependencies": {
+    "react": "16.*",
+    "react-dom": "16.*"
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread"
+    ],
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "prettier": {
+    "jsxBracketSameLine": true,
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true
+  },
+  "jest": {
+    "rootDir": "src",
+    "setupFilesAfterEnv": [
+      "<rootDir>/../scripts/test/jest-setup.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/../scripts/test/file.mock.js",
+      "\\.(css|less|scss)$": "<rootDir>/../scripts/test/style.mock.js"
+    },
+    "transform": {
+      ".+\\.js$": "babel-jest",
+      ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css",
+      ".+\\.(bmp|gif|jpg|jpeg|png|psd|svg|webp)$": "<rootDir>/../scripts/test/media-file.mock.js"
+    },
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "<rootDir>/../scripts/test"
+        }
+      ]
+    ],
+    "verbose": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ],
+    "rules": {
+      "no-console": 1,
+      "react/default-props-match-prop-types": 1,
+      "react/no-unused-prop-types": 1,
+      "react/prop-types": 1,
+      "react/sort-prop-types": 1
+    },
+    "settings": {
+      "react": {
+        "version": "latest"
+      }
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,json,css}": [
+      "prettier --write",
+      "git add"
+    ],
+    "src/**/*.js": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "post-checkout": "if [[ $HUSKY_GIT_PARAMS  =~ 1$ ]]; then npm install --no-package-lock; fi",
+      "post-merge": "npm install --no-package-lock",
+      "post-rebase": "npm install",
+      "pre-commit": "npm run test && lint-staged"
+    }
+  },
+  "engines": {
+    "node": "11.10.1"
+  }
+}

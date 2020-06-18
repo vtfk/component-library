@@ -1,0 +1,13 @@
+import PropTypes from 'prop-types'
+import React from 'react'
+import './{{ pascalCase componentName }}.scss'
+
+function {{ pascalCase componentName }}({ text }) {
+  return <div className={'{{ dashCase componentName}}'}>{text}</div>
+}
+
+{{ pascalCase componentName }}.propTypes = {
+  text: PropTypes.string
+}
+
+export default {{ pascalCase componentName }}

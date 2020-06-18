@@ -1,0 +1,6 @@
+.cache
+dist
+node_modules
+storybook-static
+**/junit.xml
+.vs

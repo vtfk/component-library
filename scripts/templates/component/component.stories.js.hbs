@@ -1,0 +1,10 @@
+import { action } from '@storybook/addon-actions'
+import React from 'react'
+import { getConfig } from '../../../scripts/storybook/storyConfig'
+import {{ pascalCase componentName }} from './{{ pascalCase componentName }}'
+
+export default getConfig({ title: '{{ pascalCase componentName }}', component: {{ pascalCase componentName }} })
+
+export function Basic() {
+  return <{{ pascalCase componentName }} text="TODO: {{ pascalCase componentName }}" />
+}
