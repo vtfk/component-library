@@ -1,1 +1,0 @@
-# Hvordan bruke komponentbiblioteket

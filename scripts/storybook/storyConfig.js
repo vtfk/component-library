@@ -3,6 +3,8 @@ const storyConfig = {
 		options: {
 			showPanel: true,
 		},
+    actions: { argTypesRegex: '^on[A-Z].*' },
+	  viewMode: 'docs'
 	},
 }
 

@@ -18,17 +18,23 @@
     "test": "jest",
     "release": "standard-version",
     "lint": "node node_modules/eslint/bin/eslint.js --fix --max-warnings=0 src",
-    "precommit": "lint-staged",
     "generate": "node --experimental-modules node_modules/.bin/plop --plopfile scripts/templates/index.js",
     "update-packages": "npx npm-check-updates -u && npm i",
     "heroku-postbuild": "npm run build-documentation",
     "now-build": "npm run build-documentation"
   },
+  "scriptsComments": {
+    "precommit": "lint-staged"
+  },
   "dependencies": {
     "compression": "1.7.4",
     "express": "4.17.1",
+    "nanoid": "^3.1.20",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-datepicker": "^3.4.1",
+    "react-dom": "16.13.1",
+    "react-scrolllock": "^5.0.1",
+    "storybook-readme": "^5.0.9"
   },
   "devDependencies": {
     "@babel/core": "7.10.3",
@@ -36,18 +42,20 @@
     "@babel/preset-env": "7.10.3",
     "@babel/preset-react": "7.10.1",
     "@rollup/plugin-commonjs": "13.0.0",
-    "@storybook/addon-actions": "5.3.19",
-    "@storybook/addon-docs": "5.3.19",
-    "@storybook/addon-storysource": "5.3.19",
-    "@storybook/addons": "5.3.19",
-    "@storybook/preset-scss": "1.0.2",
-    "@storybook/react": "5.3.19",
-    "@storybook/theming": "5.3.19",
+    "@storybook/addon-actions": "6.1.15",
+    "@storybook/addon-docs": "6.1.15",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-storysource": "6.1.15",
+    "@storybook/addons": "6.1.15",
+    "@storybook/preset-scss": "1.0.3",
+    "@storybook/react": "6.1.15",
+    "@storybook/theming": "6.1.15",
     "@testing-library/jest-dom": "5.10.1",
-    "@testing-library/react-hooks": "3.3.0",
     "@testing-library/react": "10.3.0",
+    "@testing-library/react-hooks": "3.3.0",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.1.0",
+    "babel-plugin-inline-react-svg": "^1.1.2",
     "babel-polyfill": "6.26.0",
     "cross-env": "7.0.2",
     "eslint": "7.3.0",
@@ -139,7 +147,7 @@
       }
     }
   },
-  "lint-staged": {
+  "lint-staged--Comments": {
     "**/*.{js,json,css}": [
       "prettier --write",
       "git add"
@@ -149,7 +157,7 @@
       "git add"
     ]
   },
-  "husky": {
+  "husky--Comments": {
     "hooks": {
       "post-checkout": "if [[ $HUSKY_GIT_PARAMS  =~ 1$ ]]; then npm install --no-package-lock; fi",
       "post-merge": "npm install --no-package-lock",

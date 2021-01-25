@@ -1,10 +1,42 @@
-import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useState } from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import TextField from './TextField'
 
-export default getConfig({ title: 'TextField', component: TextField })
+import { TextField } from '.'
+
+export default getConfig(
+  { title: 'TextField', component: TextField }
+)
 
 export function Basic() {
-  return <TextField text="TODO: TextField" />
+  let [value, setValue] = useState('')
+
+  return (
+    <TextField placeholder="Dette er placeholderen.." value={value} onChange={(e) => { setValue(e.target.value) }} />
+  )
+}
+
+export function Types() {
+  return (
+    <div>
+      <TextField placeholder="Placeholder.." value="" />
+      <TextField type="text" placeholder="Placeholder.." value="" />
+      <TextField type="email" placeholder="Placeholder.." value="" />
+    </div>
+  )
+}
+
+export function Textarea() {
+  return (
+    <div>
+      <TextField rows="4" placeholder="Placeholder.." value="" />
+    </div>
+  )
+}
+
+export function Disabled() {
+  return (
+    <div>
+      <TextField disabled={true} placeholder="Placeholder.." value="" />
+    </div>
+  )
 }

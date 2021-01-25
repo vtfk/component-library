@@ -1,27 +1,21 @@
-# vtfk-component-library
+# VTFK Komponentbibliotek
 
----
+En intro her
 
-## Install
+## Ta i bruk
 
-`npm install`
+`npm install [XXX]`
 
----
+## Utvikling
 
-## Dev
+Her kommer det en tekst
 
-`npm dev`
+`npm run dev`
 
----
-
-## Build component library
+### Build component library
 
 `npm run build`
 
----
-
-## Build Storybook statics
+### Build Storybook statics
 
 `npm run build-documentation`
-
----

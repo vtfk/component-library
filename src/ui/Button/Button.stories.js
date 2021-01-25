@@ -1,10 +1,20 @@
-import { action } from '@storybook/addon-actions'
 import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import Button from './Button'
 
-export default getConfig({ title: 'Button', component: Button })
+import { Button, IconButtonLink } from '.'
+
+export default getConfig(
+  { title: 'Button', component: Button }
+)
 
 export function Basic() {
-  return <Button text="TODO: Button" />
+  return (
+    <Button type="a">Dette er knappeteksten</Button>
+  )
+}
+
+export function IconButton() {
+  return (
+    <IconButtonLink icon="home">Dette er knappeteksten</IconButtonLink>
+  )
 }
