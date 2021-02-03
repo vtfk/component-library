@@ -8,7 +8,8 @@ import {
   Heading4,
   Paragraph,
   Link,
-  SkipLink
+  SkipLink,
+  ErrorMessage,
 } from '.'
 
 export default getConfig(
@@ -67,5 +68,11 @@ export function Skip_link() {
       <br/>
       <SkipLink href="https://vtfk.no">Skip link</SkipLink>
     </p>
+  )
+}
+
+export function Error_Message() {
+  return (
+    <ErrorMessage>Her er feilmeldingen</ErrorMessage>
   )
 }

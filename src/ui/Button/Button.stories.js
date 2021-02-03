@@ -13,6 +13,19 @@ export function Basic() {
   )
 }
 
+export function Disabled() {
+  return (
+    <Button icon="home" disabled={true}>Dette er knappeteksten</Button>
+  )
+}
+
+export function ShowSpinner() {
+  return (
+    <Button icon="home" spinner={true}>Dette er knappeteksten</Button>
+  )
+}
+
+
 export function IconButton() {
   return (
     <IconButtonLink icon="home">Dette er knappeteksten</IconButtonLink>

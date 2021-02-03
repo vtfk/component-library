@@ -18,6 +18,11 @@
     }
   }
 
+  &.error {
+    color: $red;
+    font-weight: bold;
+  }
+
   &.link {
     @include reset-button();
     font-family: "Nunito Sans", sans-serif;
@@ -26,7 +31,6 @@
     min-height: 24px;
     color: inherit;
     cursor: pointer;
-    text-decoration: underline;
 
     &.no-style {
       text-decoration: none;

@@ -93,44 +93,58 @@ export function SkipLink ({ href, className, ...props }) {
   )
 }
 
+export function ErrorMessage ({ className, children, size, ...props }) {
+  return (
+    <p className={`typography paragraph error ${className || ''} ${size || ''}`} role='alert' aria-live='assertive' {...props}>
+      {children}
+    </p>
+  )
+}
+
 Heading1.propTypes = {
-  children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 Heading2.propTypes = {
-  children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 Heading3.propTypes = {
-  children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 Heading4.propTypes = {
-  children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 Paragraph.propTypes = {
-  children: PropTypes.node.isRequired,
   className: PropTypes.string,
   size: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 Link.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
   href: PropTypes.string,
-  leftIcon: PropTypes.node,
-  noStyle: PropTypes.bool,
   onClick: PropTypes.func,
+  className: PropTypes.string,
+  noStyle: PropTypes.bool,
+  leftIcon: PropTypes.node,
   rightIcon: PropTypes.node,
   size: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 SkipLink.propTypes = {
-  className: PropTypes.string,
   href: PropTypes.string,
+  className: PropTypes.string
+}
+
+ErrorMessage.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  size: PropTypes.string,
 }
