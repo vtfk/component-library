@@ -6,12 +6,16 @@ import autoExternal from 'rollup-plugin-auto-external'
 import babel from 'rollup-plugin-babel'
 import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
+
+import url from 'rollup-plugin-svg'
+const svgr = require('@svgr/rollup').default
+
 import packageJson from '../../package.json'
 import { getFilesFolders } from '../utils'
 
-const distDirectory = path.join(__dirname, '../../dist')
+const distDirectory = path.join(__dirname, '../../ui')
 const srcDirectory = path.join(__dirname, '../../src')
-const buildFormats = ['cjs', 'es'] // include others if needed
+const buildFormats = ['es'] // include others if needed
 
 function cleanDist() {
   rimraf.sync(distDirectory)
@@ -53,11 +57,11 @@ function getOutputs({ file }) {
   }
 
   return buildFormats.map((format) => {
-    const fileDistDirectory = fileDirectory.replace('src', 'dist').replace(distDirectory, '')
+    const fileDistDirectory = fileDirectory.replace('src', 'ui').replace(distDirectory, '..')
     const output = {
       file: shouldUseIndex()
-        ? path.join(distDirectory, format, fileDistDirectory, 'index.js')
-        : path.join(distDirectory, format, fileDistDirectory, fileBaseName),
+        ? path.join(distDirectory, fileDistDirectory, 'index.js')
+        : path.join(distDirectory, fileDistDirectory, fileBaseName),
       format,
       exports: 'named',
     }
@@ -82,6 +86,8 @@ export default getFilesFolders(srcDirectory)
     input: file,
     output: getOutputs({ file }),
     plugins: [
+      url(),
+      svgr(),
       autoExternal(),
       babel({
         exclude: '/node_modules/**',

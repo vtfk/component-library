@@ -1,0 +1,23 @@
+{
+  "name": "vtfk-component-library",
+  "description": "",
+  "version": "1.0.0",
+  "author": "",
+  "license": "",
+  "repository": "",
+  "keywords": [],
+  "dependencies": {
+    "compression": "1.7.4",
+    "express": "4.17.1",
+    "nanoid": "^3.1.20",
+    "react": "16.13.1",
+    "react-datepicker": "^3.4.1",
+    "react-dom": "16.13.1",
+    "react-scrolllock": "^5.0.1",
+    "storybook-readme": "^5.0.9"
+  },
+  "peerDependencies": {
+    "react": "16.*",
+    "react-dom": "16.*"
+  }
+}
