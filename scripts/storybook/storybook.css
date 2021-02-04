@@ -1,0 +1,8 @@
+.sidebar-item svg path { 
+  fill: #005260 !important; 
+}
+
+.sidebar-item[data-selected="true"] { 
+  color: #000 !important; 
+  font-weight: normal !important;
+}
