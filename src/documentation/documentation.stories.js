@@ -13,20 +13,20 @@ export default {
   title: 'Dokumentasjon',
   parameters: {
     options: {
-      showPanel: false,
-    },
-  },
+      showPanel: false
+    }
+  }
 }
 
-function versionizeReadMe(readMeContent) {
+function versionizeReadMe (readMeContent) {
   const readMeLines = readMeContent.split('\n')
-  return [readMeLines[0] + `<div class="version">Versjon: ${packageJson.version}<div>`, ...readMeLines.slice(1)].join('\n')
+  return [readMeLines[0] + `<div class="version">(v${packageJson.version})<div>`, ...readMeLines.slice(1)].join('\n')
 }
 
-export function Introduksjon() {
-  return <div className="documentation" dangerouslySetInnerHTML={{ __html: marked(versionizeReadMe(readMe)) }} />
+export function Introduksjon () {
+  return <div className='documentation' dangerouslySetInnerHTML={{ __html: marked(versionizeReadMe(readMe)) }} />
 }
 
-export function Changelog() {
-  return <div className="documentation" dangerouslySetInnerHTML={{ __html: marked(changeLog) }} />
+export function Changelog () {
+  return <div className='documentation' dangerouslySetInnerHTML={{ __html: marked(changeLog) }} />
 }
