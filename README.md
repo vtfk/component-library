@@ -1,4 +1,4 @@
-# ![fylkesvapen](https://designmanual.vtfk.no/media/u1sdbpwn/vtfk-fylkesv%C3%A5pen-rgb.svg) Komponentbiblioteket
+# ![fylkesvapen](https://designmanual.vtfk.no/media/u1sdbpwn/vtfk-fylkesv%C3%A5pen-rgb.svg) Komponentbibliotek
 
 En intro her
 
