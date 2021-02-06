@@ -40,3 +40,19 @@ export function Disabled() {
     </div>
   )
 }
+
+export function TextNoBorder() {
+  return (
+    <div>
+      <TextField disabled={true} noBorder={true} placeholder="Placeholder.." value="" />
+    </div>
+  )
+}
+
+export function TextareaNoBorder() {
+  return (
+    <div>
+      <TextField disabled={true} noBorder={true} placeholder="Placeholder.." rows="4" value="" />
+    </div>
+  )
+}
