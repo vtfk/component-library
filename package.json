@@ -26,7 +26,7 @@
     "start-documentation": "npx http-server storybook-static",
     "test:dev": "jest --watch",
     "test": "jest",
-    "release": "standard-version",
+    "release": "npm run build && standard-version",
     "lint": "node node_modules/eslint/bin/eslint.js --fix --max-warnings=0 src",
     "generate": "node --experimental-modules node_modules/.bin/plop --plopfile scripts/templates/index.js",
     "update-packages": "npx npm-check-updates -u && npm i",
