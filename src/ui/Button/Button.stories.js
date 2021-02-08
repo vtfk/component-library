@@ -25,8 +25,10 @@ export function ShowSpinner () {
   )
 }
 
-export function IconButton () {
+export function iconButton () {
   return (
-    <IconButtonLink icon='home'>Dette er knappeteksten</IconButtonLink>
+    <IconButton icon={select('Icon', icons, 'add')}>
+      {text('Button text', 'Legg til element')}
+    </IconButton>
   )
 }
