@@ -19,15 +19,15 @@
 
 /* Vannfarget "Show info"-knap */
 button.info__show-button {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Nunito Sans', Lato, 'Trebuchet MS', sans-serif;
   background-color: #005260 !important;
   color: #fff !important;
 }
 
 body {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Nunito Sans', Lato, 'Trebuchet MS', sans-serif;
 }
 
 h1.sbdocs-title {
-  font-family: Nunito !important;
+  font-family: Nunito, Lato, 'Trebuchet MS', sans-serif !important;
 }
