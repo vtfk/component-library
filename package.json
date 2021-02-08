@@ -18,7 +18,7 @@
   "homepage": "https://github.com/vtfk/component-library#readme",
   "scripts": {
     "start": "node server.js",
-    "dev": "cross-env STORYBOOK_DEBUG=true SBCONFIG_CONFIG_DIR=scripts/storybook start-storybook -p 4000 --quiet --ci --no-manager-cache",
+    "dev": "cross-env STORYBOOK_DEBUG=true SBCONFIG_CONFIG_DIR=scripts/storybook start-storybook -p 4000 --quiet --ci",
     "build": "rollup -c ./scripts/build/rollup.config.js",
     "build-watch": "npm run build -- -w",
     "build-documentation": "build-storybook -c scripts/storybook -o storybook-static",
@@ -51,6 +51,7 @@
     "@storybook/addon-actions": "6.1.17",
     "@storybook/addon-docs": "6.1.17",
     "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-knobs": "6.1.17",
     "@storybook/addon-storysource": "6.1.17",
     "@storybook/addons": "6.1.17",
     "@storybook/preset-scss": "1.0.3",
@@ -99,9 +100,9 @@
     "storybook-readme": "5.0.9"
   },
   "peerDependencies": {
+    "prop-types": ">=15.7.0",
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0",
-    "prop-types": ">=15.7.0"
+    "react-dom": ">=16.8.0"
   },
   "babel": {
     "plugins": [
@@ -170,6 +171,9 @@
       "git add"
     ]
   },
+  "standard": {
+    "env": [ "jest" ]
+  },  
   "husky--Comments": {
     "hooks": {
       "post-checkout": "if [[ $HUSKY_GIT_PARAMS  =~ 1$ ]]; then npm install --no-package-lock; fi",

@@ -8,8 +8,8 @@ const storyConfig = {
   }
 }
 
-function getConfig ({ component, title }) {
-  return { ...storyConfig, title: `Komponenter/${title}`, component }
+function getConfig ({ component, title, ...conf }) {
+  return { ...storyConfig, title: `Komponenter/${title}`, component, ...conf }
 }
 
 export { storyConfig, getConfig }
