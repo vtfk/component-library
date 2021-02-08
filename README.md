@@ -4,7 +4,7 @@ En intro her
 
 ## Ta i bruk
 
-`npm install [XXX]`
+`npm install @vtfk/components`
 
 ## Utvikling
 
