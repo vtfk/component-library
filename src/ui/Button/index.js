@@ -19,10 +19,9 @@ export function Button ({ className, type, spinner, disabled, children, ...props
   )
 }
 
-export function IconButtonLink ({ className, type, icon, children, ...props }) {
-  return (
-    <Link
-      className={`icon-button-link ${type ? `icon-button-link-${type}` : ''} ${className}`}
+export const IconButtonLink = forwardRef(({ className, type, icon, children, ...props }, ref) => (
+  <button
+    className={`icon-button-link ${type ? `icon-button-link-${type}` : ''} ${className}`}
       {...props}
     >
       <div className='icon-button-link-icon'>
@@ -31,9 +30,8 @@ export function IconButtonLink ({ className, type, icon, children, ...props }) {
       <div className='icon-button-link-text'>
         {children}
       </div>
-    </Link>
-  )
-}
+  </button>
+))
 
 Button.propTypes = {
   className: PropTypes.string,
