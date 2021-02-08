@@ -7,8 +7,8 @@ export default getConfig(
   { title: 'Checkbox', component: Checkbox }
 )
 
-export function Basic() {
+export function Basic () {
   return (
-    <Checkbox name="gruppe-navn" value="verdi" label="Dette er labelen" onChange={() => { console.log('onChange!') }} />
+    <Checkbox name='gruppe-navn' value='verdi' label='Dette er labelen' onChange={() => { console.log('onChange!') }} />
   )
- }
+}

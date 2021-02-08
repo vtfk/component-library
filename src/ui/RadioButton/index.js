@@ -21,5 +21,5 @@ RadioButton.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 }

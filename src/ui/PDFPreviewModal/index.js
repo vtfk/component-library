@@ -51,5 +51,5 @@ PDFPreviewModal.propTypes = {
   className: PropTypes.string,
   onDismiss: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  title: PropTypes.string,
+  title: PropTypes.string
 }

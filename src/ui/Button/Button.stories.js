@@ -7,27 +7,26 @@ export default getConfig(
   { title: 'Button', component: Button }
 )
 
-export function Basic() {
+export function Basic () {
   return (
-    <Button type="a">Dette er knappeteksten</Button>
+    <Button type='a'>Dette er knappeteksten</Button>
   )
 }
 
-export function Disabled() {
+export function Disabled () {
   return (
-    <Button icon="home" disabled={true}>Dette er knappeteksten</Button>
+    <Button icon='home' disabled>Dette er knappeteksten</Button>
   )
 }
 
-export function ShowSpinner() {
+export function ShowSpinner () {
   return (
-    <Button icon="home" spinner={true}>Dette er knappeteksten</Button>
+    <Button icon='home' spinner>Dette er knappeteksten</Button>
   )
 }
 
-
-export function IconButton() {
+export function IconButton () {
   return (
-    <IconButtonLink icon="home">Dette er knappeteksten</IconButtonLink>
+    <IconButtonLink icon='home'>Dette er knappeteksten</IconButtonLink>
   )
 }

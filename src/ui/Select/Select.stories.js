@@ -7,19 +7,19 @@ export default getConfig(
   { title: 'Select', component: Select }
 )
 
-export function Basic() {
-  let [selectedItem, setSelectedItem] = useState(null)
+export function Basic () {
+  const [selectedItem, setSelectedItem] = useState(null)
 
-  let items = [
+  const items = [
     { value: '1', label: 'Item 1' },
     { value: '2', label: 'Item 2' },
-    { value: '3', label: 'Item 3' },
+    { value: '3', label: 'Item 3' }
   ]
 
   return (
     <Select
-      id="id-1"
-      placeholder="Dette er placeholderen"
+      id='id-1'
+      placeholder='Dette er placeholderen'
       items={items}
       selectedItem={selectedItem}
       onChange={(item) => { setSelectedItem(item) }}
@@ -27,16 +27,16 @@ export function Basic() {
   )
 }
 
-export function Multiple() {
-  let [selectedItems, setSelectedItems] = useState([])
+export function Multiple () {
+  const [selectedItems, setSelectedItems] = useState([])
 
-  let items = [
+  const items = [
     { value: '1', label: 'Item 1' },
     { value: '2', label: 'Item 2' },
-    { value: '3', label: 'Item 3' },
+    { value: '3', label: 'Item 3' }
   ]
 
-  function handleMultiChange(item) {
+  function handleMultiChange (item) {
     const newArray = [...selectedItems]
     const removeIndex = newArray.map(function (item) { return item.value }).indexOf(item.value)
 
@@ -48,8 +48,8 @@ export function Multiple() {
 
   return (
     <SelectMultiple
-      id="id-2"
-      placeholder="Dette er placeholderen"
+      id='id-2'
+      placeholder='Dette er placeholderen'
       items={items}
       selectedItems={selectedItems}
       onChange={(item) => { handleMultiChange(item) }}

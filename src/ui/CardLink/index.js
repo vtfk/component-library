@@ -21,5 +21,5 @@ CardLink.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   href: PropTypes.string,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 }

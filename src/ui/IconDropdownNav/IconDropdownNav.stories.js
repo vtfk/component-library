@@ -7,15 +7,15 @@ export default getConfig(
   { title: 'IconDropdownNav', component: IconDropdownNav }
 )
 
-export function Basic() {
+export function Basic () {
   return (
     <div>
       <p>En IconDropdownNav fylles med IconDropdownNavItem:
         <IconDropdownNav>
-          <IconDropdownNavItem title="Menyelement som link" href="https://vtfk.no" />
-          <IconDropdownNavItem title="Menyelement som onClick" onClick={() => { console.log('onClick!') }} />
+          <IconDropdownNavItem title='Menyelement som link' href='https://vtfk.no' />
+          <IconDropdownNavItem title='Menyelement som onClick' onClick={() => { console.log('onClick!') }} />
         </IconDropdownNav>
       </p>
     </div>
   )
- }
+}

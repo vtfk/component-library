@@ -1,6 +1,6 @@
 import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import BaseStyle from './BaseStyle'
+import { BaseStyle } from '.'
 import { Heading3 } from '../Typography'
 
 export default getConfig({ title: 'BaseStyle', component: BaseStyle })

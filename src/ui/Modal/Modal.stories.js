@@ -7,15 +7,15 @@ export default getConfig(
   { title: 'Modal', component: Modal }
 )
 
-export function Basic() {
-  let [modalOpen, setModalOpen] = useState(false)
+export function Basic () {
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
     <div>
       <button onClick={() => { setModalOpen(!modalOpen) }}>Toggle modal</button>
       <Modal
         open={modalOpen}
-        title="Dette er tittelen"
+        title='Dette er tittelen'
         onDismiss={() => { setModalOpen(false) }}
       >
         <ModalBody>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import './styles.scss'
 
-export function SkeletonLoader ({ variant = 'text', width, height, randomWidth, className, style, title, ...props }) {
+export function Skeleton ({ variant = 'text', width, height, randomWidth, className, style, title, ...props }) {
   if (randomWidth) {
     const [min, max] = randomWidth
     width = `${Math.random() * (max - min) + min}%`
@@ -11,7 +11,7 @@ export function SkeletonLoader ({ variant = 'text', width, height, randomWidth, 
 
   return (
     <span
-      className={`skeleton-loader ${variant || ''} ${props.children ? `with-children ${!height ? 'auto-height' : ''} ${!width ? 'auto-width' : ''}` : ''} ${className || ''}`}
+      className={`skeleton ${variant || ''} ${props.children ? `with-children ${!height ? 'auto-height' : ''} ${!width ? 'auto-width' : ''}` : ''} ${className || ''}`}
       style={{ width, height, ...style }}
       title={title || 'Laster inn...'}
       {...props}
@@ -19,12 +19,12 @@ export function SkeletonLoader ({ variant = 'text', width, height, randomWidth, 
   )
 }
 
-SkeletonLoader.propTypes = {
+Skeleton.propTypes = {
   children: PropTypes.any,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   randomWidth: PropTypes.arrayOf([PropTypes.number, PropTypes.string]),
   style: PropTypes.object,
   title: PropTypes.string,
   variant: PropTypes.oneOf(['text', 'circle', 'rectangle']),
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 }

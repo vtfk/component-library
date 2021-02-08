@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import BaseStyle from './BaseStyle'
+import { BaseStyle } from '.'
 
 describe('BaseStyle', () => {
   test('renders without crashing', () => {

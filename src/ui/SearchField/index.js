@@ -47,5 +47,5 @@ SearchField.propTypes = {
   onSearch: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.string
 }

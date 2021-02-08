@@ -2,7 +2,7 @@ import React from 'react'
 import { addDecorator } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import { addParameters } from '@storybook/client-api'
-import BaseStyle from '../../src/ui/BaseStyle/BaseStyle'
+import { BaseStyle } from '../../src'
 
 addParameters({
   viewMode: 'docs'

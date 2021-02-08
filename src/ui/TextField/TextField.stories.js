@@ -7,36 +7,36 @@ export default getConfig(
   { title: 'TextField', component: TextField }
 )
 
-export function Basic() {
-  let [value, setValue] = useState('')
+export function Basic () {
+  const [value, setValue] = useState('')
 
   return (
-    <TextField placeholder="Dette er placeholderen.." value={value} onChange={(e) => { setValue(e.target.value) }} />
+    <TextField placeholder='Dette er placeholderen..' value={value} onChange={(e) => { setValue(e.target.value) }} />
   )
 }
 
-export function Types() {
+export function Types () {
   return (
     <div>
-      <TextField placeholder="Placeholder.." value="" />
-      <TextField type="text" placeholder="Placeholder.." value="" />
-      <TextField type="email" placeholder="Placeholder.." value="" />
+      <TextField placeholder='Placeholder..' value='' />
+      <TextField type='text' placeholder='Placeholder..' value='' />
+      <TextField type='email' placeholder='Placeholder..' value='' />
     </div>
   )
 }
 
-export function Textarea() {
+export function Textarea () {
   return (
     <div>
-      <TextField rows="4" placeholder="Placeholder.." value="" />
+      <TextField rows='4' placeholder='Placeholder..' value='' />
     </div>
   )
 }
 
-export function Disabled() {
+export function Disabled () {
   return (
     <div>
-      <TextField disabled={true} placeholder="Placeholder.." value="" />
+      <TextField disabled placeholder='Placeholder..' value='' />
     </div>
   )
 }

@@ -7,13 +7,13 @@ export default getConfig(
   { title: 'Datepicker', component: Datepicker }
 )
 
-export function Basic() {
+export function Basic () {
   return (
     <div>
       <p>Ikke valgt dato:</p>
-      <Datepicker placeholder="Dette er placeholderen" onChange={() => { console.log('onChange!') }} />
+      <Datepicker placeholder='Dette er placeholderen' onChange={() => { console.log('onChange!') }} />
       <p>Valgt dato:</p>
-      <Datepicker placeholder="Dette er placeholderen" selected={new Date()} onChange={() => { console.log('onChange!') }} />
+      <Datepicker placeholder='Dette er placeholderen' selected={new Date()} onChange={() => { console.log('onChange!') }} />
     </div>
   )
- }
+}

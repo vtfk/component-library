@@ -48,5 +48,5 @@ export function Icon ({ name, size, className, ...props }) {
 Icon.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string.isRequired,
-  size: PropTypes.string,
+  size: PropTypes.string
 }

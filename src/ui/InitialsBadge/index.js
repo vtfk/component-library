@@ -23,5 +23,5 @@ InitialsBadge.propTypes = {
   className: PropTypes.string,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-  size: PropTypes.string,
+  size: PropTypes.string
 }

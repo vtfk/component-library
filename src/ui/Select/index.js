@@ -206,7 +206,7 @@ Select.propTypes = {
   items: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  selectedItem: PropTypes.object,
+  selectedItem: PropTypes.object
 }
 
 SelectMultiple.propTypes = {
@@ -219,5 +219,5 @@ SelectMultiple.propTypes = {
   items: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  selectedItems: PropTypes.array,
+  selectedItems: PropTypes.array
 }

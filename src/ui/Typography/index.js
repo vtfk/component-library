@@ -146,5 +146,5 @@ SkipLink.propTypes = {
 ErrorMessage.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  size: PropTypes.string,
+  size: PropTypes.string
 }

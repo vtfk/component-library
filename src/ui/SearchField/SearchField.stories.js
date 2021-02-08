@@ -7,13 +7,13 @@ export default getConfig(
   { title: 'SearchField', component: SearchField }
 )
 
-export function Basic() {
+export function Basic () {
   return (
     <SearchField
-      placeholder="Dette er placeholderen"
-      value=""
+      placeholder='Dette er placeholderen'
+      value=''
       onSearch={() => { console.log('onSearch!') }}
-      rounded={true}
+      rounded
     />
   )
 }

@@ -7,10 +7,10 @@ export default getConfig(
   { title: 'Logo', component: Logo }
 )
 
-export function Basic() {
+export function Basic () {
   return (
     <div style={{ maxWidth: '100px' }}>
-      <Logo firstName="Per" lastName="Hansen"  />
+      <Logo firstName='Per' lastName='Hansen' />
     </div>
   )
 }

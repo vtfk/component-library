@@ -96,5 +96,5 @@ TextField.propTypes = {
   rounded: PropTypes.bool,
   rows: PropTypes.number,
   type: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 }

@@ -53,5 +53,5 @@ SideNavItem.propTypes = {
   active: PropTypes.bool,
   href: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 }

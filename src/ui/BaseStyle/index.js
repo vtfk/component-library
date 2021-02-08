@@ -4,12 +4,10 @@ import React from 'react'
 import './ResetStyle.scss'
 import './BaseStyle.scss'
 
-function BaseStyle ({ children }) {
+export function BaseStyle ({ children }) {
   return <>{children}</>
 }
 
 BaseStyle.propTypes = {
   children: PropTypes.object.isRequired
 }
-
-export default BaseStyle

@@ -7,16 +7,16 @@ export default getConfig(
   { title: 'PDFPreviewModal', component: PDFPreviewModal }
 )
 
-export function Basic() {
-  let [modalOpen, setModalOpen] = useState(false)
+export function Basic () {
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
     <div>
       <button onClick={() => { setModalOpen(!modalOpen) }}>Toggle modal</button>
       <PDFPreviewModal
-        base64="...."
+        base64='....'
         open={modalOpen}
-        title="Lukk modal"
+        title='Lukk modal'
         onDismiss={() => { setModalOpen(false) }}
       />
     </div>

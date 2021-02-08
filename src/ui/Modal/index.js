@@ -62,7 +62,7 @@ Modal.propTypes = {
   onDismiss: PropTypes.func.isRequired,
   onFinished: PropTypes.func,
   open: PropTypes.bool.isRequired,
-  title: PropTypes.string,
+  title: PropTypes.string
 }
 
 ModalBody.propTypes = {

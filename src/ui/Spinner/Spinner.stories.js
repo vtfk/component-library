@@ -7,22 +7,22 @@ export default getConfig(
   { title: 'Spinner', component: Spinner }
 )
 
-export function Sizes() {
+export function Sizes () {
   return (
     <div>
-      <div style={{width: '200px'}}>
-        <Spinner size="auto" />
+      <div style={{ width: '200px' }}>
+        <Spinner size='auto' />
       </div>
-      <Spinner size="small" />
-      <Spinner size="medium" />
-      <Spinner size="large" />
-      <Spinner size="xlarge" />
+      <Spinner size='small' />
+      <Spinner size='medium' />
+      <Spinner size='large' />
+      <Spinner size='xlarge' />
     </div>
   )
 }
 
-export function Transparent() {
+export function Transparent () {
   return (
-    <Spinner size="medium" transparent={true} />
+    <Spinner size='medium' transparent />
   )
 }
