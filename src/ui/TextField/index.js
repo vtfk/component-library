@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './styles.scss'
 import { nanoid } from 'nanoid'
 
-export function TextField ({ type, className, placeholder, label, value, id, disabled, rows, rounded, onFocus, onBlur, error, inputRef, ...props }) {
+export function TextField ({ type, className, placeholder, label, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, ...props }) {
   const [focusState, setFocusState] = useState(false)
   const [labelId] = useState(id || nanoid())
 
@@ -27,6 +27,7 @@ export function TextField ({ type, className, placeholder, label, value, id, dis
     >
       <div className={`
         ${className || ''}
+        ${noBorder && !rounded ? 'no-border' : ''} 
         ${focusState ? 'focused' : ''}
       `}
       >
@@ -89,6 +90,7 @@ TextField.propTypes = {
     PropTypes.string,
     PropTypes.bool
   ]),
+  noBorder: PropTypes.bool,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
