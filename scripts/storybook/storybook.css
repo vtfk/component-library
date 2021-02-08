@@ -1,11 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito%20Sans:wght@300;400;600;700;800&display=swap');
 
+/* Sett farge på ikoner i sidemenyen til vann */
 .sidebar-item svg path { 
   fill: #005260 !important; 
 }
 
+/* Sett sort farge på tekst på valgt menyvalg */
 .sidebar-item[data-selected="true"] { 
   color: #000 !important; 
   font-weight: normal !important;
+}
+
+/* Større logo */
+.css-190ac5o {
+  margin-right: 5px !important;
+}
+
+/* Vannfarget "Show info"-knap */
+button.info__show-button {
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: #005260 !important;
+  color: #fff !important;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+h1.sbdocs-title {
+  font-family: Nunito !important;
 }

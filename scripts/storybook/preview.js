@@ -4,6 +4,8 @@ import { withInfo } from '@storybook/addon-info'
 import { addParameters } from '@storybook/client-api'
 import { BaseStyle } from '../../src'
 
+import './storybook.css'
+
 addParameters({
   viewMode: 'docs'
 })

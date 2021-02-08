@@ -12,10 +12,6 @@ export default create({
   appBorderColor: 'transparent',
   appBorderRadius: 4,
 
-  // Typography
-  fontBase: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-  fontCode: 'monospace',
-
   // Text colors
   textColor: '#000',
   textInverseColor: '#000',
