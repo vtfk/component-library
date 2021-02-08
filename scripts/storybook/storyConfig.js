@@ -4,7 +4,7 @@ const storyConfig = {
       showPanel: true
     },
     actions: { argTypesRegex: '^on[A-Z].*' },
-	  viewMode: 'docs'
+    viewMode: 'docs'
   }
 }
 
