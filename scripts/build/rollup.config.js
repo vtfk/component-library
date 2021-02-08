@@ -33,9 +33,17 @@ export default {
   ],
   plugins: [
     url(),
-    svgr(),
+    svgr({
+      svgoConfig: {
+        plugins: {
+          removeViewBox: false
+        }
+      }
+    }),
     autoExternal(),
-    babel({ exclude: '/node_modules/**' }),
+    babel({
+      exclude: '/node_modules/**'
+    }),
     commonjs(),
     postcss(),
     terser()
