@@ -97,7 +97,8 @@
     "rollup-plugin-terser": "6.1.0",
     "sass-loader": "8.0.2",
     "standard-version": "8.0.0",
-    "storybook-readme": "5.0.9"
+    "storybook-readme": "5.0.9",
+    "svg-jest": "1.0.1"
   },
   "peerDependencies": {
     "prop-types": ">=15.7.0",
@@ -125,13 +126,14 @@
       "<rootDir>/../scripts/test/jest-setup.js"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/../scripts/test/file.mock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/../scripts/test/file.mock.js",
       "\\.(css|less|scss)$": "<rootDir>/../scripts/test/style.mock.js"
     },
     "transform": {
       ".+\\.js$": "babel-jest",
+      ".+\\.svg$": "svg-jest",
       ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css",
-      ".+\\.(bmp|gif|jpg|jpeg|png|psd|svg|webp)$": "<rootDir>/../scripts/test/media-file.mock.js"
+      ".+\\.(bmp|gif|jpg|jpeg|png|psd|webp)$": "<rootDir>/../scripts/test/media-file.mock.js"
     },
     "reporters": [
       "default",
@@ -172,8 +174,10 @@
     ]
   },
   "standard": {
-    "env": [ "jest" ]
-  },  
+    "env": [
+      "jest"
+    ]
+  },
   "husky--Comments": {
     "hooks": {
       "post-checkout": "if [[ $HUSKY_GIT_PARAMS  =~ 1$ ]]; then npm install --no-package-lock; fi",
