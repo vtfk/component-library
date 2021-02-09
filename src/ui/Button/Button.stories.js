@@ -1,5 +1,4 @@
-import React from 'react'
-import { action } from '@storybook/addon-actions'
+import React, { useState } from 'react'
 import { withKnobs, select, text, boolean } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 import { Button, IconButton } from '.'
@@ -86,10 +85,33 @@ export function ShowSpinner () {
   )
 }
 
-export function iconButton () {
+export function IconButtonBasic () {
+  const [loading, setLoading] = useState(false)
+
+  const clickHandler = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 3000)
+  }
+
   return (
-    <IconButton icon={select('Icon', icons, 'add')}>
-      {text('Button text', 'Legg til element')}
+    <IconButton icon={select('Icon', icons, 'add')} onClick={clickHandler} spinner={loading}>
+      {text('Icon Button text', 'Legg til element')}
+    </IconButton>
+  )
+}
+
+export function IconButtonDisabled () {
+  return (
+    <IconButton icon={select('Icon', icons, 'add')} disabled>
+      {text('Icon Button text', 'Legg til element')}
+    </IconButton>
+  )
+}
+
+export function IconButtonSpinner () {
+  return (
+    <IconButton icon={select('Icon', icons, 'add')} spinner>
+      {text('Icon Button text', 'Legg til element')}
     </IconButton>
   )
 }
