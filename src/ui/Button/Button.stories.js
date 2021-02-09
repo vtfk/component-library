@@ -1,32 +1,84 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { withKnobs, select, text, boolean } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
+import { Button } from '.'
 
-import { Button, IconButtonLink } from '.'
+export default getConfig({
+  title: 'Button',
+  component: Button,
+  decorators: [withKnobs],
+  argTypes: { onClick: { action: 'clicked' } }
+})
 
-export default getConfig(
-  { title: 'Button', component: Button }
-)
+const types = {
+  Primary: 'primary',
+  Secondary: 'secondary',
+  Secondary2: 'secondary2'
+}
+
+const sizes = {
+  Small: 'small',
+  Medium: 'medium',
+  Large: 'large'
+}
 
 export function Basic () {
+  const [loading, setLoading] = useState(false)
+
+  const clickHandler = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 3000)
+  }
+
   return (
-    <Button type='a'>Dette er knappeteksten</Button>
+    <Button
+      type={select('Button type', types, 'primary')}
+      size={select('Button size', sizes, 'medium')}
+      spinner={loading || boolean('Spinning', false)}
+      disabled={boolean('Disabled', false)}
+      onClick={clickHandler}
+    >
+      {text('Button text', 'Dette er knappeteksten')}
+    </Button>
+  )
+}
+
+export function Primary () {
+  return (
+    <Button type='primary'>
+      {text('Button text', 'Dette er knappeteksten')}
+    </Button>
+  )
+}
+
+export function Secondary () {
+  return (
+    <Button type='secondary'>
+      {text('Button text', 'Dette er knappeteksten')}
+    </Button>
+  )
+}
+
+export function Secondary2 () {
+  return (
+    <Button type='secondary2'>
+      {text('Button text', 'Dette er knappeteksten')}
+    </Button>
   )
 }
 
 export function Disabled () {
   return (
-    <Button icon='home' disabled>Dette er knappeteksten</Button>
+    <Button disabled>
+      {text('Button text', 'Dette er knappeteksten')}
+    </Button>
   )
 }
 
 export function ShowSpinner () {
   return (
-    <Button icon='home' spinner>Dette er knappeteksten</Button>
-  )
-}
-
-export function IconButton () {
-  return (
-    <IconButtonLink icon='home'>Dette er knappeteksten</IconButtonLink>
+    <Button spinner>
+      {text('Button text', 'Dette er knappeteksten')}
+    </Button>
   )
 }

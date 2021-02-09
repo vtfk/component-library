@@ -1,51 +1,70 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
-import { Link } from '../Typography'
 import { Icon } from '../Icon'
 import { Spinner } from '../Spinner'
 
 import './styles.scss'
 
-export function Button ({ className, type, spinner, disabled, children, ...props }) {
-  return (
-    <button
-      className={`button button-${type || 'primary'} ${className}`}
-      disabled={disabled || spinner || false}
-      {...props}
-    >
-      {spinner ? <Spinner /> : children}
-    </button>
-  )
-}
+export const Button = forwardRef(({ className, type, size, spinner, disabled, children, ...props }, ref) => (
+  <button
+    className={`button button-${type || 'primary'} button-${size || 'medium'} ${className || ''}`}
+    disabled={disabled || spinner || false}
+    ref={ref}
+    {...props}
+  >
+    {spinner ? <Spinner size='small' /> : children}
+  </button>
+))
 
-export function IconButtonLink ({ className, type, icon, children, ...props }) {
-  return (
-    <Link
-      className={`icon-button-link ${type ? `icon-button-link-${type}` : ''} ${className}`}
-      {...props}
-    >
-      <div className='icon-button-link-icon'>
-        <Icon name={icon} size='small' />
-      </div>
-      <div className='icon-button-link-text'>
-        {children}
-      </div>
-    </Link>
-  )
-}
+export const IconButton = forwardRef(({ className, type, icon, spinner, disabled, children, ...props }, ref) => (
+  <button
+    className={`icon-button ${type ? `icon-button-${type}` : ''} ${className || ''}`}
+    disabled={disabled || spinner || false}
+    ref={ref}
+    {...props}
+  >
+    <div className='icon-button-icon'>
+      {
+        spinner
+          ? <Spinner size='small' transparent />
+          : <Icon name={icon || 'add'} size='small' />
+      }
+    </div>
+    <div className='icon-button-text'>
+      {children}
+    </div>
+  </button>
+))
+
+export const IconButtonLink = IconButton
 
 Button.propTypes = {
+  children: PropTypes.string.isRequired,
   className: PropTypes.string,
-  type: PropTypes.string,
   disabled: PropTypes.bool,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   spinner: PropTypes.bool,
-  children: PropTypes.string.isRequired
+  type: PropTypes.oneOf(['primary', 'secondary', 'secondary2'])
 }
 
-IconButtonLink.propTypes = {
+Button.defaultProps = {
+  disabled: false,
+  size: 'medium',
+  spinner: false,
+  type: 'primary'
+}
+
+IconButton.propTypes = {
+  children: PropTypes.string.isRequired,
   className: PropTypes.string,
-  type: PropTypes.string,
+  disabled: PropTypes.bool,
   icon: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired
+  spinner: PropTypes.bool,
+  type: PropTypes.string
+}
+
+IconButton.defaultProps = {
+  disabled: false,
+  spinner: false
 }

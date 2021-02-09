@@ -4,51 +4,106 @@
 .button {
   @include reset-button();
   outline: 0;
-  height: 48px;
-  font-size: 16px;
+  font-weight: 700;
   letter-spacing: 0.4px;
-  color: #fff;
-  background: $deepSeaGreen;
-  border: 1px solid $deepSeaGreen;
-  border-radius: 24px;
   display: block;
   width: 100%;
   padding: $baseUnit ($baseUnit * 7);
-  font-weight: 700;
+  border: 1px solid #A3A3A3;
 
   transition: width 1s;
+  transition: background-color .2s ease-in-out, color .2s ease-in-out;
+  
+  &.button-small {
+    min-height: $baseUnit * 5;
+    font-size: 15px;
+    border-radius: 20px;
+  }
+
+  &.button-medium {
+    min-height: $baseUnit * 6;
+    font-size: 16px;
+    border-radius: 24px;
+  }
+
+  &.button-large {
+    min-height: $baseUnit * 8;
+    font-size: 18px;
+    border-radius: 32px;
+  }
 
   &.button-primary {
-    &:hover {
+    color: #fff;
+    background: $deepSeaGreen;
+    border-color: $deepSeaGreen;
+  
+    &:hover:not(:disabled):not(:active) {
+      color: $deepSeaGreen;
       background: #fff;
-      color: $deepSeaGreen;
-      border-color: $deepSeaGreen;
     }
-
-    &:active,
-    &:focus {
+    
+    &:active {
+      color: $deepSeaGreen;
       background: $catSkillWhite;
+    }
+  }
+  
+  &.button-secondary {
+    color: $deepSeaGreen;
+    background: $iceCold;
+    border-color: $iceCold;
+  
+    &:hover:not(:disabled):not(:active) {
       color: $deepSeaGreen;
+      background: #fff;
       border-color: $deepSeaGreen;
     }
 
-    &:disabled {
-      background: #eeeeee;
-      color: #fff;
-      border: none;
+    &:active {
+      color: $deepSeaGreen;
+      background: $catSkillWhite;
+      border-color: $deepSeaGreen;
+    }
+  }
+  
+  &.button-secondary2 {
+    color: #1D1D26;
+    background: #fff;
+    border-color: #A3A3A3;
+  
+    &:hover:not(:disabled):not(:active) {
+      color: $deepSeaGreen;
+      background: #fff;
+      border-color: $deepSeaGreen;
     }
 
+    &:active {
+      color: $deepSeaGreen;
+      background: $catSkillWhite;
+      border-color: $deepSeaGreen;
+    }
+  }
+  
+  &:focus-visible {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 4px $lightBlue;
+  }
+  
+  &:disabled {
+    color: #fff;
+    background: #eeeeee;
+    border: none;
+    cursor: not-allowed;
   }
 }
 
-.icon-button-link {
+.icon-button {
   @include reset-button();
   outline: 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 
-  .icon-button-link-icon {
+  .icon-button-icon {
     color: $deepSeaGreen;
     margin-right: $baseUnit * 2;
     width: $baseUnit * 5;
@@ -61,7 +116,7 @@
     border-radius: 50%;
   }
 
-  .icon-button-link-text {
+  .icon-button-text {
     color: $deepSeaGreen;
     font-size: 16px;
     line-height: 1em;
@@ -69,22 +124,38 @@
   }
 
   &:hover {
-    .icon-button-link-icon {
+    .icon-button-icon {
       background: #fff;
       border-color: $deepSeaGreen;
     }
+
+    .icon-button-text {
+      text-decoration: underline;
+    }
   }
 
-  &:active,
-  &:focus {
-    .icon-button-link-icon {
+  &:active {
+    .icon-button-icon {
       background: $catSkillWhite;
       border-color: $deepSeaGreen;
     }
   }
 
+  &:focus-visible {
+    .icon-button-icon {
+      box-shadow: 0 0 0 1px #fff, 0 0 0 4px $lightBlue;
+    }
+
+    .icon-button-text {
+      text-decoration: underline;
+    }
+  }
+
+
   &[disabled] {
-    .icon-button-link-icon {
+    cursor: not-allowed;
+
+    .icon-button-icon {
       background: #EEEEEE;
       border-color: #EEEEEE;
       color: #fff;
@@ -94,18 +165,19 @@
       }
     }
 
-    .icon-button-link-text {
+    .icon-button-text {
       color: #E3E3E3;
+      text-decoration: none;
     }
   }
 
-  &.icon-button-link-transparent-bordered {
+  &.icon-button-transparent-bordered {
     border: 1px solid #A3A3A3;
     border-radius: $baseUnit;
     padding: 0 ($baseUnit * 2);
     height: $baseUnit * 5;
 
-    .icon-button-link-icon {
+    .icon-button-icon {
       background: 0;
       border: 0;
       color: inherit;
@@ -115,7 +187,7 @@
       height: $baseUnit * 3;
     }
 
-    .icon-button-link-text {
+    .icon-button-text {
       color: inherit;
       font-weight: normal;
     }
