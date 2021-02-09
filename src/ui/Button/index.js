@@ -24,14 +24,14 @@ export const IconButton = forwardRef(({ className, type, icon, spinner, disabled
     ref={ref}
     {...props}
   >
-    <div className='icon-button-link-icon'>
+    <div className='icon-button-icon'>
       {
         spinner
           ? <Spinner size='small' transparent />
           : <Icon name={icon || 'add'} size='small' />
       }
     </div>
-    <div className='icon-button-link-text'>
+    <div className='icon-button-text'>
       {children}
     </div>
   </button>
