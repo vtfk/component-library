@@ -130,13 +130,19 @@
     }
   }
 
-  &:active,
-  &:focus {
+  &:active {
     .icon-button-link-icon {
       background: $catSkillWhite;
       border-color: $deepSeaGreen;
     }
   }
+
+  &:focus-visible {
+    .icon-button-link-icon {
+      box-shadow: 0 0 0 1px #fff, 0 0 0 4px $lightBlue;
+    }
+  }
+
 
   &[disabled] {
     cursor: not-allowed;
