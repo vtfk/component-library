@@ -26,13 +26,20 @@ const sizes = {
 const icons = ['home', 'arrowRight', 'arrowLeft', 'add', 'check', 'close', 'search']
 
 export function Basic () {
+  const [loading, setLoading] = useState(false)
+
+  const clickHandler = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 3000)
+  }
+
   return (
     <Button
       type={select('Button type', types, 'primary')}
       size={select('Button size', sizes, 'medium')}
-      spinner={boolean('Spinning', false)}
+      spinner={loading || boolean('Spinning', false)}
       disabled={boolean('Disabled', false)}
-      onClick={() => action('onClick')}
+      onClick={clickHandler}
     >
       {text('Button text', 'Dette er knappeteksten')}
     </Button>
