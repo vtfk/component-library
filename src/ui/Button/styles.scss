@@ -2,7 +2,6 @@
 @import "../../common/scss/helpers";
 
 .button {
-  @include reset-button();
   display: block;
   position: relative;
   padding: $baseUnit ($baseUnit * 7);
