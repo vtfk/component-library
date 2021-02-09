@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { withKnobs, select, text, boolean } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import { Button, IconButton } from '.'
+import { Button } from '.'
 
 export default getConfig({
   title: 'Button',
@@ -21,8 +21,6 @@ const sizes = {
   Medium: 'medium',
   Large: 'large'
 }
-
-const icons = ['home', 'arrowRight', 'arrowLeft', 'add', 'check', 'close', 'search']
 
 export function Basic () {
   const [loading, setLoading] = useState(false)
@@ -82,44 +80,5 @@ export function ShowSpinner () {
     <Button spinner>
       {text('Button text', 'Dette er knappeteksten')}
     </Button>
-  )
-}
-
-export function IconButtonBasic () {
-  const [loading, setLoading] = useState(false)
-
-  const clickHandler = () => {
-    setLoading(true)
-    setTimeout(() => setLoading(false), 3000)
-  }
-
-  return (
-    <IconButton icon={select('Icon', icons, 'add')} onClick={clickHandler} spinner={loading}>
-      {text('Icon Button text', 'Legg til element')}
-    </IconButton>
-  )
-}
-
-export function IconButtonDisabled () {
-  return (
-    <IconButton icon={select('Icon', icons, 'add')} disabled>
-      {text('Icon Button text', 'Legg til element')}
-    </IconButton>
-  )
-}
-
-export function IconButtonSpinner () {
-  return (
-    <IconButton icon={select('Icon', icons, 'add')} spinner>
-      {text('Icon Button text', 'Legg til element')}
-    </IconButton>
-  )
-}
-
-export function IconButtonBordered () {
-  return (
-    <IconButton icon={select('Icon', icons, 'add')} type='transparent-bordered'>
-      {text('Icon Button text', 'Legg til element')}
-    </IconButton>
   )
 }
