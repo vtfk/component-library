@@ -128,6 +128,10 @@
       background: #fff;
       border-color: $deepSeaGreen;
     }
+
+    .icon-button-link-text {
+      text-decoration: underline;
+    }
   }
 
   &:active {
@@ -140,6 +144,10 @@
   &:focus-visible {
     .icon-button-link-icon {
       box-shadow: 0 0 0 1px #fff, 0 0 0 4px $lightBlue;
+    }
+
+    .icon-button-link-text {
+      text-decoration: underline;
     }
   }
 
