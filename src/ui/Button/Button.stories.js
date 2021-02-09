@@ -115,3 +115,11 @@ export function IconButtonSpinner () {
     </IconButton>
   )
 }
+
+export function IconButtonBordered () {
+  return (
+    <IconButton icon={select('Icon', icons, 'add')} type='transparent-bordered'>
+      {text('Icon Button text', 'Legg til element')}
+    </IconButton>
+  )
+}
