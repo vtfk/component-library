@@ -6,9 +6,9 @@ import { Spinner } from '../Spinner'
 
 import './styles.scss'
 
-export const Button = forwardRef(({ className, type, spinner, disabled, children, ...props }, ref) => (
+export const Button = forwardRef(({ className, type, size, spinner, disabled, children, ...props }, ref) => (
   <button
-    className={`button button-${type || 'primary'} ${className}`}
+    className={`button button-${type || 'primary'} button-${size || 'medium'} ${className}`}
     disabled={disabled || spinner || false}
     ref={ref}
     {...props}
@@ -38,12 +38,14 @@ Button.propTypes = {
   children: PropTypes.string.isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   spinner: PropTypes.bool,
   type: PropTypes.oneOf(['primary', 'secondary', 'secondary2'])
 }
 
 Button.defaultProps = {
   disabled: false,
+  size: 'medium',
   spinner: false,
   type: 'primary'
 }

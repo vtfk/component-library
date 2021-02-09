@@ -1,4 +1,5 @@
 import React from 'react'
+import { action } from '@storybook/addon-actions'
 import { withKnobs, select, text, boolean } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 import { Button, IconButton } from '.'
@@ -6,7 +7,8 @@ import { Button, IconButton } from '.'
 export default getConfig({
   title: 'Button',
   component: Button,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  argTypes: { onClick: { action: 'clicked' } }
 })
 
 const types = {
@@ -15,14 +17,22 @@ const types = {
   Secondary2: 'secondary2'
 }
 
+const sizes = {
+  Small: 'small',
+  Medium: 'medium',
+  Large: 'large'
+}
+
 const icons = ['home', 'arrowRight', 'arrowLeft', 'add', 'check', 'close', 'search']
 
 export function Basic () {
   return (
     <Button
       type={select('Button type', types, 'primary')}
+      size={select('Button size', sizes, 'medium')}
       spinner={boolean('Spinning', false)}
       disabled={boolean('Disabled', false)}
+      onClick={() => action('onClick')}
     >
       {text('Button text', 'Dette er knappeteksten')}
     </Button>

@@ -4,11 +4,8 @@
 .button {
   @include reset-button();
   outline: 0;
-  height: 48px;
-  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.4px;
-  border-radius: 24px;
   display: block;
   width: 100%;
   padding: $baseUnit ($baseUnit * 7);
@@ -17,19 +14,35 @@
   transition: width 1s;
   transition: background-color .2s ease-in-out, color .2s ease-in-out;
   
+  &.button-small {
+    min-height: $baseUnit * 5;
+    font-size: 15px;
+    border-radius: 20px;
+  }
+
+  &.button-medium {
+    min-height: $baseUnit * 6;
+    font-size: 16px;
+    border-radius: 24px;
+  }
+
+  &.button-large {
+    min-height: $baseUnit * 8;
+    font-size: 18px;
+    border-radius: 32px;
+  }
+
   &.button-primary {
     color: #fff;
     background: $deepSeaGreen;
     border-color: $deepSeaGreen;
   
-    &:hover:not(:disabled):not(:active),
-    .___hover {
+    &:hover:not(:disabled):not(:active) {
       color: $deepSeaGreen;
       background: #fff;
     }
     
-    &:active,
-    .___active {
+    &:active {
       color: $deepSeaGreen;
       background: $catSkillWhite;
     }
