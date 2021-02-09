@@ -8,12 +8,12 @@ import './styles.scss'
 
 export const Button = forwardRef(({ className, type, size, spinner, disabled, children, ...props }, ref) => (
   <button
-    className={`button button-${type || 'primary'} button-${size || 'medium'} ${className}`}
+    className={`button button-${type || 'primary'} button-${size || 'medium'} ${className || ''}`}
     disabled={disabled || spinner || false}
     ref={ref}
     {...props}
   >
-    {spinner ? <Spinner /> : children}
+    {spinner ? <Spinner size='small' /> : children}
   </button>
 ))
 
