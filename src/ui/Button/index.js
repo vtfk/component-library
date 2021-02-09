@@ -17,14 +17,19 @@ export const Button = forwardRef(({ className, type, size, spinner, disabled, ch
   </button>
 ))
 
-export const IconButton = forwardRef(({ className, type, icon, children, ...props }, ref) => (
+export const IconButton = forwardRef(({ className, type, icon, spinner, disabled, children, ...props }, ref) => (
   <button
     className={`icon-button-link ${type ? `icon-button-link-${type}` : ''} ${className}`}
+    disabled={disabled || spinner || false}
     ref={ref}
     {...props}
   >
     <div className='icon-button-link-icon'>
-      <Icon name={icon || 'add'} size='small' />
+      {
+        spinner
+          ? <Spinner size='small' transparent />
+          : <Icon name={icon || 'add'} size='small' />
+      }
     </div>
     <div className='icon-button-link-text'>
       {children}
@@ -53,6 +58,13 @@ Button.defaultProps = {
 IconButton.propTypes = {
   children: PropTypes.string.isRequired,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   icon: PropTypes.string.isRequired,
+  spinner: PropTypes.bool,
   type: PropTypes.string
+}
+
+IconButton.defaultProps = {
+  disabled: false,
+  spinner: false
 }
