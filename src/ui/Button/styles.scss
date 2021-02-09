@@ -4,7 +4,7 @@
 .button {
   @include reset-button();
   display: block;
-  width: 100%;
+  position: relative;
   padding: $baseUnit ($baseUnit * 7);
   border: 1px solid #A3A3A3;
   outline: 0;
