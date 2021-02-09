@@ -19,7 +19,7 @@ export const Button = forwardRef(({ className, type, size, spinner, disabled, ch
 
 export const IconButton = forwardRef(({ className, type, icon, spinner, disabled, children, ...props }, ref) => (
   <button
-    className={`icon-button-link ${type ? `icon-button-link-${type}` : ''} ${className}`}
+    className={`icon-button ${type ? `icon-button-${type}` : ''} ${className || ''}`}
     disabled={disabled || spinner || false}
     ref={ref}
     {...props}
