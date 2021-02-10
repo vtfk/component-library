@@ -20,7 +20,7 @@ export default {
 
 function versionizeReadMe (readMeContent) {
   const readMeLines = readMeContent.split('\n')
-  return [readMeLines[0] + `<div class="version">(v${packageJson.version})<div>`, ...readMeLines.slice(1)].join('\n')
+  return [readMeLines[0] + `<div class="version">Versjon ${packageJson.version}<div>`, ...readMeLines.slice(1)].join('\n')
 }
 
 export function Introduksjon () {
