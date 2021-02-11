@@ -14,8 +14,10 @@ export default {
   parameters: {
     options: {
       showPanel: false
-    }
+    },
+    layout: 'centered'
   }
+}
 }
 
 function versionizeReadMe (readMeContent) {

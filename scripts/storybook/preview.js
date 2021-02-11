@@ -8,9 +8,10 @@ import './storybook.css'
 
 addParameters({
   viewMode: 'canvas',
+  layout: 'padded',
   html: {
     prettier: {
-      tabWidth: 4
+      tabWidth: 2
     },
     root: '#example > div'
   }

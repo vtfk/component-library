@@ -2,7 +2,7 @@ const storyConfig = {
   parameters: {
     options: {
       showPanel: true,
-      panelPosition: 'right',
+      panelPosition: 'bottom',
       selectedPanel: 'storybookjs/knobs/panel'
     },
     actions: { argTypesRegex: '^on[A-Z].*' },
