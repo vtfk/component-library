@@ -3,8 +3,7 @@ import React from 'react'
 import packageJson from '../../package.json'
 
 import readMe from '../../README.md'
-// import developerReadMe from '../../scripts/build/README_PACKAGE.md'
-
+import design from './content/design/design.md'
 import changeLog from '../../CHANGELOG.md'
 
 import './documentation.css'
@@ -25,6 +24,10 @@ function versionizeReadMe (readMeContent) {
 
 export function Introduksjon () {
   return <div className='documentation' dangerouslySetInnerHTML={{ __html: marked(versionizeReadMe(readMe)) }} />
+}
+
+export function Designsystem () {
+  return <div className='documentation' dangerouslySetInnerHTML={{ __html: marked(design) }} />
 }
 
 export function Changelog () {
