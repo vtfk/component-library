@@ -78,6 +78,14 @@ Repository for biblioteket finner du [her](https://github.com/vtfk/component-lib
   npm run storybook
   ```
 
+### Opprette ny komponent
+
+Det er lagt inn et script for generering av nye komponenter, som hjelper deg med å sette opp det du trenger. Kjør følgende kommando og følg veiviseren for å komme i gang. Husk å eksportere ut komponenten din i `/src/index.js` så den blir tilgjengelig i pakka.
+
+```bash
+npm run generate
+```
+
 ### Kodestil
 
 Fylkeskommunen prøver så langt det lar seg gjøre å standarisere på bruk av [Standardjs]()-kodestil. Komponentbiblioteket inneholder linter (eslint) som sjekker og fikser eventuelle feil.
