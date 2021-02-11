@@ -42,10 +42,10 @@
     "react-scrolllock": "^5.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.10.3",
-    "@babel/plugin-proposal-object-rest-spread": "7.10.3",
-    "@babel/preset-env": "7.10.3",
-    "@babel/preset-react": "7.10.1",
+    "@babel/core": "7.12.13",
+    "@babel/plugin-proposal-object-rest-spread": "7.12.13",
+    "@babel/preset-env": "7.12.13",
+    "@babel/preset-react": "7.12.13",
     "@rollup/plugin-commonjs": "13.0.0",
     "@rollup/plugin-node-resolve": "11.1.1",
     "@storybook/addon-actions": "6.1.17",
@@ -63,7 +63,7 @@
     "@testing-library/react-hooks": "3.3.0",
     "@whitespace/storybook-addon-html": "4.2.0",
     "babel-eslint": "10.1.0",
-    "babel-loader": "8.1.0",
+    "babel-loader": "8.2.2",
     "babel-plugin-inline-react-svg": "1.1.2",
     "babel-polyfill": "6.26.0",
     "compression": "1.7.4",
