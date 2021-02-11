@@ -30,7 +30,6 @@
     "now-build": "npm run build-storybook"
   },
   "dependencies": {
-    "babel-eslint": "10.1.0",
     "nanoid": "3.1.20",
     "react-datepicker": "3.4.1",
     "react-scrolllock": "5.0.1"
