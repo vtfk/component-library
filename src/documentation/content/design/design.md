@@ -1,29 +1,29 @@
 # Designsystem
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis, eos!
+VTKs designsystem består av et sett regler som hjelper standardisering av de digitale løsningene.
 
 ## Avstander
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat, magnam!
+Designsystemet er bygd opp med avstandsregler basert på 4px.
 
-<img src="https://github.com/vtfk/component-library/blob/main/src/documentation/content/design/spacing.svg?raw=true" alt="" width="100" height="auto" class="logo" >
-<img src="https://file.io/iOSHYv9epdgZ" alt="" width="100" height="auto" class="logo" >
+Følgende verdier skal gjenbrukes så langt det lar seg gjøre mellom elementer, vertikalt og horisontalt.
 
-### Grid
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, corporis.
+<img src="https://github.com/vtfk/component-library/blob/main/src/documentation/content/design/spacing.png?raw=true" alt="" width="auto" height="auto" class="logo" >
 
 ### Vertikal rytme
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, dolorem.
+Ved bruk av avstandsregler oppnås en vertikal rytme som harmonerer med tekst- og linjestørrelser i typografi-komponentene.
+
+<img src="https://github.com/vtfk/component-library/blob/main/src/documentation/content/design/vertikal-rytme.png?raw=true" alt="" width="auto" height="auto" class="logo" >
 
 ## Farger
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, quaerat.
+Designsystemet består av følgende primær- og sekundærfarger.
 
 ### Primærfarger
 
+<img src="https://github.com/vtfk/component-library/blob/main/src/documentation/content/design/farger-primar.png?raw=true" alt="" width="auto" height="auto" class="logo" >
 
-### Støttefarger
+### Sekundærfarger (støttefarger)
 
-##
+<img src="https://github.com/vtfk/component-library/blob/main/src/documentation/content/design/farger-sekundar.png?raw=true" alt="" width="auto" height="auto" class="logo" >

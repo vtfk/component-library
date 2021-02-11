@@ -54,13 +54,15 @@
   font-family: Nunito;
   margin-top: 40px;
   margin-bottom: 16px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
 }
 
 .documentation h3 {
-  font-size: 18px;
-  margin-top: 40px;
+  font-size: 20px;
+  margin-top: 30px;
   margin-bottom: 10px;
-  color: #777;
+  color: #005260;
 }
 
 .documentation p {
@@ -75,6 +77,12 @@
   background: #F1EFD6;
   padding: 3px 5px;
   border: 1px solid #E6E3BB;
+}
+
+.documentation img {
+  display: block;
+  max-width: 100%;
+  padding: 30px 0;
 }
 
 .documentation hr {
