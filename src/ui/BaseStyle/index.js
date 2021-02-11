@@ -9,5 +9,5 @@ export function BaseStyle ({ children }) {
 }
 
 BaseStyle.propTypes = {
-  children: PropTypes.object.isRequired
+  children: PropTypes.any.isRequired
 }

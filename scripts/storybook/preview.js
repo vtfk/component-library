@@ -10,11 +10,11 @@ addParameters({
   viewMode: 'canvas',
   html: {
     prettier: {
-      tabWidth: 4,
+      tabWidth: 4
     },
     root: '#example > div'
-  },
+  }
 })
 
 addDecorator(withInfo)
-addDecorator(Story => (<BaseStyle><div id="example"><Story /></div></BaseStyle>))
+addDecorator(Story => (<BaseStyle><div id='example'><Story /></div></BaseStyle>))

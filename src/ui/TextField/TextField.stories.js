@@ -41,18 +41,18 @@ export function Disabled () {
   )
 }
 
-export function TextNoBorder() {
+export function TextNoBorder () {
   return (
     <div>
-      <TextField disabled={true} noBorder={true} placeholder="Placeholder.." value="" />
+      <TextField disabled noBorder placeholder='Placeholder..' value='' />
     </div>
   )
 }
 
-export function TextareaNoBorder() {
+export function TextareaNoBorder () {
   return (
     <div>
-      <TextField disabled={true} noBorder={true} placeholder="Placeholder.." rows="4" value="" />
+      <TextField disabled noBorder placeholder='Placeholder..' rows='4' value='' />
     </div>
   )
 }

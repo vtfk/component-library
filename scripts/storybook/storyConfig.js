@@ -3,7 +3,7 @@ const storyConfig = {
     options: {
       showPanel: true,
       panelPosition: 'right',
-      selectedPanel: 'storybookjs/knobs/panel',
+      selectedPanel: 'storybookjs/knobs/panel'
     },
     actions: { argTypesRegex: '^on[A-Z].*' },
     viewMode: 'canvas'
