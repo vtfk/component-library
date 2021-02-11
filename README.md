@@ -10,18 +10,18 @@ Felles komponenter for VTFKs frontend-løsninger.
 Komponentbiblioteket har som formål å standardisere kode og design, samt å effektivere utvikling av nye frontend-løsninger i fylkeskommunen.
 Dette verktøyet forhåndsviser komponentene og dokumenterer bruken av dem. Har du spørsmål, kan du ta kontakt med seksjonen for Teknologi og digitalisering (BDK-TEK).
 
-Komponentene er oppbygd slik at de skal være enkele å bruke, følge prinsippene om [universell utforming](https://www.uutilsynet.no/) (WCAG 2.0), og fungere på alle flater og skjermstørrelser.
+Komponentene er oppbygd slik at de skal være enkle å bruke, følge prinsippene om [universell utforming](https://www.uutilsynet.no/) (WCAG 2.0), og fungere godt på alle flater og skjermstørrelser.
 
-Finner du noe feil, eller har du innspill til forbedringer, kan du komme i kontakt med oss på [Github](https://github.com/vtfk/component-library)!
+Finner du noe feil, eller har du innspill til hvordan vi kan forbedre biblioteket, kan du komme i kontakt med oss ved å lage en issue på [GitHub](https://github.com/vtfk/component-library/issues).
 
-## Design
+## Designet
 
-Designmanualen komponentene er bygget på finner du på [designmanual.vtfk.no](https://designmanual.vtfk.no).<br />
+Den grafiske profilen komponentene bygger på finner beskrevet du på [designmanual.vtfk.no](https://designmanual.vtfk.no).<br />
 Retningslinjer for bruk er også beskrevet her: [*kommer snart*](/)
 
 ## Kom i gang
 
-For å installere komponentbiblioteket og lagre det i `package.json`-fila di, kjør kommandoen:
+For å installere komponentbiblioteket, kjør kommandoen:
 
 ```bash
 npm install @vtfk/components
@@ -80,11 +80,15 @@ Repository for biblioteket finner du [her](https://github.com/vtfk/component-lib
 
 ### Opprette ny komponent
 
-Det er lagt inn et script for generering av nye komponenter, som hjelper deg med å sette opp det du trenger. Kjør følgende kommando og følg veiviseren for å komme i gang. Husk å eksportere ut komponenten din i `/src/index.js` så den blir tilgjengelig i pakka.
+Det er lagt inn et script for generering av nye komponenter, som hjelper deg med å sette opp det du trenger for å komme kjapt i gang.
+
+Kjør følgende kommando og følg veiviseren for å komme i gang:
 
 ```bash
 npm run generate
 ```
+
+> Husk å eksportere ut komponenten din i `/src/ui/index.js`, så den blir tilgjengelig i den eksporterte pakka.
 
 ### Kodestil
 
