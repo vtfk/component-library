@@ -3,12 +3,10 @@ import React from 'react'
 
 import './{{ pascalCase componentName }}.scss'
 
-const {{ pascalCase componentName }} = ({ text }) => {
+export const {{ pascalCase componentName }} = ({ text }) => {
   return <div className='{{ dashCase componentName}}'>{text}</div>
 }
 
 {{ pascalCase componentName }}.propTypes = {
   text: PropTypes.string
 }
-
-export default {{ pascalCase componentName }}
