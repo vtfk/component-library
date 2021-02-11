@@ -13,7 +13,14 @@ export const Button = forwardRef(({ className, type, size, spinner, disabled, ch
     ref={ref}
     {...props}
   >
-    {spinner ? <Spinner size='small' /> : children}
+    {
+      spinner &&
+        <div className='button-spinner'><Spinner transparent /></div>
+    }
+
+    <div className={`button-text ${spinner ? 'hide-button-text' : ''}`}>
+      {children}
+    </div>
   </button>
 ))
 
