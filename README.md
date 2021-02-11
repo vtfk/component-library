@@ -2,8 +2,6 @@
 
 Felles komponenter for VTFKs frontend-løsninger.
 
-***
-
 ## Introduksjon
 
 Komponentbiblioteket har som formål å standardisere kode og design, samt å effektivere utvikling av nye frontend-løsninger i fylkeskommunen.
