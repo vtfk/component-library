@@ -7,8 +7,14 @@ import { BaseStyle } from '../../src'
 import './storybook.css'
 
 addParameters({
-  viewMode: 'docs'
+  viewMode: 'canvas',
+  html: {
+    prettier: {
+      tabWidth: 4,
+    },
+    root: '#example > div'
+  },
 })
 
 addDecorator(withInfo)
-addDecorator(Story => (<BaseStyle><Story /></BaseStyle>))
+addDecorator(Story => (<BaseStyle><div id="example"><Story /></div></BaseStyle>))
