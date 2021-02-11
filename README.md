@@ -2,7 +2,6 @@
 
 Felles komponenter for VTFKs frontend-løsninger.
 
-
 ***
 
 ## Introduksjon
@@ -16,8 +15,7 @@ Finner du noe feil, eller har du innspill til hvordan vi kan forbedre biblioteke
 
 ## Designet
 
-Den grafiske profilen komponentene bygger på finner beskrevet du på [designmanual.vtfk.no](https://designmanual.vtfk.no).<br />
-Retningslinjer for bruk er også beskrevet her: [*kommer snart*](/)
+Grafisk retningslinje for bruk av komponentene [finner du her](/?path=/story/dokumentasjon--designsystem).
 
 ## Kom i gang
 

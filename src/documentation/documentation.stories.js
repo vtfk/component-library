@@ -3,6 +3,7 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 
 import packageJson from '../../package.json'
+import design from './content/design.md'
 import readMe from '../../README.md'
 
 import 'highlight.js/styles/atom-one-dark.css'
@@ -39,4 +40,8 @@ function convertMarkdown (markdown) {
 
 export function Introduksjon () {
   return <div className='documentation' dangerouslySetInnerHTML={{ __html: convertMarkdown(versionizeReadMe(readMe)) }} />
+}
+
+export function Designsystem () {
+  return <div className='documentation design' dangerouslySetInnerHTML={{ __html: convertMarkdown(design) }} />
 }
