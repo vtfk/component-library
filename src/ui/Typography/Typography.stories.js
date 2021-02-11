@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import {
@@ -16,25 +16,25 @@ export default getConfig(
   { title: 'Typography', component: Heading1 }
 )
 
-export function Heading_1 () {
+export function heading1 () {
   return (
     <Heading1>Heading 1</Heading1>
   )
 }
 
-export function Heading_2 () {
+export function heading2 () {
   return (
     <Heading2>Heading 2</Heading2>
   )
 }
 
-export function Heading_3 () {
+export function heading3 () {
   return (
     <Heading3>Heading 3</Heading3>
   )
 }
 
-export function Heading_4 () {
+export function heading4 () {
   return (
     <Heading4>Heading 4</Heading4>
   )
@@ -49,7 +49,7 @@ export function Text () {
   )
 }
 
-export function Text_link () {
+export function textLink () {
   return (
     <div>
       <Link href='https://vtfk.no'>Link</Link>
@@ -61,7 +61,7 @@ export function Text_link () {
   )
 }
 
-export function Skip_link () {
+export function skipLink () {
   return (
     <p>
       (Visible on tab)
@@ -71,7 +71,7 @@ export function Skip_link () {
   )
 }
 
-export function Error_Message () {
+export function errorMessage () {
   return (
     <ErrorMessage>Her er feilmeldingen</ErrorMessage>
   )

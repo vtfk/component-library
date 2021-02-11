@@ -12,7 +12,7 @@ export function Basic () {
 
   return (
     <div>
-      <button onClick={() => { setModalOpen(!modalOpen) }}>Toggle modal</button>
+      <button onClick={() => { setModalOpen(!modalOpen) }}>Toggle modal</button>
       <Modal
         open={modalOpen}
         title='Dette er tittelen'

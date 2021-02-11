@@ -41,10 +41,7 @@ module.exports = plop => {
       const prettierString = prettier.format(fileString, prettierConfig)
       fs.writeFileSync(fileName, prettierString)
     })
-    try {
-      return folderPath
-    } catch (err) {
-      throw err
-    }
+
+    return folderPath
   })
 }
