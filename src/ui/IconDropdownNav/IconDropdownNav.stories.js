@@ -10,12 +10,18 @@ export default getConfig(
 export function Basic () {
   return (
     <div>
-      <p>En IconDropdownNav fylles med IconDropdownNavItem:
-        <IconDropdownNav>
-          <IconDropdownNavItem title='Menyelement som link' href='https://vtfk.no' />
-          <IconDropdownNavItem title='Menyelement som onClick' onClick={() => { console.log('onClick!') }} />
-        </IconDropdownNav>
-      </p>
+      <table>
+        <tr>
+          <td>En IconDropdownNav fylles med IconDropdownNavItem </td>
+          <td>
+            <IconDropdownNav>
+              <IconDropdownNavItem title='Menyelement som link' href='https://vtfk.no' />
+              <IconDropdownNavItem title='Menyelement som onClick' onClick={() => { console.log('onClick!') }} />
+            </IconDropdownNav>
+
+          </td>
+        </tr>
+      </table>
     </div>
   )
 }

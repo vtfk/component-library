@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Modal, ModalBody, ModalSideActions } from '.'
+import { Button } from '../Button'
 
 export default getConfig(
   { title: 'Modal', component: Modal }
@@ -12,7 +13,7 @@ export function Basic () {
 
   return (
     <div>
-      <button onClick={() => { setModalOpen(!modalOpen) }}>Toggle modal</button>
+      <Button onClick={() => { setModalOpen(!modalOpen) }}>{!modalOpen ? 'Åpne' : 'Lukk'} modal</Button>
       <Modal
         open={modalOpen}
         title='Dette er tittelen'

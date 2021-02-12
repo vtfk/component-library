@@ -17,8 +17,8 @@
   margin-right: 5px !important;
 }
 
-.css-18k3y9v:focus {
-  border-bottom-color: #000 i !important;
+button.tabbutton:focus {
+  border-bottom-color: #000 !important;
 }
 
 /* Vannfarget "Show info"-knap */
