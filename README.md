@@ -31,7 +31,7 @@ yarn add @vtfk/components
 
 For at stilsettet skal bli korrekt og at alt skal fungere optimalt, er det anbefalt å pakke alle sidene i applikasjonen inn i [`BaseStyle`-komponenten](/?path=/story/komponenter-basestyle--basic).
 
-I en React-applikasjon kan dette gjøres i index.js som dette:
+I en React-applikasjon kan dette gjøres i `index.js` som dette:
 
 ```javascript
 import React from 'react'
@@ -69,7 +69,7 @@ Repository for biblioteket finner du [her](https://github.com/vtfk/component-lib
   npm install
   ```
   
-3. Starte storybook for forhåndsvisning av komponenter
+3. Starte Storybook for forhåndsvisning av komponenter
 
   ```bash
   npm run storybook
