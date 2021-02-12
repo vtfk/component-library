@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import iconClose from './icon-close.svg'
+import { ReactComponent as IconClose } from './icon-close.svg'
 
 import './styles.scss'
 
@@ -29,7 +29,7 @@ export function PDFPreviewModal ({ open, title, className, onDismiss, loading, b
               title &&
                 <div className='preview-modal-title'>
                   <button tabIndex='0' onClick={onDismiss} className='preview-modal-close-button'>
-                    <img src={iconClose} alt='' /> {title}
+                    <IconClose alt='' /> {title}
                   </button>
                 </div>
             }

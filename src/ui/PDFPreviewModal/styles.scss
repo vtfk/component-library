@@ -59,12 +59,12 @@
       outline: 0;
       margin-top: -2px;
 
-      img {
+      svg {
         margin-right: $baseUnit;
       }
 
       @media (max-width: 1000px) {
-        img {
+        svg {
           width: 14px;
           height: 14px;
         }
