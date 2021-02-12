@@ -11,9 +11,10 @@ Komponentene er oppbygd slik at de skal være enkle å bruke, følge prinsippene
 
 Finner du noe feil, eller har du innspill til hvordan vi kan forbedre biblioteket, kan du komme i kontakt med oss ved å lage en issue på [GitHub](https://github.com/vtfk/component-library/issues).
 
-## Designet
+## Designsystemet
 
-Grafisk retningslinje for bruk av komponentene [finner du her](/?path=/story/dokumentasjon--designsystem).
+Komponentene er bygd på Vestfold og Telemark fylkeskommunes [grafiske profil](https://designmanual.vtfk.no).
+Dokumentasjon av designsystemet [finner du her](https://komponenter.vtfk.no/?path=/story/dokumentasjon--designsystem).
 
 ## Kom i gang
 

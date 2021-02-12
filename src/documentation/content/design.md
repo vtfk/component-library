@@ -28,4 +28,4 @@ Designsystemet består av følgende primær- og sekundærfarger.
 
 <img src="https://github.com/vtfk/component-library/blob/main/src/documentation/content/design/farger-sekundar.png?raw=true" alt="" />
 
-[< Tilbake til introduksjonen](/?path=/story/dokumentasjon--introduksjon)
+[< Tilbake til introduksjonen](https://komponenter.vtfk.no/?path=/story/dokumentasjon--introduksjon)
