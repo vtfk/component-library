@@ -57,7 +57,7 @@ Repository for biblioteket finner du [her](https://github.com/vtfk/component-lib
 1. Klone ned repository
 
   ```bash
-  git clone https://github.com/vtfk/component-library.git git clone https://github.com/vtfk/component-library.git git clone https://github.com/vtfk/component-library.git git clone https://github.com/vtfk/component-library.git
+  git clone https://github.com/vtfk/component-library.git
 
   # eller over SSH
   git clone git@github.com:vtfk/component-library.git
