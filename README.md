@@ -13,7 +13,7 @@ Finner du noe feil, eller har du innspill til hvordan vi kan forbedre biblioteke
 
 ## Designsystemet
 
-Komponentene er bygd på Vestfold og Telemark fylkeskommunes [grafiske profil](https://designmanual.vtfk.no).
+Komponentene er bygd på Vestfold og Telemark fylkeskommunes [grafiske profil](https://designmanual.vtfk.no).<br />
 Dokumentasjon av designsystemet [finner du her](https://komponenter.vtfk.no/?path=/story/dokumentasjon--designsystem).
 
 ## Kom i gang
