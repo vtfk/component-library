@@ -7,7 +7,6 @@ import nb from 'date-fns/locale/nb'
 
 import { ReactComponent as IconCalendar } from './icon-calendar.svg'
 
-import 'react-datepicker/dist/react-datepicker.css'
 import './styles.scss'
 
 export function Datepicker ({ placeholder, label, selected, id, isOpen, error, ...props }) {

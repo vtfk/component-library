@@ -1,12 +1,11 @@
 @import "../Tokens/tokens.scss";
 @import "../../common/scss/helpers";
 
+@import "~react-datepicker/dist/react-datepicker.css";
+
 .datepicker-field {
   position: relative;
   padding-top: $baseUnit * 2;
-
-  .picker {
-  }
 
   .react-datepicker-wrapper {
     width: 100%;
@@ -174,7 +173,7 @@
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    
+
     svg {
       width: 18px;
       height: 18px;
