@@ -17,40 +17,35 @@
   },
   "homepage": "https://github.com/vtfk/component-library#readme",
   "scripts": {
-    "start": "node server.js",
-    "dev": "cross-env STORYBOOK_DEBUG=true SBCONFIG_CONFIG_DIR=scripts/storybook start-storybook -p 4000 --quiet --ci",
+    "test": "npm run test:lint && npm run test:jest",
+    "test:jest": "jest",
+    "test:watch": "jest --watch",
+    "test:lint": "eslint --fix src",
+    "generate": "plop --plopfile scripts/template/index.js",
     "build": "rollup -c ./scripts/build/rollup.config.js",
     "build-watch": "npm run build -- -w",
-    "build-documentation": "build-storybook -c scripts/storybook -o storybook-static",
-    "publish-documentation": "storybook-to-ghpages --out=storybook-static --existing-output-dir=storybook-static",
-    "start-documentation": "npx http-server storybook-static",
-    "test:dev": "jest --watch",
-    "test": "jest",
-    "release": "npm run build && standard-version",
-    "lint": "node node_modules/eslint/bin/eslint.js --fix --max-warnings=0 src",
-    "generate": "node --experimental-modules node_modules/.bin/plop --plopfile scripts/templates/index.js",
-    "update-packages": "npx npm-check-updates -u && npm i",
-    "heroku-postbuild": "npm run build-documentation",
-    "now-build": "npm run build-documentation"
-  },
-  "scriptsComments": {
-    "precommit": "lint-staged"
+    "storybook": "cross-env STORYBOOK_DEBUG=true SBCONFIG_CONFIG_DIR=scripts/storybook start-storybook -p 4000 --quiet --ci",
+    "build-storybook": "build-storybook -c scripts/storybook -o storybook-static",
+    "release": "npm run build && release",
+    "refresh": "rm -rf node_modules/ && rm package-lock.json && npm install",
+    "now-build": "npm run build-storybook"
   },
   "dependencies": {
-    "nanoid": "^3.1.20",
-    "react-datepicker": "^3.4.1",
-    "react-scrolllock": "^5.0.1"
+    "nanoid": "3.1.20",
+    "react-datepicker": "3.4.1",
+    "react-scrolllock": "5.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.12.16",
+    "@babel/core": "7.12.13",
+    "@babel/eslint-parser": "7.12.13",
     "@babel/plugin-proposal-object-rest-spread": "7.12.13",
-    "@babel/preset-env": "7.12.16",
+    "@babel/preset-env": "7.12.13",
     "@babel/preset-react": "7.12.13",
-    "@rollup/plugin-commonjs": "13.0.0",
+    "@rollup/plugin-commonjs": "17.1.0",
     "@rollup/plugin-node-resolve": "11.1.1",
+    "@storybook/addon-a11y": "6.1.17",
     "@storybook/addon-actions": "6.1.17",
     "@storybook/addon-docs": "6.1.17",
-    "@storybook/addon-info": "5.3.21",
     "@storybook/addon-knobs": "6.1.17",
     "@storybook/addon-storysource": "6.1.17",
     "@storybook/addons": "6.1.17",
@@ -59,52 +54,44 @@
     "@storybook/theming": "6.1.17",
     "@svgr/rollup": "5.5.0",
     "@testing-library/jest-dom": "5.11.9",
-    "@testing-library/react": "10.3.0",
-    "@testing-library/react-hooks": "3.3.0",
-    "@whitespace/storybook-addon-html": "4.2.0",
-    "babel-eslint": "10.1.0",
-    "babel-loader": "8.2.2",
+    "@testing-library/react": "11.2.5",
+    "@whitespace/storybook-addon-html": "^4.2.0",
     "babel-plugin-inline-react-svg": "1.1.2",
     "babel-polyfill": "6.26.0",
-    "compression": "1.7.4",
     "cross-env": "7.0.3",
     "eslint": "7.19.0",
-    "eslint-config-react-app": "5.2.1",
-    "eslint-plugin-flowtype": "5.1.3",
-    "eslint-plugin-import": "2.21.2",
-    "eslint-plugin-jsx-a11y": "6.3.1",
-    "eslint-plugin-react": "7.20.0",
-    "eslint-plugin-react-hooks": "4.0.4",
-    "express": "4.17.1",
-    "husky": "4.2.5",
-    "jest": "26.0.1",
-    "jest-junit": "11.0.0",
-    "jest-transform-css": "2.0.0",
-    "lint-staged": "10.2.11",
+    "eslint-config-standard": "16.0.2",
+    "eslint-config-standard-jsx": "10.0.0",
+    "eslint-config-standard-react": "11.0.1",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "4.3.1",
+    "eslint-plugin-react": "7.22.0",
+    "highlight.js": "10.6.0",
+    "jest": "26.6.3",
+    "jest-junit": "12.0.0",
+    "jest-transform-css": "2.1.0",
     "marked": "2.0.0",
     "node-sass": "4.14.1",
     "plop": "2.7.4",
-    "prettier": "2.0.5",
     "prop-types": "15.7.2",
-    "react-hooks-testing-library": "0.6.0",
-    "react-test-renderer": "16.13.1",
+    "react": "*",
+    "react-dom": "*",
+    "release": "6.3.0",
     "rimraf": "3.0.2",
-    "rollup": "2.18.0",
-    "rollup-plugin-auto-external": "2.0.0",
+    "rollup": "2.38.5",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-peer-deps-external": "2.2.4",
     "rollup-plugin-postcss": "3.1.2",
     "rollup-plugin-svg": "2.0.0",
-    "rollup-plugin-terser": "6.1.0",
+    "rollup-plugin-terser": "7.0.2",
     "sass-loader": "8.0.2",
-    "standard-version": "8.0.0",
-    "storybook-readme": "5.0.9",
     "svg-jest": "1.0.1"
   },
   "peerDependencies": {
-    "prop-types": ">=15.7.0",
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "prop-types": ">=15.7.2",
+    "react": "^16.14.0 || ^17.0.0",
+    "react-dom": "^16.14.0 || ^17.0.0"
   },
   "babel": {
     "plugins": [
@@ -114,12 +101,6 @@
       "@babel/preset-env",
       "@babel/preset-react"
     ]
-  },
-  "prettier": {
-    "jsxBracketSameLine": true,
-    "printWidth": 120,
-    "semi": false,
-    "singleQuote": true
   },
   "jest": {
     "rootDir": "src",
@@ -148,44 +129,27 @@
     "verbose": true
   },
   "eslintConfig": {
+    "parser": "@babel/eslint-parser",
     "extends": [
-      "react-app"
+      "standard",
+      "standard-jsx",
+      "standard-react"
     ],
+    "env": {
+      "jest": true
+    },
     "rules": {
       "no-console": 1,
       "react/default-props-match-prop-types": 1,
       "react/no-unused-prop-types": 1,
       "react/prop-types": 1,
       "react/sort-prop-types": 1
-    },
-    "settings": {
-      "react": {
-        "version": "latest"
-      }
     }
-  },
-  "lint-staged--Comments": {
-    "**/*.{js,json,css}": [
-      "prettier --write",
-      "git add"
-    ],
-    "src/**/*.js": [
-      "npm run lint",
-      "git add"
-    ]
   },
   "standard": {
     "env": [
       "jest"
     ]
-  },
-  "husky--Comments": {
-    "hooks": {
-      "post-checkout": "if [[ $HUSKY_GIT_PARAMS  =~ 1$ ]]; then npm install --no-package-lock; fi",
-      "post-merge": "npm install --no-package-lock",
-      "post-rebase": "npm install",
-      "pre-commit": "npm run test && lint-staged"
-    }
   },
   "engines": {
     "node": ">=12.0.0"

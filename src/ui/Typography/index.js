@@ -102,45 +102,45 @@ export function ErrorMessage ({ className, children, size, ...props }) {
 }
 
 Heading1.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 }
 
 Heading2.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 }
 
 Heading3.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 }
 
 Heading4.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 }
 
 Paragraph.propTypes = {
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  size: PropTypes.string,
-  children: PropTypes.node.isRequired
+  size: PropTypes.string
 }
 
 Link.propTypes = {
-  href: PropTypes.string,
-  onClick: PropTypes.func,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  noStyle: PropTypes.bool,
+  href: PropTypes.string,
   leftIcon: PropTypes.node,
+  noStyle: PropTypes.bool,
+  onClick: PropTypes.func,
   rightIcon: PropTypes.node,
-  size: PropTypes.string,
-  children: PropTypes.node.isRequired
+  size: PropTypes.string
 }
 
 SkipLink.propTypes = {
-  href: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  href: PropTypes.string
 }
 
 ErrorMessage.propTypes = {

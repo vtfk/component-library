@@ -6,7 +6,7 @@ import { BaseStyle } from '.'
 describe('BaseStyle', () => {
   test('renders without crashing', () => {
     const div = document.createElement('div')
-    ReactDOM.render(<BaseStyle />, div)
+    ReactDOM.render(<BaseStyle>Hey!</BaseStyle>, div)
     ReactDOM.unmountComponentAtNode(div)
   })
   test('returns children data', () => {

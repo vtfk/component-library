@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { RadioButton } from '.'

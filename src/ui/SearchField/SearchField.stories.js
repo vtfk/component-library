@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { SearchField } from '.'
@@ -12,7 +12,7 @@ export function Basic () {
     <SearchField
       placeholder='Dette er placeholderen'
       value=''
-      onSearch={() => { console.log('onSearch!') }}
+      onSearch={() => console.log('onSearch!')}
       rounded
     />
   )

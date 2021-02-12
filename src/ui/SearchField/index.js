@@ -44,6 +44,7 @@ export function SearchField ({ placeholder, value, rounded, onSearch, onChange, 
 
 SearchField.propTypes = {
   className: PropTypes.string,
+  onChange: PropTypes.func,
   onSearch: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,

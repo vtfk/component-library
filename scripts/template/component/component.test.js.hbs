@@ -1,0 +1,15 @@
+import React from 'react'
+import { render } from '@testing-library/react'
+
+import {{ pascalCase componentName }} from './{{ pascalCase componentName }}'
+
+describe('{{ pascalCase componentName }}', () => {
+  test('component renders without crashing', async () => {
+    render(<{{ pascalCase componentName }} />)
+  })
+
+  test('finds TODO: {{ pascalCase componentName }}', () => {
+    const { getByText } = render(<{{ pascalCase componentName }} text='TODO: {{ pascalCase componentName }}' />)
+    expect(getByText('TODO: {{ pascalCase componentName }}'))
+  })
+})
