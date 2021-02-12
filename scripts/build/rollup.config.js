@@ -1,11 +1,11 @@
 import commonjs from '@rollup/plugin-commonjs'
 import fs from 'fs'
-import autoExternal from 'rollup-plugin-auto-external'
 import babel from 'rollup-plugin-babel'
 import postcss from 'rollup-plugin-postcss'
 import url from 'rollup-plugin-svg'
 import svgr from '@svgr/rollup'
 import rimraf from 'rimraf'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
 import pkg from '../../package.json'
@@ -40,7 +40,7 @@ export default {
         }
       }
     }),
-    autoExternal(),
+    nodeResolve(),
     babel({
       exclude: '/node_modules/**'
     }),
