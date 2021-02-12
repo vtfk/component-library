@@ -17,6 +17,10 @@
   margin-right: 5px !important;
 }
 
+.css-18k3y9v:focus {
+  border-bottom-color: #000 i !important;
+}
+
 /* Vannfarget "Show info"-knap */
 button.info__show-button {
   font-family: 'Nunito Sans', Lato, 'Trebuchet MS', sans-serif;
