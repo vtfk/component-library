@@ -43,42 +43,86 @@ export function Basic () {
   )
 }
 
+const divStyle = { display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap' }
+const buttonStyle = { margin: '5px' }
+
 export function Primary () {
   return (
-    <Button type='primary'>
-      {text('Button text', 'Dette er knappeteksten')}
-    </Button>
+    <div style={divStyle}>
+      <Button type='primary' size='small' style={buttonStyle}>
+        Liten knapp
+      </Button>
+      <Button type='primary' style={buttonStyle}>
+        Medium knapp
+      </Button>
+      <Button type='primary' size='large' style={buttonStyle}>
+        Stor knapp
+      </Button>
+    </div>
   )
 }
 
 export function Secondary () {
   return (
-    <Button type='secondary'>
-      {text('Button text', 'Dette er knappeteksten')}
-    </Button>
+    <div style={divStyle}>
+      <Button type='secondary' size='small' style={buttonStyle}>
+        Liten knapp
+      </Button>
+      <Button type='secondary' style={buttonStyle}>
+        Medium knapp
+      </Button>
+      <Button type='secondary' size='large' style={buttonStyle}>
+        Stor knapp
+      </Button>
+    </div>
   )
 }
 
 export function Secondary2 () {
   return (
-    <Button type='secondary2'>
-      {text('Button text', 'Dette er knappeteksten')}
-    </Button>
+    <div style={divStyle}>
+      <Button type='secondary2' size='small' style={buttonStyle}>
+        Liten knapp
+      </Button>
+      <Button type='secondary2' style={buttonStyle}>
+        Medium knapp
+      </Button>
+      <Button type='secondary2' size='large' style={buttonStyle}>
+        Stor knapp
+      </Button>
+    </div>
   )
 }
 
 export function Disabled () {
   return (
-    <Button disabled>
-      {text('Button text', 'Dette er knappeteksten')}
-    </Button>
+    <div style={divStyle}>
+      <Button disabled size='small' style={buttonStyle}>
+        Liten knapp
+      </Button>
+      <Button disabled style={buttonStyle}>
+        Medium knapp
+      </Button>
+      <Button disabled size='large' style={buttonStyle}>
+        Stor knapp
+      </Button>
+    </div>
   )
 }
 
 export function ShowSpinner () {
   return (
-    <Button spinner>
-      {text('Button text', 'Dette er knappeteksten')}
-    </Button>
+    <div style={divStyle}>
+      <Button spinner size='small' style={buttonStyle}>
+        Liten knapp
+      </Button>
+      <Button spinner style={buttonStyle}>
+        Medium knapp
+      </Button>
+      <Button spinner size='large' style={buttonStyle}>
+        Stor knapp
+      </Button>
+    </div>
+
   )
 }
