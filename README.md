@@ -29,7 +29,7 @@ yarn add @vtfk/components
 
 ### BaseStyle
 
-For at stilsettet skal bli korrekt og at alt skal fungere optimalt, er det anbefalt å pakke alle siden i applikasjonen inn i [`BaseStyle`-komponenten](/?path=/story/komponenter-basestyle--basic).
+For at stilsettet skal bli korrekt og at alt skal fungere optimalt, er det anbefalt å pakke alle sidene i applikasjonen inn i [`BaseStyle`-komponenten](/?path=/story/komponenter-basestyle--basic).
 
 I en React-applikasjon kan dette gjøres i index.js som dette:
 
