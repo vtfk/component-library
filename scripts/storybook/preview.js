@@ -1,6 +1,5 @@
 import React from 'react'
 import { addDecorator } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { addParameters } from '@storybook/client-api'
 import { BaseStyle } from '../../src'
 
@@ -17,5 +16,4 @@ addParameters({
   }
 })
 
-addDecorator(withInfo)
 addDecorator(Story => (<BaseStyle><div id='example'><Story /></div></BaseStyle>))
