@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { nanoid } from 'nanoid/non-secure'
 
 import './styles.scss'
-import { nanoid } from 'nanoid'
 
 export function TextField ({ type, className, placeholder, label, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, ...props }) {
   const [focusState, setFocusState] = useState(false)
-  const [labelId] = useState(id || nanoid())
+  const [labelId] = useState(id || `id${nanoid()}`)
 
   const handleFocus = (event) => {
     setFocusState(true)

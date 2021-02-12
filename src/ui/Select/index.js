@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { nanoid } from 'nanoid/non-secure'
 
 import { Icon } from '../Icon'
 import { RadioButton } from '../RadioButton'
 import { Checkbox } from '../Checkbox'
 
 import './styles.scss'
-import { nanoid } from 'nanoid'
 
 export function Select ({ placeholder, label, items, selectedItem, id, onChange, isOpen, closeOnSelect, error, ...props }) {
   const [open, setOpen] = useState(isOpen || false)
-  const [labelId] = useState(id || nanoid())
+  const [labelId] = useState(id || `id${nanoid()}`)
 
   function toggleSelect () {
     setOpen(prevSelectState => !prevSelectState)

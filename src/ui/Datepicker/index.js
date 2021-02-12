@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid/non-secure'
 
 import DatePicker, { registerLocale } from 'react-datepicker'
 import nb from 'date-fns/locale/nb'
@@ -11,7 +11,7 @@ import './styles.scss'
 
 export function Datepicker ({ placeholder, label, selected, id, isOpen, error, ...props }) {
   const [open, setOpen] = useState(isOpen || false)
-  const [labelId] = useState(id || nanoid())
+  const [labelId] = useState(id || `id${nanoid()}`)
   registerLocale('nb', nb)
 
   return (
