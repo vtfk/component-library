@@ -12,7 +12,7 @@ addParameters({
     prettier: {
       tabWidth: 2
     },
-    root: '#example > div'
+    root: 'div#example'
   }
 })
 
