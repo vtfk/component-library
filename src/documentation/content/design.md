@@ -1,6 +1,6 @@
 # Designsystem
 
-VTFSs designsystem består av et sett regler som hjelper med standardisering av de digitale løsningene.
+VTFKs designsystem består av et sett regler som hjelper med standardisering av de digitale løsningene.
 
 ## Avstander
 
