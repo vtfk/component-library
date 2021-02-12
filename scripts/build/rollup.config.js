@@ -40,12 +40,15 @@ export default {
         }
       }
     }),
-    nodeResolve(),
     babel({
       exclude: '/node_modules/**'
     }),
     commonjs(),
     postcss(),
+    nodeResolve({
+      browser: true,
+      extensions: ['.css', '.mjs', '.js', '.json', '.node']
+    }),
     terser()
   ],
   external: ['react', 'react-dom', 'prop-types']

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid'
 
 import DatePicker, { registerLocale } from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
 import nb from 'date-fns/locale/nb'
 
-import iconCalendar from './icon-calendar.svg'
+import { ReactComponent as IconCalendar } from './icon-calendar.svg'
 
+import 'react-datepicker/dist/react-datepicker.css'
 import './styles.scss'
 
 export function Datepicker ({ placeholder, label, selected, id, isOpen, error, ...props }) {
@@ -38,7 +38,7 @@ export function Datepicker ({ placeholder, label, selected, id, isOpen, error, .
         />
 
         <div className='icon' onClick={() => setOpen(!open)}>
-          <img src={iconCalendar} alt='' />
+          <IconCalendar alt='' />
         </div>
       </div>
 
@@ -53,6 +53,7 @@ export function Datepicker ({ placeholder, label, selected, id, isOpen, error, .
 }
 
 Datepicker.propTypes = {
+  error: PropTypes.string,
   id: PropTypes.string,
   isOpen: PropTypes.bool,
   label: PropTypes.string,

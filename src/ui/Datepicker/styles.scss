@@ -173,8 +173,9 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-
-    img {
+    cursor: pointer;
+    
+    svg {
       width: 18px;
       height: 18px;
       display: block;
