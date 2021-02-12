@@ -60,7 +60,7 @@
     "@svgr/rollup": "5.5.0",
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/react": "10.3.0",
-    "@testing-library/react-hooks": "3.3.0",
+    "@testing-library/react-hooks": "5.0.3",
     "@whitespace/storybook-addon-html": "4.2.0",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.2.2",
