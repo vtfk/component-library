@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { createRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid/non-secure'
 
 import { Icon } from '../Icon'
 import { RadioButton } from '../RadioButton'
 import { Checkbox } from '../Checkbox'
+import { ErrorMessage } from '../Typography'
 
-import './styles.scss'
+// import './styles.scss'
+import './styles2.scss'
 
 export function Select ({ placeholder, label, items, selectedItem, id, onChange, isOpen, closeOnSelect, error, ...props }) {
   const [open, setOpen] = useState(isOpen || false)
@@ -191,6 +193,69 @@ export function SelectMultiple ({ placeholder, label, items, selectedItems, isOp
             </label>
         }
       </div>
+    </div>
+  )
+}
+
+export function NewSelect ({ placeholder, label, items, selectedItem, id, onChange, isOpen, closeOnSelect, error, className, ...props }) {
+  const [open, setOpen] = useState(isOpen || false)
+  const [labelId] = useState(id || `id${nanoid()}`)
+  const buttonRef = createRef()
+
+  function toggleSelect () {
+    setOpen(prevSelectState => !prevSelectState)
+  }
+
+  const handleMouseUp = (item) => {
+    onChange(item)
+    if (closeOnSelect) closeSelect()
+  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') closeSelect()
+  }
+
+  const closeSelect = () => {
+    setOpen(false)
+    if (buttonRef.current) buttonRef.current.focus()
+  }
+
+  return (
+    <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${selectedItem ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''}`} {...props}>
+      <label htmlFor={labelId} title={placeholder}>
+        {placeholder}
+      </label>
+      <button id={labelId} onClick={() => { toggleSelect() }} aria-haspopup='listbox' aria-expanded={open} aria-controls={`${labelId}-container`} ref={buttonRef}>
+        <div>{open || !selectedItem ? placeholder : selectedItem.label}</div>
+        <Icon name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
+      </button>
+      <fieldset id={`${labelId}-container`}>
+        {
+          items.map(function (item, index) {
+            const checked = selectedItem && selectedItem.value === item.value
+            return (
+              <RadioButton
+                key={index}
+                onChange={() => onChange(item)}
+                onMouseUp={() => handleMouseUp(item)}
+                onKeyPress={handleKeyPress}
+                name={`select-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
+                value={item.value}
+                label={item.label}
+                checked={checked}
+                aria-selected={checked}
+              />
+            )
+          })
+        }
+      </fieldset>
+
+      {
+        error &&
+          <ErrorMessage htmlFor={labelId}>
+            {error.message || error}
+          </ErrorMessage>
+      }
     </div>
   )
 }
