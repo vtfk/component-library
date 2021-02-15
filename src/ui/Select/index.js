@@ -53,20 +53,14 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
 
 export const Select = ({ placeholder, label, items, selectedItem, id, onChange, isOpen, closeOnSelect, ...props }) => {
   const [open, setOpen] = useState(isOpen || false)
-  const buttonRef = createRef()
 
   const handleMouseUp = (item) => {
     onChange(item)
-    if (closeOnSelect) closeSelect()
+    if (closeOnSelect) setOpen(false)
   }
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') closeSelect()
-  }
-
-  const closeSelect = () => {
-    setOpen(false)
-    if (buttonRef.current) buttonRef.current.focus()
+    if (event.key === 'Enter') setOpen(false)
   }
 
   return (
@@ -80,7 +74,7 @@ export const Select = ({ placeholder, label, items, selectedItem, id, onChange, 
       {...props}
     >
       {
-        items.map(function (item, index) {
+        items.map((item, index) => {
           const checked = selectedItem && selectedItem.value === item.value
           return (
             <RadioButton
@@ -126,21 +120,19 @@ export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpe
       {...props}
     >
       {
-        items.map(function (item, index) {
-          return (
-            <Checkbox
-              key={index}
-              onChange={() => { onChange(item) }}
-              onKeyPress={(e) => handleKeyPress(e, item)}
-              name={`select-multiple-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
-              value={item.value}
-              label={item.label}
-              checked={isSelected(item)}
-              aria-selected={isSelected(item)}
-              role='option'
-            />
-          )
-        })
+        items.map((item, index) => (
+          <Checkbox
+            key={index}
+            onChange={() => { onChange(item) }}
+            onKeyPress={(e) => handleKeyPress(e, item)}
+            name={`select-multiple-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
+            value={item.value}
+            label={item.label}
+            checked={isSelected(item)}
+            aria-selected={isSelected(item)}
+            role='option'
+          />
+        ))
       }
     </SelectDropdown>
   )
