@@ -75,11 +75,32 @@ export function New () {
   const items = [
     { value: '1', label: 'Item 1' },
     { value: '2', label: 'Item 2' },
-    { value: '3', label: 'Item 3' }
+    { value: '3', label: 'Item 3' },
+    { value: '4', label: 'Item 3' },
+    { value: '5', label: 'Item 3' },
+    { value: '6', label: 'Item 3' },
+    { value: '7', label: 'Item 3' },
+    { value: '8', label: 'Item 3' },
+    { value: '9', label: 'Item 3' },
+    { value: '10', label: 'Item 3' },
+    { value: '11', label: 'Item 3' },
+    { value: '12', label: 'Item 3' },
+    { value: '13', label: 'Item 3' },
+    { value: '14', label: 'Item 3' },
+    { value: '15', label: 'Item 3' },
+    { value: '16', label: 'Item 3' },
+    { value: '17', label: 'Item 3' },
+    { value: '18', label: 'Item 3' },
+    { value: '19', label: 'Item 3' },
+    { value: '20', label: 'Item 3' },
+    { value: '21', label: 'Item 3' },
+    { value: '22', label: 'Item 3' },
+    { value: '23', label: 'Item 3' },
+    { value: '24', label: 'Item 3' }
   ]
 
   return (
-    <div style={{ width: '400px', margin: '300px' }}>
+    <div style={{ width: '300px' }}>
       <NewSelect
         id='id-3'
         placeholder='Dette er placeholder'
