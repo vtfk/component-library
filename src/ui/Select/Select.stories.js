@@ -174,7 +174,7 @@ export function NewOld () {
           />
         </div>
         <div style={{ width: '350px', display: 'inline-block', verticalAlign: 'top', marginRight: '50px' }}>
-          <Heading3>Oppdatert select</Heading3>
+          <Heading3>Oppdatert select multiple</Heading3>
           <NewSelectMultiple
             id='id-5'
             placeholder='Dette er placeholder'
