@@ -18,12 +18,12 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
     if (!open && openedRef.current && buttonRef.current) buttonRef.current.focus()
   }, [open])
 
-  const hasSelected = Array.isArray(selectedItem) ? selectedItem && selectedItem.length > 0 : selectedItem
+  const hasSelected = selectedItem && Array.isArray(selectedItem) ? selectedItem && selectedItem.length > 0 : !!selectedItem
 
   return (
-    <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${hasSelected ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''}`} {...props}>
-      <label htmlFor={labelId} title={placeholder} className='label'>
-        {placeholder}
+    <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${hasSelected ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''}`} data-testid='container' {...props}>
+      <label htmlFor={labelId} title={label || placeholder} className='label'>
+        {label || placeholder}
       </label>
       <button id={labelId} onClick={() => { setOpen(!open) }} aria-haspopup='listbox' aria-expanded={open} aria-controls={`${labelId}-container`} ref={buttonRef}>
         <div>
@@ -51,7 +51,7 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
   )
 }
 
-export const Select = ({ placeholder, label, items, selectedItem, id, onChange, isOpen, closeOnSelect, error, ...props }) => {
+export const Select = ({ placeholder, label, items, selectedItem, id, onChange, isOpen, closeOnSelect, ...props }) => {
   const [open, setOpen] = useState(isOpen || false)
   const buttonRef = createRef()
 
@@ -77,7 +77,6 @@ export const Select = ({ placeholder, label, items, selectedItem, id, onChange, 
       open={open}
       setOpen={setOpen}
       selectedItem={selectedItem}
-      error={error}
       {...props}
     >
       {
@@ -102,7 +101,7 @@ export const Select = ({ placeholder, label, items, selectedItem, id, onChange, 
   )
 }
 
-export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpen, id, onChange, error, ...props }) => {
+export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpen, id, onChange, ...props }) => {
   const [open, setOpen] = useState(isOpen || false)
 
   function isSelected (item) {
@@ -124,7 +123,6 @@ export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpe
       open={open}
       setOpen={setOpen}
       selectedItem={selectedItems}
-      error={error}
       {...props}
     >
       {
@@ -152,7 +150,10 @@ export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpe
 SelectDropdown.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
-  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
   id: PropTypes.string,
   label: PropTypes.string,
   open: PropTypes.bool.isRequired,
