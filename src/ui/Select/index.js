@@ -11,9 +11,11 @@ import './Select.scss'
 const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, error, className, children, ...props }) => {
   const [labelId] = useState(id || `id${nanoid()}`)
   const buttonRef = createRef()
+  const openedRef = createRef(false)
 
   useEffect(() => {
-    if (!open && buttonRef.current) buttonRef.current.focus()
+    if (open) openedRef.current = true
+    if (!open && openedRef.current && buttonRef.current) buttonRef.current.focus()
   }, [open])
 
   const hasSelected = Array.isArray(selectedItem) ? selectedItem && selectedItem.length > 0 : selectedItem
