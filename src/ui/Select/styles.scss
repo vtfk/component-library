@@ -1,12 +1,12 @@
 @import "../Tokens/tokens.scss";
 @import "../../common/scss/helpers";
 
-.select {
+.select2 {
   position: relative;
   padding-bottom: 14px;
   padding-top: $baseUnit * 2;
 
-  .select-label {
+  .select2-label {
     font-size: 14px;
     font-weight: bold;
     margin-bottom: $baseUnit;
@@ -17,7 +17,7 @@
     left: 0;
   }
 
-  .select-trigger {
+  .select2-trigger {
     border: 0;
     outline: 0;
     font: inherit;
@@ -55,7 +55,7 @@
     }
 
 
-    .select-trigger-text {
+    .select2-trigger-text {
       &:not([class*="selected"]) {
         color: rgba(#1D1C28, 0.58);
         font-style: italic;
@@ -66,20 +66,20 @@
       padding-right: $baseUnit * 6;
     }
 
-    .select-trigger-icon {
+    .select2-trigger-icon {
       polygon {
         fill: #979797;
       }
     }
 
-    &:focus > .select-trigger-icon {
+    &:focus > .select2-trigger-icon {
       polygon {
         fill: #444;
       }
     }
   }
 
-  .select-items {
+  .select2-items {
     position: relative;
     z-index: 2;
     border: 0;
@@ -101,18 +101,18 @@
       border: 1px solid #C6C6C6;
     }
 
-    .select-item {
+    .select2-item {
       margin-bottom: $baseUnit * 1;
     }
   }
 
   &.is-open {
-    .select-trigger-text {
+    .select2-trigger-text {
       color: inherit !important;
       font-style: inherit !important;
     }
 
-    .select-trigger {
+    .select2-trigger {
       &:after {
         display: none;
       }
@@ -132,20 +132,20 @@
     }
 
     // Rød firkant rundt svevende boks
-    .select-items:before {
+    .select2-items:before {
       border: 1px solid $red !important;
       box-shadow: 0 20px 12px 0 rgba($red, .05);
     }
 
     // Rødt ikon
-    .select-trigger-icon {
+    .select2-trigger-icon {
       polygon {
         fill: $red !important;
       }
     }
 
     // Rød "placeholder" når det ikke er noe valgt
-    .select-trigger-text {
+    .select2-trigger-text {
       &:not([class*="selected"]) {
         color: $red;
       }

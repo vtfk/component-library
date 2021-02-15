@@ -4,8 +4,7 @@
   position: relative;
   padding-bottom: $baseUnit * 1;
   padding-top: $baseUnit * 1;
-  margin-top: ($baseUnit * 1);
-  transition: all .3s ease 0s;
+  transition: all .3s ease;
 
   // Pop-out box when opened
   &.is-open {    
@@ -14,6 +13,7 @@
     right: 0;
     bottom: 0;
     margin-bottom: $baseUnit * 6;
+    z-index: 50;
 
     &::before {
       content: "";
@@ -33,17 +33,16 @@
   }
 
   // Skjul label om det ikke er valgt noe, eller selecten er åpen
-  &.not-selected > label,
-  &.is-open > label {
+  &.not-selected > .label,
+  &.is-open > .label {
     display: none;
   }
 
-  & > label {
+  & > .label {
     position: absolute;
     width: 100%;
     top: -$baseUnit;
     left: 0;
-    z-index: 0;
     font-size: 14px;
     font-weight: bold;
     color: rgba(#1D1C28, 0.4);
@@ -62,7 +61,6 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    z-index: 3;
     border: 0;
     outline: 0;
     padding: 0;
@@ -74,6 +72,7 @@
     font-size: 18px;
     text-align: left;
     cursor: pointer;
+    padding-top: $baseUnit * 2;
 
     // Gjør så teksten i knappen ikke går inni ikonet
     & > div:first-child {
@@ -106,12 +105,12 @@
     z-index: 2;
     border: 0;
     padding: 0;
+    margin: 0;
     margin-top: $baseUnit * 3;
-    transition: height .3s;
 
     & > * {
       margin-bottom: $baseUnit * 1;  
-      display: list-item;
+      display: block;
       list-style: none;
     }
   }
@@ -130,18 +129,27 @@
     }
   }
 
-  &.is-open > p.error {
+  // Error text
+  .error-message {
+    position: inherit;
+    display: inline-block;
+    color: $red;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  &.is-open > .error-message {
     margin-top: $baseUnit * 2;
   }
 
-  &.is-closed > p.error {
-    padding-top: $baseUnit/2;
+  &.is-closed > .error-message {
+    margin-top: $baseUnit;
   }
 }
 
 @keyframes popout {
   0% {
-    box-shadow: 0 30px 13px 0 #fff;
+    box-shadow: none;
   }
   100% {
     box-shadow: 0 20px 13px 0 rgba(0, 0, 0, .05);
