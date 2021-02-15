@@ -128,18 +128,17 @@ export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpe
       {
         items.map(function (item, index) {
           return (
-            <div className='select2-item' key={index}>
-              <Checkbox
-                onChange={() => { onChange(item) }}
-                onKeyPress={(e) => handleKeyPress(e, item)}
-                name={`select-multiple-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
-                value={item.value}
-                label={item.label}
-                checked={isSelected(item)}
-                aria-selected={isSelected(item)}
-                role='option'
-              />
-            </div>
+            <Checkbox
+              key={index}
+              onChange={() => { onChange(item) }}
+              onKeyPress={(e) => handleKeyPress(e, item)}
+              name={`select-multiple-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
+              value={item.value}
+              label={item.label}
+              checked={isSelected(item)}
+              aria-selected={isSelected(item)}
+              role='option'
+            />
           )
         })
       }
