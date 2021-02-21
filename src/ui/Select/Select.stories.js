@@ -14,9 +14,9 @@ export function Basic () {
   const [selectedItem, setSelectedItem] = useState(null)
 
   const items = [
-    { value: '1', label: 'Item 1' },
-    { value: '2', label: 'Item 2' },
-    { value: '3', label: 'Item 3' }
+    { value: '1', label: 'Årsak 1' },
+    { value: '2', label: 'Årsak 2' },
+    { value: '3', label: 'Årsak 3' }
   ]
 
   return (
@@ -37,9 +37,9 @@ export function Multiple () {
   const [selectedItems, setSelectedItems] = useState([])
 
   const items = [
-    { value: '1', label: 'Item 1' },
-    { value: '2', label: 'Item 2' },
-    { value: '3', label: 'Item 3' }
+    { value: '1', label: 'Årsak 1' },
+    { value: '2', label: 'Årsak 2' },
+    { value: '3', label: 'Årsak 3' }
   ]
 
   function handleMultiChange (item) {
