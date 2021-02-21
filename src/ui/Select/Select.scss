@@ -74,13 +74,14 @@
     cursor: pointer;
     padding-top: $baseUnit * 2;
 
+    
     // Gjør så teksten i knappen ikke går inni ikonet
-    & > div:first-child {
-      padding-right: $baseUnit * 3;
+    & > span.icon {
+      margin-left: $baseUnit * 2;
     }
   }
-
-  &.is-closed.not-selected > button > div:first-child {
+  
+  &.is-closed.not-selected > button {
     color: rgba(#1D1C28, 0.58);
     font-style: italic;
   }
