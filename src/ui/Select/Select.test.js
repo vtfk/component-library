@@ -76,7 +76,7 @@ describe('Select', () => {
     render(<SelectComponent />)
     expect(screen.getByTestId('container')).toHaveClass('not-selected')
 
-    userEvent.click(screen.getAllByRole('option')[0]) // select first item
+    userEvent.click(screen.getAllByRole('radio')[0]) // select first item
     expect(screen.getByTestId('container')).toHaveClass('has-selected')
   })
 
@@ -86,12 +86,12 @@ describe('Select', () => {
     expect(mockChange).toBeCalledTimes(0)
 
     // select first item
-    userEvent.click(screen.getAllByRole('option')[1])
+    userEvent.click(screen.getAllByRole('radio')[0])
     expect(mockChange).toBeCalledTimes(2) // onClick triggers onChange
     expect(mockChange.mock.calls[1][0]).toBe(items[0])
 
     // select second item
-    userEvent.click(screen.getAllByRole('option')[3])
+    userEvent.click(screen.getAllByRole('radio')[1])
     expect(mockChange).toBeCalledTimes(4)
     expect(mockChange.mock.calls[3][0]).toBe(items[1])
   })
@@ -123,7 +123,7 @@ describe('SelectMultiple', () => {
     render(<SelectMultipleComponent />)
     expect(screen.getByTestId('container')).toHaveClass('not-selected')
 
-    userEvent.click(screen.getAllByRole('option')[1]) // select first item
+    userEvent.click(screen.getAllByRole('checkbox')[1]) // select first item
     expect(screen.getByTestId('container')).toHaveClass('has-selected')
   })
 
@@ -133,17 +133,17 @@ describe('SelectMultiple', () => {
     expect(mockChange).toBeCalledTimes(0)
 
     // select first item
-    userEvent.click(screen.getAllByRole('option')[1])
+    userEvent.click(screen.getAllByRole('checkbox')[0])
     expect(mockChange).toBeCalledTimes(1)
     expect(mockChange.mock.calls[0][0]).toStrictEqual([items[0]])
 
     // select second item
-    userEvent.click(screen.getAllByRole('option')[3])
+    userEvent.click(screen.getAllByRole('checkbox')[1])
     expect(mockChange).toBeCalledTimes(2)
     expect(mockChange.mock.calls[1][0]).toStrictEqual([items[0], items[1]])
 
     // unselect first item
-    userEvent.click(screen.getAllByRole('option')[1])
+    userEvent.click(screen.getAllByRole('checkbox')[0])
     expect(mockChange).toBeCalledTimes(3)
     expect(mockChange.mock.calls[2][0]).toStrictEqual([items[1]])
   })
