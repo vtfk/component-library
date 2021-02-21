@@ -32,13 +32,22 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
   }
 
   const hasSelected = selectedItem && Array.isArray(selectedItem) ? selectedItem && selectedItem.length > 0 : !!selectedItem
+  const selectedLabel = hasSelected ? (Array.isArray(selectedItem) ? selectedItem.map(item => item.label || item).join(', ') : selectedItem.label || selectedItem) : ''
 
   return (
     <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${hasSelected ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''}`} data-testid='container' onKeyDown={handleKeydown} {...props}>
       <label htmlFor={labelId} title={label || placeholder} className='label'>
         {label || placeholder}
       </label>
-      <button id={labelId} onClick={() => { setOpen(!open) }} aria-haspopup='listbox' aria-expanded={open} aria-controls={`${labelId}-container`} ref={buttonRef}>
+      <button
+        id={labelId}
+        aria-haspopup='listbox'
+        aria-expanded={open}
+        aria-controls={`${labelId}-container`}
+        aria-label={`${hasSelected && !open ? `${(label || placeholder)}: ${selectedLabel}` : placeholder}`}
+        onClick={() => { setOpen(!open) }}
+        ref={buttonRef}
+      >
         <div>
           {
             open || !hasSelected
@@ -50,7 +59,7 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
         </div>
         <Icon name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
       </button>
-      <fieldset id={`${labelId}-container`} ref={fieldsetRef} role='listbox' aria-multiselectable={!!multiselect}>
+      <fieldset id={`${labelId}-container`} role='listbox' aria-multiselectable={!!multiselect} ref={fieldsetRef}>
         {children}
       </fieldset>
 
