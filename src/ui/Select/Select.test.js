@@ -76,7 +76,7 @@ describe('Select', () => {
     render(<SelectComponent />)
     expect(screen.getByTestId('container')).toHaveClass('not-selected')
 
-    userEvent.click(screen.getAllByRole('radio')[0]) // select first item
+    userEvent.click(screen.getAllByRole('option')[0]) // select first item
     expect(screen.getByTestId('container')).toHaveClass('has-selected')
   })
 
@@ -86,12 +86,12 @@ describe('Select', () => {
     expect(mockChange).toBeCalledTimes(0)
 
     // select first item
-    userEvent.click(screen.getAllByRole('radio')[0])
+    userEvent.click(screen.getAllByRole('option')[1])
     expect(mockChange).toBeCalledTimes(2) // onClick triggers onChange
     expect(mockChange.mock.calls[1][0]).toBe(items[0])
 
     // select second item
-    userEvent.click(screen.getAllByRole('radio')[1])
+    userEvent.click(screen.getAllByRole('option')[3])
     expect(mockChange).toBeCalledTimes(4)
     expect(mockChange.mock.calls[3][0]).toBe(items[1])
   })
