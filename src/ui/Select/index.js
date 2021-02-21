@@ -8,7 +8,7 @@ import { Checkbox } from '../Checkbox'
 
 import './Select.scss'
 
-const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, error, className, children, ...props }) => {
+const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, error, multiselect, className, children, ...props }) => {
   const [labelId] = useState(id || `id${nanoid()}`)
   const buttonRef = useRef()
   const fieldsetRef = useRef()
@@ -45,7 +45,7 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
         </div>
         <Icon name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
       </button>
-      <fieldset id={`${labelId}-container`} ref={fieldsetRef}>
+      <fieldset id={`${labelId}-container`} ref={fieldsetRef} role='listbox' aria-multiselectable={!!multiselect}>
         {children}
       </fieldset>
 
@@ -95,6 +95,7 @@ export const Select = ({ placeholder, label, items, selectedItem, id, onChange, 
               label={item.label}
               checked={checked}
               aria-selected={checked}
+              role='option'
             />
           )
         })
@@ -125,6 +126,7 @@ export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpe
       open={open}
       setOpen={setOpen}
       selectedItem={selectedItems}
+      multiselect
       {...props}
     >
       {
@@ -155,6 +157,7 @@ SelectDropdown.propTypes = {
   ]),
   id: PropTypes.string,
   label: PropTypes.string,
+  multiselect: PropTypes.bool,
   open: PropTypes.bool.isRequired,
   placeholder: PropTypes.string,
   selectedItem: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
