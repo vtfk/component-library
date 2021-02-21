@@ -54,7 +54,7 @@ export function Multiple () {
 
   return (
     <SelectMultiple
-      placeholder={text('Placeholder', 'Velg en eller flere årsaker for varselet')}
+      placeholder={text('Placeholder', 'Velg én eller flere årsaker for varselet')}
       label={text('Label', 'Valgte årsaker for varselet')}
       isOpen={boolean('Initially open', false)}
       items={object('Items', items)}
