@@ -26,10 +26,14 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
     if (!open && openedRef.current && buttonRef.current) buttonRef.current.focus()
   }, [open])
 
+  const handleKeydown = event => {
+    if (event.key === 'Escape') setOpen(false)
+  }
+
   const hasSelected = selectedItem && Array.isArray(selectedItem) ? selectedItem && selectedItem.length > 0 : !!selectedItem
 
   return (
-    <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${hasSelected ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''}`} data-testid='container' {...props}>
+    <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${hasSelected ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''}`} data-testid='container' onKeyDown={handleKeydown} {...props}>
       <label htmlFor={labelId} title={label || placeholder} className='label'>
         {label || placeholder}
       </label>
