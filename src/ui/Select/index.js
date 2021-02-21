@@ -10,17 +10,18 @@ import './Select.scss'
 
 const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, error, multiselect, className, children, ...props }) => {
   const [labelId] = useState(id || `id${nanoid()}`)
-  const buttonRef = useRef()
   const fieldsetRef = useRef()
+  const buttonRef = useRef()
   const openedRef = useRef(false)
+  const initiallyOpenedRef = useRef(open || false)
 
   useEffect(() => {
     if (open) {
+      // Focus first input element in fieldset on opening, but not on first open when select was initially open
+      if (fieldsetRef.current && (!initiallyOpenedRef.current || openedRef.current)) fieldsetRef.current.querySelector('input').focus()
+
       // Register the dropdown as opened, so we can focus the button on actuall close
       openedRef.current = true
-
-      // Focus first input element in fieldset on opening
-      if (fieldsetRef.current) fieldsetRef.current.querySelector('input').focus()
     }
 
     if (!open && openedRef.current && buttonRef.current) buttonRef.current.focus()
