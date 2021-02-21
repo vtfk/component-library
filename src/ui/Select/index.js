@@ -11,11 +11,18 @@ import './Select.scss'
 const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, error, className, children, ...props }) => {
   const [labelId] = useState(id || `id${nanoid()}`)
   const buttonRef = useRef()
+  const fieldsetRef = useRef()
   const openedRef = useRef(false)
 
   useEffect(() => {
-    // Register the dropdown as opened, so we can focus the button on actuall close
-    if (open) openedRef.current = true
+    if (open) {
+      // Register the dropdown as opened, so we can focus the button on actuall close
+      openedRef.current = true
+
+      // Focus first input element in fieldset on opening
+      if (fieldsetRef.current) fieldsetRef.current.querySelector('input').focus()
+    }
+
     if (!open && openedRef.current && buttonRef.current) buttonRef.current.focus()
   }, [open])
 
@@ -38,7 +45,7 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
         </div>
         <Icon name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
       </button>
-      <fieldset id={`${labelId}-container`}>
+      <fieldset id={`${labelId}-container`} ref={fieldsetRef}>
         {children}
       </fieldset>
 
