@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid/non-secure'
 
@@ -10,10 +10,11 @@ import './Select.scss'
 
 const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, error, className, children, ...props }) => {
   const [labelId] = useState(id || `id${nanoid()}`)
-  const buttonRef = createRef()
-  const openedRef = createRef(false)
+  const buttonRef = useRef()
+  const openedRef = useRef(false)
 
   useEffect(() => {
+    // Register the dropdown as opened, so we can focus the button on actuall close
     if (open) openedRef.current = true
     if (!open && openedRef.current && buttonRef.current) buttonRef.current.focus()
   }, [open])
