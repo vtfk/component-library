@@ -109,7 +109,7 @@
     margin-top: $baseUnit * 3;
 
     max-height: unquote("min(65vh, 420px)");
-    overflow: scroll;
+    overflow-x: scroll;
 
     & > * {
       margin-bottom: $baseUnit * 1;  
