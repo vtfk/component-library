@@ -100,7 +100,6 @@ export const Select = ({ placeholder, label, items, selectedItem, id, onChange, 
               label={item.label}
               checked={checked}
               aria-selected={checked}
-              role='option'
             />
           )
         })
@@ -145,7 +144,6 @@ export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpe
             label={item.label}
             checked={isSelected(item)}
             aria-selected={isSelected(item)}
-            role='option'
           />
         ))
       }
