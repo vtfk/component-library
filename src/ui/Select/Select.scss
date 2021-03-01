@@ -2,8 +2,6 @@
 
 .select {
   position: relative;
-  padding-bottom: $baseUnit * 1;
-  padding-top: $baseUnit * 1;
   transition: all .3s ease;
 
   // Pop-out box when opened
@@ -12,16 +10,16 @@
     left: 0;
     right: 0;
     bottom: 0;
-    margin-bottom: $baseUnit * 6;
     z-index: 50;
+    margin-bottom: $baseUnit * 6 !important;
 
     &::before {
       content: "";
       position: absolute;
-      top: -($baseUnit * 1);
+      top: -($baseUnit * 2);
       left: -($baseUnit * 3);
       right: -($baseUnit * 3);
-      bottom: -($baseUnit * 2);
+      bottom: -($baseUnit * 3);
       background: #fff;
       border: 1px solid #C6C6C6;  
       animation: popout .2s forwards;
@@ -88,7 +86,8 @@
 
   // Legg til understrek på knappen når selecten er lukket
   &.is-closed > button {
-    padding-bottom: $baseUnit * 1;
+    padding-top: $baseUnit * 2;
+    padding-bottom: 14px;
     border-bottom: 1px solid #979797;
 
     &:focus {
