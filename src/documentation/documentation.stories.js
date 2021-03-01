@@ -22,8 +22,8 @@ export default {
 function versionizeReadMe (readMeContent) {
   const readMeLines = readMeContent.split('\n')
   return [
-    '<img src="https://designmanual.vtfk.no/css/images/VT-logo.svg" height="75px" class="logo" alt="" /><br />',
-    readMeLines[0] + `<div class="version"> v${packageJson.version}<div>`,
+    '<img src="https://designmanual.vtfk.no/css/images/VT-logo.svg" class="logo" alt="" /><br />',
+    readMeLines[0] + `<div class="version">Versjon ${packageJson.version}<div>`,
     ...readMeLines.slice(1)
   ].join('\n')
 }

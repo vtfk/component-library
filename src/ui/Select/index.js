@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid/non-secure'
 
@@ -6,15 +6,75 @@ import { Icon } from '../Icon'
 import { RadioButton } from '../RadioButton'
 import { Checkbox } from '../Checkbox'
 
-import './styles.scss'
+import './Select.scss'
 
-export function Select ({ placeholder, label, items, selectedItem, id, onChange, isOpen, closeOnSelect, error, ...props }) {
-  const [open, setOpen] = useState(isOpen || false)
+const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, error, multiselect, className, children, ...props }) => {
   const [labelId] = useState(id || `id${nanoid()}`)
+  const fieldsetRef = useRef()
+  const buttonRef = useRef()
+  const openedRef = useRef(false)
+  const initiallyOpenedRef = useRef(open || false)
 
-  function toggleSelect () {
-    setOpen(prevSelectState => !prevSelectState)
+  useEffect(() => {
+    if (open) {
+      // Focus first input element in fieldset on opening, but not on first open when select was initially open
+      if (fieldsetRef.current && (!initiallyOpenedRef.current || openedRef.current)) fieldsetRef.current.querySelector('input').focus()
+
+      // Register the dropdown as opened, so we can focus the button on actuall close
+      openedRef.current = true
+    }
+
+    if (!open && openedRef.current && buttonRef.current) buttonRef.current.focus()
+  }, [open])
+
+  const handleKeydown = event => {
+    if (event.key === 'Escape') setOpen(false)
   }
+
+  const hasSelected = selectedItem && Array.isArray(selectedItem) ? selectedItem && selectedItem.length > 0 : !!selectedItem
+  const selectedLabel = hasSelected ? (Array.isArray(selectedItem) ? selectedItem.map(item => item.label || item).join(', ') : selectedItem.label || selectedItem) : ''
+
+  return (
+    <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${hasSelected ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''}`} data-testid='container' onKeyDown={handleKeydown} {...props}>
+      <label htmlFor={labelId} title={label || placeholder} className='label'>
+        {label || placeholder}
+      </label>
+      <button
+        id={labelId}
+        aria-haspopup='listbox'
+        aria-expanded={open}
+        aria-controls={`${labelId}-container`}
+        aria-label={`${hasSelected && !open ? `${(label || placeholder)}: ${selectedLabel}` : placeholder}`}
+        onClick={() => { setOpen(!open) }}
+        ref={buttonRef}
+      >
+        <div>
+          {
+            open || !hasSelected
+              ? placeholder
+              : Array.isArray(selectedItem)
+                ? selectedItem.map((item, i) => (<div key={i}>{item.label || item}</div>))
+                : (selectedItem.label || selectedItem)
+          }
+        </div>
+        <Icon name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
+      </button>
+      <fieldset id={`${labelId}-container`} role='listbox' aria-multiselectable={!!multiselect} ref={fieldsetRef}>
+        {children}
+      </fieldset>
+
+      {
+        error &&
+          <label htmlFor={labelId} role='alert' aria-live='assertive' className='error-message'>
+            {error}
+          </label>
+      }
+    </div>
+  )
+}
+
+export const Select = ({ placeholder, label, items, selectedItem, id, onChange, isOpen, closeOnSelect, ...props }) => {
+  const [open, setOpen] = useState(isOpen || false)
 
   const handleMouseUp = (item) => {
     onChange(item)
@@ -22,177 +82,98 @@ export function Select ({ placeholder, label, items, selectedItem, id, onChange,
   }
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && closeOnSelect) setOpen(false)
+    if (event.key === 'Enter') setOpen(false)
   }
 
   return (
-    <div className={`select select-single ${open === true ? 'is-open' : ''} ${error ? 'error' : ''}`}>
-      <div {...props}>
-        {
-          placeholder &&
-          selectedItem &&
-            <div>
-              <label htmlFor={labelId} className='select-label'>
-                {placeholder}
-              </label>
-              <button className='select-trigger' id={labelId} onClick={() => { toggleSelect() }} aria-haspopup='listbox' aria-expanded={open}>
-                <div className='select-trigger-text selected'>
-                  <div>{open === true ? placeholder : selectedItem.label}</div>
-                </div>
-                <Icon className='select-trigger-icon' name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
-              </button>
-            </div>
-        }
-
-        {
-          placeholder &&
-          !selectedItem &&
-            <button className='select-trigger' id={labelId} onClick={() => { toggleSelect() }} aria-haspopup='listbox' aria-expanded={open}>
-              <label htmlFor={labelId} className='select-trigger-text'>
-                {placeholder}
-              </label>
-              <Icon className='select-trigger-icon' name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
-            </button>
-        }
-
-        {
-          open === true &&
-            <fieldset className='select-items' role='listbox' id={labelId}>
-              {
-                items.map(function (item, index) {
-                  const checked = selectedItem && selectedItem.value === item.value
-                  return (
-                    <div className='select-item' key={index}>
-                      <RadioButton
-                        onChange={() => onChange(item)}
-                        onMouseUp={() => handleMouseUp(item)}
-                        onKeyPress={handleKeyPress}
-                        name={`select-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
-                        value={item.value}
-                        label={item.label}
-                        checked={checked}
-                        aria-selected={checked}
-                        role='option'
-                      />
-                    </div>
-                  )
-                })
-              }
-              {
-                error &&
-                  <label htmlFor={labelId} role='alert' aria-live='assertive' className='error-message'>
-                    {error.message || error}
-                  </label>
-              }
-            </fieldset>
-        }
-
-        {
-          error && open === false &&
-            <label htmlFor={labelId} role='alert' aria-live='assertive' className='error-message'>
-              {error.message || error}
-            </label>
-        }
-      </div>
-    </div>
+    <SelectDropdown
+      id={id}
+      placeholder={placeholder}
+      label={label}
+      open={open}
+      setOpen={setOpen}
+      selectedItem={selectedItem}
+      {...props}
+    >
+      {
+        items.map((item, index) => {
+          const checked = selectedItem && selectedItem.value === item.value
+          return (
+            <RadioButton
+              key={index}
+              onChange={() => onChange(item)}
+              onMouseUp={() => handleMouseUp(item)}
+              onKeyPress={handleKeyPress}
+              name={`select-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
+              value={item.value}
+              label={item.label}
+              checked={checked}
+              aria-selected={checked}
+            />
+          )
+        })
+      }
+    </SelectDropdown>
   )
 }
 
-export function SelectMultiple ({ placeholder, label, items, selectedItems, isOpen, id, onChange, error, ...props }) {
+export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpen, id, onChange, ...props }) => {
   const [open, setOpen] = useState(isOpen || false)
-  const [labelId] = useState(id || nanoid())
-
-  function toggleSelect () {
-    setOpen(prevSelectState => !prevSelectState)
-  }
 
   function isSelected (item) {
-    console.log('selectedItems', selectedItems)
-    return selectedItems.filter(function (e) { return e.value === item.value }).length > 0
+    return selectedItems && selectedItems.filter(function (e) { return e.value === item.value }).length > 0
   }
 
   const handleKeyPress = (event, item) => {
     if (event.key === 'Enter') {
-      if (selectedItems.length === 0) onChange(item)
+      if (!selectedItems || selectedItems.length === 0) onChange(item)
       setOpen(false)
     }
   }
 
   return (
-    <div className={`select select-multiple ${open === true ? 'is-open' : ''} ${error ? 'error' : ''}`}>
-      <div {...props}>
-        {
-          placeholder &&
-          selectedItems.length > 0 &&
-            <div>
-              <label htmlFor={labelId} className='select-label'>
-                {placeholder}
-              </label>
-              <button id={labelId} className='select-trigger' onClick={() => { toggleSelect() }} aria-haspopup='listbox' aria-expanded={open}>
-                <div className='select-trigger-text selected'>
-                  {
-                    open === true
-                      ? placeholder
-                      : selectedItems.map(function (item, index) {
-                        return (
-                          <div key={item.value}>{item.label}</div>
-                        )
-                      })
-                  }
-                </div>
-                <Icon className='select-trigger-icon' name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
-              </button>
-            </div>
-        }
-        {
-          placeholder &&
-          (!selectedItems || selectedItems.length === 0) &&
-            <button id={labelId} className='select-trigger' onClick={() => { toggleSelect() }} aria-haspopup='listbox' aria-expanded={open}>
-              <label htmlFor={labelId} className='select-trigger-text'>
-                {placeholder}
-              </label>
-              <Icon className='select-trigger-icon' name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
-            </button>
-        }
-
-        {
-          open === true &&
-            <fieldset id={labelId} className='select-items' role='listbox'>
-              {
-                items.map(function (item, index) {
-                  return (
-                    <div className='select-item' key={index}>
-                      <Checkbox
-                        onChange={() => { onChange(item) }}
-                        onKeyPress={(e) => handleKeyPress(e, item)}
-                        name={`select-multiple-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
-                        value={item.value}
-                        label={item.label}
-                        checked={isSelected(item)}
-                        aria-selected={isSelected(item)}
-                        role='option'
-                      />
-                    </div>
-                  )
-                })
-              }
-              {
-                error &&
-                  <label htmlFor={labelId} role='alert' aria-live='assertive' className='error-message'>
-                    {error.message || error}
-                  </label>
-              }
-            </fieldset>
-        }
-        {
-          error && open === false &&
-            <label htmlFor={labelId} role='alert' aria-live='assertive' className='error-message'>
-              {error.message || error}
-            </label>
-        }
-      </div>
-    </div>
+    <SelectDropdown
+      id={id}
+      placeholder={placeholder}
+      label={label}
+      open={open}
+      setOpen={setOpen}
+      selectedItem={selectedItems}
+      multiselect
+      {...props}
+    >
+      {
+        items.map((item, index) => (
+          <Checkbox
+            key={index}
+            onChange={() => { onChange(item) }}
+            onKeyPress={(e) => handleKeyPress(e, item)}
+            name={`select-multiple-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
+            value={item.value}
+            label={item.label}
+            checked={isSelected(item)}
+            aria-selected={isSelected(item)}
+          />
+        ))
+      }
+    </SelectDropdown>
   )
+}
+
+SelectDropdown.propTypes = {
+  children: PropTypes.any.isRequired,
+  className: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
+  id: PropTypes.string,
+  label: PropTypes.string,
+  multiselect: PropTypes.bool,
+  open: PropTypes.bool.isRequired,
+  placeholder: PropTypes.string,
+  selectedItem: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  setOpen: PropTypes.func.isRequired
 }
 
 Select.propTypes = {
@@ -204,6 +185,7 @@ Select.propTypes = {
   id: PropTypes.string,
   isOpen: PropTypes.bool,
   items: PropTypes.array.isRequired,
+  label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   selectedItem: PropTypes.object
@@ -217,6 +199,7 @@ SelectMultiple.propTypes = {
   id: PropTypes.string,
   isOpen: PropTypes.bool,
   items: PropTypes.array.isRequired,
+  label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   selectedItems: PropTypes.array

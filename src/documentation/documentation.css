@@ -1,3 +1,7 @@
+#root {
+  max-width: 100vw;
+}
+
 .documentation {
   font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   max-width: 850px;
@@ -14,8 +18,9 @@
 }
 
 .documentation .logo {
-  margin-bottom: 20px;
-  margin-top: 10px;
+  width: 50%;
+  max-width: 300px;
+  margin-top: 20px;
 }
 
 .documentation h1 {
@@ -27,6 +32,12 @@
   white-space: nowrap;
 }
 
+@media screen and (max-width: 600px) {
+  .documentation h1 {
+    font-size: 2em;
+  }
+}
+
 .documentation h1 img {
   height: 1em;
   display: inline-block;
@@ -34,9 +45,9 @@
 }
 
 .documentation .version {
-  display: unset;
+  display: block;
   vertical-align: middle;
-  font-size: 24px;
+  font-size: 18px;
   padding-left: 0;
 }
 
