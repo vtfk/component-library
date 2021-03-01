@@ -20,6 +20,7 @@ export function Basic () {
   ]
 
   return (
+    <>
     <Select
       placeholder={text('Placeholder', 'Velg en årsak for varselet')}
       label={text('Label', 'Valgt årsak for varselet')}
@@ -30,6 +31,28 @@ export function Basic () {
       onChange={(item) => { setSelectedItem(item) }}
       style={{ margin: '20px' }}
     />
+        <Select
+      placeholder={text('Placeholder', 'Velg en årsak for varselet')}
+      label={text('Label', 'Valgt årsak for varselet')}
+      isOpen={boolean('Initially open', false)}
+      closeOnSelect={boolean('Close on selection', true)}
+      items={object('Items', items)}
+      selectedItem={selectedItem}
+      onChange={(item) => { setSelectedItem(item) }}
+      style={{ margin: '20px' }}
+    />
+    <Select
+      placeholder={text('Placeholder', 'Velg en årsak for varselet')}
+      label={text('Label', 'Valgt årsak for varselet')}
+      isOpen={boolean('Initially open', false)}
+      closeOnSelect={boolean('Close on selection', true)}
+      items={object('Items', items)}
+      selectedItem={selectedItem}
+      onChange={(item) => { setSelectedItem(item) }}
+      style={{ margin: '20px' }}
+    />
+
+    </>
   )
 }
 
