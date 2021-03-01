@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "nanoid": "3.1.20",
-    "react-datepicker": "3.4.1",
+    "react-datepicker": "3.6.0",
     "react-scrolllock": "5.0.1"
   },
   "devDependencies": {
