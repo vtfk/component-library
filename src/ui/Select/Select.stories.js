@@ -1,28 +1,34 @@
 import React, { useState } from 'react'
+import { withKnobs, text, object, boolean } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Select, SelectMultiple } from '.'
 
-export default getConfig(
-  { title: 'Select', component: Select }
-)
+export default getConfig({
+  title: 'Select',
+  component: Select,
+  decorators: [withKnobs]
+})
 
 export function Basic () {
   const [selectedItem, setSelectedItem] = useState(null)
 
   const items = [
-    { value: '1', label: 'Item 1' },
-    { value: '2', label: 'Item 2' },
-    { value: '3', label: 'Item 3' }
+    { value: '1', label: 'Årsak 1' },
+    { value: '2', label: 'Årsak 2' },
+    { value: '3', label: 'Årsak 3' }
   ]
 
   return (
     <Select
-      id='id-1'
-      placeholder='Dette er placeholderen'
-      items={items}
+      placeholder={text('Placeholder', 'Velg en årsak for varselet')}
+      label={text('Label', 'Valgt årsak for varselet')}
+      isOpen={boolean('Initially open', false)}
+      closeOnSelect={boolean('Close on selection', true)}
+      items={object('Items', items)}
       selectedItem={selectedItem}
       onChange={(item) => { setSelectedItem(item) }}
+      style={{ margin: '20px' }}
     />
   )
 }
@@ -31,9 +37,9 @@ export function Multiple () {
   const [selectedItems, setSelectedItems] = useState([])
 
   const items = [
-    { value: '1', label: 'Item 1' },
-    { value: '2', label: 'Item 2' },
-    { value: '3', label: 'Item 3' }
+    { value: '1', label: 'Årsak 1' },
+    { value: '2', label: 'Årsak 2' },
+    { value: '3', label: 'Årsak 3' }
   ]
 
   function handleMultiChange (item) {
@@ -48,11 +54,13 @@ export function Multiple () {
 
   return (
     <SelectMultiple
-      id='id-2'
-      placeholder='Dette er placeholderen'
-      items={items}
+      placeholder={text('Placeholder', 'Velg én eller flere årsaker for varselet')}
+      label={text('Label', 'Valgte årsaker for varselet')}
+      isOpen={boolean('Initially open', false)}
+      items={object('Items', items)}
       selectedItems={selectedItems}
       onChange={(item) => { handleMultiChange(item) }}
+      style={{ margin: '20px' }}
     />
   )
 }
