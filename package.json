@@ -81,7 +81,7 @@
     "react-dom": "*",
     "release": "6.3.0",
     "rimraf": "3.0.2",
-    "rollup": "2.40.0",
+    "rollup": "2.41.0",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-peer-deps-external": "2.2.4",
     "rollup-plugin-postcss": "3.1.8",
