@@ -36,10 +36,10 @@
     "react-scrolllock": "5.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.13.8",
-    "@babel/eslint-parser": "7.13.8",
+    "@babel/core": "7.13.10",
+    "@babel/eslint-parser": "7.13.10",
     "@babel/plugin-proposal-object-rest-spread": "7.13.8",
-    "@babel/preset-env": "7.13.9",
+    "@babel/preset-env": "7.13.10",
     "@babel/preset-react": "7.12.13",
     "@rollup/plugin-commonjs": "17.1.0",
     "@rollup/plugin-node-resolve": "11.2.0",
