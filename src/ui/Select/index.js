@@ -40,7 +40,7 @@ const SelectDropdown = ({ placeholder, label, disabled, id, selectedItem, open, 
         {label || placeholder}
       </label>
       <button
-        disabled
+        disabled={disabled || false}
         id={labelId}
         aria-haspopup='listbox'
         aria-expanded={open}
