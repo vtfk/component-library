@@ -56,6 +56,32 @@ export function Basic () {
   )
 }
 
+export function disabled () {
+  const [selectedItem, setSelectedItem] = useState(null)
+
+  const items = [
+    { value: '1', label: 'Årsak 1' },
+    { value: '2', label: 'Årsak 2' },
+    { value: '3', label: 'Årsak 3' }
+  ]
+
+  return (
+    <>
+      <Select
+        disabled
+        placeholder={text('Placeholder', 'Velg en årsak for varselet')}
+        label={text('Label', 'Valgt årsak for varselet')}
+        isOpen={boolean('Initially open', false)}
+        closeOnSelect={boolean('Close on selection', true)}
+        items={object('Items', items)}
+        selectedItem={selectedItem}
+        onChange={(item) => { setSelectedItem(item) }}
+        style={{ margin: '20px' }}
+      />
+    </>
+  )
+}
+
 export function Multiple () {
   const [selectedItems, setSelectedItems] = useState([])
 

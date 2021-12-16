@@ -8,7 +8,7 @@ import { Checkbox } from '../Checkbox'
 
 import './Select.scss'
 
-const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, error, multiselect, className, children, ...props }) => {
+const SelectDropdown = ({ placeholder, label, disabled, id, selectedItem, open, setOpen, error, multiselect, className, children, ...props }) => {
   const [labelId] = useState(id || `id${nanoid()}`)
   const fieldsetRef = useRef()
   const buttonRef = useRef()
@@ -40,6 +40,7 @@ const SelectDropdown = ({ placeholder, label, id, selectedItem, open, setOpen, e
         {label || placeholder}
       </label>
       <button
+        disabled={disabled || false}
         id={labelId}
         aria-haspopup='listbox'
         aria-expanded={open}
