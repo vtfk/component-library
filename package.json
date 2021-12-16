@@ -56,7 +56,7 @@
     "@svgr/rollup": "5.5.0",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.0.0",
-    "@testing-library/user-event": "13.2.0",
+    "@testing-library/user-event": "13.2.1",
     "@whitespace/storybook-addon-html": "5.0.0",
     "babel-plugin-inline-react-svg": "2.0.1",
     "babel-polyfill": "6.26.0",
