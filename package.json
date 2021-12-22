@@ -76,7 +76,7 @@
     "marked": "4.0.8",
     "node-sass": "6.0.1",
     "plop": "3.0.5",
-    "prop-types": "15.7.2",
+    "prop-types": "15.8.0",
     "react": "*",
     "react-dom": "*",
     "release": "6.3.0",
