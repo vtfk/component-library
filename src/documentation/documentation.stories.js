@@ -1,5 +1,5 @@
 import React from 'react'
-import marked from 'marked'
+import { marked } from 'marked'
 import hljs from 'highlight.js'
 
 import packageJson from '../../package.json'
