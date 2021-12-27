@@ -8,5 +8,8 @@ module.exports = {
     '@storybook/addon-storysource',
     '@storybook/preset-scss',
     '@whitespace/storybook-addon-html'
-  ]
+  ],
+  core: {
+    builder: 'webpack5'
+  }
 }
