@@ -74,7 +74,7 @@
     "jest-junit": "13.0.0",
     "jest-transform-css": "3.0.0",
     "marked": "4.0.8",
-    "node-sass": "6.0.1",
+    "node-sass": "7.0.1",
     "plop": "3.0.5",
     "prop-types": "15.8.0",
     "react": "*",
