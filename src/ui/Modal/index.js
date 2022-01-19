@@ -58,6 +58,7 @@ export function ModalSideActions (props) {
 }
 
 Modal.propTypes = {
+  children: PropTypes.any,
   className: PropTypes.string,
   onDismiss: PropTypes.func.isRequired,
   onFinished: PropTypes.func,
