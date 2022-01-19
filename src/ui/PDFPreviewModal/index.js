@@ -49,6 +49,8 @@ export function PDFPreviewModal ({ open, title, className, onDismiss, loading, b
 PDFPreviewModal.propTypes = {
   base64: PropTypes.string,
   className: PropTypes.string,
+  error: PropTypes.bool,
+  loading: PropTypes.bool,
   onDismiss: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string
