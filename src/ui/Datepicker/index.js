@@ -57,5 +57,5 @@ Datepicker.propTypes = {
   isOpen: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
-  selected: PropTypes.instanceOf(Date).isRequired
+  selected: PropTypes.instanceOf(Date)
 }
