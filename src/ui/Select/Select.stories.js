@@ -58,6 +58,17 @@ export function Basic () {
 
 export function disabled () {
   const [selectedItem, setSelectedItem] = useState(null)
+  const [selectedItems, setSelectedItems] = useState([])
+
+  function handleMultiChange (item) {
+    const newArray = [...selectedItems]
+    const removeIndex = newArray.map(function (item) { return item.value }).indexOf(item.value)
+
+    if (removeIndex === -1) newArray.push(item)
+    else newArray.splice(removeIndex, 1)
+
+    setSelectedItems(newArray)
+  }
 
   return (
     <>
@@ -70,6 +81,16 @@ export function disabled () {
         items={object('Items', items)}
         selectedItem={selectedItem}
         onChange={(item) => { setSelectedItem(item) }}
+        style={{ margin: '20px' }}
+      />
+      <SelectMultiple
+        disabled={boolean('Initially disabled', true)}
+        placeholder={text('Placeholder', 'Velg én eller flere årsaker for varselet')}
+        label={text('Label', 'Valgte årsaker for varselet')}
+        isOpen={boolean('Initially open', false)}
+        items={object('Items', items)}
+        selectedItems={selectedItems}
+        onChange={(item) => { handleMultiChange(item) }}
         style={{ margin: '20px' }}
       />
     </>
