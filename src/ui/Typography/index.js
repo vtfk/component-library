@@ -102,21 +102,25 @@ export function ErrorMessage ({ className, children, size, ...props }) {
 }
 
 Heading1.propTypes = {
+  as: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string
 }
 
 Heading2.propTypes = {
+  as: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string
 }
 
 Heading3.propTypes = {
+  as: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string
 }
 
 Heading4.propTypes = {
+  as: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string
 }
