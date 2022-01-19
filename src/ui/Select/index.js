@@ -164,6 +164,7 @@ export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpe
 SelectDropdown.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool
