@@ -1,11 +1,10 @@
 import React from 'react'
 import { addDecorator } from '@storybook/react'
-import { addParameters } from '@storybook/client-api'
 import { BaseStyle } from '../../src'
 
 import './storybook.css'
 
-addParameters({
+export const parameters = {
   viewMode: 'canvas',
   layout: 'padded',
   html: {
@@ -14,6 +13,6 @@ addParameters({
     },
     root: 'div#example'
   }
-})
+}
 
 addDecorator(Story => (<BaseStyle><div id='example'><Story /></div></BaseStyle>))

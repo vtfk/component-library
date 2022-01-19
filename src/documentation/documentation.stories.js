@@ -31,7 +31,7 @@ function versionizeReadMe (readMeContent) {
 function convertMarkdown (markdown) {
   marked.setOptions({
     highlight: function (code, lang) {
-      return hljs.highlight(lang, code).value
+      return hljs.highlight(code, { language: lang }).value
     }
   })
 
