@@ -4,6 +4,12 @@ import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Select, SelectMultiple } from '.'
 
+const items = [
+  { value: '1', label: 'Årsak 1' },
+  { value: '2', label: 'Årsak 2' },
+  { value: '3', label: 'Årsak 3' }
+]
+
 export default getConfig({
   title: 'Select',
   component: Select,
@@ -12,12 +18,6 @@ export default getConfig({
 
 export function Basic () {
   const [selectedItem, setSelectedItem] = useState(null)
-
-  const items = [
-    { value: '1', label: 'Årsak 1' },
-    { value: '2', label: 'Årsak 2' },
-    { value: '3', label: 'Årsak 3' }
-  ]
 
   return (
     <>
@@ -59,12 +59,6 @@ export function Basic () {
 export function disabled () {
   const [selectedItem, setSelectedItem] = useState(null)
 
-  const items = [
-    { value: '1', label: 'Årsak 1' },
-    { value: '2', label: 'Årsak 2' },
-    { value: '3', label: 'Årsak 3' }
-  ]
-
   return (
     <>
       <Select
@@ -84,12 +78,6 @@ export function disabled () {
 
 export function Multiple () {
   const [selectedItems, setSelectedItems] = useState([])
-
-  const items = [
-    { value: '1', label: 'Årsak 1' },
-    { value: '2', label: 'Årsak 2' },
-    { value: '3', label: 'Årsak 3' }
-  ]
 
   function handleMultiChange (item) {
     const newArray = [...selectedItems]
