@@ -46,7 +46,8 @@ SideNav.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  title: PropTypes.string.isRequired
 }
 
 SideNavItem.propTypes = {
