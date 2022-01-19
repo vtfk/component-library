@@ -62,7 +62,7 @@ export function disabled () {
   return (
     <>
       <Select
-        disabled
+        disabled={boolean('Initially disabled', true)}
         placeholder={text('Placeholder', 'Velg en årsak for varselet')}
         label={text('Label', 'Valgt årsak for varselet')}
         isOpen={boolean('Initially open', false)}
