@@ -21,6 +21,7 @@ export function Skeleton ({ variant = 'text', width, height, randomWidth, classN
 
 Skeleton.propTypes = {
   children: PropTypes.any,
+  className: PropTypes.string,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   randomWidth: PropTypes.arrayOf([PropTypes.number, PropTypes.string]),
   style: PropTypes.object,
