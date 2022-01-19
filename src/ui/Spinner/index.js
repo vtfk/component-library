@@ -21,7 +21,8 @@ export function Spinner ({ size, transparent, className, ...props }) {
 }
 
 Spinner.propTypes = {
+  className: PropTypes.string,
   size: PropTypes.oneOf(['auto', 'small', 'medium', 'large', 'xlarge']),
-  transparent: PropTypes.bool,
-  className: PropTypes.string
+  title: PropTypes.string,
+  transparent: PropTypes.bool
 }
