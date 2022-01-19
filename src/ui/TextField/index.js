@@ -90,6 +90,8 @@ TextField.propTypes = {
     PropTypes.string,
     PropTypes.bool
   ]),
+  id: PropTypes.string,
+  inputRef: PropTypes.object,
   noBorder: PropTypes.bool,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
