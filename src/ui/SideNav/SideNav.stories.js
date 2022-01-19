@@ -10,8 +10,8 @@ export default getConfig(
 
 export function Basic () {
   return (
-    <SideNav>
-      <SideNavItem href='https://vtfk.no' icon={<Icon name='home' size='small' />} title='Link 1' active='true' />
+    <SideNav title='SideNav'>
+      <SideNavItem href='https://vtfk.no' icon={<Icon name='home' size='small' />} title='Link 1' active />
       <SideNavItem href='https://vtfk.no' icon={<Icon name='students' size='small' />} title='Link 2' />
       <SideNavItem href='https://vtfk.no' icon={<Icon name='classes' size='small' />} title='Link 3' />
     </SideNav>
