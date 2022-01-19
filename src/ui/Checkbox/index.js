@@ -28,3 +28,7 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string.isRequired
 }
+
+Checkbox.defaultProps = {
+  checked: false
+}
