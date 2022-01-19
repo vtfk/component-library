@@ -22,3 +22,35 @@ export function Basic () {
     </div>
   )
 }
+
+export function Loading () {
+  const [modalOpen, setModalOpen] = useState(false)
+
+  return (
+    <div>
+      <button onClick={() => { setModalOpen(!modalOpen) }}>Toggle loading modal</button>
+      <PDFPreviewModal
+        open={modalOpen}
+        title='Lukk loading modal'
+        onDismiss={() => { setModalOpen(false) }}
+        loading
+      />
+    </div>
+  )
+}
+
+export function Error () {
+  const [modalOpen, setModalOpen] = useState(false)
+
+  return (
+    <div>
+      <button onClick={() => { setModalOpen(!modalOpen) }}>Toggle error modal</button>
+      <PDFPreviewModal
+        open={modalOpen}
+        title='Lukk error modal'
+        onDismiss={() => { setModalOpen(false) }}
+        error
+      />
+    </div>
+  )
+}
