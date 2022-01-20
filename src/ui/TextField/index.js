@@ -98,7 +98,15 @@ TextField.propTypes = {
   onFocus: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
   rounded: PropTypes.bool,
-  rows: PropTypes.number,
-  type: PropTypes.string,
+  rows: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  type: PropTypes.oneOf([
+    'email',
+    'number',
+    'password',
+    'text'
+  ]),
   value: PropTypes.string.isRequired
 }

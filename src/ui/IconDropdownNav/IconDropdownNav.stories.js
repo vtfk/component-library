@@ -11,16 +11,18 @@ export function Basic () {
   return (
     <div>
       <table>
-        <tr>
-          <td>En IconDropdownNav fylles med IconDropdownNavItem </td>
-          <td>
-            <IconDropdownNav>
-              <IconDropdownNavItem title='Menyelement som link' href='https://vtfk.no' />
-              <IconDropdownNavItem title='Menyelement som onClick' onClick={() => { console.log('onClick!') }} />
-            </IconDropdownNav>
+        <tbody>
+          <tr>
+            <td>En IconDropdownNav fylles med IconDropdownNavItem </td>
+            <td>
+              <IconDropdownNav>
+                <IconDropdownNavItem title='Menyelement som link' href='https://vtfk.no' />
+                <IconDropdownNavItem title='Menyelement som onClick' onClick={() => { console.log('onClick!') }} />
+              </IconDropdownNav>
 
-          </td>
-        </tr>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   )

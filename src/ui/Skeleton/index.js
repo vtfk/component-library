@@ -23,7 +23,7 @@ Skeleton.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  randomWidth: PropTypes.arrayOf([PropTypes.number, PropTypes.string]),
+  randomWidth: PropTypes.arrayOf(PropTypes.number),
   style: PropTypes.object,
   title: PropTypes.string,
   variant: PropTypes.oneOf(['text', 'circle', 'rectangle']),

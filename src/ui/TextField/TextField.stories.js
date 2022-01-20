@@ -16,19 +16,27 @@ export function Basic () {
 }
 
 export function Types () {
+  const [emailValue, setEmailValue] = useState('')
+  const [numberValue, setNumberValue] = useState('')
+  const [passwordValue, setPasswordValue] = useState('')
+  const [textValue, setTextValue] = useState('')
+
   return (
     <div>
-      <TextField placeholder='Placeholder..' value='' />
-      <TextField type='text' placeholder='Placeholder..' value='' />
-      <TextField type='email' placeholder='Placeholder..' value='' />
+      <TextField placeholder='Placeholder email' value={emailValue} type='email' onChange={e => { setEmailValue(e.target.value) }} />
+      <TextField placeholder='Placeholder number' value={numberValue} type='number' onChange={e => { setNumberValue(e.target.value) }} />
+      <TextField placeholder='Placeholder password' value={passwordValue} type='password' onChange={e => { setPasswordValue(e.target.value) }} />
+      <TextField placeholder='Placeholder text' value={textValue} type='text' onChange={e => { setTextValue(e.target.value) }} />
     </div>
   )
 }
 
 export function Textarea () {
+  const [value, setValue] = useState('')
+
   return (
     <div>
-      <TextField rows='4' placeholder='Placeholder..' value='' />
+      <TextField rows='4' placeholder='Placeholder..' value={value} onChange={(e) => { setValue(e.target.value) }} />
     </div>
   )
 }
@@ -36,23 +44,27 @@ export function Textarea () {
 export function Disabled () {
   return (
     <div>
-      <TextField disabled placeholder='Placeholder..' value='' />
+      <TextField disabled placeholder='Placeholder..' value='' onChange={() => { /* This is here just to silence the 'onChange is required' warning */ }} />
     </div>
   )
 }
 
 export function TextNoBorder () {
+  const [value, setValue] = useState('')
+
   return (
     <div>
-      <TextField disabled noBorder placeholder='Placeholder..' value='' />
+      <TextField noBorder placeholder='Placeholder..' value={value} onChange={(e) => { setValue(e.target.value) }} />
     </div>
   )
 }
 
 export function TextareaNoBorder () {
+  const [value, setValue] = useState('')
+
   return (
     <div>
-      <TextField disabled noBorder placeholder='Placeholder..' rows='4' value='' />
+      <TextField noBorder placeholder='Placeholder..' rows={10} value={value} onChange={(e) => { setValue(e.target.value) }} />
     </div>
   )
 }
