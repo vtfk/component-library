@@ -9,7 +9,7 @@ import { ReactComponent as IconCalendar } from './icon-calendar.svg'
 
 import './styles.scss'
 
-export function Datepicker ({ placeholder, label, selected, id, isOpen, error, ...props }) {
+export function Datepicker ({ placeholder, label, selected, id, isOpen, error, placement, ...props }) {
   const [open, setOpen] = useState(isOpen || false)
   const [labelId] = useState(id || `id${nanoid()}`)
   registerLocale('nb', nb)
@@ -33,6 +33,7 @@ export function Datepicker ({ placeholder, label, selected, id, isOpen, error, .
           onFocus={() => setOpen(true)}
           onClickOutside={() => setOpen(false)}
           open={open}
+          popperPlacement={placement}
           {...props}
         />
 
@@ -57,5 +58,26 @@ Datepicker.propTypes = {
   isOpen: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
+  placement: PropTypes.oneOf([
+    'auto',
+    'auto-end',
+    'auto-start',
+    'bottom',
+    'bottom-end',
+    'bottom-start',
+    'left',
+    'left-end',
+    'left-start',
+    'right',
+    'right-end',
+    'right-start',
+    'top',
+    'top-end',
+    'top-start'
+  ]),
   selected: PropTypes.instanceOf(Date)
+}
+
+Datepicker.defaultProps = {
+  placement: 'bottom-start'
 }
