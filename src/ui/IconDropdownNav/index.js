@@ -5,7 +5,7 @@ import { ReactComponent as DropdownNavIcon } from './icon-dropdown-nav-icon.svg'
 
 import './styles.scss'
 
-export function IconDropdownNav (props) {
+export function IconDropdownNav ({ placement, ...props }) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -45,7 +45,7 @@ export function IconDropdownNav (props) {
 
       {
         dropdownOpen === true &&
-          <div className='icon-dropdown-nav-dropdown' ref={dropdownRef}>
+          <div className={`icon-dropdown-nav-dropdown ${placement}`} ref={dropdownRef}>
             <ul>
               {
                 props.children
@@ -81,7 +81,17 @@ IconDropdownNav.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  placement: PropTypes.oneOf([
+    'left-bottom',
+    'left-top',
+    'right-bottom',
+    'right-top'
+  ])
+}
+
+IconDropdownNav.defaultProps = {
+  placement: 'left-bottom'
 }
 
 IconDropdownNavItem.propTypes = {
