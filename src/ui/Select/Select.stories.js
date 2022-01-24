@@ -13,7 +13,10 @@ const items = [
 export default getConfig({
   title: 'Select',
   component: Select,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  subcomponents: {
+    SelectMultiple
+  }
 })
 
 export function Basic () {

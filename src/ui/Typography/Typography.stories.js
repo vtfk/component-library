@@ -12,9 +12,19 @@ import {
   ErrorMessage
 } from '.'
 
-export default getConfig(
-  { title: 'Typography', component: Heading1 }
-)
+export default getConfig({
+  title: 'Typography',
+  component: Heading1,
+  subcomponents: {
+    Heading2,
+    Heading3,
+    Heading4,
+    Paragraph,
+    Link,
+    SkipLink,
+    ErrorMessage
+  }
+})
 
 export function heading1 () {
   return (

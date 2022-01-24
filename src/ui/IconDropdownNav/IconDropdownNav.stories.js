@@ -7,7 +7,10 @@ import { IconDropdownNav, IconDropdownNavItem } from '.'
 export default getConfig({
   title: 'IconDropdownNav',
   component: IconDropdownNav,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  subcomponents: {
+    IconDropdownNavItem
+  }
 })
 
 const placements = {
