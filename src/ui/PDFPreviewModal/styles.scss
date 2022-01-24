@@ -71,67 +71,67 @@
       }
     }
   }
+}
 
-  .preview-modal-content {
-    display: flex;
-    width: 82vw;
-    max-width: 1400px;
-    z-index: 102;
-    background: #fff;
-    box-shadow: 0 20px 13px 0 rgba(0, 0, 0, 0.04);
-    height: 80vh;
+.preview-modal-content {
+  display: flex;
+  width: 82vw;
+  max-width: 1400px;
+  z-index: 102;
+  background: #fff;
+  box-shadow: 0 20px 13px 0 rgba(0, 0, 0, 0.04);
+  height: 80vh;
+
+  @media (max-width: 1000px) {
+    display: block;
+    width: 100%;
+    height: calc(100vh - 75px);
+    max-width: 100%;
+    overflow-y: scroll;
+  }
+
+  .preview-modal-body {
+    flex: 1;
+    padding: 0;
+    overflow-y: scroll;
+    position: relative;
 
     @media (max-width: 1000px) {
-      display: block;
-      width: 100%;
-      height: calc(100vh - 75px);
-      max-width: 100%;
-      overflow-y: scroll;
+      padding: 0;
+      overflow-y: auto;
     }
 
-    .preview-modal-body {
-      flex: 1;
-      padding: 0;
-      overflow-y: scroll;
-      position: relative;
+    .preview-modal-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 80px;
+      line-height: 1em;
 
-      @media (max-width: 1000px) {
-        padding: 0;
-        overflow-y: auto;
+      span {
+          animation-name: blink;
+          animation-duration: 1.4s;
+          animation-iteration-count: infinite;
+          animation-fill-mode: both;
       }
 
-      .preview-modal-loading {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 80px;
-        line-height: 1em;
-
-        span {
-            animation-name: blink;
-            animation-duration: 1.4s;
-            animation-iteration-count: infinite;
-            animation-fill-mode: both;
-        }
-
-        span:nth-child(2) {
-            animation-delay: .2s;
-        }
-
-        span:nth-child(3) {
-            animation-delay: .4s;
-        }
+      span:nth-child(2) {
+          animation-delay: .2s;
       }
 
-      .preview-modal-error {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 18px;
-        line-height: 1em;
+      span:nth-child(3) {
+          animation-delay: .4s;
       }
+    }
+
+    .preview-modal-error {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      line-height: 1em;
     }
   }
 }

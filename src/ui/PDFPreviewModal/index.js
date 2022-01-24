@@ -3,22 +3,11 @@ import PropTypes from 'prop-types'
 
 import { ReactComponent as IconClose } from './icon-close.svg'
 
+import { PDFPreview } from '../PDFPreview'
+
 import './styles.scss'
 
 export function PDFPreviewModal ({ open, title, className, onDismiss, loading, base64, error, ...props }) {
-  let pdf = false
-
-  if (base64) {
-    pdf = React.createElement(
-      'object', {
-        type: 'application/pdf',
-        data: 'data:application/pdf;base64,' + base64,
-        width: '100%',
-        height: '100%'
-      }
-    )
-  }
-
   return (
     open === true &&
       <>
@@ -33,13 +22,7 @@ export function PDFPreviewModal ({ open, title, className, onDismiss, loading, b
                   </button>
                 </div>
             }
-            <div className='preview-modal-content'>
-              <div className='preview-modal-body'>
-                {base64 && pdf ? pdf : ''}
-                {loading && !base64 && !error ? <div className='preview-modal-loading'><span>.</span><span>.</span><span>.</span></div> : ''}
-                {error ? <div className='preview-modal-error'>Det har skjedd en feil, vennligst prøv igjen.</div> : ''}
-              </div>
-            </div>
+            <PDFPreview base64={base64} className={className || 'preview-modal-content'} error={error} loading={loading} />
           </div>
         </div>
       </>
