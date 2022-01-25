@@ -4,7 +4,7 @@
 .checkbox {
   display: inline-block;
   margin-right: $baseUnit * 3;
-
+ 
   .checkbox-inner {
     display: flex;
     align-items: center;
@@ -45,7 +45,7 @@
       margin: 0;
       opacity: 0;
       z-index: 3;
-
+      
       &:checked + .check {
         position: relative;
         z-index: 2;
@@ -76,6 +76,10 @@
         &:before {
           box-shadow: 0 0 0 4px $lightBlue;
         }
+      }
+
+      &[disabled] {
+        @include disabled();
       }
     }
   }
