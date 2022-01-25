@@ -214,14 +214,12 @@
 
   .picker {
     :disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
+      @include disabled();
+    }
+
+    .icon-disabled {
+      @include disabled();
+      pointer-events: none;
     }
   }
-}
-
-.icon-disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  pointer-events: none;
 }
