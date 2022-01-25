@@ -43,10 +43,6 @@
       opacity: 0;
       z-index: 3;
 
-      &[disabled] {
-        @include disabled();
-      }
-
       &:checked + .radio {
         position: relative;
         z-index: 2;
@@ -88,5 +84,9 @@
     line-height: 1em;
     margin: 0;
     padding: 0;
+
+    &.disabled {
+      @include disabled();
+    }
   }
 }

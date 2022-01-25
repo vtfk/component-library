@@ -11,7 +11,7 @@ export function RadioButton ({ name, value, label, disabled, onChange, ...props 
           <input id={`radio-${name}-${value}`} type='radio' name={name} value={value} disabled={disabled || false} onChange={onChange} {...props} />
           <div className='radio' />
         </div>
-        <label htmlFor={`radio-${name}-${value}`}>{label}</label>
+        <label className={disabled ? 'disabled' : ''} htmlFor={`radio-${name}-${value}`}>{label}</label>
       </div>
     </div>
   )
