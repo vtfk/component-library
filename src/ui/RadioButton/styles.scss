@@ -84,5 +84,9 @@
     line-height: 1em;
     margin: 0;
     padding: 0;
+
+    &.disabled {
+      @include disabled();
+    }
   }
 }
