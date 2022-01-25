@@ -105,7 +105,7 @@ export const Select = ({ placeholder, label, items, selectedItem, id, onChange, 
               onChange={() => onChange(item)}
               onMouseUp={() => handleMouseUp(item)}
               onKeyPress={handleKeyPress}
-              name={`select-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
+              name={`select-${nanoid()}`}
               value={item.value}
               label={item.label}
               checked={checked}
@@ -149,7 +149,7 @@ export const SelectMultiple = ({ placeholder, label, items, selectedItems, isOpe
             key={index}
             onChange={() => { onChange(item) }}
             onKeyPress={(e) => handleKeyPress(e, item)}
-            name={`select-multiple-${placeholder.replace(/\s+/g, '-').toLowerCase()}`}
+            name={`select-multiple-${nanoid()}`}
             value={item.value}
             label={item.label}
             checked={isSelected(item)}
