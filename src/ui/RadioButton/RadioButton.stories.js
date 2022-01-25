@@ -1,12 +1,14 @@
 import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import { boolean } from '@storybook/addon-knobs'
+import { boolean, withKnobs } from '@storybook/addon-knobs'
 
 import { RadioButton } from '.'
 
-export default getConfig(
-  { title: 'RadioButton', component: RadioButton }
-)
+export default getConfig({
+  title: 'RadioButton',
+  component: RadioButton,
+  decorators: [withKnobs]
+})
 
 export function Basic () {
   return (
