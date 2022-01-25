@@ -21,8 +21,10 @@ export function Basic () {
   return (
     <Checkbox
       name='gruppe-navn'
-      value='verdi' label='Dette er labelen'
-      checked={checked} onChange={() => { onChange() }}
+      value='verdi'
+      label='Dette er labelen'
+      checked={checked}
+      onChange={() => { onChange() }}
     />
   )
 }
@@ -38,9 +40,11 @@ export function disabled () {
   return (
     <Checkbox
       name='gruppe-navn'
-      value='verdi' label='Dette er labelen'
+      value='verdi'
+      label='Dette er labelen'
       disabled={boolean('Initially disabled', true)}
-      checked={checked} onChange={() => { onChange() }}
+      checked={checked}
+      onChange={() => { onChange() }}
     />
   )
 }
