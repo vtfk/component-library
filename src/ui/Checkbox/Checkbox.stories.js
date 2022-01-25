@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import { boolean } from '@storybook/addon-knobs'
+import { boolean, withKnobs } from '@storybook/addon-knobs'
 
 import { Checkbox } from '.'
 
-export default getConfig(
-  { title: 'Checkbox', component: Checkbox }
-)
+export default getConfig({
+  title: 'Checkbox',
+  component: Checkbox,
+  decorators: [withKnobs]
+})
 
 export function Basic () {
   const [checked, setChecked] = useState(false)
