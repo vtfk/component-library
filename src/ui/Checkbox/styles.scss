@@ -77,6 +77,10 @@
           box-shadow: 0 0 0 4px $lightBlue;
         }
       }
+      
+      &[disabled] {
+        @include disabled();
+      }
     }
   }
 
