@@ -9,7 +9,7 @@ import { ReactComponent as IconCalendar } from './icon-calendar.svg'
 
 import './styles.scss'
 
-export function Datepicker ({ placeholder, label, selected, id, isOpen, error, placement, ...props }) {
+export function Datepicker ({ placeholder, label, selected, id, isOpen, disabled, error, placement, ...props }) {
   const [open, setOpen] = useState(isOpen || false)
   const [labelId] = useState(id || `id${nanoid()}`)
   registerLocale('nb', nb)
@@ -24,6 +24,7 @@ export function Datepicker ({ placeholder, label, selected, id, isOpen, error, p
       }
       <div className='picker'>
         <DatePicker
+          disabled={disabled || false}
           id={labelId}
           placeholderText={placeholder || ''}
           selected={selected}
@@ -37,8 +38,8 @@ export function Datepicker ({ placeholder, label, selected, id, isOpen, error, p
           {...props}
         />
 
-        <div className='icon' onClick={() => setOpen(!open)}>
-          <IconCalendar alt='' />
+        <div className={`icon ${disabled ? 'icon-disabled' : ''}`} onClick={() => setOpen(!open)} disabled={disabled || false}>
+          <IconCalendar alt='' disabled={disabled || false} />
         </div>
       </div>
 
@@ -53,6 +54,7 @@ export function Datepicker ({ placeholder, label, selected, id, isOpen, error, p
 }
 
 Datepicker.propTypes = {
+  disabled: PropTypes.bool,
   error: PropTypes.string,
   id: PropTypes.string,
   isOpen: PropTypes.bool,
