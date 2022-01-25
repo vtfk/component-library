@@ -1,5 +1,5 @@
 import React from 'react'
-import { withKnobs, select } from '@storybook/addon-knobs'
+import { withKnobs, select, boolean } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Datepicker } from '.'
@@ -41,6 +41,28 @@ export function Basic () {
       <Datepicker
         placeholder='Dette er placeholderen'
         selected={new Date()}
+        placement={select('Popup placement', placements, 'bottom-start')}
+        onChange={() => { console.log('onChange!') }}
+      />
+    </div>
+  )
+}
+
+export function disabled () {
+  return (
+    <div>
+      <p>Ikke valgt dato:</p>
+      <Datepicker
+        placeholder='Dette er placeholderen'
+        disabled={boolean('Initially disabled', true)}
+        placement={select('Popup placement', placements, 'bottom-start')}
+        onChange={() => { console.log('onChange!') }}
+      />
+      <p>Valgt dato:</p>
+      <Datepicker
+        placeholder='Dette er placeholderen'
+        selected={new Date()}
+        disabled={boolean('Initially disabled', true)}
         placement={select('Popup placement', placements, 'bottom-start')}
         onChange={() => { console.log('onChange!') }}
       />

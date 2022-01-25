@@ -211,4 +211,17 @@
       font-weight: bold;
     }
   }
+
+  .picker {
+    :disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.icon-disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
 }
