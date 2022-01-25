@@ -12,7 +12,7 @@
 
   .radio-wrapper {
     position: relative;
-
+    
     .radio {
       width: 26px;
       height: 26px;
@@ -42,6 +42,10 @@
       margin: 0;
       opacity: 0;
       z-index: 3;
+
+      &[disabled] {
+        @include disabled();
+      }
 
       &:checked + .radio {
         position: relative;
