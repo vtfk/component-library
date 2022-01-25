@@ -15,7 +15,7 @@ export function Checkbox ({ name, value, label, disabled, checked, onChange, ...
             <IconCheck />
           </div>
         </div>
-        <label htmlFor={`check-${name}-${value}`}>{label}</label>
+        <label className={disabled ? 'disabled' : ''} htmlFor={`check-${name}-${value}`}>{label}</label>
       </div>
     </div>
   )

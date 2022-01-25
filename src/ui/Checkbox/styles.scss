@@ -77,10 +77,6 @@
           box-shadow: 0 0 0 4px $lightBlue;
         }
       }
-      
-      &[disabled] {
-        @include disabled();
-      }
     }
   }
 
@@ -89,5 +85,9 @@
     line-height: 1em;
     margin: 0;
     padding: 0;
+
+    &.disabled {
+      @include disabled();
+    }
   }
 }
