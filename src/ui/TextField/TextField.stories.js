@@ -49,6 +49,22 @@ export function Disabled () {
   )
 }
 
+export function WithHintText () {
+  const [value1, setValue1] = useState('')
+  const [value2, setValue2] = useState('')
+
+  return (
+    <div>
+      <div style={{marginBottom: 40}}>
+        <TextField hintTextOnFocus="Dette er hint teksten til første input" placeholder='Placeholder..' value={value1} onChange={(e) => { setValue1(e.target.value) }} />
+      </div>
+      <div style={{marginBottom: 40}}>
+        <TextField noBorder hintTextOnFocus="Og her kommer hint tekst til andre input" placeholder='Placeholder..' value={value2} onChange={(e) => { setValue2(e.target.value) }} />
+      </div>
+    </div>
+  )
+}
+
 export function TextNoBorder () {
   const [value, setValue] = useState('')
 
