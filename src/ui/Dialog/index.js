@@ -25,7 +25,8 @@ export function Dialog ({ isOpen, title, className, persistent, onDismiss, onCli
     function handleMouseClick (e) {
       // Check if is open, a onClickOutside function prop is passed and it has actually clicked outside
       if (isOpen && !e.path.find((i) => i.id === id)) {
-        if (persistent && !onClickOutside) shakeDialogBox()
+        e.preventDefault();
+        if (persistent && !onClickOutside) { shakeDialogBox() }
         else if (onClickOutside && typeof onClickOutside === 'function') onClickOutside()
         else if (onDismiss && typeof onDismiss === 'function') onDismiss()
       }
