@@ -28,7 +28,10 @@ export function Basic () {
       >
         <DialogTitle isShowCloseButton>This is the title of the modal</DialogTitle>
         <DialogBody>
-          This is the body of the modal
+          <div>This is the body of the modal, here you can put anything.</div>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <img style={{'marginTop': '1rem'}} src="https://www.vtfk.no/globalassets/administrasjon/vtfk/system/layout/vtfk-logo.svg" />
+          </div>
         </DialogBody>
         <DialogActions>
           <Button size='small'>Action1</Button>
