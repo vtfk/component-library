@@ -8,7 +8,7 @@ import { Checkbox } from '../Checkbox'
 
 import './Select.scss'
 
-const SelectDropdown = ({ placeholder, label, disabled, id, selectedItem, open, setOpen, error, multiselect, className, children, ...props }) => {
+const SelectDropdown = ({ placeholder, label, disabled, required, id, selectedItem, open, setOpen, error, multiselect, className, children, ...props }) => {
   const [labelId] = useState(id || `id${nanoid()}`)
   const fieldsetRef = useRef()
   const buttonRef = useRef()
@@ -35,7 +35,7 @@ const SelectDropdown = ({ placeholder, label, disabled, id, selectedItem, open, 
   const selectedLabel = hasSelected ? (Array.isArray(selectedItem) ? selectedItem.map(item => item.label || item).join(', ') : selectedItem.label || selectedItem) : ''
 
   return (
-    <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${hasSelected ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''}`} data-testid='container' onKeyDown={handleKeydown} {...props}>
+    <div className={`select select-single ${open ? 'is-open' : 'is-closed'} ${hasSelected ? 'has-selected' : 'not-selected'} ${error ? 'error' : ''} ${className || ''} ${required ? 'required-input' : ''}`} data-testid='container' onKeyDown={handleKeydown} {...props}>
       <label htmlFor={labelId} title={label || placeholder} className='label'>
         {label || placeholder}
       </label>
@@ -174,6 +174,7 @@ SelectDropdown.propTypes = {
   multiselect: PropTypes.bool,
   open: PropTypes.bool.isRequired,
   placeholder: PropTypes.string,
+  required: PropTypes.bool,
   selectedItem: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   setOpen: PropTypes.func.isRequired
 }
