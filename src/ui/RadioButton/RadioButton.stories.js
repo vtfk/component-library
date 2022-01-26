@@ -33,3 +33,17 @@ export function disabled () {
     </div>
   )
 }
+
+export function Required () {
+  return (
+    <div>
+      <RadioButton
+        name='name'
+        value='value-1'
+        label='Label 1'
+        required={boolean('Initially required', true)}
+        onChange={(e) => { console.log(e.target.value) }}
+      />
+    </div>
+  )
+}
