@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Heading2, Heading3, Paragraph, Link } from '../Typography'
+import { Heading2, Heading3 } from '../Typography'
 import { InitialsBadge } from '../InitialsBadge'
 import { Skeleton } from '../Skeleton'
 

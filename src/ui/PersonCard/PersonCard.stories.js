@@ -4,7 +4,6 @@ import { getConfig } from '../../../scripts/storybook/storyConfig'
 import { PersonCard } from '.'
 
 import { Paragraph, Link } from '../Typography'
-import { InitialsBadge } from '../InitialsBadge'
 import { Skeleton } from '../Skeleton'
 
 export default getConfig(
