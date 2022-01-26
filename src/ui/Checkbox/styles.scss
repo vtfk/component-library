@@ -90,4 +90,10 @@
       @include disabled();
     }
   }
+
+  .required-input::before {
+    position: absolute;
+    margin: -5px 0px 0px -50px; 
+    @include required();
+  }  
 }

@@ -5,7 +5,7 @@ import { ReactComponent as IconCheck } from './icon-check.svg'
 
 import './styles.scss'
 
-export function Checkbox ({ name, value, label, disabled, checked, onChange, ...props }) {
+export function Checkbox ({ name, value, label, required, disabled, checked, onChange, ...props }) {
   return (
     <div className='checkbox' {...props}>
       <div className='checkbox-inner'>
@@ -15,7 +15,7 @@ export function Checkbox ({ name, value, label, disabled, checked, onChange, ...
             <IconCheck />
           </div>
         </div>
-        <label className={disabled ? 'disabled' : ''} htmlFor={`check-${name}-${value}`}>{label}</label>
+        <label className={`${disabled ? 'disabled' : ''}${required ? 'required-input' : ''}`} htmlFor={`check-${name}-${value}`}>{label}</label>
       </div>
     </div>
   )
@@ -27,6 +27,7 @@ Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  required: PropTypes.bool,
   value: PropTypes.string.isRequired
 }
 

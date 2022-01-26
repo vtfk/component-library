@@ -48,3 +48,23 @@ export function disabled () {
     />
   )
 }
+
+export function Required () {
+  const [checked, setChecked] = useState(false)
+
+  function onChange () {
+    setChecked(!checked)
+    console.log('onChange!')
+  }
+
+  return (
+    <Checkbox
+      name='gruppe-navn'
+      value='verdi'
+      label='Dette er labelen'
+      required={boolean('Initially required', true)}
+      checked={checked}
+      onChange={() => { onChange() }}
+    />
+  )
+}
