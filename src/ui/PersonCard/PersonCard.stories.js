@@ -29,6 +29,21 @@ export function Basic () {
   )
 }
 
+export function LargeName () {
+  return (
+    <PersonCard firstName='Åsmund' lastName='Olsen' largeName={true}>
+      { /* Pass relevant content  */ }
+      <Paragraph>
+        Skolenavn
+      </Paragraph>
+      <Paragraph>
+        <Link href={'https://link.com'}>Klassekode</Link>
+      </Paragraph>
+      { /* END: Pass relevant content  */ }
+    </PersonCard>
+  )
+}
+
 export function Loading () {
   const loading = true
 
