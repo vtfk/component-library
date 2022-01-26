@@ -102,7 +102,7 @@
   color: #fff;
   background: #272c34;
   border-radius: 4px;
-  
+
   padding: 16px;
   margin-bottom: 24px;
 }
@@ -134,4 +134,30 @@
 
 .documentation blockquote p {
   margin: 0;
+}
+
+#example {
+
+}
+
+#example .illustration-table {
+  display: block;
+  width: 100%;
+}
+
+#example .illustration-table tbody {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+#example .illustration-table tr {
+  display: inline-block;
+  padding: 30px;
+  margin: 0 30px 30px 0;
+  background: #eee;
+}
+
+#example .illustration-table tr td:nth-child(1) {
+  padding-right: 20px;
 }
