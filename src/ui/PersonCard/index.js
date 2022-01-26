@@ -36,8 +36,8 @@ export function PersonCard ({ loading, firstName, lastName, largeName, ...props 
 }
 
 PersonCard.propTypes = {
-  className: PropTypes.string,
+  loading: PropTypes.bool,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-  size: PropTypes.string
+  largeName: PropTypes.bool
 }
