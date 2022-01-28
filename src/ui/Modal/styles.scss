@@ -82,7 +82,7 @@
       height: calc(100vh - 75px);
       max-width: 100%;
       padding: $baseUnit * 2;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
   }
 }
@@ -90,7 +90,7 @@
 .modal-body {
   flex: 1;
   padding: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-right: $baseUnit * 8;
   padding-left: $baseUnit * 6;
 
