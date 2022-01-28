@@ -69,3 +69,25 @@ export function disabled () {
     </div>
   )
 }
+
+export function Required () {
+  return (
+    <div>
+      <p>Ikke valgt dato:</p>
+      <Datepicker
+        placeholder='Dette er placeholderen'
+        required={boolean('Initially required', true)}
+        placement={select('Popup placement', placements, 'bottom-start')}
+        onChange={() => { console.log('onChange!') }}
+      />
+      <p>Valgt dato:</p>
+      <Datepicker
+        placeholder='Dette er placeholderen'
+        selected={new Date()}
+        required={boolean('Initially required', true)}
+        placement={select('Popup placement', placements, 'bottom-start')}
+        onChange={() => { console.log('onChange!') }}
+      />
+    </div>
+  )
+}
