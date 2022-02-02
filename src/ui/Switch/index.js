@@ -14,5 +14,5 @@ export function Switch ({ isActive, onClick, ...props }) {
 
 Switch.propTypes = {
   isActive: PropTypes.bool,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 }
