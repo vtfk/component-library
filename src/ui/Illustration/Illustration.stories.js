@@ -9,7 +9,7 @@ export default getConfig(
 
 export function Variants () {
   return (
-    <table className="illustration-table">
+    <table className='illustration-table'>
       <tbody>
         <tr>
           <td>work</td>
@@ -45,6 +45,7 @@ export function Variants () {
         </tr>
         {
           /*
+          TODO: Uncomment when a new working svg is added
           <tr>
             <td>mobility</td>
             <td><Illustration name='mobility' /></td>
