@@ -30,8 +30,8 @@ export function Basic () {
         <DialogTitle isShowCloseButton><Heading3>This is the title of the modal</Heading3></DialogTitle>
         <DialogBody>
           <div>This is the body of the modal, here you can put anything.</div>
-          <div style={{display: 'flex', justifyContent: 'center'}}>
-            <img style={{'marginTop': '1rem'}} src="https://www.vtfk.no/globalassets/administrasjon/vtfk/system/layout/vtfk-logo.svg" />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <img style={{ marginTop: '1rem' }} src='https://www.vtfk.no/globalassets/administrasjon/vtfk/system/layout/vtfk-logo.svg' />
           </div>
         </DialogBody>
         <DialogActions>
@@ -55,7 +55,7 @@ export function Persistent () {
         isOpen={modalOpen}
         persistent
         onDismiss={() => { setIsModalOpen(false) }}
-        showCloseButton={true}
+        showCloseButton
       >
         <DialogTitle>This is the title of the modal</DialogTitle>
         <DialogBody>

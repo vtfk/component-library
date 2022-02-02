@@ -7,11 +7,11 @@ import { ReactComponent as CloseIcon } from './icon-close.svg'
 
 import './styles.scss'
 
-export function Modal ({ open, title, className, closeOnEscape, onDismiss, onFinished, ...props }) { 
+export function Modal ({ open, title, className, closeOnEscape, onDismiss, onFinished, ...props }) {
   // onCreated lifecycle-hook
   useEffect(() => {
-    function handleKeyPress(e) {
-      if(e?.key === 'Escape' && open && closeOnEscape && onDismiss && typeof onDismiss === 'function') onDismiss();
+    function handleKeyPress (e) {
+      if (e?.key === 'Escape' && open && closeOnEscape && onDismiss && typeof onDismiss === 'function') onDismiss()
     }
     document.addEventListener('keyup', handleKeyPress)
     return () => document.removeEventListener('keyup', handleKeyPress)
