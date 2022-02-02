@@ -11,7 +11,7 @@ export function Modal ({ open, title, className, closeOnEscape, onDismiss, onFin
   // onCreated lifecycle-hook
   useEffect(() => {
     function handleKeyPress (e) {
-      if (e?.key === 'Escape' && open && closeOnEscape && onDismiss && typeof onDismiss === 'function') onDismiss()
+      if (e && e.key === 'Escape' && open && closeOnEscape && onDismiss && typeof onDismiss === 'function') onDismiss()
     }
     document.addEventListener('keyup', handleKeyPress)
     return () => document.removeEventListener('keyup', handleKeyPress)
