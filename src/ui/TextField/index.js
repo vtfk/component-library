@@ -99,6 +99,7 @@ TextField.propTypes = {
     PropTypes.string,
     PropTypes.bool
   ]),
+  hintTextOnFocus: PropTypes.string,
   id: PropTypes.string,
   inputRef: PropTypes.object,
   noBorder: PropTypes.bool,
