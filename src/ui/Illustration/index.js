@@ -9,7 +9,7 @@ import { ReactComponent as Sports } from './illustration-sports.svg'
 import { ReactComponent as Immigrant } from './illustration-immigrant.svg'
 import { ReactComponent as Climate } from './illustration-climate.svg'
 import { ReactComponent as Culture } from './illustration-culture.svg'
-// import { ReactComponent as Mobility } from './illustration-mobility.svg'
+// import { ReactComponent as Mobility } from './illustration-mobility.svg' // TODO: Uncomment when a new working svg is added
 import { ReactComponent as Learn } from './illustration-learn.svg'
 
 import './styles.scss'
@@ -24,8 +24,8 @@ export function Illustration ({ name, size, className, ...props }) {
     immigrant: <Immigrant />,
     climate: <Climate />,
     culture: <Culture />,
-    // mobility: <Mobility />,
-    learn: <Learn />,
+    // mobility: <Mobility />, // TODO: Uncomment when a new working svg is added
+    learn: <Learn />
   }
 
   return (
@@ -37,6 +37,21 @@ export function Illustration ({ name, size, className, ...props }) {
 
 Illustration.propTypes = {
   className: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  size: PropTypes.string
+  name: PropTypes.oneOf([
+    'work',
+    'outdoors',
+    'people',
+    'health',
+    'sports',
+    'immigrant',
+    'climate',
+    'culture',
+    // TODO: Add 'mobility' when a new working svg is added
+    'learn'
+  ]).isRequired,
+  size: PropTypes.oneOf([
+    'auto',
+    'small',
+    'xsmall'
+  ])
 }
