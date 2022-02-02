@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid/non-secure'
 
 import './styles.scss'
 
-export function TextField ({ type, className, placeholder, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, hintTextOnFocus, ...props }) {
+export function TextField ({ type, className, placeholder, required, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, hintTextOnFocus, ...props }) {
   const [focusState, setFocusState] = useState(false)
   const [labelId] = useState(id || `id${nanoid()}`)
 
@@ -20,6 +20,7 @@ export function TextField ({ type, className, placeholder, value, id, disabled, 
 
   return (
     <div className={`
+        ${required ? 'required-input' : ''}
         ${rounded ? 'rounded-input' : 'text-field'}
         ${type || 'text'}
         ${error ? 'error' : ''}
@@ -107,6 +108,7 @@ TextField.propTypes = {
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
+  required: PropTypes.bool,
   rounded: PropTypes.bool,
   rows: PropTypes.oneOfType([
     PropTypes.number,

@@ -125,3 +125,44 @@ export function Multiple () {
     />
   )
 }
+
+export function Required () {
+  const [selectedItem, setSelectedItem] = useState(null)
+  const [selectedItems, setSelectedItems] = useState([])
+
+  function handleMultiChange (item) {
+    const newArray = [...selectedItems]
+    const removeIndex = newArray.map(function (item) { return item.value }).indexOf(item.value)
+
+    if (removeIndex === -1) newArray.push(item)
+    else newArray.splice(removeIndex, 1)
+
+    setSelectedItems(newArray)
+  }
+
+  return (
+    <>
+      <Select
+        required={boolean('Initially required', true)}
+        placeholder={text('Placeholder', 'Velg en årsak for varselet')}
+        label={text('Label', 'Valgt årsak for varselet')}
+        isOpen={boolean('Initially open', false)}
+        closeOnSelect={boolean('Close on selection', true)}
+        items={object('Items', items)}
+        selectedItem={selectedItem}
+        onChange={(item) => { setSelectedItem(item) }}
+        style={{ margin: '20px' }}
+      />
+      <SelectMultiple
+        required={boolean('Initially required', true)}
+        placeholder={text('Placeholder', 'Velg én eller flere årsaker for varselet')}
+        label={text('Label', 'Valgte årsaker for varselet')}
+        isOpen={boolean('Initially open', false)}
+        items={object('Items', items)}
+        selectedItems={selectedItems}
+        onChange={(item) => { handleMultiChange(item) }}
+        style={{ margin: '20px' }}
+      />
+    </>
+  )
+}

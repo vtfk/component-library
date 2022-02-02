@@ -109,6 +109,11 @@
     left: 0;
   }
 }
+.required-input::before {
+  position: absolute;
+  margin: 15px 0px 0px -10px; 
+  @include required();
+}
 
 .rounded-input {
   input {

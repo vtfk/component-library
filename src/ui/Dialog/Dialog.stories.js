@@ -3,6 +3,7 @@ import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Dialog, DialogTitle, DialogBody, DialogActions } from '.'
 import { Button } from '../Button'
+import { Heading3 } from '../Typography'
 
 export default getConfig(
   {
@@ -26,9 +27,12 @@ export function Basic () {
         isOpen={modalOpen}
         onDismiss={() => { setIsModalOpen(false) }}
       >
-        <DialogTitle isShowCloseButton>This is the title of the modal</DialogTitle>
+        <DialogTitle isShowCloseButton><Heading3>This is the title of the modal</Heading3></DialogTitle>
         <DialogBody>
-          This is the body of the modal
+          <div>This is the body of the modal, here you can put anything.</div>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <img style={{'marginTop': '1rem'}} src="https://www.vtfk.no/globalassets/administrasjon/vtfk/system/layout/vtfk-logo.svg" />
+          </div>
         </DialogBody>
         <DialogActions>
           <Button size='small'>Action1</Button>
@@ -51,8 +55,9 @@ export function Persistent () {
         isOpen={modalOpen}
         persistent
         onDismiss={() => { setIsModalOpen(false) }}
+        showCloseButton={true}
       >
-        <DialogTitle isShowCloseButton>This is the title of the modal</DialogTitle>
+        <DialogTitle>This is the title of the modal</DialogTitle>
         <DialogBody>
           This is the body of the modal
         </DialogBody>

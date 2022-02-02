@@ -6,7 +6,7 @@ import { ReactComponent as CloseIcon } from './icon-close.svg'
 
 import './styles.scss'
 
-export function Dialog ({ isOpen, title, className, persistent, onDismiss, onClickOutside, onPressEscape, ...props }) {
+export function Dialog ({ isOpen, title, className, persistent, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, ...props }) {
   // Set an unique ID for the dialog
   const [id] = useState(`dialog-${nanoid()}`)
 
@@ -25,7 +25,8 @@ export function Dialog ({ isOpen, title, className, persistent, onDismiss, onCli
     function handleMouseClick (e) {
       // Check if is open, a onClickOutside function prop is passed and it has actually clicked outside
       if (isOpen && !e.path.find((i) => i.id === id)) {
-        if (persistent && !onClickOutside) shakeDialogBox()
+        e.preventDefault();
+        if (persistent && !onClickOutside) { shakeDialogBox() }
         else if (onClickOutside && typeof onClickOutside === 'function') onClickOutside()
         else if (onDismiss && typeof onDismiss === 'function') onDismiss()
       }
@@ -47,8 +48,10 @@ export function Dialog ({ isOpen, title, className, persistent, onDismiss, onCli
     }
   })
 
-  // Clone all children and add a
-  const updatedChildren = props.children.map((child) => React.cloneElement(child, { onDismiss }))
+  function handleCloseBtnClick() {
+    if(onCloseBtnClick && typeof onCloseBtnClick === 'function') onCloseBtnClick();
+    else if(onDismiss && typeof onDismiss === 'function') onDismiss();
+  }
 
   // Render the component
   return (
@@ -56,12 +59,12 @@ export function Dialog ({ isOpen, title, className, persistent, onDismiss, onCli
       <>
         <div className='dialog-backdrop'>
           <div id={id} className='dialog' css={`width: ${props.width || '100%'}`} aria-label='dialog' aria-modal='true' role='dialog'>
-            {updatedChildren.map((child) => {
-              return {
-                ...child,
-                key: Math.random()
-              }
-            })}
+            { !persistent && showCloseButton &&
+              <button className='dialog-close-btn' onClick={() => { handleCloseBtnClick(); }} aria-label='Lukk'>
+                <CloseIcon alt='' />
+              </button>
+            }
+            { props.children }
           </div>
         </div>
       </>
@@ -71,17 +74,9 @@ export function Dialog ({ isOpen, title, className, persistent, onDismiss, onCli
 export function DialogTitle ({ isShowCloseButton, onDismiss, ...props }) {
   return (
     <>
-      {isShowCloseButton &&
-        <div className='dialog-title dialog-title-with-close-btn'>
-          {props.children}
-          <button tabIndex='0' className='dialog-title-close-btn' onClick={() => { onDismiss && onDismiss() }} aria-label='Lukk'>
-            <CloseIcon alt='' />
-          </button>
-        </div>}
-      {!isShowCloseButton &&
-        <div className='dialog-title'>
-          {props.children}
-        </div>}
+     <div className='dialog-title'>
+        {props.children}
+      </div>
     </>
   )
 }
@@ -113,17 +108,19 @@ Dialog.propTypes = {
   title: PropTypes.string,
   width: PropTypes.string,
   persistent: PropTypes.bool,
+  showCloseButton: PropTypes.bool,
   onClickOutside: PropTypes.func,
+  onCloseBtnClick: PropTypes.func,
   onDismiss: PropTypes.func.isRequired
 }
 
 Dialog.defaultProps = {
-  persistent: false
+  persistent: false,
+  showCloseButton: true
 }
 
 DialogTitle.propTypes = {
-  children: PropTypes.any,
-  isShowCloseButton: PropTypes.bool
+  children: PropTypes.any
 }
 
 DialogBody.propTypes = {

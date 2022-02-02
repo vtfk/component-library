@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
+import { boolean } from '@storybook/addon-knobs'
 
 import { TextField } from '.'
 
@@ -81,6 +82,20 @@ export function TextareaNoBorder () {
   return (
     <div>
       <TextField noBorder placeholder='Placeholder..' rows={10} value={value} onChange={(e) => { setValue(e.target.value) }} />
+    </div>
+  )
+}
+
+export function Required () {
+  const [value, setValue] = useState('')
+
+  return (
+    <div>
+      <TextField
+        required={boolean('Initially required', true)}
+        placeholder='Dette er placeholderen..'
+        value={value} onChange={(e) => { setValue(e.target.value) }}
+      />
     </div>
   )
 }
