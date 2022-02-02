@@ -23,7 +23,7 @@ export function TextField ({ type, className, placeholder, value, id, disabled, 
         ${rounded ? 'rounded-input' : 'text-field'}
         ${type || 'text'}
         ${error ? 'error' : ''}
-        ${hintTextOnFocus && hintTextOnFocus.length > 0 && inputRef ? 'has-hint-text' : '' }
+        ${hintTextOnFocus && hintTextOnFocus.length > 0 && inputRef ? 'has-hint-text' : ''}
     `}
     >
       <div className={`
