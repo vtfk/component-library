@@ -104,13 +104,14 @@ Dialog.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
-  title: PropTypes.string,
-  width: PropTypes.string,
-  persistent: PropTypes.bool,
-  showCloseButton: PropTypes.bool,
   onClickOutside: PropTypes.func,
   onCloseBtnClick: PropTypes.func,
-  onDismiss: PropTypes.func.isRequired
+  onDismiss: PropTypes.func.isRequired,
+  onPressEscape: PropTypes.func,
+  persistent: PropTypes.bool,
+  showCloseButton: PropTypes.bool,
+  title: PropTypes.string,
+  width: PropTypes.string
 }
 
 Dialog.defaultProps = {
@@ -119,7 +120,9 @@ Dialog.defaultProps = {
 }
 
 DialogTitle.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
+  isShowCloseButton: PropTypes.bool,
+  onDismiss: PropTypes.func
 }
 
 DialogBody.propTypes = {
