@@ -90,7 +90,7 @@
   line-height: 1.5;
   font-family: "FiraCode-Retina", "FiraCode Retina", "FiraCode Regular", Menlo, Consolas, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New", monospace;
 
-  overflow: scroll;
+  overflow: auto;
 }
 
 .documentation p code {

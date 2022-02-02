@@ -87,13 +87,13 @@
     width: 100%;
     height: calc(100vh - 75px);
     max-width: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .preview-modal-body {
     flex: 1;
     padding: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     position: relative;
 
     @media (max-width: 1000px) {
