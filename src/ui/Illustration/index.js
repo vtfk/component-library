@@ -29,7 +29,7 @@ export function Illustration ({ name, size, className, ...props }) {
   }
 
   return (
-    <span className={`illustration ${size} ${className}`} {...props}>
+    <span className={`illustration ${size || ''} ${className || ''}`} {...props}>
       {illustrationNameMapping[name]}
     </span>
   )
