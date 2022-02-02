@@ -1,0 +1,38 @@
+@import "../Tokens/tokens.scss";
+@import "../../common/scss/helpers";
+
+.switch {
+  appearance: none;
+  outline: 0;
+  font: inherit;
+  box-shadow: none;
+  width: 48px;
+  height: 24px;
+  background: #fff;
+  border: 2px solid #A3A3A3;
+  cursor: pointer;
+  border-radius: 12px;
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 25px;
+    width: 16px;
+    height: 16px;
+    background: #A3A3A3;
+    transition: right ease-in-out 200ms;
+    border-radius: 50%;
+  }
+
+  &.active {
+    background: #005260;
+    border-color: #005260;
+
+    &:after {
+      background: #fff;
+      right: 2px;
+    }
+  }
+}

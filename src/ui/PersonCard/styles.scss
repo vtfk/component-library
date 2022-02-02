@@ -1,0 +1,45 @@
+@import "../Tokens/tokens.scss";
+@import "../../common/scss/helpers";
+
+.person-card {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: $baseUnit * 7;
+  position: relative;
+
+  @media(max-width: 1000px) {
+    padding-bottom: $baseUnit * 3;
+    flex-wrap: wrap;
+    margin-bottom: $baseUnit * 3;
+  }
+
+  .image {
+
+  }
+
+  .text-wrapper {
+    flex: 1;
+    margin-left: $baseUnit * 4;
+    padding-right: $baseUnit * 40;
+
+    @media(max-width: 1000px) {
+      width: calc(100% - (80px) - (#{$baseUnit} * 4));
+      flex: none;
+      padding-right: 0;
+      margin-bottom: $baseUnit * 3;
+    }
+
+    .name {
+      font-weight: 700;
+
+      @media(max-width: 1000px) {
+        font-size: 21px;
+        line-height: 26px;
+      }
+    }
+
+    .other {
+      margin-top: calc($baseUnit / 2);
+    }
+  }
+}

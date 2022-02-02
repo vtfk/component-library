@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid/non-secure'
 
 import './styles.scss'
 
-export function TextField ({ type, className, placeholder, required, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, ...props }) {
+export function TextField ({ type, className, placeholder, required, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, hintTextOnFocus, ...props }) {
   const [focusState, setFocusState] = useState(false)
   const [labelId] = useState(id || `id${nanoid()}`)
 
@@ -24,11 +24,12 @@ export function TextField ({ type, className, placeholder, required, value, id, 
         ${rounded ? 'rounded-input' : 'text-field'}
         ${type || 'text'}
         ${error ? 'error' : ''}
+        ${hintTextOnFocus && hintTextOnFocus.length > 0 && inputRef ? 'has-hint-text' : ''}
     `}
     >
       <div className={`
         ${className || ''}
-        ${noBorder && !rounded ? 'no-border' : ''} 
+        ${noBorder && !rounded ? 'no-border' : ''}
         ${focusState ? 'focused' : ''}
       `}
       >
@@ -80,6 +81,14 @@ export function TextField ({ type, className, placeholder, required, value, id, 
             {error.message || error}
           </label>
       }
+
+      {
+        hintTextOnFocus &&
+        focusState &&
+          <p role='alert' aria-live='assertive' className='hint-text'>
+            {hintTextOnFocus}
+          </p>
+      }
     </div>
   )
 }
@@ -91,6 +100,7 @@ TextField.propTypes = {
     PropTypes.string,
     PropTypes.bool
   ]),
+  hintTextOnFocus: PropTypes.string,
   id: PropTypes.string,
   inputRef: PropTypes.object,
   noBorder: PropTypes.bool,

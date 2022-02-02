@@ -98,7 +98,6 @@
     }
   }
 
-
   .placeholder-label {
     font-size: 14px;
     font-weight: bold;
@@ -152,6 +151,16 @@
   }
 }
 
+.text-field,
+.rounded-input {
+  .hint-text {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    font-size: 12px;
+    color: #777;
+  }
+}
 
 .has-search-icon {
   padding-right: $baseUnit * 6;
