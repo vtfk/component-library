@@ -60,7 +60,7 @@ const SelectDropdown = ({ placeholder, label, disabled, required, id, selectedIt
         </div>
         <Icon name={open ? 'chevronUp' : 'chevronDown'} size='auto' alt='' />
       </button>
-      <fieldset id={`${labelId}-container`} role='listbox' aria-multiselectable={!!multiselect} ref={fieldsetRef}>
+      <fieldset id={`${labelId}-container`} aria-multiselectable={!!multiselect} ref={fieldsetRef}>
         {children}
       </fieldset>
 

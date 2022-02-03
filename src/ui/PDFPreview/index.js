@@ -12,7 +12,8 @@ export function PDFPreview ({ className, loading, base64, error }) {
         type: 'application/pdf',
         data: 'data:application/pdf;base64,' + base64,
         width: '100%',
-        height: '100%'
+        height: '100%',
+        'aria-label': 'PDF-dokument'
       }
     )
   }

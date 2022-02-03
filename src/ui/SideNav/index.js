@@ -11,7 +11,7 @@ export function SideNav ({ title, ...props }) {
       <nav className='sidenav' {...props}>
         <div className='brand'>
           <div className='brand-logo'>
-            <a href='/'>
+            <a href='/' aria-label='Hjem'>
               <Logo />
             </a>
           </div>
