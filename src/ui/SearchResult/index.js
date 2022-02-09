@@ -9,7 +9,7 @@ export function SearchResult ({
   items = [],
   loading = false,
   loadingText = 'Laster...',
-  emptyMessage,
+  emptyMessage = 'Ingen resultater',
   onClick,
   ...props
 }) {
@@ -60,7 +60,7 @@ export function SearchResult ({
 }
 
 SearchResult.propTypes = {
-  emptyMessage: PropTypes.any,
+  emptyMessage: PropTypes.string,
   items: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   loadingText: PropTypes.string,
