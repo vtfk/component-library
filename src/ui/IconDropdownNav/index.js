@@ -5,7 +5,7 @@ import { ReactComponent as DropdownNavIcon } from './icon-dropdown-nav-icon.svg'
 
 import './styles.scss'
 
-const IconDropdownNavContext = React.createContext();
+const IconDropdownNavContext = React.createContext()
 
 export function IconDropdownNav ({ placement, ...props }) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -62,7 +62,7 @@ export function IconDropdownNav ({ placement, ...props }) {
 export function IconDropdownNavItem ({ href, onClick, title, closeOnClick, closeNav, ...props }) {
   const context = useContext(IconDropdownNavContext)
 
-  function handleOnClick() {
+  function handleOnClick () {
     if (closeOnClick && context.closeNav) {
       onClick()
       context.closeNav()
@@ -108,8 +108,9 @@ IconDropdownNav.defaultProps = {
 }
 
 IconDropdownNavItem.propTypes = {
+  closeNav: PropTypes.func,
+  closeOnClick: PropTypes.bool,
   href: PropTypes.string,
   onClick: PropTypes.func,
-  closeOnClick: PropTypes.bool,
   title: PropTypes.string.isRequired
 }
