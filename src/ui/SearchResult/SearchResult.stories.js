@@ -10,26 +10,26 @@ export default getConfig(
 export function Basic () {
   return (
     <SearchResult
-      emptyMessage="Ingen resultater"
+      emptyMessage='Ingen resultater'
       loading={false}
-      loadingText={'Vennligst vent...'}
+      loadingText='Vennligst vent...'
       items={
         [
           {
             title: '1',
             secondary: 'Small',
-            description: 'Description',
+            description: 'Description'
           },
           {
             title: '2',
             secondary: 'Small',
-            description: 'Description',
+            description: 'Description'
           },
           {
             title: '3',
             secondary: 'Small',
-            description: 'Description',
-          },
+            description: 'Description'
+          }
         ]
       }
       onClick={(item) => {
@@ -42,9 +42,9 @@ export function Basic () {
 export function Loading () {
   return (
     <SearchResult
-      emptyMessage="Ingen resultater"
-      loading={true}
-      loadingText={'Vennligst vent...'}
+      emptyMessage='Ingen resultater'
+      loading
+      loadingText='Vennligst vent...'
       items={[]}
       onClick={(item) => {
         console.log(item)
@@ -56,7 +56,7 @@ export function Loading () {
 export function Empty () {
   return (
     <SearchResult
-      emptyMessage="Ingen resultater"
+      emptyMessage='Ingen resultater'
       loading={false}
       items={[]}
       onClick={(item) => {
