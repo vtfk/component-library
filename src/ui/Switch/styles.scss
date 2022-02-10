@@ -35,4 +35,8 @@
       right: 2px;
     }
   }
+
+  &[disabled] {
+    @include disabled();
+  }
 }
