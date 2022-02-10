@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import { boolean } from '@storybook/addon-knobs'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 import { Switch } from '.'
 
-export default getConfig(
-  { title: 'Switch', component: Switch }
-)
+export default getConfig({
+  title: 'Switch',
+  component: Switch,
+  decorators: [withKnobs]
+})
 
 export function Basic () {
   const [isActive, setIsActive] = useState(false)
