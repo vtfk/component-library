@@ -48,3 +48,18 @@ export function disabled () {
     />
   )
 }
+
+export function simple () {
+  const [checked, setChecked] = useState(false)
+
+  function onChange () {
+    setChecked(!checked)
+  }
+
+  return (
+    <Checkbox
+      checked={checked}
+      onChange={() => { onChange() }}
+    />
+  )
+}

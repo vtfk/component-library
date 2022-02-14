@@ -1,21 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { nanoid } from 'nanoid'
 
 import { ReactComponent as IconCheck } from './icon-check.svg'
 
 import './styles.scss'
 
 export function Checkbox ({ name, value, label, disabled, checked, onChange, ...props }) {
+  const id = nanoid()
+
   return (
     <div className='checkbox' {...props}>
       <div className='checkbox-inner'>
         <div className='check-wrapper'>
-          <input id={`check-${name}-${value}`} type='checkbox' name={name} value={value} disabled={disabled || false} checked={checked} onChange={onChange} {...props} tabIndex='0' />
+          <input id={`check-${id}`} type='checkbox' name={name} value={value} disabled={disabled || false} checked={checked} onChange={onChange} {...props} tabIndex='0' />
           <div className='check'>
             <IconCheck />
           </div>
         </div>
-        <label className={disabled ? 'disabled' : ''} htmlFor={`check-${name}-${value}`}>{label}</label>
+        {
+          label && <label className={disabled ? 'disabled' : ''} htmlFor={`check-${id}`}>{label}</label>
+        }
       </div>
     </div>
   )
@@ -24,10 +29,10 @@ export function Checkbox ({ name, value, label, disabled, checked, onChange, ...
 Checkbox.propTypes = {
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string
 }
 
 Checkbox.defaultProps = {
