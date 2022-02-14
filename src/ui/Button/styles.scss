@@ -86,9 +86,9 @@
   }
   
   &:disabled {
-    color: #fff;
-    background: #eeeeee;
-    border: none;
+    color: $stein-3;
+    background: $noytral-1;
+    border-color: $noytral-2;
     cursor: not-allowed;
   }
 
