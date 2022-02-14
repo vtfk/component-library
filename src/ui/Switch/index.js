@@ -5,10 +5,10 @@ import { nanoid } from 'nanoid'
 import './styles.scss'
 
 export function Switch ({ isActive, label, onClick, disabled, ...props }) {
-  const id = nanoid();
+  const id = nanoid()
   return (
-      <div className="switch">
-        <div className="switch-wrapper">
+    <div className='switch'>
+      <div className='switch-wrapper'>
         <button
           id={`switch-${id}`}
           className={`switch-element ${isActive ? 'active' : ''}`}
@@ -21,7 +21,7 @@ export function Switch ({ isActive, label, onClick, disabled, ...props }) {
         {
           label && <label className={disabled ? 'disabled' : ''} htmlFor={`switch-${id}`}>{label}</label>
         }
-        </div>
+      </div>
     </div>
   )
 }
