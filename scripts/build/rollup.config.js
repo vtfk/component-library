@@ -36,9 +36,11 @@ export default {
     url(),
     svgr({
       svgoConfig: {
-        plugins: {
-          removeViewBox: false
-        }
+        plugins: [
+          {
+            removeViewBox: false
+          }
+        ]
       }
     }),
     babel({
