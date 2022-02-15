@@ -1,21 +1,28 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import { useDebouncedCallback } from 'use-debounce'
+
 import './styles.scss'
 
 import { TextField } from '../TextField'
 import { Icon } from '../Icon'
 
-export function SearchField ({ placeholder, value, rounded, onSearch, onChange, className, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onPreDebounce, onDebounce, rounded, onSearch, onChange, className, ...props }) {
   const [searchValue, setSearchValue] = useState(value || '')
-
-  const handleChange = (event) => {
-    setSearchValue(event.target.value)
-    if (onChange && typeof onChange === 'function') onChange(event)
-  }
+  const debouncer = useDebouncedCallback(event => {
+    if (onDebounce && typeof onDebounce === 'function') onDebounce(event)
+  }, debounceMs)
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') search()
+  }
+
+  const handleChange = (event) => {
+    setSearchValue(event.target.value)
+    debouncer(event)
+    if (onPreDebounce && typeof onPreDebounce === 'function') onPreDebounce(event)
+    if (onChange && typeof onChange === 'function') onChange(event)
   }
 
   const search = () => {
@@ -44,9 +51,16 @@ export function SearchField ({ placeholder, value, rounded, onSearch, onChange, 
 
 SearchField.propTypes = {
   className: PropTypes.string,
+  debounceMs: PropTypes.number,
   onChange: PropTypes.func,
-  onSearch: PropTypes.func.isRequired,
+  onDebounce: PropTypes.func,
+  onPreDebounce: PropTypes.func,
+  onSearch: PropTypes.func,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
   value: PropTypes.string
+}
+
+SearchField.defaultProps = {
+  debounceMs: 0
 }
