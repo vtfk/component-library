@@ -146,7 +146,7 @@
       "jest": true
     },
     "rules": {
-      "no-console": 1,
+      "no-console": 0,
       "react/default-props-match-prop-types": 1,
       "react/no-unused-prop-types": 1,
       "react/prop-types": 1,
