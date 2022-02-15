@@ -26,7 +26,7 @@ export function Debounce () {
   return (
     <SearchField
       debounceMs={number('Delay i millisekunder', 1000)}
-      onPreDebounce={event => console.log('onPreDebounce kjører ved hver endring:', event.target.value)}
+      onChange={event => console.log('onChange kjører ved hver endring:', event.target.value)}
       onDebounce={event => console.log('onDebounce kjøres først når delay er ferdig:', event.target.value)}
       placeholder='Søk utføres først etter 1 sekund'
       value=''

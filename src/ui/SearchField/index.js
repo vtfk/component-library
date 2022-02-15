@@ -8,7 +8,7 @@ import './styles.scss'
 import { TextField } from '../TextField'
 import { Icon } from '../Icon'
 
-export function SearchField ({ placeholder, value, debounceMs, onPreDebounce, onDebounce, rounded, onSearch, onChange, className, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onDebounce, rounded, onSearch, onChange, className, ...props }) {
   const [searchValue, setSearchValue] = useState(value || '')
   const debouncer = useDebouncedCallback(event => {
     if (onDebounce && typeof onDebounce === 'function') onDebounce(event)
@@ -21,7 +21,6 @@ export function SearchField ({ placeholder, value, debounceMs, onPreDebounce, on
   const handleChange = (event) => {
     setSearchValue(event.target.value)
     debouncer(event)
-    if (onPreDebounce && typeof onPreDebounce === 'function') onPreDebounce(event)
     if (onChange && typeof onChange === 'function') onChange(event)
   }
 
@@ -54,7 +53,6 @@ SearchField.propTypes = {
   debounceMs: PropTypes.number,
   onChange: PropTypes.func,
   onDebounce: PropTypes.func,
-  onPreDebounce: PropTypes.func,
   onSearch: PropTypes.func,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
