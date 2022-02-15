@@ -29,5 +29,6 @@ export function Switch ({ isActive, label, onClick, disabled, ...props }) {
 Switch.propTypes = {
   disabled: PropTypes.bool,
   isActive: PropTypes.bool,
+  label: PropTypes.string,
   onClick: PropTypes.func
 }
