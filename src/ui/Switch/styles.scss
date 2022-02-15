@@ -2,6 +2,16 @@
 @import "../../common/scss/helpers";
 
 .switch {
+  display: inline-block;
+  margin-right: $baseUnit * 3;
+
+  .switch-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.switch-element {
   appearance: none;
   outline: 0;
   font: inherit;
@@ -37,6 +47,16 @@
   }
 
   &[disabled] {
+    @include disabled();
+  }
+}
+
+label {
+  display: inline-block;
+  line-height: 1em;
+  margin-left: $baseUnit;
+
+  &.disabled {
     @include disabled();
   }
 }
