@@ -38,7 +38,8 @@ export default {
       svgoConfig: {
         plugins: [
           {
-            removeViewBox: false
+            name: 'removeViewBox',
+            active: false
           }
         ]
       }
