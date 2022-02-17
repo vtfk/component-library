@@ -82,7 +82,7 @@ export function IconDropdownNavItem ({ href, onClick, title, closeOnClick, close
 
       {
         onClick &&
-          <button onClick={handleOnClick}>
+          <button onClick={() => { handleOnClick() }}>
             {title}
           </button>
       }
