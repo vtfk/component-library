@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Heading1, Heading3 } from '../Typography'
+import { Heading1, Paragraph } from '../Typography'
 
 import './styles.scss'
 
 export function StatisticsCard ({ className, title, ...props }) {
   return (
     <div className={className || 'statistics-card'}>
-      <Heading1 as='h2' className='statistics-card-title'>
+      <Heading1 as='h3' className='statistics-card-title'>
         {props.children}
       </Heading1>
-      <Heading3 as='p' className='statistics-card-text'>{title}</Heading3>
+      <Paragraph className='statistics-card-text'>{title}</Paragraph>
     </div>
   )
 }
