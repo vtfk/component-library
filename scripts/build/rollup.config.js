@@ -35,7 +35,7 @@ export default {
   plugins: [
     url(),
     svgr({
-      svgo: {
+      svgoConfig: {
         plugins: [
           {
             removeViewBox: false
