@@ -111,7 +111,7 @@ export function DebounceSearch () {
   function onDebounce (e) {
     console.log('onDebounce kjøres først når delay er ferdig:', e.target.value)
     setDebounced(e.target.value)
-    setItems(defaultItems.filter(item => item.itemTitle.toLowerCase().includes(e.target.value) || item.itemSecondary.toLowerCase().includes(e.target.value) || item.itemDescription.toLowerCase().includes(e.target.value)))
+    setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(e.target.value)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(e.target.value)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(e.target.value))))
     setSearching(false)
   }
 

@@ -86,7 +86,10 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
                 items.map((item, index) => {
                   return (
                     <div onMouseDown={() => { handleItemClick(item, index) }} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`}>
-                      <Paragraph className='search-results-item-title'>{item.itemTitle}</Paragraph>
+                      {
+                        item.itemTitle &&
+                          <Paragraph className='search-results-item-title'>{item.itemTitle}</Paragraph>
+                      }
                       {
                         item.itemSecondary &&
                           <Paragraph className='search-results-item-secondary' size='small'>{item.itemSecondary}</Paragraph>
@@ -134,9 +137,9 @@ SearchField.propTypes = {
     PropTypes.object
   ]),
   items: PropTypes.arrayOf(PropTypes.shape({
-    itemTitle: PropTypes.string.isRequired,
-    itemSecondary: PropTypes.string.isRequired,
-    itemDescription: PropTypes.string.isRequired
+    itemTitle: PropTypes.string,
+    itemSecondary: PropTypes.string,
+    itemDescription: PropTypes.string
   })),
   loading: PropTypes.bool,
   loadingText: PropTypes.oneOfType([
