@@ -2,8 +2,6 @@
 @import "../../common/scss/helpers";
 
 .header-search {
-  max-width: 650px;
-  margin: 0 auto ($baseUnit * 3) auto;
   position: relative;
 
   .search-field {
