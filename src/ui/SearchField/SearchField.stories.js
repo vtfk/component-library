@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { withKnobs, number, object, text } from '@storybook/addon-knobs'
+import { withKnobs, number, text, object } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 import { Paragraph } from '../Typography'
 import { SearchField } from '.'
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight'
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 export default getConfig({
   title: 'SearchField',
@@ -16,50 +15,48 @@ export default getConfig({
 
 const defaultItems = [
   {
-    itemTitle: 'Sam Sam',
-    itemSecondary: 'sam0101',
-    itemDescription: 'Some place'
+    title: 'Sam Sam',
+    secondary: 'sam0101',
+    description: 'Some place'
   },
   {
-    itemTitle: 'Tam Tam',
-    itemSecondary: 'tam0202',
-    itemDescription: 'Tam place'
+    title: 'Tam Tam',
+    secondary: 'tam0202',
+    description: 'Tam place'
   },
   {
-    itemTitle: 'Ram Ram',
-    itemSecondary: 'ram0303',
-    itemDescription: 'Rome place'
+    title: 'Ram Ram',
+    secondary: 'ram0303',
+    description: 'Rome place'
   },
   {
-    itemTitle: 'Bam Bam',
-    itemSecondary: 'bam0404',
-    itemDescription: 'Bome place'
+    title: 'Bam Bam',
+    secondary: 'bam0404',
+    description: 'Bome place'
   },
   {
-    itemTitle: 'Lam Lam',
-    itemSecondary: 'lam0505',
-    itemDescription: 'Lome place'
+    title: 'Lam Lam',
+    secondary: 'lam0505',
+    description: 'Lome place'
   }
 ]
 
 export function Basic () {
   return (
-    <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
-      <SearchField
-        placeholder='Dette er placeholderen'
-        value=''
-        onChange={e => console.log('onChange kjøres ved hver endring. Tekstfeltet inneholder:', e.target.value)}
-        onSearch={value => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen. Tekstfeltet inneholder:', value)}
-        rounded
-      />
-    </div>
+    <SearchField
+      placeholder='Dette er placeholderen'
+      value=''
+      onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
+      onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
+      rounded
+    />
   )
 }
 
 export function Items () {
   const [value, setValue] = useState('')
   const [debounced, setDebounced] = useState('')
-  const [searched, setSearched] = useState('')
+  const [selectedItem, setSelectedItem] = useState('')
   const [searching, setSearching] = useState(false)
   const [items, setItems] = useState([])
 
@@ -67,22 +64,23 @@ export function Items () {
   object('Items', defaultItems)
 
   function onChange (e) {
-    console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
+    console.log('onChange kjører ved hver endring:', e.target.value)
     setValue(e.target.value)
-    setSearching(true)
   }
 
   function onSearch (e) {
+    setSearching(true)
+    console.log('onSearch kjøres først når delay er ferdig:', e.target.value)
     const val = e.target.value.toLowerCase()
-    console.log('onSearch kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
     setDebounced(e.target.value)
-    setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
+    setItems(defaultItems.filter(item => (item.title && item.title.toLowerCase().includes(val)) || (item.secondary && item.secondary.toLowerCase().includes(val)) || (item.description && item.description.toLowerCase().includes(val))))
     setSearching(false)
   }
 
   function onSelected (value) {
-    console.log('onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt oppføring:', value)
-    setSearched(JSON.stringify(value, null, 2))
+    console.log('onSelected: Kjøres ved valg av item')
+    // console.log('onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt oppføring:', value)
+    setSelectedItem(JSON.stringify(value, null, 2))
   }
 
   return (
@@ -92,15 +90,14 @@ export function Items () {
           debounceMs={number('Delay i millisekunder', 1000)}
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
+          onSelected={e => onSelected(e)}
           placeholder='Søk utføres først etter 1 sekund'
           value=''
-          onSelected={e => onSelected(e)}
           rounded
           loading={searching}
           loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
           emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
           items={items}
-          onItemClick={e => onSelected(e)}
         />
       </div>
       <br />
@@ -120,7 +117,98 @@ export function Items () {
         </tbody>
       </table>
       <div>
-        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{searched}</SyntaxHighlighter>
+        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{selectedItem}</SyntaxHighlighter>
+      </div>
+    </div>
+  )
+}
+
+export function CustomItems () {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
+  const [selectedItem, setSelectedItem] = useState('')
+  const [items, setItems] = useState([])
+
+  const itemMapping = [
+    {
+      value: 'title',
+      style: { textAlign: 'left', color: 'red', fontWeight: 'bold', fontSize: '23px' }
+    },
+    {
+      value: 'secondary',
+      style: { backgroundColor: 'blue', color: 'white', textAlign: 'center' }
+    },
+    {
+      value: 'description',
+      style: { fontFamily: "'Brush Script MT', cursive", textTransform: 'uppercase', textAlign: 'right' }
+    }
+  ]
+
+  function onChange () {
+    // En slags workaround på dette problemet i onSearch handler.
+    // React state oppdateres ikke hyppig nok, så 1. setIsSearching(true) 2. Gjør noe 3. setIsSearching(false) blir ikke sent til komponenten
+    setIsSearching(true);
+  }
+
+  function onSearch (e) {
+    const term = e.target.value.toLowerCase()
+    setSearchTerm(e.target.value)
+    setIsSearching(true)
+
+    const matches = []
+    for (const item of defaultItems) {
+      let matched = false
+      for (const key of Object.keys(item)) {
+        if (matched) continue
+        const type = typeof item[key]
+        if (type === 'function' || type === 'object' || type === 'undefined') continue
+
+        if (item[key].toLowerCase().includes(term)) matched = true
+      }
+
+      if (matched) matches.push(item)
+    }
+
+    setItems(matches)
+    setIsSearching(false)
+  }
+
+  return (
+    <div>
+      <p>The search result items are customized by passing a itemMapping array.</p>
+      <p>This allows you to choose what datafield should be rendered, as well as an optional style property</p>
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          value={searchTerm}
+          debounceMs={number('Delay i millisekunder', 500)}
+          onChange={() => onChange()}
+          onSearch={e => {onSearch(e)}}
+          onSelected={e => setSelectedItem(e)}
+          placeholder='Søk utføres først etter 0.5 sekund'
+          rounded
+          loading={isSearching}
+          items={items}
+          itemMapping={itemMapping}
+        />
+      </div>
+      <br />
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Is searching: </strong></td>
+            <td>{isSearching.toString()}</td>
+          </tr>
+          <tr>
+            <td><strong>SearchTerm: </strong></td>
+            <td>{searchTerm}</td>
+          </tr>
+          <tr>
+            <td><strong>selectedItem:</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{JSON.stringify(selectedItem, null, 2)}</SyntaxHighlighter>
       </div>
     </div>
   )
@@ -165,6 +253,7 @@ export function Children () {
       console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index}. Valgt oppføring:`, item)
       setSearchInputSelectedIndex(index)
       setSearched(JSON.stringify(item, null, 2))
+      console.log('SelectedItem:', searched)
     } else if (value) {
       const item = items[searchInputSelectedIndex]
       if (item) {
@@ -193,7 +282,7 @@ export function Children () {
           {
             !searching && items.length > 0 && items.map((item, index) => {
               return (
-                <div onMouseDown={item => onSelected(item, index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`}>
+                <div onMouseDown={item => onSelected(item, index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
                   {
                     item.itemTitle &&
                       <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
@@ -234,22 +323,15 @@ export function Children () {
       <table>
         <tbody>
           <tr>
-            <td><strong>onChange:</strong></td>
+            <td><strong>onChange</strong></td>
             <td>{value}</td>
           </tr>
           <tr>
-            <td><strong>onSearch:</strong></td>
+            <td><strong>onDebounce</strong></td>
             <td>{debounced}</td>
-          </tr>
-          <tr>
-            <td><strong>onSelected:</strong></td>
           </tr>
         </tbody>
       </table>
-      <br /><br />
-      <div>
-        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{searched}</SyntaxHighlighter>
-      </div>
     </div>
   )
 }

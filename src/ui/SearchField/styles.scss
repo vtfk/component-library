@@ -118,6 +118,27 @@
           }
         }
       }
+
+      .search-result-table {
+        width: 100%;
+        border-collapse: collapse;
+      
+        tr {
+          cursor: pointer;
+      
+          &:hover {
+            background: #f0f0f0;
+          }
+      
+          &.active {
+            background: #D6EDF4;
+          }
+        }
+      
+        td {
+          padding: $baseUnit * 1.5;
+        }
+      }
     }
   }
 }
