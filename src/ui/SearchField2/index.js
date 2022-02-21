@@ -9,7 +9,7 @@ import { TextField } from '../TextField'
 import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 
-export function SearchField ({ placeholder, value, debounceMs, onDebounce, rounded, onSearch, onChange, className, items, loading, loadingText, emptyText, onItemClick, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onDebounce, rounded, onSearch, onChange, className, items, loading, loadingText, emptyText, onItemClick, onKeyDown, children, ...props }) {
   const [searchValue, setSearchValue] = useState(value || '')
   const [searchInputFocused, setSearchInputFocused] = useState(false)
   const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
@@ -18,10 +18,12 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
   }, debounceMs)
 
   useEffect(() => {
-    if (typeof loading === 'boolean' && loading) setSearchInputSelectedIndex(0)
+    if (items && typeof loading === 'boolean' && loading) setSearchInputSelectedIndex(0)
   }, [loading])
 
   const handleKeyDown = (event) => {
+    if (onKeyDown && typeof onKeyDown === 'function') onKeyDown(event)
+
     if (event.key === 'ArrowUp') {
       event.preventDefault()
       if (items && items.length > 0 && searchInputSelectedIndex > 0) setSearchInputSelectedIndex(searchInputSelectedIndex - 1)
@@ -65,7 +67,7 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           style={
-            items && searchInputFocused && searchValue !== ''
+            (items || children) && searchInputFocused && searchValue !== ''
               ? { boxShadow: 'none', paddingRight: 200, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderColor: '#979797', borderBottomWidth: 0 }
               : { boxShadow: 'none', paddingRight: 200, borderColor: '#979797' }
           }
@@ -77,7 +79,7 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
         </div>
       </div>
       {
-        items && searchInputFocused && searchValue !== '' &&
+        items && !children && searchInputFocused && searchValue !== '' &&
           <div className='search-result'>
             <div className='search-results-inner'>
               {
@@ -126,11 +128,21 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
             </div>
           </div>
       }
+
+      {
+        !items && children && searchInputFocused && searchValue !== '' &&
+          <div className='search-result'>
+            <div className='search-results-inner'>
+              {children}
+            </div>
+          </div>
+      }
     </div>
   )
 }
 
 SearchField.propTypes = {
+  children: PropTypes.any,
   className: PropTypes.string,
   debounceMs: PropTypes.number,
   emptyText: PropTypes.oneOfType([
@@ -150,6 +162,7 @@ SearchField.propTypes = {
   onChange: PropTypes.func,
   onDebounce: PropTypes.func,
   onItemClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
   onSearch: PropTypes.func,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
