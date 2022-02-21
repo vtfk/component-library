@@ -88,15 +88,15 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
                     <div onMouseDown={() => { handleItemClick(item, index) }} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`}>
                       {
                         item.itemTitle &&
-                          <Paragraph className='search-results-item-title'>{item.itemTitle}</Paragraph>
+                          <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
                       }
                       {
                         item.itemSecondary &&
-                          <Paragraph className='search-results-item-secondary' size='small'>{item.itemSecondary}</Paragraph>
+                          <Paragraph className='search-results-item-width' size='small'>{item.itemSecondary}</Paragraph>
                       }
                       {
                         item.itemDescription &&
-                          <Paragraph className='search-results-item-description' size='small'>{item.itemDescription}</Paragraph>
+                          <Paragraph className='search-results-item-width' size='small'>{item.itemDescription}</Paragraph>
                       }
                     </div>
                   )

@@ -62,16 +62,9 @@
           padding: 15px 24px;
           text-decoration: none;
           color: inherit;
-  
-          &.search-results-item-title {
-            width: 260px;
-          }
-  
-          &.search-results-item-secondary {
-            width: 140px;
-          }
-  
-          &.search-results-item-description {
+
+          &.search-results-item-width {
+            width: 33.3%
           }
   
           &:last-child {
