@@ -32,6 +32,7 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
       event.preventDefault()
 
       search()
+      setSearchInputFocused(false)
     }
   }
 
