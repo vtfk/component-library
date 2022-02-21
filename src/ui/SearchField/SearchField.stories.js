@@ -147,7 +147,7 @@ export function CustomItems () {
   function onChange () {
     // En slags workaround på dette problemet i onSearch handler.
     // React state oppdateres ikke hyppig nok, så 1. setIsSearching(true) 2. Gjør noe 3. setIsSearching(false) blir ikke sent til komponenten
-    setIsSearching(true);
+    setIsSearching(true)
   }
 
   function onSearch (e) {
@@ -182,7 +182,7 @@ export function CustomItems () {
           value={searchTerm}
           debounceMs={number('Delay i millisekunder', 500)}
           onChange={() => onChange()}
-          onSearch={e => {onSearch(e)}}
+          onSearch={e => { onSearch(e) }}
           onSelected={e => setSelectedItem(e)}
           placeholder='Søk utføres først etter 0.5 sekund'
           rounded

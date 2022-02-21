@@ -204,7 +204,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
                   </tbody>
                 </table>
             }
-            {
+              {
               /* Render children */
               children && { children }
             }
@@ -216,31 +216,30 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 }
 
 SearchField.propTypes = {
-  value: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.shape({
-    itemTitle: PropTypes.string,
-    itemSecondary: PropTypes.string,
-    itemDescription: PropTypes.string
-  })),
-  placeholder: PropTypes.string,
+  children: PropTypes.any,
   className: PropTypes.string,
   debounceMs: PropTypes.number,
+  emptyText: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
+  itemMapping: PropTypes.arrayOf(PropTypes.object),
+  items: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool,
   loadingText: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
   ]),
-  emptyText: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]),
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onItemClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
   onSearch: PropTypes.func,
   onSelected: PropTypes.func,
-  onItemClick: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
+  placeholder: PropTypes.string,
   rounded: PropTypes.bool,
+  value: PropTypes.string
 }
 
 SearchField.defaultProps = {
