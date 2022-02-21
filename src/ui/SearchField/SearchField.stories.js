@@ -10,6 +10,34 @@ export default getConfig({
   decorators: [withKnobs]
 })
 
+const defaultItems = [
+  {
+    title: 'Sam Sam',
+    secondary: 'sam0101',
+    description: 'Some place'
+  },
+  {
+    title: 'Tam Tam',
+    secondary: 'tam0202',
+    description: 'Tam place'
+  },
+  {
+    title: 'Ram Ram',
+    secondary: 'ram0303',
+    description: 'Rome place'
+  },
+  {
+    title: 'Bam Bam',
+    secondary: 'bam0404',
+    description: 'Bome place'
+  },
+  {
+    title: 'Lam Lam',
+    secondary: 'lam0505',
+    description: 'Lome place'
+  }
+]
+
 export function Basic () {
   return (
     <SearchField
@@ -25,6 +53,12 @@ export function Basic () {
 export function Debounce () {
   const [value, setValue] = useState('')
   const [debounced, setDebounced] = useState('')
+  const [selectedItem, setSelectedItem] = useState('')
+  const [searching, setSearching] = useState(false)
+  const [items, setItems] = useState([])
+
+  // show items as a knob, just for documentation purposes
+  object('Items', defaultItems)
 
   function onChange (e) {
     console.log('onChange kjører ved hver endring:', e.target.value)
@@ -34,19 +68,245 @@ export function Debounce () {
   function onDebounce (e) {
     console.log('onDebounce kjøres først når delay er ferdig:', e.target.value)
     setDebounced(e.target.value)
+    setItems(defaultItems.filter(item => (item.title && item.title.toLowerCase().includes(val)) || (item.secondary && item.secondary.toLowerCase().includes(val)) || (item.description && item.description.toLowerCase().includes(val))))
+    setSearching(false)
+  }
+
+  function onSelected (value) {
+    console.log('onSelected: Kjøres ved valg av item')
+    // console.log('onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt oppføring:', value)
+    setSelectedItem(JSON.stringify(value, null, 2))
   }
 
   return (
     <div>
-      <SearchField
-        debounceMs={number('Delay i millisekunder', 1000)}
-        onChange={e => onChange(e)}
-        onDebounce={e => onDebounce(e)}
-        placeholder='Søk utføres først etter 1 sekund'
-        value=''
-        onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
-        rounded
-      />
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          debounceMs={number('Delay i millisekunder', 1000)}
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          onSelected={e => onSelected(e)}
+          placeholder='Søk utføres først etter 1 sekund'
+          value=''
+          rounded
+          loading={searching}
+          loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
+          emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
+          items={items}
+        />
+      </div>
+      <br />
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>onChange: </strong></td>
+            <td>{value}</td>
+          </tr>
+          <tr>
+            <td><strong>onSearch:</strong></td>
+            <td>{debounced}</td>
+          </tr>
+          <tr>
+            <td><strong>onSelected:</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{selectedItem}</SyntaxHighlighter>
+      </div>
+    </div>
+  )
+}
+
+export function CustomItems () {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
+  const [selectedItem, setSelectedItem] = useState('')
+  const [items, setItems] = useState([])
+
+  const itemMapping = [
+    {
+      value: 'title',
+      style: { textAlign: 'left', color: 'red', fontWeight: 'bold', fontSize: '23px' }
+    },
+    {
+      value: 'secondary',
+      style: { backgroundColor: 'blue', color: 'white', textAlign: 'center' }
+    },
+    {
+      value: 'description',
+      style: { fontFamily: "'Brush Script MT', cursive", textTransform: 'uppercase', textAlign: 'right' }
+    }
+  ]
+
+  function onSearch (e) {
+    const term = e.target.value.toLowerCase()
+    setSearchTerm(e.target.value)
+    setIsSearching(true)
+
+    const matches = []
+    for (const item of defaultItems) {
+      let matched = false
+      for (const key of Object.keys(item)) {
+        if (matched) continue
+        const type = typeof item[key]
+        if (type === 'function' || type === 'object' || type === 'undefined') continue
+
+        if (item[key].toLowerCase().includes(term)) matched = true
+      }
+
+      if (matched) matches.push(item)
+    }
+
+    setItems(matches)
+    setIsSearching(false)
+  }
+
+  return (
+    <div>
+      <p>The search result items are customized by passing a itemMapping array.</p>
+      <p>This allows you to choose what datafield should be rendered, as well as an optional style property</p>
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          value={searchTerm}
+          debounceMs={number('Delay i millisekunder', 500)}
+          onChange={e => setSearchTerm(e.target.value)}
+          onSearch={e => onSearch(e)}
+          onSelected={e => setSelectedItem(e)}
+          placeholder='Søk utføres først etter 0.5 sekund'
+          rounded
+          loading={isSearching}
+          items={items}
+          itemMapping={itemMapping}
+        />
+      </div>
+      <br />
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Is searching: </strong></td>
+            <td>{isSearching.toString()}</td>
+          </tr>
+          <tr>
+            <td><strong>SearchTerm: </strong></td>
+            <td>{searchTerm}</td>
+          </tr>
+          <tr>
+            <td><strong>selectedItem:</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{JSON.stringify(selectedItem, null, 2)}</SyntaxHighlighter>
+      </div>
+    </div>
+  )
+}
+
+export function Children () {
+  const [value, setValue] = useState('')
+  const [debounced, setDebounced] = useState('')
+  const [searched, setSearched] = useState('')
+  const [searching, setSearching] = useState(false)
+  const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
+  const [items, setItems] = useState([])
+
+  // show items as a knob, just for documentation purposes
+  object('Items', defaultItems)
+
+  function onChange (e) {
+    console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
+    setValue(e.target.value)
+    setSearching(true)
+  }
+
+  function handleKeyDown (e) {
+    if (e.key === 'ArrowUp') {
+      if (items.length > 0 && searchInputSelectedIndex > 0) setSearchInputSelectedIndex(searchInputSelectedIndex - 1)
+    } else if (e.key === 'ArrowDown') {
+      if ((items.length - 1) > searchInputSelectedIndex) setSearchInputSelectedIndex(searchInputSelectedIndex + 1)
+    }
+  }
+
+  function onSearch (e) {
+    const val = e.target.value.toLowerCase()
+    console.log('onSearch kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
+    setDebounced(e.target.value)
+    setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
+    setSearching(false)
+  }
+
+  function onSelected (value, index) {
+    if (Number.isInteger(index)) {
+      const item = items[index]
+      console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index}. Valgt oppføring:`, item)
+      setSearchInputSelectedIndex(index)
+      setSearched(JSON.stringify(item, null, 2))
+    } else if (value) {
+      const item = items[searchInputSelectedIndex]
+      if (item) {
+        console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${searchInputSelectedIndex}. Valgt oppføring:`, item)
+        setSearched(JSON.stringify(item, null, 2))
+      } else {
+        setSearched('')
+      }
+    }
+  }
+
+  return (
+    <div>
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          debounceMs={number('Delay i millisekunder', 1000)}
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          placeholder='Søk utføres først etter 1 sekund'
+          value=''
+          onSelected={e => onSelected(e)}
+          rounded
+          loading={searching}
+          onKeyDown={e => handleKeyDown(e)}
+        >
+          {
+            !searching && items.length > 0 && items.map((item, index) => {
+              return (
+                <div onMouseDown={item => onSelected(item, index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
+                  {
+                    item.itemTitle &&
+                      <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
+                  }
+                  {
+                    item.itemSecondary &&
+                      <Paragraph className='search-results-item-width' size='small'>{item.itemSecondary}</Paragraph>
+                  }
+                  {
+                    item.itemDescription &&
+                      <Paragraph className='search-results-item-width' size='small'>{item.itemDescription}</Paragraph>
+                  }
+                </div>
+              )
+            })
+          }
+
+          {
+            !searching && items.length === 0 &&
+              <div className='search-results-item-message search-alternatives'>
+                <Paragraph>
+                  {text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
+                </Paragraph>
+              </div>
+          }
+
+          {
+            searching &&
+              <div className='search-results-item-message search-alternatives'>
+                <Paragraph>
+                  {text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
+                </Paragraph>
+              </div>
+          }
+        </SearchField>
+      </div>
       <br />
       <table>
         <tbody>
