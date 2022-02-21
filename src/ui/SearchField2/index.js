@@ -35,8 +35,7 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
     } else if (event.key === 'Enter') {
       event.preventDefault()
 
-      search()
-      setSearchInputFocused(false)
+      if (searchInputFocused) search()
     }
   }
 
