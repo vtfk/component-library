@@ -36,6 +36,7 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
       event.preventDefault()
 
       if (searchInputFocused) search()
+      if (items || children) setSearchInputFocused(false)
     }
   }
 
