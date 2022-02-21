@@ -48,8 +48,8 @@ export function Basic () {
       <SearchField
         placeholder='Dette er placeholderen'
         value=''
-        onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
-        onSearch={value => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen', value)}
+        onChange={e => console.log('onChange kjøres ved hver endring. Tekstfeltet inneholder:', e.target.value)}
+        onSearch={value => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen. Tekstfeltet inneholder:', value)}
         rounded
       />
     </div>
@@ -61,12 +61,12 @@ export function Debounce () {
   const [debounced, setDebounced] = useState('')
 
   function onChange (e) {
-    console.log('onChange kjører ved hver endring:', e.target.value)
+    console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
     setValue(e.target.value)
   }
 
   function onDebounce (e) {
-    console.log('onDebounce kjøres først når delay er ferdig:', e.target.value)
+    console.log('onDebounce kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
     setDebounced(e.target.value)
   }
 
@@ -79,7 +79,7 @@ export function Debounce () {
           onDebounce={e => onDebounce(e)}
           placeholder='Søk utføres først etter 1 sekund'
           value=''
-          onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
+          onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen. Tekstfeltet inneholder:')}
           rounded
         />
       </div>
@@ -111,13 +111,13 @@ export function DebounceItems () {
   object('Items', defaultItems)
 
   function onChange (e) {
-    console.log('onChange kjører ved hver endring:', e.target.value)
+    console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
     setValue(e.target.value)
     setSearching(true)
   }
 
   function onDebounce (e) {
-    console.log('onDebounce kjøres først når delay er ferdig:', e.target.value)
+    console.log('onDebounce kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
     setDebounced(e.target.value)
     const val = e.target.value.toLowerCase()
     setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
@@ -125,7 +125,7 @@ export function DebounceItems () {
   }
 
   function onSearch (value) {
-    console.log('onSearch kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges', value)
+    console.log('onSearch kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt oppføring:', value)
     setSearched(JSON.stringify(value, null, 2))
   }
 
@@ -182,13 +182,12 @@ export function DebounceChildren () {
   object('Items', defaultItems)
 
   function onChange (e) {
-    console.log('onChange kjører ved hver endring:', e.target.value)
+    console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
     setValue(e.target.value)
     setSearching(true)
   }
 
   function handleKeyDown (e) {
-    console.log('handleKeyDown:', e.key)
     if (e.key === 'ArrowUp') {
       if (items.length > 0 && searchInputSelectedIndex > 0) setSearchInputSelectedIndex(searchInputSelectedIndex - 1)
     } else if (e.key === 'ArrowDown') {
@@ -197,7 +196,7 @@ export function DebounceChildren () {
   }
 
   function onDebounce (e) {
-    console.log('onDebounce kjøres først når delay er ferdig:', e.target.value)
+    console.log('onDebounce kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
     setDebounced(e.target.value)
     const val = e.target.value.toLowerCase()
     setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
@@ -205,10 +204,9 @@ export function DebounceChildren () {
   }
 
   function onSearch (value) {
-    console.log('onSearch kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges', value)
-    console.log('Dette er items index:', searchInputSelectedIndex)
-    console.log('Item:', items[searchInputSelectedIndex])
-    setSearched(JSON.stringify(items[searchInputSelectedIndex], null, 2))
+    const item = JSON.stringify(items[searchInputSelectedIndex], null, 2)
+    console.log(`onSearch kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${searchInputSelectedIndex}. Valgt oppføring: ${item}`)
+    setSearched(item)
   }
 
   return (
