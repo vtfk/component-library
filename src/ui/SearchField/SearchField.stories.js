@@ -9,7 +9,7 @@ import { Paragraph } from '../Typography'
 import { SearchField } from '.'
 
 export default getConfig({
-  title: 'SearchField2',
+  title: 'SearchField',
   component: SearchField,
   decorators: [withKnobs]
 })
