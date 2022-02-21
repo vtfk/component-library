@@ -9,7 +9,7 @@ import { TextField } from '../TextField'
 import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 
-export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, loading, loadingText, emptyText, onItemClick, onKeyDown, children, onBlur, onFocus, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, loading, loadingText, emptyText, onItemClick, onKeyDown, onBlur, onFocus, children, ...props }) {
   const [searchValue, setSearchValue] = useState(value || '')
   const [searchInputFocused, setSearchInputFocused] = useState(false)
   const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
