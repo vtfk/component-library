@@ -26,9 +26,11 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
 
     if (event.key === 'ArrowUp') {
       event.preventDefault()
+      setSearchInputFocused(true)
       if (items && items.length > 0 && searchInputSelectedIndex > 0) setSearchInputSelectedIndex(searchInputSelectedIndex - 1)
     } else if (event.key === 'ArrowDown') {
       event.preventDefault()
+      setSearchInputFocused(true)
       if (items && (items.length - 1) > searchInputSelectedIndex) setSearchInputSelectedIndex(searchInputSelectedIndex + 1)
     } else if (event.key === 'Enter') {
       event.preventDefault()
