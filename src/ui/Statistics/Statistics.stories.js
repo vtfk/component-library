@@ -64,7 +64,7 @@ export function Progress () {
       <table>
         <tbody>
           <tr>
-            <td><h2>Three <b>StatisticsProgress</b> in a <b>StatisticsGroup</b></h2></td>
+            <td><h2>Four <b>StatisticsProgress</b> in a <b>StatisticsGroup</b></h2></td>
           </tr>
           <tr>
             <td>

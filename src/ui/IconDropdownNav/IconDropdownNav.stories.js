@@ -31,8 +31,8 @@ export function Basic () {
               <IconDropdownNav placement={select('Popup placement', placements, 'left-bottom')}>
                 <IconDropdownNavItem title='Menyelement som link' href='https://vtfk.no' />
                 <IconDropdownNavItem title='Menyelement som onClick' onClick={() => { console.log('onClick!') }} />
+                <IconDropdownNavItem title='Menyelement som onClick som vil lukkes' closeOnClick onClick={() => { console.log('onClick!') }} />
               </IconDropdownNav>
-
             </td>
           </tr>
         </tbody>

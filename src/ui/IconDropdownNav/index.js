@@ -1,9 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import { ReactComponent as DropdownNavIcon } from './icon-dropdown-nav-icon.svg'
 
 import './styles.scss'
+
+const IconDropdownNavContext = React.createContext()
 
 export function IconDropdownNav ({ placement, ...props }) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -47,9 +49,9 @@ export function IconDropdownNav ({ placement, ...props }) {
         dropdownOpen === true &&
           <div className={`icon-dropdown-nav-dropdown ${placement}`} ref={dropdownRef}>
             <ul>
-              {
-                props.children
-              }
+              <IconDropdownNavContext.Provider value={{ closeNav: () => { setDropdownOpen(false) } }}>
+                {props.children}
+              </IconDropdownNavContext.Provider>
             </ul>
           </div>
       }
@@ -57,7 +59,18 @@ export function IconDropdownNav ({ placement, ...props }) {
   )
 }
 
-export function IconDropdownNavItem ({ href, onClick, title, ...props }) {
+export function IconDropdownNavItem ({ href, onClick, title, closeOnClick, closeNav, ...props }) {
+  const context = useContext(IconDropdownNavContext)
+
+  function handleOnClick () {
+    if (closeOnClick && context.closeNav) {
+      onClick()
+      context.closeNav()
+    } else {
+      onClick()
+    }
+  }
+
   return (
     <li className='icon-dropdown-nav-item' {...props}>
       {
@@ -69,7 +82,7 @@ export function IconDropdownNavItem ({ href, onClick, title, ...props }) {
 
       {
         onClick &&
-          <button onClick={onClick}>
+          <button onClick={() => { handleOnClick() }}>
             {title}
           </button>
       }
@@ -95,6 +108,8 @@ IconDropdownNav.defaultProps = {
 }
 
 IconDropdownNavItem.propTypes = {
+  closeNav: PropTypes.func,
+  closeOnClick: PropTypes.bool,
   href: PropTypes.string,
   onClick: PropTypes.func,
   title: PropTypes.string.isRequired
