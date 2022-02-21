@@ -72,16 +72,16 @@ export function Items () {
     setSearching(true)
   }
 
-  function onDebounce (e) {
-    console.log('onDebounce kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
-    setDebounced(e.target.value)
+  function onSearch (e) {
     const val = e.target.value.toLowerCase()
+    console.log('onSearch kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
+    setDebounced(e.target.value)
     setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
   }
 
-  function onSearch (value) {
-    console.log('onSearch kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt oppføring:', value)
+  function onSelected (value) {
+    console.log('onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt oppføring:', value)
     setSearched(JSON.stringify(value, null, 2))
   }
 
@@ -91,16 +91,16 @@ export function Items () {
         <SearchField
           debounceMs={number('Delay i millisekunder', 1000)}
           onChange={e => onChange(e)}
-          onDebounce={e => onDebounce(e)}
+          onSearch={e => onSearch(e)}
           placeholder='Søk utføres først etter 1 sekund'
           value=''
-          onSearch={e => onSearch(e)}
+          onSelected={e => onSelected(e)}
           rounded
           loading={searching}
           loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
           emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
           items={items}
-          onItemClick={e => onSearch(e)}
+          onItemClick={e => onSelected(e)}
         />
       </div>
       <br />
@@ -111,11 +111,11 @@ export function Items () {
             <td>{value}</td>
           </tr>
           <tr>
-            <td><strong>onDebounce:</strong></td>
+            <td><strong>onSearch:</strong></td>
             <td>{debounced}</td>
           </tr>
           <tr>
-            <td><strong>onSearch:</strong></td>
+            <td><strong>onSelected:</strong></td>
           </tr>
         </tbody>
       </table>
@@ -151,18 +151,29 @@ export function Children () {
     }
   }
 
-  function onDebounce (e) {
-    console.log('onDebounce kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
-    setDebounced(e.target.value)
+  function onSearch (e) {
     const val = e.target.value.toLowerCase()
+    console.log('onSearch kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
+    setDebounced(e.target.value)
     setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
   }
 
-  function onSearch (value) {
-    const item = JSON.stringify(items[searchInputSelectedIndex], null, 2)
-    console.log(`onSearch kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${searchInputSelectedIndex}. Valgt oppføring: ${item}`)
-    setSearched(item)
+  function onSelected (value, index) {
+    if (Number.isInteger(index)) {
+      const item = items[index]
+      console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index}. Valgt oppføring:`, item)
+      setSearchInputSelectedIndex(index)
+      setSearched(JSON.stringify(item, null, 2))
+    } else if (value) {
+      const item = items[searchInputSelectedIndex]
+      if (item) {
+        console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${searchInputSelectedIndex}. Valgt oppføring:`, item)
+        setSearched(JSON.stringify(item, null, 2))
+      } else {
+        setSearched('')
+      }
+    }
   }
 
   return (
@@ -171,10 +182,10 @@ export function Children () {
         <SearchField
           debounceMs={number('Delay i millisekunder', 1000)}
           onChange={e => onChange(e)}
-          onDebounce={e => onDebounce(e)}
+          onSearch={e => onSearch(e)}
           placeholder='Søk utføres først etter 1 sekund'
           value=''
-          onSearch={e => onSearch(e)}
+          onSelected={e => onSelected(e)}
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}
@@ -182,7 +193,7 @@ export function Children () {
           {
             !searching && items.length > 0 && items.map((item, index) => {
               return (
-                <div onMouseDown={item => onSearch(item)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
+                <div onMouseDown={item => onSelected(item, index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
                   {
                     item.itemTitle &&
                       <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
@@ -227,11 +238,11 @@ export function Children () {
             <td>{value}</td>
           </tr>
           <tr>
-            <td><strong>onDebounce:</strong></td>
+            <td><strong>onSearch:</strong></td>
             <td>{debounced}</td>
           </tr>
           <tr>
-            <td><strong>onSearch:</strong></td>
+            <td><strong>onSelected:</strong></td>
           </tr>
         </tbody>
       </table>

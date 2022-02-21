@@ -9,12 +9,12 @@ import { TextField } from '../TextField'
 import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 
-export function SearchField ({ placeholder, value, debounceMs, onDebounce, rounded, onSearch, onChange, className, items, loading, loadingText, emptyText, onItemClick, onKeyDown, children, onBlur, onFocus, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, loading, loadingText, emptyText, onItemClick, onKeyDown, children, onBlur, onFocus, ...props }) {
   const [searchValue, setSearchValue] = useState(value || '')
   const [searchInputFocused, setSearchInputFocused] = useState(false)
   const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
   const debouncer = useDebouncedCallback(event => {
-    if (onDebounce && typeof onDebounce === 'function') onDebounce(event)
+    if ((items || children) && onSearch && typeof onSearch === 'function') onSearch(event)
   }, debounceMs)
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
     } else if (event.key === 'Enter') {
       event.preventDefault()
 
-      if (searchInputFocused) search()
+      if (searchInputFocused) selected()
       if (items || children) setSearchInputFocused(false)
     }
   }
@@ -61,8 +61,10 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
     setSearchInputSelectedIndex(index)
   }
 
-  const search = () => {
-    if (onSearch && typeof onSearch === 'function') onSearch(items && items.length > 0 ? items[searchInputSelectedIndex] : searchValue)
+  const selected = () => {
+    if (!items && !children && onSearch && typeof onSearch === 'function') onSearch(searchValue)
+    if (items && onSelected && typeof onSelected === 'function') onSelected(items.length > 0 ? items[searchInputSelectedIndex] : searchValue)
+    if (children && onSelected && typeof onSelected === 'function') onSelected(searchValue)
   }
 
   return (
@@ -86,7 +88,7 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
           {...props}
         />
 
-        <div className='icon' onClick={search}>
+        <div className='icon' onClick={selected}>
           <Icon name='search' alt='' />
         </div>
       </div>
@@ -177,6 +179,7 @@ SearchField.propTypes = {
   onItemClick: PropTypes.func,
   onKeyDown: PropTypes.func,
   onSearch: PropTypes.func,
+  onSelected: PropTypes.func,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
   value: PropTypes.string
