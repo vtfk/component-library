@@ -43,13 +43,15 @@ const defaultItems = [
 
 export function Basic () {
   return (
-    <SearchField
-      placeholder='Dette er placeholderen'
-      value=''
-      onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
-      onSearch={value => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen', value)}
-      rounded
-    />
+    <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+      <SearchField
+        placeholder='Dette er placeholderen'
+        value=''
+        onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
+        onSearch={value => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen', value)}
+        rounded
+      />
+    </div>
   )
 }
 
@@ -69,15 +71,17 @@ export function Debounce () {
 
   return (
     <div>
-      <SearchField
-        debounceMs={number('Delay i millisekunder', 1000)}
-        onChange={e => onChange(e)}
-        onDebounce={e => onDebounce(e)}
-        placeholder='Søk utføres først etter 1 sekund'
-        value=''
-        onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
-        rounded
-      />
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          debounceMs={number('Delay i millisekunder', 1000)}
+          onChange={e => onChange(e)}
+          onDebounce={e => onDebounce(e)}
+          placeholder='Søk utføres først etter 1 sekund'
+          value=''
+          onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
+          rounded
+        />
+      </div>
       <br />
       <table>
         <tbody>
@@ -122,20 +126,22 @@ export function DebounceSearch () {
 
   return (
     <div>
-      <SearchField
-        debounceMs={number('Delay i millisekunder', 1000)}
-        onChange={e => onChange(e)}
-        onDebounce={e => onDebounce(e)}
-        placeholder='Søk utføres først etter 1 sekund'
-        value=''
-        onSearch={e => onSearch(e)}
-        rounded
-        loading={searching}
-        loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
-        emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
-        items={items}
-        onItemClick={e => onSearch(e)}
-      />
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          debounceMs={number('Delay i millisekunder', 1000)}
+          onChange={e => onChange(e)}
+          onDebounce={e => onDebounce(e)}
+          placeholder='Søk utføres først etter 1 sekund'
+          value=''
+          onSearch={e => onSearch(e)}
+          rounded
+          loading={searching}
+          loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
+          emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
+          items={items}
+          onItemClick={e => onSearch(e)}
+        />
+      </div>
       <br />
       <table>
         <tbody>
