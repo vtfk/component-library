@@ -5,6 +5,10 @@ import { Paragraph } from '../Typography'
 
 import './styles.scss'
 
+/**
+ * @deprecated since version 0.4.0
+ * Will be removed in a future release
+ */
 export function SearchResult ({
   items = [],
   loading = false,
