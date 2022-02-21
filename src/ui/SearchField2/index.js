@@ -9,7 +9,7 @@ import { TextField } from '../TextField'
 import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 
-export function SearchField ({ placeholder, value, debounceMs, onDebounce, rounded, onSearch, onChange, className, items, loading, loadingText, emptyText, onItemClick, onKeyDown, children, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onDebounce, rounded, onSearch, onChange, className, items, loading, loadingText, emptyText, onItemClick, onKeyDown, children, onBlur, onFocus, ...props }) {
   const [searchValue, setSearchValue] = useState(value || '')
   const [searchInputFocused, setSearchInputFocused] = useState(false)
   const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
@@ -40,6 +40,16 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
     }
   }
 
+  const handleBlur = () => {
+    if (onBlur && typeof onBlur === 'function') onBlur()
+    setSearchInputFocused(false)
+  }
+
+  const handleFocus = () => {
+    if (onFocus && typeof onFocus === 'function') onFocus()
+    setSearchInputFocused(true)
+  }
+
   const handleChange = (event) => {
     setSearchValue(event.target.value)
     debouncer(event)
@@ -64,8 +74,8 @@ export function SearchField ({ placeholder, value, debounceMs, onDebounce, round
           rounded={rounded}
           placeholder={placeholder || 'Søk...'}
           label={rounded ? null : placeholder}
-          onBlur={() => { setSearchInputFocused(false) }}
-          onFocus={() => { setSearchInputFocused(true) }}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           style={
@@ -161,8 +171,9 @@ SearchField.propTypes = {
     PropTypes.string,
     PropTypes.object
   ]),
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
-  onDebounce: PropTypes.func,
+  onFocus: PropTypes.func,
   onItemClick: PropTypes.func,
   onKeyDown: PropTypes.func,
   onSearch: PropTypes.func,
