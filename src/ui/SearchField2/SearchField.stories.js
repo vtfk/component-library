@@ -56,51 +56,7 @@ export function Basic () {
   )
 }
 
-export function Debounce () {
-  const [value, setValue] = useState('')
-  const [debounced, setDebounced] = useState('')
-
-  function onChange (e) {
-    console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
-    setValue(e.target.value)
-  }
-
-  function onDebounce (e) {
-    console.log('onDebounce kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
-    setDebounced(e.target.value)
-  }
-
-  return (
-    <div>
-      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
-        <SearchField
-          debounceMs={number('Delay i millisekunder', 1000)}
-          onChange={e => onChange(e)}
-          onDebounce={e => onDebounce(e)}
-          placeholder='Søk utføres først etter 1 sekund'
-          value=''
-          onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen. Tekstfeltet inneholder:')}
-          rounded
-        />
-      </div>
-      <br />
-      <table>
-        <tbody>
-          <tr>
-            <td><strong>onChange</strong></td>
-            <td>{value}</td>
-          </tr>
-          <tr>
-            <td><strong>onDebounce</strong></td>
-            <td>{debounced}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-export function DebounceItems () {
+export function Items () {
   const [value, setValue] = useState('')
   const [debounced, setDebounced] = useState('')
   const [searched, setSearched] = useState('')
@@ -170,7 +126,7 @@ export function DebounceItems () {
   )
 }
 
-export function DebounceChildren () {
+export function Children () {
   const [value, setValue] = useState('')
   const [debounced, setDebounced] = useState('')
   const [searched, setSearched] = useState('')
