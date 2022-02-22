@@ -15,47 +15,49 @@ export default getConfig({
 
 const defaultItems = [
   {
-    title: 'Sam Sam',
-    secondary: 'sam0101',
-    description: 'Some place'
+    itemTitle: 'Sam Sam',
+    itemSecondary: 'sam0101',
+    itemDescription: 'Some place'
   },
   {
-    title: 'Tam Tam',
-    secondary: 'tam0202',
-    description: 'Tam place'
+    itemTitle: 'Tam Tam',
+    itemSecondary: 'tam0202',
+    itemDescription: 'Tam place'
   },
   {
-    title: 'Ram Ram',
-    secondary: 'ram0303',
-    description: 'Rome place'
+    itemTitle: 'Ram Ram',
+    itemSecondary: 'ram0303',
+    itemDescription: 'Rome place'
   },
   {
-    title: 'Bam Bam',
-    secondary: 'bam0404',
-    description: 'Bome place'
+    itemTitle: 'Bam Bam',
+    itemSecondary: 'bam0404',
+    itemDescription: 'Bome place'
   },
   {
-    title: 'Lam Lam',
-    secondary: 'lam0505',
-    description: 'Lome place'
+    itemTitle: 'Lam Lam',
+    itemSecondary: 'lam0505',
+    itemDescription: 'Lome place'
   }
 ]
 
 export function Basic () {
   return (
-    <SearchField
-      placeholder='Dette er placeholderen'
-      value=''
-      onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
-      onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
-      rounded
-    />
+    <div>
+      <SearchField
+        placeholder='Dette er placeholderen'
+        value={text('value', '')}
+        onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
+        onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
+        rounded
+      />
+    </div>
   )
 }
 
 export function Items () {
   const [value, setValue] = useState('')
-  const [debounced, setDebounced] = useState('')
+  const [searchValue, setSearchValue] = useState('')
   const [selectedItem, setSelectedItem] = useState('')
   const [searching, setSearching] = useState(false)
   const [items, setItems] = useState([])
@@ -65,34 +67,34 @@ export function Items () {
 
   function onChange (e) {
     console.log('onChange kjører ved hver endring:', e.target.value)
+    setSearching(true)
     setValue(e.target.value)
   }
 
   function onSearch (e) {
-    setSearching(true)
     console.log('onSearch kjøres først når delay er ferdig:', e.target.value)
     const val = e.target.value.toLowerCase()
-    setDebounced(e.target.value)
-    setItems(defaultItems.filter(item => (item.title && item.title.toLowerCase().includes(val)) || (item.secondary && item.secondary.toLowerCase().includes(val)) || (item.description && item.description.toLowerCase().includes(val))))
+    setSearchValue(e.target.value)
+    setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
   }
 
-  function onSelected (value) {
-    console.log('onSelected: Kjøres ved valg av item')
-    // console.log('onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt oppføring:', value)
-    setSelectedItem(JSON.stringify(value, null, 2))
+  function onSelected (value, index) {
+    console.log('onSelected: Kjøres ved valg av item', value, index)
+    setSelectedItem(value ? JSON.stringify(value, null, 2) : '')
   }
 
   return (
     <div>
+      <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
         <SearchField
           debounceMs={number('Delay i millisekunder', 1000)}
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
-          onSelected={e => onSelected(e)}
+          onSelected={(e, i) => onSelected(e, i)}
           placeholder='Søk utføres først etter 1 sekund'
-          value=''
+          value={value}
           rounded
           loading={searching}
           loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
@@ -109,7 +111,7 @@ export function Items () {
           </tr>
           <tr>
             <td><strong>onSearch:</strong></td>
-            <td>{debounced}</td>
+            <td>{searchValue}</td>
           </tr>
           <tr>
             <td><strong>onSelected:</strong></td>
@@ -131,28 +133,21 @@ export function CustomItems () {
 
   const itemMapping = [
     {
-      value: 'title',
+      value: 'itemTitle',
       style: { textAlign: 'left', color: 'red', fontWeight: 'bold', fontSize: '23px' }
     },
     {
-      value: 'secondary',
+      value: 'itemSecondary',
       style: { backgroundColor: 'blue', color: 'white', textAlign: 'center' }
     },
     {
-      value: 'description',
+      value: 'itemDescription',
       style: { fontFamily: "'Brush Script MT', cursive", textTransform: 'uppercase', textAlign: 'right' }
     }
   ]
 
-  function onChange () {
-    // En slags workaround på dette problemet i onSearch handler.
-    // React state oppdateres ikke hyppig nok, så 1. setIsSearching(true) 2. Gjør noe 3. setIsSearching(false) blir ikke sent til komponenten
-    setIsSearching(true)
-  }
-
   function onSearch (e) {
     const term = e.target.value.toLowerCase()
-    setSearchTerm(e.target.value)
     setIsSearching(true)
 
     const matches = []
@@ -179,11 +174,10 @@ export function CustomItems () {
       <p>This allows you to choose what datafield should be rendered, as well as an optional style property</p>
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
         <SearchField
-          value={searchTerm}
           debounceMs={number('Delay i millisekunder', 500)}
-          onChange={() => onChange()}
+          onChange={() => setIsSearching(true)}
           onSearch={e => { onSearch(e) }}
-          onSelected={e => setSelectedItem(e)}
+          onSelected={e => { setSelectedItem(e || '') }}
           placeholder='Søk utføres først etter 0.5 sekund'
           rounded
           loading={isSearching}
@@ -274,7 +268,7 @@ export function Children () {
           onSearch={e => onSearch(e)}
           placeholder='Søk utføres først etter 1 sekund'
           value=''
-          onSelected={e => onSelected(e)}
+          onSelected={(e, i) => onSelected(e, i)}
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}

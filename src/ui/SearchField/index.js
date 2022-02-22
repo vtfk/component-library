@@ -10,125 +10,131 @@ import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 import { nanoid } from 'nanoid'
 
-export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, loading, loadingText, emptyText, onItemClick, onKeyDown, children, onBlur, onFocus, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, ...props }) {
+  /*
+    State
+  */
   const [searchValue, setSearchValue] = useState(value || '')
-  // const [searchInputFocused, setSearchInputFocused] = useState(false)
   const [focusedItemIndex, setFocusedItemIndex] = useState(0)
   const [isShowDropdown, setIsShowDropdown] = useState(false)
 
+  /*
+    Memos
+  */
   // Setup item mapping
   const [_itemMapping] = useMemo(() => {
     if (itemMapping && Array.isArray(itemMapping)) return [itemMapping]
     if (!items || !Array.isArray(items) || items.length === 0) return []
 
-    const mappings = []
-
-    if (items[0].name) {
-      mappings.push({ value: 'name' })
-    } else if (items[0].title) {
-      mappings.push({ value: 'title' })
-    } else if (items[0].displayName) {
-      mappings.push({ value: 'displayName' })
-    }
-
-    if (mappings.length > 0) {
-      mappings[0].style = { textTransform: 'capitalize' }
-    }
+    const mappings = [
+      { value: 'itemTitle', style: { textTransform: 'capitalize' } },
+      { value: 'itemSecondary', style: { textTransform: 'capitalize' } },
+      { value: 'itemDescription', style: { textTransform: 'capitalize' } }
+    ]
 
     return [mappings]
   }, [items, itemMapping])
 
-  // const [validChildren] = useMemo(() => {
-  //   if (!children) return undefined
-  //   if (!Array.isArray(children) && typeof children === 'object') return children
-  //   if (!Array.isArray(children)) return undefined
-
-  //   const vc = children.filter((c) => typeof c === 'object')
-
-  //   if (vc.length !== 0) return [vc]
-
-  //   return undefined
-  // }, [children])
-
-  const debouncer = useDebouncedCallback(event => {
-    if (onSearch && typeof onSearch === 'function') onSearch(event)
-  }, debounceMs)
-
+  /*
+    Handle eventlisteners and externally updated state
+  */
   useEffect(() => {
+    // Update state
+    let val = ''; // Default as empty
+    if(value !== undefined) val = value; // If value has been provided, use that
+    else if(searchValue !== undefined) val = searchValue; // If not, check if it already has state
+    setSearchValue(val)
+
+    // Setup events
     function handleMouseUp (e) {
       if (!e || !e.path) return
 
       // Retreive a list of all classes under the clicked coordinate
       // If the click is outside the searchfield or dropdown, hide it
       const classList = e.path.map((p) => { return p.className })
-      if (!classList.includes('search-result-table') && !classList.includes('header-search')) setIsShowDropdown(false)
+      if (!classList.includes('search-result-table') && !classList.includes('header-search')) hideDropdown();
     }
-
     window.addEventListener('mouseup', handleMouseUp)
+
     return () => {
       window.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [loading])
+  }, [loading, value])
 
+  // Resetting timer that awaits firering the onSearch callback until debounceMs has been reached
+  const debouncer = useDebouncedCallback(event => {
+    if (onSearch && typeof onSearch === 'function') onSearch(event)
+  }, debounceMs)
+
+  // Handles keydown event for the SearchField component
   const handleKeyDown = (event) => {
     if (onKeyDown && typeof onKeyDown === 'function') onKeyDown(event)
 
-    // if (event.key !== 'Enter') {
-    //   setSearchInputFocused(true)
-    // }
-
-    if (event.key === 'ArrowUp') {
-      if (items && items.length > 0) {
+    // Handle navigation in the resultItems
+    if (items && items.length > 0) {
+      if (event.key === 'ArrowUp') {
         if (!isShowDropdown) setIsShowDropdown(true)
         else if (focusedItemIndex > 0) setFocusedItemIndex(focusedItemIndex - 1)
+        event.preventDefault()
       }
-      event.preventDefault()
-    } else if (event.key === 'ArrowDown') {
-      if (items && items.length > 0) {
+      if (event.key === 'ArrowDown') {
         if (!isShowDropdown) setIsShowDropdown(true)
         else if ((items.length - 1) > focusedItemIndex) setFocusedItemIndex(focusedItemIndex + 1)
-      }
-      event.preventDefault()
-    } else if (event.key === 'Enter') {
-      if (items && items.length > 0 && isShowDropdown) {
+        event.preventDefault()
+      } else if (event.key === 'Enter') {
         handleItemClick(items[focusedItemIndex], focusedItemIndex)
+        event.preventDefault()
       }
     }
   }
 
-  const handleBlur = () => {
-    if (onBlur && typeof onBlur === 'function') onBlur()
-    // setSearchInputFocused(false)
-  }
-
+  // Triggers when the searchFields is focused
   const handleFocus = () => {
     if (onFocus && typeof onFocus === 'function') onFocus()
-    // setSearchInputFocused(true)
     if (items && Array.isArray(items) && items.length > 0) setIsShowDropdown(true)
   }
 
+  // Handle when the searchField value changes
   const handleChange = (event) => {
-    setSearchValue(event.target.value)
-    debouncer(event)
+    // Update the search value
+    setSearchValue(event.target.value || '')
+
+    // Fire the onChange callback
     if (onChange && typeof onChange === 'function') onChange(event)
-    setIsShowDropdown(true)
+
+    // Handle what will happen if the searchField input is empty or not
+    if (event.target.value !== '') {
+      debouncer(event)
+      setIsShowDropdown(true)
+    } else {
+      if (onSearch && typeof onSearch === 'function') onSearch(event)
+      if (onSelected && typeof onSelected === 'function') onSelected(undefined, null)
+      hideDropdown();
+    }
   }
 
-  const handleSearch = () => {
+  // Handles clicking the searchButton
+  const handleSearchBtnClick = () => {
     if (!items && !children && onSearch && typeof onSearch === 'function') onSearch(searchValue)
     setIsShowDropdown(true)
   }
 
+  // Handles clicking the searchResult items
   const handleItemClick = (item, index) => {
     if (onSelected && typeof onSelected === 'function') onSelected(item, index)
-    if (onItemClick && typeof onItemClick === 'function') onItemClick(item, index)
 
+    // Retreive primary value and set it as the searchValue
     if (_itemMapping && Array.isArray(_itemMapping) && _itemMapping[0].value) {
       const val = item[_itemMapping[0].value]
       setSearchValue(val)
     }
+    hideDropdown();
+  }
+
+  // Hides the dropdown and trigger the onBlur callback
+  const hideDropdown = () => {
     setIsShowDropdown(false)
-    handleBlur()
+    if (onBlur && typeof onBlur === 'function') onBlur()
   }
 
   return (
@@ -140,29 +146,28 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
           rounded={rounded}
           placeholder={placeholder || 'Søk...'}
           label={rounded ? null : placeholder}
-          // onBlur={handleBlur}
           onFocus={handleFocus}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           style={
-            isShowDropdown
+            isShowDropdown && searchValue !== '' && (loading || items || children)
               ? { boxShadow: 'none', paddingRight: 200, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderColor: '#979797', borderBottomWidth: 0 }
               : { boxShadow: 'none', paddingRight: 200, borderColor: '#979797' }
           }
           {...props}
         />
-        <div className='icon' onClick={handleSearch}>
+        <div className='icon' onClick={handleSearchBtnClick}>
           <Icon name='search' alt='' />
         </div>
       </div>
       {
         /* Dropdown */
-        isShowDropdown &&
+        isShowDropdown && searchValue !== '' && (loading || items || children) &&
           <div className='search-result'>
             <div className='search-results-inner'>
               {
               /* Render loading */
-              loading &&
+              loading && !children &&
                 <div className='search-results-item-message search-alternatives'>
                   <Paragraph>
                     {loadingText}
@@ -206,7 +211,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
             }
               {
               /* Render children */
-              children && { children }
+              children
             }
             </div>
           </div>
@@ -223,8 +228,22 @@ SearchField.propTypes = {
     PropTypes.string,
     PropTypes.object
   ]),
-  itemMapping: PropTypes.arrayOf(PropTypes.object),
-  items: PropTypes.arrayOf(PropTypes.object),
+  itemMapping: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      style: PropTypes.object
+    })
+  ),
+  items: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        itemTitle: PropTypes.string,
+        itemSecondary: PropTypes.string,
+        itemDescription: PropTypes.string
+      })
+    ),
+    PropTypes.arrayOf(PropTypes.object)
+  ]),
   loading: PropTypes.bool,
   loadingText: PropTypes.oneOfType([
     PropTypes.string,
@@ -233,7 +252,6 @@ SearchField.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  onItemClick: PropTypes.func,
   onKeyDown: PropTypes.func,
   onSearch: PropTypes.func,
   onSelected: PropTypes.func,
