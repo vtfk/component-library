@@ -64,10 +64,16 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   // Resetting timer that awaits firering the onSearch callback until debounceMs has been reached
   const debouncer = useDebouncedCallback(event => {
     // Run the onSearch callback
-    if (onSearch && typeof onSearch === 'function') onSearch(event)
+    handleSearch(event)
     // Reset the focused itemIndex
     setFocusedItemIndex(0)
   }, debounceMs)
+
+  const handleSearch = (event) => {
+    // Run the onSearch callback
+    if (!event) event = { target: { value: searchValue } }
+    if (onSearch && typeof onSearch === 'function') onSearch(event)
+  }
 
   // Handles keydown event for the SearchField component
   const handleKeyDown = (event) => {
@@ -84,9 +90,14 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
         if (!isShowDropdown) setIsShowDropdown(true)
         else if ((items.length - 1) > focusedItemIndex) setFocusedItemIndex(focusedItemIndex + 1)
         event.preventDefault()
-      } else if (event.key === 'Enter') {
+      } else if (event.key === 'Enter' && isShowDropdown) {
         handleItemClick(items[focusedItemIndex], focusedItemIndex)
         event.preventDefault()
+      }
+    } else {
+      // Start a search
+      if (event.key === 'Enter') {
+        handleSearch(event)
       }
     }
   }
@@ -106,18 +117,20 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (onChange && typeof onChange === 'function') onChange(event)
 
     // Handle what will happen if the searchField input is empty or not
-    if (event.target.value !== '') {
-      debouncer(event)
-      setIsShowDropdown(true)
-    } else {
-      if (onSearch && typeof onSearch === 'function') onSearch(event)
-      hideDropdown()
+    if (items) {
+      if (event.target.value !== '') {
+        debouncer(event)
+        setIsShowDropdown(true)
+      } else {
+        if (onSearch && typeof onSearch === 'function') onSearch(event)
+        hideDropdown()
+      }
     }
   }
 
   // Handles clicking the searchButton
   const handleSearchBtnClick = () => {
-    if (!items && !children && onSearch && typeof onSearch === 'function') onSearch(searchValue)
+    handleSearch()
     setIsShowDropdown(true)
   }
 

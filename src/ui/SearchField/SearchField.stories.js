@@ -50,7 +50,6 @@ export function Basic () {
         onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
         onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
         rounded
-        debounceMs={number('Delay i millisekunder', 1000)}
       />
     </div>
   )
