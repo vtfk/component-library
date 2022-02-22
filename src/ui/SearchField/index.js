@@ -88,7 +88,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
       }
       if (event.key === 'ArrowDown') {
         if (!isShowDropdown) setIsShowDropdown(true)
-        else if ((items.length - 1) > focusedItemIndex) setFocusedItemIndex(focusedItemIndex + 1)
+        else if (focusedItemIndex < items.length - 1) setFocusedItemIndex(focusedItemIndex + 1)
         event.preventDefault()
       } else if (event.key === 'Enter' && isShowDropdown) {
         handleItemClick(items[focusedItemIndex], focusedItemIndex)
@@ -117,7 +117,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (onChange && typeof onChange === 'function') onChange(event)
 
     // Handle what will happen if the searchField input is empty or not
-    if (items) {
+    if (items || children) {
       if (event.target.value !== '') {
         debouncer(event)
         setIsShowDropdown(true)
@@ -139,7 +139,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (onSelected && typeof onSelected === 'function') onSelected(item, index)
 
     // Set the index of the selected item
-    if (index && index > 0 && index < items.length - 1) setFocusedItemIndex(index)
+    if (index !== undefined && index >= 0 && index < items.length) setFocusedItemIndex(index)
 
     // Retreive primary value and set it as the searchValue
     if (_itemMapping && Array.isArray(_itemMapping) && _itemMapping[0].value) {
