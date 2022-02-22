@@ -50,6 +50,7 @@ export function Basic () {
         onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
         onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
         rounded
+        debounceMs={number('Delay i millisekunder', 1000)}
       />
     </div>
   )
@@ -86,7 +87,6 @@ export function Items () {
 
   return (
     <div>
-      <input type='text' value={value} onChange={(e) => setValue(e.target.value)} />
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
         <SearchField
           debounceMs={number('Delay i millisekunder', 1000)}
@@ -267,7 +267,6 @@ export function Children () {
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
           placeholder='Søk utføres først etter 1 sekund'
-          value=''
           onSelected={(e, i) => onSelected(e, i)}
           rounded
           loading={searching}

@@ -27,9 +27,9 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (!items || !Array.isArray(items) || items.length === 0) return []
 
     const mappings = [
-      { value: 'itemTitle', style: { textTransform: 'capitalize' } },
-      { value: 'itemSecondary', style: { textTransform: 'capitalize' } },
-      { value: 'itemDescription', style: { textTransform: 'capitalize' } }
+      { value: 'itemTitle' },
+      { value: 'itemSecondary' },
+      { value: 'itemDescription' }
     ]
 
     return [mappings]
@@ -63,7 +63,10 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
   // Resetting timer that awaits firering the onSearch callback until debounceMs has been reached
   const debouncer = useDebouncedCallback(event => {
+    // Run the onSearch callback
     if (onSearch && typeof onSearch === 'function') onSearch(event)
+    // Reset the focused itemIndex
+    setFocusedItemIndex(0)
   }, debounceMs)
 
   // Handles keydown event for the SearchField component
@@ -108,7 +111,6 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
       setIsShowDropdown(true)
     } else {
       if (onSearch && typeof onSearch === 'function') onSearch(event)
-      if (onSelected && typeof onSelected === 'function') onSelected(undefined, null)
       hideDropdown()
     }
   }
@@ -122,6 +124,9 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   // Handles clicking the searchResult items
   const handleItemClick = (item, index) => {
     if (onSelected && typeof onSelected === 'function') onSelected(item, index)
+
+    // Set the index of the selected item
+    if (index && index > 0 && index < items.length - 1) setFocusedItemIndex(index)
 
     // Retreive primary value and set it as the searchValue
     if (_itemMapping && Array.isArray(_itemMapping) && _itemMapping[0].value) {
@@ -175,9 +180,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
                 </div>
               }
               {
-                !loading &&
-                items &&
-                items.length === 0 &&
+                !loading && items && items.length === 0 &&
                   <div className='search-results-item-message search-alternatives'>
                     <Paragraph>
                       {emptyText}
@@ -186,9 +189,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
               }
               {
               /* Render items */
-              !loading &&
-              items &&
-              items.length > 0 &&
+              !loading && items && items.length > 0 &&
                 <table className='search-result-table'>
                   <tbody>
                     {
