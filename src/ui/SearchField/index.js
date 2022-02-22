@@ -40,9 +40,9 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   */
   useEffect(() => {
     // Update state
-    let val = ''; // Default as empty
-    if(value !== undefined) val = value; // If value has been provided, use that
-    else if(searchValue !== undefined) val = searchValue; // If not, check if it already has state
+    let val = '' // Default as empty
+    if (value !== undefined) val = value // If value has been provided, use that
+    else if (searchValue !== undefined) val = searchValue // If not, check if it already has state
     setSearchValue(val)
 
     // Setup events
@@ -52,7 +52,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
       // Retreive a list of all classes under the clicked coordinate
       // If the click is outside the searchfield or dropdown, hide it
       const classList = e.path.map((p) => { return p.className })
-      if (!classList.includes('search-result-table') && !classList.includes('header-search')) hideDropdown();
+      if (!classList.includes('search-result-table') && !classList.includes('header-search')) hideDropdown()
     }
     window.addEventListener('mouseup', handleMouseUp)
 
@@ -109,7 +109,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     } else {
       if (onSearch && typeof onSearch === 'function') onSearch(event)
       if (onSelected && typeof onSelected === 'function') onSelected(undefined, null)
-      hideDropdown();
+      hideDropdown()
     }
   }
 
@@ -128,7 +128,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
       const val = item[_itemMapping[0].value]
       setSearchValue(val)
     }
-    hideDropdown();
+    hideDropdown()
   }
 
   // Hides the dropdown and trigger the onBlur callback

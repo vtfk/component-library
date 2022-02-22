@@ -86,7 +86,7 @@ export function Items () {
 
   return (
     <div>
-      <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
+      <input type='text' value={value} onChange={(e) => setValue(e.target.value)} />
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
         <SearchField
           debounceMs={number('Delay i millisekunder', 1000)}
@@ -149,7 +149,7 @@ export function CustomItems () {
   function onSearch (e) {
     const term = e.target.value.toLowerCase()
     setIsSearching(true)
-
+    setSearchTerm(term)
     const matches = []
     for (const item of defaultItems) {
       let matched = false
