@@ -88,6 +88,11 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   const handleKeyDown = (event) => {
     if (onKeyDown && typeof onKeyDown === 'function') onKeyDown(event)
 
+    if (isShowDropdown && event.key === 'Escape') {
+      handleShowDropdown(false)
+      return
+    }
+
     // Handle navigation in the resultItems
     if (items && items.length > 0) {
       if (event.key === 'ArrowUp') {
