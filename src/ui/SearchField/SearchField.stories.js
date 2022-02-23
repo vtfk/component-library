@@ -269,8 +269,6 @@ export function Children () {
 
   function onChange (e) {
     console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
-    // if(e.target.value !== '') setShowDropdown(true);
-    // else setShowDropdown(false);
 
     setSearchTerm(e.target.value)
     setSearching(true)
