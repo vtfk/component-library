@@ -190,22 +190,7 @@ export function CustomItems () {
     const term = e.target.value.toLowerCase()
     setIsSearching(true)
     setSearchTerm(term)
-    const matches = []
-    if (term) {
-      for (const item of defaultItems) {
-        let matched = false
-        for (const key of Object.keys(item)) {
-          if (matched) continue
-          const type = typeof item[key]
-          if (type === 'function' || type === 'object' || type === 'undefined') continue
-
-          if (item[key].toLowerCase().includes(term)) matched = true
-        }
-
-        if (matched) matches.push(item)
-      }
-    }
-
+    const matches = defaultItems.filter(item => Object.keys(item).some(key => item[key] && typeof item[key] === 'string' && item[key].toLowerCase().includes(term)))
     setItems(matches)
     setIsSearching(false)
   }
