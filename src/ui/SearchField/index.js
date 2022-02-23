@@ -94,6 +94,12 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
         handleItemClick(items[focusedItemIndex], focusedItemIndex)
         event.preventDefault()
       }
+    } else if (children) {
+      if (event.key === 'Enter' && isShowDropdown) {
+        if (onSelected && typeof onSelected === 'function') onSelected()
+        hideDropdown()
+        event.preventDefault()
+      }
     } else {
       // Start a search
       if (event.key === 'Enter') {
