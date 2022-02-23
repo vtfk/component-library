@@ -156,6 +156,9 @@ export function CustomItems () {
   const [selectedItem, setSelectedItem] = useState('')
   const [items, setItems] = useState([])
 
+  // show items as a knob, just for documentation purposes
+  object('Items', defaultItems)
+
   const itemMapping = [
     {
       value: 'itemTitle',
@@ -206,7 +209,7 @@ export function CustomItems () {
 
   return (
     <div>
-      <p>The search result items are customized by passing a itemMapping array.</p>
+      <p>The search result items are customized by passing a <strong>itemMapping</strong> array.</p>
       <p>This allows you to choose what datafield should be rendered, as well as an optional style property</p>
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
         <SearchField
@@ -218,7 +221,7 @@ export function CustomItems () {
           rounded
           loading={isSearching}
           items={items}
-          itemMapping={itemMapping}
+          itemMapping={object('Item mapping', itemMapping)}
         />
       </div>
       <br />
