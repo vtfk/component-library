@@ -276,9 +276,9 @@ export function Children () {
 
   function handleKeyDown (e) {
     if (e.key === 'ArrowUp') {
-      if (items.length > 0 && searchInputSelectedIndex > 0) setSearchInputSelectedIndex(searchInputSelectedIndex - 1)
+      if (showDropdown && items.length > 0 && searchInputSelectedIndex > 0) setSearchInputSelectedIndex(searchInputSelectedIndex - 1)
     } else if (e.key === 'ArrowDown') {
-      if ((items.length - 1) > searchInputSelectedIndex) setSearchInputSelectedIndex(searchInputSelectedIndex + 1)
+      if (showDropdown && (items.length - 1) > searchInputSelectedIndex) setSearchInputSelectedIndex(searchInputSelectedIndex + 1)
     }
   }
 
