@@ -122,6 +122,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
         debouncer(event)
         setIsShowDropdown(true)
       } else {
+        handleSearch(event)
         hideDropdown()
       }
     }
