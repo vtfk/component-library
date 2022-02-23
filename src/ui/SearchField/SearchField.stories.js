@@ -282,21 +282,12 @@ export function Children () {
     setSearching(false)
   }
 
-  function onSelected (value, index) {
-    if (Number.isInteger(index)) {
-      const item = items[index]
-      console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index}. Valgt oppføring:`, item)
-      setSearchInputSelectedIndex(index)
-      setSelectedItem(JSON.stringify(item, null, 2))
-    } else if (value) {
-      const item = items[searchInputSelectedIndex]
-      if (item) {
-        console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${searchInputSelectedIndex}. Valgt oppføring:`, item)
-        setSelectedItem(JSON.stringify(item, null, 2))
-      } else {
-        setSelectedItem('')
-      }
-    }
+  function onSelected (index) {
+    const itemIndex = Number.isInteger(index) ? index : searchInputSelectedIndex
+    const item = items[itemIndex]
+    console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index} (${itemIndex}). Valgt oppføring:`, item)
+    setSearchInputSelectedIndex(itemIndex)
+    setSelectedItem(item)
   }
 
   return (
@@ -307,7 +298,7 @@ export function Children () {
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
           placeholder='Søk utføres først etter 1 sekund'
-          onSelected={(e, i) => onSelected(e, i)}
+          onSelected={index => onSelected(index)}
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}
@@ -315,7 +306,7 @@ export function Children () {
           {
             !searching && items.length > 0 && items.map((item, index) => {
               return (
-                <div onMouseDown={item => onSelected(item, index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
+                <div onMouseDown={() => onSelected(index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
                   {
                     item.itemTitle &&
                       <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
