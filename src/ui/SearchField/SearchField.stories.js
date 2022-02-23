@@ -42,22 +42,49 @@ const defaultItems = [
 ]
 
 export function Basic () {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchedValue, setSearchedValue] = useState('')
+
+  function onChange (e) {
+    console.log('onChange kjøres ved hver endring:', e.target.value)
+    setSearchTerm(e.target.value)
+  }
+
+  function onSearch (e) {
+    console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen. Tekstfeltet inneholder:', e.target.value)
+    setSearchedValue(e.target.value)
+  }
+
   return (
     <div>
-      <SearchField
-        placeholder='Dette er placeholderen'
-        value={text('value', '')}
-        onChange={e => console.log('onChange kjøres ved hver endring:', e.target.value)}
-        onSearch={() => console.log('onSearch kjøres ved "Enter" eller klikk på søkeknappen')}
-        rounded
-      />
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          placeholder='Dette er placeholderen'
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          rounded
+        />
+      </div>
+      <br />
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>onChange: </strong></td>
+            <td>{searchTerm}</td>
+          </tr>
+          <tr>
+            <td><strong>onSearch:</strong></td>
+            <td>{searchedValue}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
 
 export function Items () {
-  const [value, setValue] = useState('')
-  const [searchValue, setSearchValue] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchedValue, setSearchedValue] = useState('')
   const [selectedItem, setSelectedItem] = useState('')
   const [searching, setSearching] = useState(false)
   const [items, setItems] = useState([])
@@ -68,20 +95,20 @@ export function Items () {
   function onChange (e) {
     console.log('onChange kjører ved hver endring:', e.target.value)
     setSearching(true)
-    setValue(e.target.value)
+    setSearchTerm(e.target.value)
   }
 
   function onSearch (e) {
-    console.log('onSearch kjøres først når delay er ferdig:', e.target.value)
     const val = e.target.value.toLowerCase()
-    setSearchValue(e.target.value)
+    console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
+    setSearchedValue(e.target.value)
     setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
   }
 
   function onSelected (value, index) {
     console.log('onSelected: Kjøres ved valg av item', value, index)
-    setSelectedItem(value ? JSON.stringify(value, null, 2) : '')
+    setSelectedItem(value || '')
   }
 
   return (
@@ -93,7 +120,6 @@ export function Items () {
           onSearch={e => onSearch(e)}
           onSelected={(e, i) => onSelected(e, i)}
           placeholder='Søk utføres først etter 1 sekund'
-          value={value}
           rounded
           loading={searching}
           loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
@@ -106,11 +132,11 @@ export function Items () {
         <tbody>
           <tr>
             <td><strong>onChange: </strong></td>
-            <td>{value}</td>
+            <td>{searchTerm}</td>
           </tr>
           <tr>
             <td><strong>onSearch:</strong></td>
-            <td>{searchValue}</td>
+            <td>{searchedValue}</td>
           </tr>
           <tr>
             <td><strong>onSelected:</strong></td>
@@ -118,7 +144,7 @@ export function Items () {
         </tbody>
       </table>
       <div>
-        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{selectedItem}</SyntaxHighlighter>
+        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{JSON.stringify(selectedItem, null, 2)}</SyntaxHighlighter>
       </div>
     </div>
   )
@@ -145,7 +171,13 @@ export function CustomItems () {
     }
   ]
 
+  function onChange (e) {
+    console.log('onChange kjører ved hver endring:', e.target.value)
+    setIsSearching(true)
+  }
+
   function onSearch (e) {
+    console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
     const term = e.target.value.toLowerCase()
     setIsSearching(true)
     setSearchTerm(term)
@@ -167,6 +199,11 @@ export function CustomItems () {
     setIsSearching(false)
   }
 
+  function onSelected (item) {
+    console.log('onSelected: Kjøres ved valg av item', item || '')
+    setSelectedItem(item || '')
+  }
+
   return (
     <div>
       <p>The search result items are customized by passing a itemMapping array.</p>
@@ -174,9 +211,9 @@ export function CustomItems () {
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
         <SearchField
           debounceMs={number('Delay i millisekunder', 500)}
-          onChange={() => setIsSearching(true)}
-          onSearch={e => { onSearch(e) }}
-          onSelected={e => { setSelectedItem(e || '') }}
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          onSelected={e => onSelected(e)}
           placeholder='Søk utføres først etter 0.5 sekund'
           rounded
           loading={isSearching}
@@ -208,9 +245,9 @@ export function CustomItems () {
 }
 
 export function Children () {
-  const [value, setValue] = useState('')
-  const [debounced, setDebounced] = useState('')
-  const [searched, setSearched] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchedValue, setSearchedValue] = useState('')
+  const [selectedItem, setSelectedItem] = useState('')
   const [searching, setSearching] = useState(false)
   const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
   const [items, setItems] = useState([])
@@ -220,7 +257,7 @@ export function Children () {
 
   function onChange (e) {
     console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
-    setValue(e.target.value)
+    setSearchTerm(e.target.value)
     setSearching(true)
   }
 
@@ -234,8 +271,8 @@ export function Children () {
 
   function onSearch (e) {
     const val = e.target.value.toLowerCase()
-    console.log('onSearch kjøres først når delay er ferdig. Tekstfeltet inneholder:', e.target.value)
-    setDebounced(e.target.value)
+    console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
+    setSearchedValue(e.target.value)
     setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
   }
@@ -245,15 +282,14 @@ export function Children () {
       const item = items[index]
       console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index}. Valgt oppføring:`, item)
       setSearchInputSelectedIndex(index)
-      setSearched(JSON.stringify(item, null, 2))
-      console.log('SelectedItem:', searched)
+      setSelectedItem(JSON.stringify(item, null, 2))
     } else if (value) {
       const item = items[searchInputSelectedIndex]
       if (item) {
         console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${searchInputSelectedIndex}. Valgt oppføring:`, item)
-        setSearched(JSON.stringify(item, null, 2))
+        setSelectedItem(JSON.stringify(item, null, 2))
       } else {
-        setSearched('')
+        setSelectedItem('')
       }
     }
   }
@@ -315,15 +351,21 @@ export function Children () {
       <table>
         <tbody>
           <tr>
-            <td><strong>onChange</strong></td>
-            <td>{value}</td>
+            <td><strong>onChange:</strong></td>
+            <td>{searchTerm}</td>
           </tr>
           <tr>
-            <td><strong>onDebounce</strong></td>
-            <td>{debounced}</td>
+            <td><strong>onSearch:</strong></td>
+            <td>{searchedValue}</td>
+          </tr>
+          <tr>
+            <td><strong>onSelected:</strong></td>
           </tr>
         </tbody>
       </table>
+      <div>
+        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{JSON.stringify(selectedItem, null, 2)}</SyntaxHighlighter>
+      </div>
     </div>
   )
 }
