@@ -102,7 +102,7 @@ export function Items () {
     const val = e.target.value.toLowerCase()
     console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
     setSearchedValue(e.target.value)
-    setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
+    setItems(e.target.value === '' ? [] : defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
   }
 
@@ -185,17 +185,19 @@ export function CustomItems () {
     setIsSearching(true)
     setSearchTerm(term)
     const matches = []
-    for (const item of defaultItems) {
-      let matched = false
-      for (const key of Object.keys(item)) {
-        if (matched) continue
-        const type = typeof item[key]
-        if (type === 'function' || type === 'object' || type === 'undefined') continue
+    if (term) {
+      for (const item of defaultItems) {
+        let matched = false
+        for (const key of Object.keys(item)) {
+          if (matched) continue
+          const type = typeof item[key]
+          if (type === 'function' || type === 'object' || type === 'undefined') continue
 
-        if (item[key].toLowerCase().includes(term)) matched = true
+          if (item[key].toLowerCase().includes(term)) matched = true
+        }
+
+        if (matched) matches.push(item)
       }
-
-      if (matched) matches.push(item)
     }
 
     setItems(matches)
@@ -276,7 +278,7 @@ export function Children () {
     const val = e.target.value.toLowerCase()
     console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
     setSearchedValue(e.target.value)
-    setItems(defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
+    setItems(e.target.value === '' ? [] : defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
   }
 
