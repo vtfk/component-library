@@ -79,6 +79,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
   const handleSearch = (event) => {
     // Run the onSearch callback
+    setFocusedItemIndex(0)
     if (!event) event = { target: { value: searchValue } }
     if (onSearch && typeof onSearch === 'function') onSearch(event)
   }
