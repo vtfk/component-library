@@ -61,7 +61,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     }
   }, [loading, value])
 
-  // Resetting timer that awaits firering the onSearch callback until debounceMs has been reached
+  // Resetting timer that awaits firing the onSearch callback until debounceMs has been reached
   const debouncer = useDebouncedCallback(event => {
     // Run the onSearch callback
     handleSearch(event)
