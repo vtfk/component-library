@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes, { bool } from 'prop-types'
 
 import { useDebouncedCallback } from 'use-debounce'
 
@@ -10,13 +10,13 @@ import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 import { nanoid } from 'nanoid'
 
-export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, onShowDropdown, onClickOutside, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, ...props }) {
   /*
     State
   */
   const [searchValue, setSearchValue] = useState(value || '')
   const [focusedItemIndex, setFocusedItemIndex] = useState(0)
-  const [isShowDropdown, setIsShowDropdown] = useState(false)
+  const [isShowDropdown, setIsShowDropdown] = useState(showDropdown || false)
 
   /*
     Memos
@@ -45,6 +45,12 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     else if (searchValue !== undefined) val = searchValue // If not, check if it already has state
     setSearchValue(val)
 
+    // Update if the dropdown should be shown or not
+    let shouldShowDropdown = isShowDropdown;
+    if(showDropdown !== undefined) shouldShowDropdown = showDropdown
+    setIsShowDropdown(shouldShowDropdown);
+
+    
     // Setup events
     function handleMouseUp (e) {
       if (!e || !e.path) return
@@ -52,14 +58,17 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
       // Retreive a list of all classes under the clicked coordinate
       // If the click is outside the searchfield or dropdown, hide it
       const classList = e.path.map((p) => { return p.className })
-      if (!classList.includes('search-result-table') && !classList.includes('header-search')) hideDropdown()
+      if (!classList.includes('search-result') && !classList.includes('header-search')) {
+        handleShowDropdown(false)
+        if(onClickOutside && typeof onClickOutside === 'function') onClickOutside(e)
+      }
     }
     window.addEventListener('mouseup', handleMouseUp)
 
     return () => {
       window.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [loading, value])
+  }, [loading, value, showDropdown])
 
   // Resetting timer that awaits firing the onSearch callback until debounceMs has been reached
   const debouncer = useDebouncedCallback(event => {
@@ -82,12 +91,12 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     // Handle navigation in the resultItems
     if (items && items.length > 0) {
       if (event.key === 'ArrowUp') {
-        if (!isShowDropdown) setIsShowDropdown(true)
+        if (!isShowDropdown) handleShowDropdown(true)
         else if (focusedItemIndex > 0) setFocusedItemIndex(focusedItemIndex - 1)
         event.preventDefault()
       }
       if (event.key === 'ArrowDown') {
-        if (!isShowDropdown) setIsShowDropdown(true)
+        if (!isShowDropdown) handleShowDropdown(true)
         else if (focusedItemIndex < items.length - 1) setFocusedItemIndex(focusedItemIndex + 1)
         event.preventDefault()
       } else if (event.key === 'Enter' && isShowDropdown) {
@@ -97,7 +106,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     } else if (children) {
       if (event.key === 'Enter' && isShowDropdown) {
         if (onSelected && typeof onSelected === 'function') onSelected()
-        hideDropdown()
+        handleShowDropdown(false)
         event.preventDefault()
       }
     } else {
@@ -111,7 +120,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   // Triggers when the searchFields is focused
   const handleFocus = () => {
     if (onFocus && typeof onFocus === 'function') onFocus()
-    if ((items && Array.isArray(items) && items.length > 0) || children) setIsShowDropdown(true)
+    if ((items && Array.isArray(items) && items.length > 0) || children) handleShowDropdown(true)
   }
 
   // Handle when the searchField value changes
@@ -126,10 +135,10 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (items || children) {
       if (event.target.value !== '') {
         debouncer(event)
-        setIsShowDropdown(true)
+        handleShowDropdown(true)
       } else {
         handleSearch(event)
-        hideDropdown()
+        handleShowDropdown(false)
       }
     }
   }
@@ -137,7 +146,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   // Handles clicking the searchButton
   const handleSearchBtnClick = () => {
     handleSearch()
-    setIsShowDropdown(true)
+    handleShowDropdown(true)
   }
 
   // Handles clicking the searchResult items
@@ -152,13 +161,16 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
       const val = item[_itemMapping[0].value]
       setSearchValue(val)
     }
-    hideDropdown()
+    handleShowDropdown(false)
   }
 
-  // Hides the dropdown and trigger the onBlur callback
-  const hideDropdown = () => {
-    setIsShowDropdown(false)
+  const handleBlur = () => {
     if (onBlur && typeof onBlur === 'function') onBlur()
+  }
+
+  const handleShowDropdown = (boolean) => {
+    setIsShowDropdown(boolean);
+    if(onShowDropdown && typeof onShowDropdown === 'function') onShowDropdown(boolean)
   }
 
   return (
@@ -173,6 +185,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
           onFocus={handleFocus}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          onBlur={handleBlur}
           style={
             isShowDropdown && searchValue !== '' && (loading || items || children)
               ? { boxShadow: 'none', paddingRight: 200, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderColor: '#979797', borderBottomWidth: 0 }
@@ -271,12 +284,15 @@ SearchField.propTypes = {
   ]),
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onClickOutside: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
   onSearch: PropTypes.func,
   onSelected: PropTypes.func,
+  onShowDropdown: PropTypes.func,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
+  showDropdown: PropTypes.bool,
   value: PropTypes.string
 }
 

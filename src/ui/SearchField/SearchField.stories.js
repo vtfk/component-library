@@ -4,6 +4,7 @@ import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Paragraph } from '../Typography'
 import { SearchField } from '.'
+import { Switch } from '../Switch'
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight'
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
@@ -17,27 +18,32 @@ const defaultItems = [
   {
     itemTitle: 'Sam Sam',
     itemSecondary: 'sam0101',
-    itemDescription: 'Some place'
+    itemDescription: 'Some place',
+    enabled: false
   },
   {
     itemTitle: 'Tam Tam',
     itemSecondary: 'tam0202',
-    itemDescription: 'Tam place'
+    itemDescription: 'Tam place',
+    enabled: true
   },
   {
     itemTitle: 'Ram Ram',
     itemSecondary: 'ram0303',
-    itemDescription: 'Rome place'
+    itemDescription: 'Rome place',
+    enabled: false
   },
   {
     itemTitle: 'Bam Bam',
     itemSecondary: 'bam0404',
-    itemDescription: 'Bome place'
+    itemDescription: 'Bome place',
+    enabled: true
   },
   {
     itemTitle: 'Lam Lam',
     itemSecondary: 'lam0505',
-    itemDescription: 'Lome place'
+    itemDescription: 'Lome place',
+    enabled: true
   }
 ]
 
@@ -106,9 +112,9 @@ export function Items () {
     setSearching(false)
   }
 
-  function onSelected (value, index) {
-    console.log('onSelected: Kjøres ved valg av item', value, index)
-    setSelectedItem(value || '')
+  function onSelected (item, index) {
+    console.log('onSelected: Kjøres ved valg av item', item, index)
+    setSelectedItem(item || '')
   }
 
   return (
@@ -256,7 +262,133 @@ export function Children () {
   const [searching, setSearching] = useState(false)
   const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
   const [items, setItems] = useState([])
+  const [showDropdown, setShowDropdown] = useState(false)
 
+  // show items as a knob, just for documentation purposes
+  object('Items', defaultItems)
+
+  function onChange (e) {
+    console.log('onChange kjører ved hver endring. Tekstfeltet inneholder:', e.target.value)
+    // if(e.target.value !== '') setShowDropdown(true);
+    // else setShowDropdown(false);
+
+    setSearchTerm(e.target.value)
+    setSearching(true)
+  }
+
+  function handleKeyDown (e) {
+    if (e.key === 'ArrowUp') {
+      if (items.length > 0 && searchInputSelectedIndex > 0) setSearchInputSelectedIndex(searchInputSelectedIndex - 1)
+    } else if (e.key === 'ArrowDown') {
+      if ((items.length - 1) > searchInputSelectedIndex) setSearchInputSelectedIndex(searchInputSelectedIndex + 1)
+    }
+  }
+
+  function onSearch (e) {
+    const val = e.target.value.toLowerCase()
+    console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
+    setSearchedValue(e.target.value)
+    setItems(e.target.value === '' ? [] : defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
+    setSearching(false)
+  }
+
+  function onSelected (index) {
+    const itemIndex = Number.isInteger(index) ? index : searchInputSelectedIndex
+    const item = items[itemIndex]
+    console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index} (${itemIndex}). Valgt oppføring:`, item)
+    setSearchInputSelectedIndex(itemIndex)
+    setSelectedItem(item)
+    setShowDropdown(false);
+    setSearchTerm(item.itemTitle)
+  }
+
+  return (
+    <div>
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          value={searchTerm}
+          debounceMs={number('Delay i millisekunder', 1000)}
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          placeholder='Søk utføres først etter 1 sekund'
+          onSelected={index => onSelected(index)}
+          showDropdown={showDropdown}
+          onShowDropdown={(e) => setShowDropdown(e) }
+          rounded
+          loading={searching}
+          onKeyDown={e => handleKeyDown(e)}
+        >
+          {
+            !searching && items.length > 0 && items.map((item, index) => {
+              return (
+                <div onClick={() => onSelected(index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
+                  {
+                    item.itemTitle &&
+                      <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
+                  }
+                  {
+                    item.itemSecondary &&
+                      <Paragraph className='search-results-item-width' size='small'>{item.itemSecondary}</Paragraph>
+                  }
+                  {
+                    item.itemDescription &&
+                      <Paragraph className='search-results-item-width' size='small'>{item.itemDescription}</Paragraph>
+                  }
+                </div>
+              )
+            })
+          }
+
+          {
+            !searching && items.length === 0 &&
+              <div className='search-results-item-message search-alternatives'>
+                <Paragraph>
+                  {text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
+                </Paragraph>
+              </div>
+          }
+
+          {
+            searching &&
+              <div className='search-results-item-message search-alternatives'>
+                <Paragraph>
+                  {text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
+                </Paragraph>
+              </div>
+          }
+        </SearchField>
+      </div>
+      <br />
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>onChange:</strong></td>
+            <td>{searchTerm}</td>
+          </tr>
+          <tr>
+            <td><strong>onSearch:</strong></td>
+            <td>{searchedValue}</td>
+          </tr>
+          <tr>
+            <td><strong>onSelected:</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <SyntaxHighlighter language='json' style={docco} wrapLines customStyle={{ background: 'none' }}>{JSON.stringify(selectedItem, null, 2)}</SyntaxHighlighter>
+      </div>
+    </div>
+  )
+}
+
+export function AdvancedChildren () {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchedValue, setSearchedValue] = useState('')
+  const [selectedItem, setSelectedItem] = useState('')
+  const [searching, setSearching] = useState(false)
+  const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
+  const [items, setItems] = useState([])
+  const [showDropdown, setShowDropdown] = useState(false)
   // show items as a knob, just for documentation purposes
   object('Items', defaultItems)
 
@@ -288,17 +420,26 @@ export function Children () {
     console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index} (${itemIndex}). Valgt oppføring:`, item)
     setSearchInputSelectedIndex(itemIndex)
     setSelectedItem(item)
+    setSearchTerm(item.itemTitle)
+  }
+
+  function onCheckedItem(e, item) {
+    item.enabled = !item.enabled;
+    e.preventDefault();
   }
 
   return (
     <div>
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
         <SearchField
+          value={searchTerm}
           debounceMs={number('Delay i millisekunder', 1000)}
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
           placeholder='Søk utføres først etter 1 sekund'
           onSelected={index => onSelected(index)}
+          showDropdown={showDropdown}
+          onShowDropdown={(e) => { setShowDropdown(e) }}
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}
@@ -306,19 +447,26 @@ export function Children () {
           {
             !searching && items.length > 0 && items.map((item, index) => {
               return (
-                <div onMouseDown={() => onSelected(index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
-                  {
-                    item.itemTitle &&
-                      <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
-                  }
-                  {
-                    item.itemSecondary &&
-                      <Paragraph className='search-results-item-width' size='small'>{item.itemSecondary}</Paragraph>
-                  }
-                  {
-                    item.itemDescription &&
-                      <Paragraph className='search-results-item-width' size='small'>{item.itemDescription}</Paragraph>
-                  }
+                <div key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
+                  <div onClick={() => onSelected(index)} style={{display: 'flex', width: '100%'}}>
+                    {
+                      item.itemTitle &&
+                        <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
+                    }
+                    {
+                      item.itemSecondary &&
+                        <Paragraph className='search-results-item-width' size='small'>{item.itemSecondary}</Paragraph>
+                    }
+                    {
+                      item.itemDescription &&
+                        <Paragraph className='search-results-item-width' size='small'>{item.itemDescription}</Paragraph>
+                    }
+                  </div>
+                  <div>
+                    {
+                      <Switch isActive={item.enabled} onClick={(e) => onCheckedItem(e, item)} />
+                    }
+                  </div>
                 </div>
               )
             })
