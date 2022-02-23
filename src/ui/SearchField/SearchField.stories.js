@@ -298,7 +298,7 @@ export function Children () {
     console.log(`onSelected kjøres ved "Enter", klikk på søkeknappen eller når en oppføring i lista velges. Valgt index: ${index} (${itemIndex}). Valgt oppføring:`, item)
     setSearchInputSelectedIndex(itemIndex)
     setSelectedItem(item)
-    setShowDropdown(false);
+    setShowDropdown(false)
     setSearchTerm(item.itemTitle)
   }
 
@@ -313,7 +313,7 @@ export function Children () {
           placeholder='Søk utføres først etter 1 sekund'
           onSelected={index => onSelected(index)}
           showDropdown={showDropdown}
-          onShowDropdown={(e) => setShowDropdown(e) }
+          onShowDropdown={(e) => setShowDropdown(e)}
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}
@@ -423,9 +423,9 @@ export function AdvancedChildren () {
     setSearchTerm(item.itemTitle)
   }
 
-  function onCheckedItem(e, item) {
-    item.enabled = !item.enabled;
-    e.preventDefault();
+  function onCheckedItem (e, item) {
+    item.enabled = !item.enabled
+    e.preventDefault()
   }
 
   return (
@@ -448,7 +448,7 @@ export function AdvancedChildren () {
             !searching && items.length > 0 && items.map((item, index) => {
               return (
                 <div key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
-                  <div onClick={() => onSelected(index)} style={{display: 'flex', width: '100%'}}>
+                  <div onClick={() => onSelected(index)} style={{ display: 'flex', width: '100%' }}>
                     {
                       item.itemTitle &&
                         <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
@@ -463,9 +463,7 @@ export function AdvancedChildren () {
                     }
                   </div>
                   <div>
-                    {
-                      <Switch isActive={item.enabled} onClick={(e) => onCheckedItem(e, item)} />
-                    }
+                    <Switch isActive={item.enabled} onClick={(e) => onCheckedItem(e, item)} />
                   </div>
                 </div>
               )

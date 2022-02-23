@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import PropTypes, { bool } from 'prop-types'
+import PropTypes from 'prop-types'
 
 import { useDebouncedCallback } from 'use-debounce'
 
@@ -46,11 +46,10 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     setSearchValue(val)
 
     // Update if the dropdown should be shown or not
-    let shouldShowDropdown = isShowDropdown;
-    if(showDropdown !== undefined) shouldShowDropdown = showDropdown
-    setIsShowDropdown(shouldShowDropdown);
+    let shouldShowDropdown = isShowDropdown
+    if (showDropdown !== undefined) shouldShowDropdown = showDropdown
+    setIsShowDropdown(shouldShowDropdown)
 
-    
     // Setup events
     function handleMouseUp (e) {
       if (!e || !e.path) return
@@ -60,7 +59,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
       const classList = e.path.map((p) => { return p.className })
       if (!classList.includes('search-result') && !classList.includes('header-search')) {
         handleShowDropdown(false)
-        if(onClickOutside && typeof onClickOutside === 'function') onClickOutside(e)
+        if (onClickOutside && typeof onClickOutside === 'function') onClickOutside(e)
       }
     }
     window.addEventListener('mouseup', handleMouseUp)
@@ -169,8 +168,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }
 
   const handleShowDropdown = (boolean) => {
-    setIsShowDropdown(boolean);
-    if(onShowDropdown && typeof onShowDropdown === 'function') onShowDropdown(boolean)
+    setIsShowDropdown(boolean)
+    if (onShowDropdown && typeof onShowDropdown === 'function') onShowDropdown(boolean)
   }
 
   return (
