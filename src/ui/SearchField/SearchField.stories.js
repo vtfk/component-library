@@ -274,6 +274,7 @@ export function Children () {
   function onSearch (e) {
     const val = e.target.value.toLowerCase()
     console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
+    setSearchInputSelectedIndex(0)
     setSearchedValue(e.target.value)
     setItems(e.target.value === '' ? [] : defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
@@ -376,6 +377,7 @@ export function AdvancedChildren () {
   const [searchInputSelectedIndex, setSearchInputSelectedIndex] = useState(0)
   const [items, setItems] = useState([])
   const [showDropdown, setShowDropdown] = useState(false)
+
   // show items as a knob, just for documentation purposes
   object('Items', defaultItems)
 
@@ -396,6 +398,7 @@ export function AdvancedChildren () {
   function onSearch (e) {
     const val = e.target.value.toLowerCase()
     console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
+    setSearchInputSelectedIndex(0)
     setSearchedValue(e.target.value)
     setItems(e.target.value === '' ? [] : defaultItems.filter(item => (item.itemTitle && item.itemTitle.toLowerCase().includes(val)) || (item.itemSecondary && item.itemSecondary.toLowerCase().includes(val)) || (item.itemDescription && item.itemDescription.toLowerCase().includes(val))))
     setSearching(false)
