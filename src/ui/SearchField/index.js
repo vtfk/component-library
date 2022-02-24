@@ -73,8 +73,6 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   const debouncer = useDebouncedCallback(event => {
     // Run the onSearch callback
     handleSearch(event)
-    // Reset the focused itemIndex
-    setFocusedItemIndex(0)
   }, debounceMs)
 
   const handleSearch = (event) => {
