@@ -231,7 +231,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
                     {
                   items.map((item, index) => {
                     return (
-                      <tr key={nanoid()} className={`search-result-table-row ${index === focusedItemIndex ? 'active' : ''}`} onClick={() => handleItemClick(item, index)}>
+                      <tr key={nanoid()} className={`${index === focusedItemIndex ? 'active' : ''}`} onClick={() => handleItemClick(item, index)}>
                         {
                           Array.isArray(_itemMapping) && _itemMapping.map((mapping) => {
                             return (
