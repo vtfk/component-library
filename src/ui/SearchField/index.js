@@ -139,7 +139,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     // Handle what will happen if the searchField input is empty or not
     if (items || children) {
       if (event.target.value !== '') {
-        debouncer(event)
+        if (debounceMs > 0) debouncer(event)
+        else handleSearch(event)
         handleShowDropdown(true)
       } else {
         handleSearch(event)
