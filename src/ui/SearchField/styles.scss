@@ -1,26 +1,144 @@
 @import "../Tokens/tokens.scss";
 @import "../../common/scss/helpers";
 
-.search-field {
+.header-search {
   position: relative;
 
-  .icon {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
+  .search-field {
+    position: relative;
 
-    svg {
-      width: 18px;
-      height: 18px;
-      display: block;
+    .icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+
+      svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+      }
+    }
+
+    &.rounded {
+      .icon {
+        right: $baseUnit;
+      }
     }
   }
 
-  &.rounded {
-    .icon {
-      right: $baseUnit;
+  .search-result {
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 10;
+    border: 1px solid #979797;
+    border-radius: 0 0 24px 24px;
+    padding-bottom: 20px;
+    max-height: 300px;
+    overflow-y: scroll;
+    box-shadow: 0 0 0 4px #aedcea;
+    box-shadow: 0px 13px 10px 0px rgba(#000, 0.08);
+
+    .search-results-inner {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-collapse: collapse;
+      width: 100%;
+  
+      .search-results-item {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        cursor: pointer;
+  
+        .paragraph {
+          padding: 15px 24px;
+          text-decoration: none;
+          color: inherit;
+
+          &.search-results-item-width {
+            width: 33.3%
+          }
+  
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+  
+        &:hover {
+          background: #f0f0f0;
+        }
+  
+        &.active {
+          background: #D6EDF4;
+        }
+      }
+  
+      .search-results-item-message {
+        margin: 0;
+        padding: 0;
+        display: flex;
+  
+        .paragraph {
+          padding: 15px 24px 0 24px;
+          text-decoration: none;
+          color: inherit;
+          font-style: italic;
+        }
+      }
+
+      .search-alternatives {
+        border-width: 0px;
+        border-color: #979797;
+        border-style: solid;
+        background: #fff;
+        font-size: 13px;
+        color: #555;
+
+        button {
+          appearance: none;
+          outline: 0;
+          border: 0;
+          box-shadow: none;
+          color: #111;
+          padding: 3px 5px;
+          background: #f0f0f0;
+          border-radius: 3px;
+          display: inline-block;
+          margin: 0 1px;
+          cursor: pointer;
+
+          &:hover {
+            background: #D6EDF4;
+          }
+        }
+      }
+
+      .search-result-table {
+        width: 100%;
+        border-collapse: collapse;
+      
+        tr {
+          cursor: pointer;
+      
+          &:hover {
+            background: #f0f0f0;
+          }
+      
+          &.active {
+            background: #D6EDF4;
+          }
+        }
+      
+        td {
+          padding: $baseUnit * 1.5;
+        }
+      }
     }
   }
 }
