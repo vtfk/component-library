@@ -137,7 +137,16 @@
         }
       
         td {
-          padding: $baseUnit * 1.5;
+          padding-top: 15px;
+          padding-bottom: 15px;
+
+          &:first-child {
+            padding-left: 10px;
+          }
+
+          &:last-child {
+            padding-right: 10px;
+          }
         }
       }
     }
