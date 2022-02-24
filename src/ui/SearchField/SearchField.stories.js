@@ -333,18 +333,18 @@ export function Children () {
           {
             !searching && items.length > 0 && items.map((item, index) => {
               return (
-                <div onClick={() => onSelected(index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
+                <div onClick={() => onSelected(index)} key={index} className={`search-results-item-children ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
                   {
                     item.itemTitle &&
-                      <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
+                      <Paragraph className='search-results-item-child-width'>{item.itemTitle}</Paragraph>
                   }
                   {
                     item.itemSecondary &&
-                      <Paragraph className='search-results-item-width' size='small'>{item.itemSecondary}</Paragraph>
+                      <Paragraph className='search-results-item-child-width' size='small'>{item.itemSecondary}</Paragraph>
                   }
                   {
                     item.itemDescription &&
-                      <Paragraph className='search-results-item-width' size='small'>{item.itemDescription}</Paragraph>
+                      <Paragraph className='search-results-item-child-width' size='small'>{item.itemDescription}</Paragraph>
                   }
                 </div>
               )

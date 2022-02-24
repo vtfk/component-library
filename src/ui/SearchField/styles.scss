@@ -50,7 +50,7 @@
       border-collapse: collapse;
       width: 100%;
   
-      .search-results-item {
+      .search-results-item-children {
         margin: 0;
         padding: 0;
         display: flex;
@@ -61,7 +61,7 @@
           text-decoration: none;
           color: inherit;
 
-          &.search-results-item-width {
+          &.search-results-item-child-width {
             width: 33.3%
           }
   
