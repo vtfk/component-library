@@ -16,33 +16,57 @@ export default getConfig({
 
 const defaultItems = [
   {
-    itemTitle: 'Sam Sam',
-    itemSecondary: 'sam0101',
-    itemDescription: 'Some place',
+    itemTitle: 'Blid Ape',
+    itemSecondary: 'bli2786 🤓',
+    itemDescription: 'Sande vgs',
     enabled: false
   },
   {
-    itemTitle: 'Tam Tam',
-    itemSecondary: 'tam0202',
-    itemDescription: 'Tam place',
+    itemTitle: 'Allmektig Periode',
+    itemSecondary: 'all1788 🎓',
+    itemDescription: 'Thor Heyerdahl videregående skole',
     enabled: true
   },
   {
-    itemTitle: 'Ram Ram',
-    itemSecondary: 'ram0303',
-    itemDescription: 'Rome place',
+    itemTitle: 'Handlende Ape',
+    itemSecondary: 'han1989 🎓',
+    itemDescription: 'Thor Heyerdahl videregående skole',
     enabled: false
   },
   {
-    itemTitle: 'Bam Bam',
-    itemSecondary: 'bam0404',
-    itemDescription: 'Bome place',
+    itemTitle: 'Åpen Autoritet',
+    itemSecondary: 'aap0592 🤓',
+    itemDescription: 'Horten vgs',
     enabled: true
   },
   {
-    itemTitle: 'Lam Lam',
-    itemSecondary: 'lam0505',
-    itemDescription: 'Lome place',
+    itemTitle: 'Åpen Linjal',
+    itemSecondary: 'aap3087 🤓',
+    itemDescription: 'Skogmo vgs',
+    enabled: true
+  },
+  {
+    itemTitle: 'Falsk Bagatell Ape',
+    itemSecondary: 'fal1587 🤓',
+    itemDescription: 'Nøtterøy vgs',
+    enabled: true
+  },
+  {
+    itemTitle: 'Tapper Servitrise',
+    itemSecondary: 'tap2481 🎓',
+    itemDescription: 'Horten videregående skole',
+    enabled: true
+  },
+  {
+    itemTitle: 'Tapper Bokhandel',
+    itemSecondary: 'tap2387 🎓',
+    itemDescription: 'Færder videregående skole',
+    enabled: true
+  },
+  {
+    itemTitle: 'Skapende Doktor',
+    itemSecondary: 'ska0181 🎓',
+    itemDescription: 'Nøtterøy videregående skole',
     enabled: true
   }
 ]
