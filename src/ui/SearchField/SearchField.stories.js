@@ -16,33 +16,57 @@ export default getConfig({
 
 const defaultItems = [
   {
-    itemTitle: 'Sam Sam',
-    itemSecondary: 'sam0101',
-    itemDescription: 'Some place',
+    itemTitle: 'Blid Ape',
+    itemSecondary: 'bli2786 🤓',
+    itemDescription: 'Sande vgs',
     enabled: false
   },
   {
-    itemTitle: 'Tam Tam',
-    itemSecondary: 'tam0202',
-    itemDescription: 'Tam place',
+    itemTitle: 'Allmektig Periode',
+    itemSecondary: 'all1788 🎓',
+    itemDescription: 'Thor Heyerdahl videregående skole',
     enabled: true
   },
   {
-    itemTitle: 'Ram Ram',
-    itemSecondary: 'ram0303',
-    itemDescription: 'Rome place',
+    itemTitle: 'Handlende Ape',
+    itemSecondary: 'han1989 🎓',
+    itemDescription: 'Thor Heyerdahl videregående skole',
     enabled: false
   },
   {
-    itemTitle: 'Bam Bam',
-    itemSecondary: 'bam0404',
-    itemDescription: 'Bome place',
+    itemTitle: 'Åpen Autoritet',
+    itemSecondary: 'aap0592 🤓',
+    itemDescription: 'Horten vgs',
     enabled: true
   },
   {
-    itemTitle: 'Lam Lam',
-    itemSecondary: 'lam0505',
-    itemDescription: 'Lome place',
+    itemTitle: 'Åpen Linjal',
+    itemSecondary: 'aap3087 🤓',
+    itemDescription: 'Skogmo vgs',
+    enabled: true
+  },
+  {
+    itemTitle: 'Falsk Bagatell Ape',
+    itemSecondary: 'fal1587 🤓',
+    itemDescription: 'Nøtterøy vgs',
+    enabled: true
+  },
+  {
+    itemTitle: 'Tapper Servitrise',
+    itemSecondary: 'tap2481 🎓',
+    itemDescription: 'Horten videregående skole',
+    enabled: true
+  },
+  {
+    itemTitle: 'Tapper Bokhandel',
+    itemSecondary: 'tap2387 🎓',
+    itemDescription: 'Færder videregående skole',
+    enabled: true
+  },
+  {
+    itemTitle: 'Skapende Doktor',
+    itemSecondary: 'ska0181 🎓',
+    itemDescription: 'Nøtterøy videregående skole',
     enabled: true
   }
 ]
@@ -309,18 +333,18 @@ export function Children () {
           {
             !searching && items.length > 0 && items.map((item, index) => {
               return (
-                <div onClick={() => onSelected(index)} key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
+                <div onClick={() => onSelected(index)} key={index} className={`search-results-item-children ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
                   {
                     item.itemTitle &&
-                      <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
+                      <Paragraph className='search-results-item-child-width'>{item.itemTitle}</Paragraph>
                   }
                   {
                     item.itemSecondary &&
-                      <Paragraph className='search-results-item-width' size='small'>{item.itemSecondary}</Paragraph>
+                      <Paragraph className='search-results-item-child-width' size='small'>{item.itemSecondary}</Paragraph>
                   }
                   {
                     item.itemDescription &&
-                      <Paragraph className='search-results-item-width' size='small'>{item.itemDescription}</Paragraph>
+                      <Paragraph className='search-results-item-child-width' size='small'>{item.itemDescription}</Paragraph>
                   }
                 </div>
               )
@@ -441,19 +465,19 @@ export function AdvancedChildren () {
           {
             !searching && items.length > 0 && items.map((item, index) => {
               return (
-                <div key={index} className={`search-results-item ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
+                <div key={index} className={`search-results-item-children ${index === searchInputSelectedIndex ? 'active' : ''}`} style={{ border: '1px solid green' }}>
                   <div onClick={() => onSelected(index)} style={{ display: 'flex', width: '100%' }}>
                     {
                       item.itemTitle &&
-                        <Paragraph className='search-results-item-width'>{item.itemTitle}</Paragraph>
+                        <Paragraph className='search-results-item-child-width'>{item.itemTitle}</Paragraph>
                     }
                     {
                       item.itemSecondary &&
-                        <Paragraph className='search-results-item-width' size='small'>{item.itemSecondary}</Paragraph>
+                        <Paragraph className='search-results-item-child-width' size='small'>{item.itemSecondary}</Paragraph>
                     }
                     {
                       item.itemDescription &&
-                        <Paragraph className='search-results-item-width' size='small'>{item.itemDescription}</Paragraph>
+                        <Paragraph className='search-results-item-child-width' size='small'>{item.itemDescription}</Paragraph>
                     }
                   </div>
                   <div>
