@@ -1,17 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Heading1, Paragraph } from '../Typography'
+import { Heading1, Heading3, Paragraph } from '../Typography'
 
 import './styles.scss'
 
-export function StatisticsCard ({ className, title, ...props }) {
+export function StatisticsCard ({ className, size, title, ...props }) {
   return (
     <div className={className || 'statistics-card'}>
-      <Heading1 as='h3' className='statistics-card-title'>
+      <Heading1 as='p' className='statistics-card-title'>
         {props.children}
       </Heading1>
-      <Paragraph className='statistics-card-text'>{title}</Paragraph>
+      {
+        size === 'small'
+          ? <Paragraph className='statistics-card-text'>{title}</Paragraph>
+          : <Heading3 as='p' className='statistics-card-text'>{title}</Heading3>
+      }
     </div>
   )
 }
@@ -55,7 +59,15 @@ StatisticsCard.propTypes = {
     PropTypes.node
   ]).isRequired,
   className: PropTypes.string,
+  size: PropTypes.oneOf([
+    'large',
+    'small'
+  ]),
   title: PropTypes.string.isRequired
+}
+
+StatisticsCard.defaultProps = {
+  size: 'small'
 }
 
 StatisticsGroup.propTypes = {
