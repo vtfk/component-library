@@ -53,6 +53,38 @@ export function Basic () {
   )
 }
 
+export function CardLink () {
+  return (
+    <div>
+      <div>
+        One single <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
+        <StatisticsGroup type='card'>
+          <StatisticsCard title='Is how many apples i have' size={select('Size', cardSize, 'small')} onClick={() => console.log('I have', apples, 'apples')}>
+            {
+              apples
+            }
+          </StatisticsCard>
+        </StatisticsGroup>
+      </div>
+      <div>
+        Two <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
+        <StatisticsGroup type='card'>
+          <StatisticsCard title='Is half of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Half of my apples is', apples / 2)}>
+            {
+              apples / 2
+            }
+          </StatisticsCard>
+          <StatisticsCard title='Is a third of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)}>
+            {
+              apples / 3
+            }
+          </StatisticsCard>
+        </StatisticsGroup>
+      </div>
+    </div>
+  )
+}
+
 export function Progress () {
   return (
     <div>

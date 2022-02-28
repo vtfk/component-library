@@ -5,12 +5,34 @@
   margin-bottom: $baseUnit * 2;
   margin-left: $baseUnit * 4;
   padding: ($baseUnit * 2) ($baseUnit * 4) ($baseUnit * 2) ($baseUnit * 4);
-  background: $catSkillWhite;
 
   @media(max-width: 1000px) {
     margin-left: 0;
     width: 100%;
     padding-left: $baseUnit * 2;
+  }
+
+  &:not(.card-link) {
+    background: $catSkillWhite;
+  }
+
+  &.card-link {
+    position: relative;
+    outline: 0 !important;
+
+    .card-link-text {
+      text-decoration: none !important;
+    }
+
+    &:focus:not([disabled]) {
+      background: #DAEED5;
+    }
+  }
+
+  & .card-link-icon {
+    position: absolute;
+    right: 20px;
+    min-width: 40px;
   }
 }
 
