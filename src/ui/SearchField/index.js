@@ -121,8 +121,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }
 
   // Triggers when the searchFields is focused
-  const handleFocus = () => {
-    if (onFocus && typeof onFocus === 'function') onFocus()
+  const handleFocus = (event) => {
+    if (onFocus && typeof onFocus === 'function') onFocus(event)
     if ((items && Array.isArray(items) && items.length > 0) || children) handleShowDropdown(true)
   }
 
@@ -168,8 +168,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     handleShowDropdown(false)
   }
 
-  const handleBlur = () => {
-    if (onBlur && typeof onBlur === 'function') onBlur()
+  const handleBlur = (event) => {
+    if (onBlur && typeof onBlur === 'function') onBlur(event)
   }
 
   const handleShowDropdown = (boolean) => {
