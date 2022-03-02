@@ -50,3 +50,10 @@ export function Bordered () {
     </IconButton>
   )
 }
+
+export function WithoutText () {
+  return (
+    <IconButton icon={select('Icon', icons, 'add')} />
+  )
+}
+
