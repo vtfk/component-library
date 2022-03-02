@@ -40,9 +40,9 @@ export const IconButton = forwardRef(({ className, type, icon, spinner, disabled
     </div>
     {
       children &&
-      <div className='icon-button-text'>
-        {children}
-      </div>
+        <div className='icon-button-text'>
+          {children}
+        </div>
     }
   </button>
 ))

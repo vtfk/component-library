@@ -56,4 +56,3 @@ export function WithoutText () {
     <IconButton icon={select('Icon', icons, 'add')} />
   )
 }
-

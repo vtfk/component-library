@@ -70,7 +70,7 @@ export function Dialog ({ isOpen, title, className, persistent, showCloseButton,
   )
 }
 
-export function DialogTitle ({children, style }) {
+export function DialogTitle ({ children, style }) {
   return (
     <>
       <div className='dialog-title' style={style}>
@@ -80,7 +80,7 @@ export function DialogTitle ({children, style }) {
   )
 }
 
-export function DialogBody ({children, style}) {
+export function DialogBody ({ children, style }) {
   return (
     <>
       <div className='dialog-body' style={style}>
@@ -90,7 +90,7 @@ export function DialogBody ({children, style}) {
   )
 }
 
-export function DialogActions ({children, style}) {
+export function DialogActions ({ children, style }) {
   return (
     <>
       <div className='dialog-actions' style={style}>
@@ -122,8 +122,6 @@ Dialog.defaultProps = {
 
 DialogTitle.propTypes = {
   children: PropTypes.any,
-  isShowCloseButton: PropTypes.bool,
-  onDismiss: PropTypes.func,
   style: PropTypes.object
 }
 
