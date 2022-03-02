@@ -57,7 +57,7 @@ export function Dialog ({ isOpen, title, className, persistent, showCloseButton,
   return (
     isOpen === true &&
       <>
-        <div className='dialog-backdrop' style={style}>
+        <div className={`dialog-backdrop ${className}`} style={style}>
           <div id={id} className='dialog' css={`width: ${props.width || '100%'}`} aria-label='dialog' aria-modal='true' role='dialog'>
             {!persistent && showCloseButton &&
               <button className='dialog-close-btn' onClick={() => { handleCloseBtnClick() }} aria-label='Lukk'>
@@ -70,31 +70,31 @@ export function Dialog ({ isOpen, title, className, persistent, showCloseButton,
   )
 }
 
-export function DialogTitle ({ isShowCloseButton, onDismiss, ...props }) {
+export function DialogTitle ({children, style }) {
   return (
     <>
-      <div className='dialog-title'>
-        {props.children}
+      <div className='dialog-title' style={style}>
+        {children}
       </div>
     </>
   )
 }
 
-export function DialogBody (props) {
+export function DialogBody ({children, style}) {
   return (
     <>
-      <div className='dialog-body'>
-        {props.children}
+      <div className='dialog-body' style={style}>
+        {children}
       </div>
     </>
   )
 }
 
-export function DialogActions (props) {
+export function DialogActions ({children, style}) {
   return (
     <>
-      <div className='dialog-actions'>
-        {props.children}
+      <div className='dialog-actions' style={style}>
+        {children}
       </div>
     </>
   )
@@ -123,13 +123,16 @@ Dialog.defaultProps = {
 DialogTitle.propTypes = {
   children: PropTypes.any,
   isShowCloseButton: PropTypes.bool,
-  onDismiss: PropTypes.func
+  onDismiss: PropTypes.func,
+  style: PropTypes.object
 }
 
 DialogBody.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
+  style: PropTypes.object
 }
 
 DialogActions.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
+  style: PropTypes.object
 }

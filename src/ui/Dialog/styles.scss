@@ -51,7 +51,8 @@
 .dialog-actions {
   display: flex;
   gap: $baseUnit;
-  margin-top: $baseUnit * 1
+  margin-top: $baseUnit * 1;
+  align-items: center;
 }
 
 @keyframes fadeIn {
