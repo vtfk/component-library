@@ -6,7 +6,7 @@ import { ReactComponent as CloseIcon } from './icon-close.svg'
 
 import './styles.scss'
 
-export function Dialog ({ isOpen, title, className, persistent, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, ...props }) {
+export function Dialog ({ isOpen, title, className, persistent, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
   const [id] = useState(`dialog-${nanoid()}`)
 
@@ -57,7 +57,7 @@ export function Dialog ({ isOpen, title, className, persistent, showCloseButton,
   return (
     isOpen === true &&
       <>
-        <div className='dialog-backdrop'>
+        <div className='dialog-backdrop' style={style}>
           <div id={id} className='dialog' css={`width: ${props.width || '100%'}`} aria-label='dialog' aria-modal='true' role='dialog'>
             {!persistent && showCloseButton &&
               <button className='dialog-close-btn' onClick={() => { handleCloseBtnClick() }} aria-label='Lukk'>
@@ -110,6 +110,7 @@ Dialog.propTypes = {
   onPressEscape: PropTypes.func,
   persistent: PropTypes.bool,
   showCloseButton: PropTypes.bool,
+  style: PropTypes.object,
   title: PropTypes.string,
   width: PropTypes.string
 }
