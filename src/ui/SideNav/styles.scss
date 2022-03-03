@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "../Tokens/tokens.scss";
 @import "../../common/scss/helpers";
 
@@ -107,5 +108,42 @@
         outline: 1px dotted #ccc;
       }
     }
+  }
+}
+
+.sidenav-mini {
+  display: flex;
+  height: 75px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 ($baseUnit * 2);
+  margin-bottom: $baseUnit * 2;
+  margin-left: -($baseUnit * 2);
+  width: 100vw;
+
+  .brand {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    border: 0;
+    outline: 0;
+
+    .brand-logo {
+      display: inline-block;
+      width: 29px;
+      margin: 0 $baseUnit * 2;
+      margin-top: 5px;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+  
+  @media(min-width: 1001px) {
+    display: none;
   }
 }
