@@ -4,9 +4,13 @@ import { getConfig } from '../../../scripts/storybook/storyConfig'
 import { SideNav, SideNavItem } from '.'
 import { Icon } from '../Icon'
 
-export default getConfig(
-  { title: 'SideNav', component: SideNav }
-)
+export default getConfig({
+  title: 'SideNav',
+  component: SideNav,
+  subcomponents: {
+    SideNavItem
+  }
+})
 
 export function Basic () {
   const [width, setWidth] = useState(window.innerWidth)
