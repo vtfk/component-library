@@ -38,9 +38,12 @@ export const IconButton = forwardRef(({ className, type, icon, spinner, disabled
           : <Icon name={icon || 'add'} size='small' />
       }
     </div>
-    <div className='icon-button-text'>
-      {children}
-    </div>
+    {
+      children &&
+        <div className='icon-button-text'>
+          {children}
+        </div>
+    }
   </button>
 ))
 
@@ -63,7 +66,7 @@ Button.defaultProps = {
 }
 
 IconButton.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   icon: PropTypes.string.isRequired,

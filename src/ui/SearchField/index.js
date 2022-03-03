@@ -14,6 +14,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   /*
     State
   */
+  const [componentId] = useState(nanoid())
   const [searchValue, setSearchValue] = useState(value || '')
   const [focusedItemIndex, setFocusedItemIndex] = useState(0)
   const [isShowDropdown, setIsShowDropdown] = useState(showDropdown || false)
@@ -56,8 +57,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
       // Retreive a list of all classes under the clicked coordinate
       // If the click is outside the searchfield or dropdown, hide it
-      const classList = e.path.map((p) => { return p.className })
-      if (!classList.includes('search-result') && !classList.includes('header-search')) {
+      const ids = e.path.map((p) => { return p.id })
+      if (!ids.includes(componentId)) {
         handleShowDropdown(false)
         if (onClickOutside && typeof onClickOutside === 'function') onClickOutside(e)
       }
@@ -178,7 +179,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }
 
   return (
-    <div className='header-search'>
+    <div id={componentId} className='header-search'>
       <div className={`search-field ${rounded ? 'rounded' : ''}`}>
         <TextField
           value={searchValue}

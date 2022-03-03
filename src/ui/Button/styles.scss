@@ -123,7 +123,7 @@
 
   .icon-button-icon {
     color: $deepSeaGreen;
-    margin-right: $baseUnit * 2;
+    margin: 0;
     width: $baseUnit * 5;
     height: $baseUnit * 5;
     display: flex;
@@ -136,6 +136,7 @@
 
   .icon-button-text {
     color: $deepSeaGreen;
+    margin-left: $baseUnit * 2;
     font-size: 16px;
     line-height: 1em;
     font-weight: bold;
@@ -199,7 +200,6 @@
       background: 0;
       border: 0;
       color: inherit;
-      margin-right: $baseUnit;
       width: auto;
       width: $baseUnit * 3;
       height: $baseUnit * 3;
