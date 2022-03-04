@@ -7,17 +7,6 @@ import { Paragraph } from '../Typography'
 
 import './styles.scss'
 
-const isIconDropdownNavItem = (props, propName, componentName) => {
-  let error
-  props.children && props.children.forEach((child, index) => {
-    if (child.type.name !== 'IconDropdownNavItem') {
-      error = new Error(`Invalid React element passed as child ${index + 1}. Expected "IconDropdownNavItem"`)
-    }
-  })
-
-  if (error) return error
-}
-
 export function TopBar ({ includeUserInfo, firstName, lastName, displayName, children }) {
   return (
     <div className='top-bar'>
@@ -42,7 +31,10 @@ export function TopBar ({ includeUserInfo, firstName, lastName, displayName, chi
 }
 
 TopBar.propTypes = {
-  children: isIconDropdownNavItem,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
   displayName: PropTypes.string,
   firstName: PropTypes.string,
   includeUserInfo: PropTypes.bool,
