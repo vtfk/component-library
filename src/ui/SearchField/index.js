@@ -201,8 +201,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
           onBlur={handleBlur}
           style={
             isShowDropdown && searchValue !== '' && (loading || items || children)
-              ? { boxShadow: 'none', paddingRight: 200, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderColor: '#979797', borderBottomWidth: 0 }
-              : { boxShadow: 'none', paddingRight: 200, borderColor: '#979797' }
+              ? { boxShadow: 'none', paddingRight: 60, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderColor: '#979797', borderBottomWidth: 0 }
+              : { boxShadow: 'none', paddingRight: 60, borderColor: '#979797' }
           }
           {...props}
         />
