@@ -94,7 +94,7 @@
     "rollup-plugin-svg": "2.0.0",
     "rollup-plugin-terser": "7.0.2",
     "sass": "1.49.9",
-    "sass-loader": "12.4.0",
+    "sass-loader": "12.6.0",
     "svg-jest": "1.0.1"
   },
   "peerDependencies": {
