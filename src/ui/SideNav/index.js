@@ -107,7 +107,7 @@ SideNavMini.propTypes = {
 
 SideNavItem.propTypes = {
   active: PropTypes.bool,
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired
 }
