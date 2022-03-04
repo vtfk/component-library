@@ -60,10 +60,10 @@ export function Basic () {
   return (
     <>
       <SideNav title='SideNav'>
-        <SideNavItem href='https://vtfk.no' icon={<Icon name='home' size='small' />} title='Link 1' active />
-        <SideNavItem href='https://vtfk.no' icon={<Icon name='students' size='small' />} title='Link 2' />
-        <SideNavItem href='https://vtfk.no' icon={<Icon name='classes' size='small' />} title='Link 3' />
-        <SideNavItem icon={<Icon name='classes' size='small' />} title='Link 4' onClick={() => console.log('oøbsdøvsæ')} />
+        <SideNavItem href='https://vtfk.no' icon={<Icon name='home' size='medium' />} title='Link 1' active />
+        <SideNavItem href='https://vtfk.no' icon={<Icon name='students' size='medium' />} title='Link 2' />
+        <SideNavItem href='https://vtfk.no' icon={<Icon name='classes' size='medium' />} title='Link 3' />
+        <SideNavItem icon={<Icon name='classes' size='medium' />} title='Link 4' onClick={() => console.log('oøbsdøvsæ')} />
       </SideNav>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <span style={{ paddingBottom: '1em' }}><strong>SideNav</strong> vil være synlig når <i>innerWidth</i> er større enn <strong>1000px</strong>.</span>
@@ -89,10 +89,10 @@ export function Both () {
   return (
     <>
       <SideNav title='SideNav' useMini>
-        <SideNavItem href='https://vtfk.no' icon={<Icon name='home' size='small' />} title='Link 1' active />
-        <SideNavItem href='https://vtfk.no' icon={<Icon name='students' size='small' />} title='Link 2' />
-        <SideNavItem href='https://vtfk.no' icon={<Icon name='classes' size='small' />} title='Link 3' />
-        <SideNavItem icon={<Icon name='classes' size='small' />} title='Link 4' onClick={() => console.log('oøbsdøvsæ')} />
+        <SideNavItem href='https://vtfk.no' icon={<Icon name='home' size='medium' />} title='Link 1' active />
+        <SideNavItem href='https://vtfk.no' icon={<Icon name='students' size='medium' />} title='Link 2' />
+        <SideNavItem href='https://vtfk.no' icon={<Icon name='classes' size='medium' />} title='Link 3' />
+        <SideNavItem icon={<Icon name='classes' size='medium' />} title='Link 4' onClick={() => console.log('oøbsdøvsæ')} />
       </SideNav>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <span style={{ paddingBottom: '1em' }}><strong>SideNav</strong> vil være synlig når <i>innerWidth</i> er større enn <strong>1000px</strong>.</span>

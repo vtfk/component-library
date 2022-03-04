@@ -43,7 +43,7 @@ export function SideNav ({ items, title, useMini, ...props }) {
                   <React.Fragment key={index}>
                     {
                       item.icon
-                        ? <SideNavItem href={item.href} icon={<Icon name={item.icon.name} size={item.icon.size || 'small'} />} title={item.title} active={window.location.pathname === item.href} onClick={() => handleItemClick(item)} />
+                        ? <SideNavItem href={item.href} icon={<Icon name={item.icon.name} size={item.icon.size || 'medium'} />} title={item.title} active={window.location.pathname === item.href} onClick={() => handleItemClick(item)} />
                         : <SideNavItem href={item.href} title={item.title} active={window.location.pathname === item.href} onClick={() => handleItemClick(item)} />
                     }
                   </React.Fragment>
