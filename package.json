@@ -38,9 +38,9 @@
     "use-debounce": "7.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.16.12",
-    "@babel/eslint-parser": "7.16.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.16.7",
+    "@babel/core": "7.17.5",
+    "@babel/eslint-parser": "7.17.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.17.3",
     "@babel/preset-env": "7.16.11",
     "@babel/preset-react": "7.16.7",
     "@rollup/plugin-commonjs": "21.0.2",
