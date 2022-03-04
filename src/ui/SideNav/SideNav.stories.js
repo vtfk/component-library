@@ -8,7 +8,10 @@ import { Icon } from '../Icon'
 export default getConfig({
   title: 'SideNav',
   component: SideNav,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  subcomponents: {
+    SideNavItem
+  }
 })
 
 const menu = [
