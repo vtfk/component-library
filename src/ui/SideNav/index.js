@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { IconDropdownNav, IconDropdownNavItem } from '../IconDropdownNav'
+import { IconDropdownNav } from '../IconDropdownNav'
 import { Logo } from '../Logo'
 
 import './styles.scss'
@@ -63,22 +63,6 @@ export function SideNavItem ({ href, icon, title, active, ...props }) {
   )
 }
 
-export function SideNavMiniItem ({ href, title, onClick }) {
-  return (
-    <>
-      {
-        href &&
-          <IconDropdownNavItem closeOnClick href={href} title={title} />
-      }
-
-      {
-        onClick &&
-          <IconDropdownNavItem closeOnClick title={title} onClick={() => onClick()} />
-      }
-    </>
-  )
-}
-
 SideNav.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
@@ -99,11 +83,5 @@ SideNavItem.propTypes = {
   active: PropTypes.bool,
   href: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired
-}
-
-SideNavMiniItem.propTypes = {
-  href: PropTypes.string,
-  onClick: PropTypes.func,
   title: PropTypes.string.isRequired
 }

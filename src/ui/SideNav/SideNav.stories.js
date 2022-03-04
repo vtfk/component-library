@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
-import { SideNav, SideNavItem, SideNavMini, SideNavMiniItem } from '.'
+import { SideNav, SideNavItem, SideNavMini } from '.'
 import { Icon } from '../Icon'
+import { IconDropdownNavItem } from '../IconDropdownNav'
 
 export default getConfig({
   title: 'SideNav',
   component: SideNav,
   subcomponents: {
     SideNavItem,
-    SideNavMini,
-    SideNavMiniItem
+    SideNavMini
   }
 })
 
@@ -57,9 +57,9 @@ export function Mini () {
   return (
     <>
       <SideNavMini title='SideNavMini'>
-        <SideNavMiniItem title='Link 1' onClick={() => console.log('Link 1 clicked')} />
-        <SideNavMiniItem title='Link 2' onClick={() => console.log('Link 2 clicked')} />
-        <SideNavMiniItem href='/' title='Link 3' />
+        <IconDropdownNavItem closeOnClick title='Link 1' onClick={() => console.log('Link 1 clicked')} />
+        <IconDropdownNavItem closeOnClick title='Link 2' onClick={() => console.log('Link 2 clicked')} />
+        <IconDropdownNavItem closeOnClick title='Link 3' href='/' />
       </SideNavMini>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <span style={{ paddingBottom: '1em' }}><strong>SideNavMini</strong> vil være synlig når <i>innerWidth</i> er mindre enn eller lik <strong>1000px</strong>.</span>
@@ -90,9 +90,9 @@ export function Both () {
         <SideNavItem href='https://vtfk.no' icon={<Icon name='classes' size='small' />} title='Link 3' />
       </SideNav>
       <SideNavMini title='SideNavMini'>
-        <SideNavMiniItem title='Link 1' onClick={() => console.log('Link 1 clicked')} />
-        <SideNavMiniItem title='Link 2' onClick={() => console.log('Link 2 clicked')} />
-        <SideNavMiniItem href='/' title='Link 3' />
+        <IconDropdownNavItem closeOnClick title='Link 1' onClick={() => console.log('Link 1 clicked')} />
+        <IconDropdownNavItem closeOnClick title='Link 2' onClick={() => console.log('Link 2 clicked')} />
+        <IconDropdownNavItem closeOnClick title='Link 3' href='/' />
       </SideNavMini>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <span style={{ paddingBottom: '1em' }}><strong>SideNav</strong> vil være synlig når <i>innerWidth</i> er større enn <strong>1000px</strong>.</span>
