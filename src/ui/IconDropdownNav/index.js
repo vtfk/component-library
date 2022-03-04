@@ -59,7 +59,7 @@ export function IconDropdownNav ({ placement, ...props }) {
   )
 }
 
-export function IconDropdownNavItem ({ href, onClick, title, closeOnClick, closeNav, ...props }) {
+export function IconDropdownNavItem ({ href, onClick, title, icon, closeOnClick, closeNav, ...props }) {
   const context = useContext(IconDropdownNavContext)
 
   function handleOnClick () {
@@ -76,14 +76,30 @@ export function IconDropdownNavItem ({ href, onClick, title, closeOnClick, close
       {
         href &&
           <a href={href}>
-            {title}
+            {
+              icon
+                ? (
+                  <>
+                    <div className='nav-item-icon'>{icon}</div>
+                    <div className='nav.item-title'>{title}</div>
+                  </>)
+                : title
+            }
           </a>
       }
 
       {
         onClick &&
           <button onClick={() => { handleOnClick() }}>
-            {title}
+            {
+              icon
+                ? (
+                  <>
+                    <div className='nav-item-icon'>{icon}</div>
+                    <div className='nav.item-title'>{title}</div>
+                  </>)
+                : title
+            }
           </button>
       }
     </li>
@@ -111,6 +127,7 @@ IconDropdownNavItem.propTypes = {
   closeNav: PropTypes.func,
   closeOnClick: PropTypes.bool,
   href: PropTypes.string,
+  icon: PropTypes.node,
   onClick: PropTypes.func,
   title: PropTypes.string.isRequired
 }
