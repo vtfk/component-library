@@ -53,12 +53,20 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
     // Setup events
     function handleMouseUp (e) {
-      if (!e || !e.path) return
+      if (!e || !e.target) return
 
       // Retreive a list of all classes under the clicked coordinate
       // If the click is outside the searchfield or dropdown, hide it
-      const ids = e.path.map((p) => { return p.id })
-      if (!ids.includes(componentId)) {
+      let parentNode = e.target
+      let shouldClose = true
+      do {
+        if (typeof parentNode.id === 'string' && parentNode.id === componentId) {
+          shouldClose = false
+          break
+        }
+        parentNode = parentNode.parentNode
+      } while (parentNode !== null)
+      if (shouldClose) {
         handleShowDropdown(false)
         if (onClickOutside && typeof onClickOutside === 'function') onClickOutside(e)
       }
