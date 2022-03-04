@@ -1,12 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { Icon } from '../Icon'
 import { IconDropdownNav } from '../IconDropdownNav'
 import { Logo } from '../Logo'
 
 import './styles.scss'
 
-export function SideNav ({ title, ...props }) {
+export function SideNav ({ items, title, ...props }) {
+  function handleItemClick (item) {
+    if (item.href) {
+      window.location = item.href
+    }
+    if (item.onClick) {
+      item.onClick()
+    }
+  }
+
   return (
     <>
       {/* Navigation shown for screen width > 1000px */}
@@ -23,7 +33,23 @@ export function SideNav ({ title, ...props }) {
         </div>
         <div className='sidenav-list-wrapper'>
           <ul className='sidenav-list'>
-            {props.children}
+            {
+              !!props.children && props.children
+            }
+
+            {
+              items && items.map((item, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    {
+                      item.icon
+                        ? <SideNavItem href={item.href} icon={<Icon name={item.icon.name} size={item.icon.size || 'small'} />} title={item.title} active={window.location.pathname === item.href} onClick={() => handleItemClick(item)} />
+                        : <SideNavItem href={item.href} title={item.title} active={window.location.pathname === item.href} onClick={() => handleItemClick(item)} />
+                    }
+                  </React.Fragment>
+                )
+              })
+            }
           </ul>
         </div>
       </nav>
