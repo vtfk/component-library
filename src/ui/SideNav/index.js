@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Icon } from '../Icon'
-import { IconDropdownNav } from '../IconDropdownNav'
+import { IconDropdownNav, IconDropdownNavItem } from '../IconDropdownNav'
 import { Logo } from '../Logo'
 
 import './styles.scss'
 
-export function SideNav ({ items, title, ...props }) {
+export function SideNav ({ items, title, useMini, ...props }) {
   function handleItemClick (item) {
     if (item.href) {
       window.location = item.href
@@ -53,25 +53,38 @@ export function SideNav ({ items, title, ...props }) {
           </ul>
         </div>
       </nav>
-    </>
-  )
-}
 
-export function SideNavMini ({ title, ...props }) {
-  return (
-    <>
       {/* Navigation shown for screen width <= 1000px */}
-      <nav role='navigation' className='sidenav-mini'>
-        <a href='/' className='brand'>
-          <div className='brand-logo' aria-hidden>
-            <Logo />
-          </div>
-          <div className='brand-name'>{title}</div>
-        </a>
-        <IconDropdownNav>
-          {props.children}
-        </IconDropdownNav>
-      </nav>
+      {
+        useMini &&
+          <nav role='navigation' className='sidenav-mini'>
+            <a href='/' className='brand'>
+              <div className='brand-logo' aria-hidden>
+                <Logo />
+              </div>
+              <div className='brand-name'>{title}</div>
+            </a>
+            <IconDropdownNav>
+              {
+                !!props.children && props.children
+              }
+
+              {
+                items && items.map((item, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      {
+                        item.icon
+                          ? <IconDropdownNavItem icon={<Icon name={item.icon.name} size={item.icon.size || 'small'} />} closeOnClick title={item.title} onClick={() => handleItemClick(item)} />
+                          : <IconDropdownNavItem closeOnClick title={item.title} onClick={() => handleItemClick(item)} />
+                      }
+                    </React.Fragment>
+                  )
+                })
+              }
+            </IconDropdownNav>
+          </nav>
+      }
     </>
   )
 }
@@ -93,16 +106,18 @@ SideNav.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired,
-  title: PropTypes.string.isRequired
-}
-
-SideNavMini.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  title: PropTypes.string.isRequired
+  ]),
+  items: PropTypes.arrayOf(PropTypes.shape({
+    href: PropTypes.string,
+    icon: PropTypes.shape({
+      name: PropTypes.string,
+      size: PropTypes.string
+    }),
+    onClick: PropTypes.func,
+    title: PropTypes.string
+  })),
+  title: PropTypes.string.isRequired,
+  useMini: PropTypes.bool
 }
 
 SideNavItem.propTypes = {
@@ -110,4 +125,8 @@ SideNavItem.propTypes = {
   href: PropTypes.string,
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired
+}
+
+SideNav.defaultProps = {
+  useMini: false
 }
