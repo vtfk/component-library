@@ -50,11 +50,21 @@
 .icon-dropdown-nav-item {
   white-space: nowrap;
 
+  .nav-item-icon {
+    margin: auto 0;
+    width: $baseUnit * 4;
+    max-width: $baseUnit * 4;
+  }
+
+  .nav-item-title {
+    
+  }
+
   a,
   button {
     @include reset-button();
-    display: block;
-    display: block;
+    display: flex;
+    gap: $baseUnit;
     line-height: $baseUnit * 6;
     width: 100%;
     height: $baseUnit * 6;
