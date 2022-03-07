@@ -42,11 +42,7 @@ export function Basic () {
               apples / 2
             }
           </StatisticsCard>
-          <StatisticsCard title='Is a third of my apples' size={select('Size', cardSize, 'small')}>
-            {
-              apples / 3
-            }
-          </StatisticsCard>
+          <StatisticsCard title='Is a third of my apples' size={select('Size', cardSize, 'small')} value={apples / 3} />
         </StatisticsGroup>
       </div>
     </div>
@@ -74,11 +70,7 @@ export function CardLink () {
               apples / 2
             }
           </StatisticsCard>
-          <StatisticsCard title='Is a third of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)}>
-            {
-              apples / 3
-            }
-          </StatisticsCard>
+          <StatisticsCard title='Is a third of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
         </StatisticsGroup>
       </div>
     </div>

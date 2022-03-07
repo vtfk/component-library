@@ -6,12 +6,12 @@ import { Heading1, Heading3, Paragraph } from '../Typography'
 
 import './styles.scss'
 
-export function StatisticsCard ({ className, noStyle, size, title, onClick, ...props }) {
+export function StatisticsCard ({ className, noStyle, size, title, value, onClick, ...props }) {
   if (onClick !== undefined) {
     return (
       <CardLink className={noStyle ? className || '' : `statistics-card ${className || ''}`} onClick={onClick}>
         <Heading1 as='p' className='statistics-card-title'>
-          {props.children}
+          {props.children || value}
         </Heading1>
         {
           size === 'small'
@@ -25,7 +25,7 @@ export function StatisticsCard ({ className, noStyle, size, title, onClick, ...p
   return (
     <div className={noStyle ? className || '' : `statistics-card ${className || ''}`}>
       <Heading1 as='p' className='statistics-card-title'>
-        {props.children}
+        {props.children || value}
       </Heading1>
       {
         size === 'small'
@@ -73,7 +73,7 @@ StatisticsCard.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired,
+  ]),
   className: PropTypes.string,
   noStyle: PropTypes.bool,
   onClick: PropTypes.func,
@@ -81,7 +81,8 @@ StatisticsCard.propTypes = {
     'large',
     'small'
   ]),
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  value: PropTypes.number
 }
 
 StatisticsCard.defaultProps = {
