@@ -73,6 +73,15 @@ export function CardLink () {
           <StatisticsCard title='Is a third of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
         </StatisticsGroup>
       </div>
+      <div>
+        Four <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
+        <StatisticsGroup type='card'>
+          <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} />
+          <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} onClick={() => console.log('Half of my apples is', apples / 2)} value={apples / 2} />
+          <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
+          <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} onClick={() => console.log('Fourth of my apples is', apples / 4)} value={apples / 4} />
+        </StatisticsGroup>
+      </div>
     </div>
   )
 }
