@@ -57,8 +57,8 @@ export function Dialog ({ isOpen, title, className, persistent, showCloseButton,
   return (
     isOpen === true &&
       <>
-        <div className={`dialog-backdrop ${className}`} style={style}>
-          <div id={id} className='dialog' css={`width: ${props.width || '100%'}`} aria-label='dialog' aria-modal='true' role='dialog'>
+        <div className={`dialog-backdrop ${className}`}>
+          <div id={id} className='dialog' css={`width: ${props.width || '100%'}`} aria-label='dialog' aria-modal='true' role='dialog' style={style}>
             {!persistent && showCloseButton &&
               <button className='dialog-close-btn' onClick={() => { handleCloseBtnClick() }} aria-label='Lukk'>
                 <CloseIcon alt='' />
