@@ -6,10 +6,10 @@ import { Heading1, Heading3, Paragraph } from '../Typography'
 
 import './styles.scss'
 
-export function StatisticsCard ({ className, size, title, onClick, ...props }) {
+export function StatisticsCard ({ className, noStyle, size, title, onClick, ...props }) {
   if (onClick !== undefined) {
     return (
-      <CardLink className={className || 'statistics-card'} onClick={onClick}>
+      <CardLink className={noStyle ? className || '' : `statistics-card ${className || ''}`} onClick={onClick}>
         <Heading1 as='p' className='statistics-card-title'>
           {props.children}
         </Heading1>
@@ -23,7 +23,7 @@ export function StatisticsCard ({ className, size, title, onClick, ...props }) {
   }
 
   return (
-    <div className={className || 'statistics-card'}>
+    <div className={noStyle ? className || '' : `statistics-card ${className || ''}`}>
       <Heading1 as='p' className='statistics-card-title'>
         {props.children}
       </Heading1>
@@ -38,7 +38,7 @@ export function StatisticsCard ({ className, size, title, onClick, ...props }) {
 
 export function StatisticsGroup ({ className, type, ...props }) {
   return (
-    <div className={className || (type === 'card' ? 'statistics-card-group' : 'statistics-progressbar-group')}>
+    <div className={`${type === 'card' ? 'statistics-card-group' : 'statistics-progressbar-group'} ${className || ''}`}>
       {
         type === 'card' && props.children
       }
@@ -61,7 +61,7 @@ export function StatisticsProgressBar ({ className, name, value, maxValue }) {
       <td>{value}</td>
       <td className='statistics-progressbar'>
         <div
-          className={className || 'statistics-progressbar-container'}
+          className={`statistics-progressbar-container ${className || ''}`}
           style={{ maxWidth: (100 * parseInt(value) / maxValue) + '%' }}
         />
       </td>
@@ -75,6 +75,7 @@ StatisticsCard.propTypes = {
     PropTypes.node
   ]).isRequired,
   className: PropTypes.string,
+  noStyle: PropTypes.bool,
   onClick: PropTypes.func,
   size: PropTypes.oneOf([
     'large',
@@ -84,6 +85,7 @@ StatisticsCard.propTypes = {
 }
 
 StatisticsCard.defaultProps = {
+  noStyle: false,
   size: 'small'
 }
 
