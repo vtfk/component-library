@@ -6,12 +6,12 @@ import { Heading1, Heading3, Paragraph } from '../Typography'
 
 import './styles.scss'
 
-export function StatisticsCard ({ className, noStyle, size, title, value, onClick, ...props }) {
+export function StatisticsCard ({ className, noStyle, size, title, value, onClick, children, ...props }) {
   if (onClick !== undefined) {
     return (
-      <CardLink className={noStyle ? className || '' : `statistics-card ${className || ''}`} onClick={onClick}>
+      <CardLink className={noStyle ? className || '' : `statistics-card ${className || ''}`} onClick={onClick} {...props}>
         <Heading1 as='p' className='statistics-card-title'>
-          {props.children || value}
+          {children || value}
         </Heading1>
         {
           size === 'small'
@@ -25,7 +25,7 @@ export function StatisticsCard ({ className, noStyle, size, title, value, onClic
   return (
     <div className={noStyle ? className || '' : `statistics-card ${className || ''}`}>
       <Heading1 as='p' className='statistics-card-title'>
-        {props.children || value}
+        {children || value}
       </Heading1>
       {
         size === 'small'

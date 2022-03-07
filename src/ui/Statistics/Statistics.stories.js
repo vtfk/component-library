@@ -53,9 +53,9 @@ export function CardLink () {
   return (
     <div>
       <div>
-        One single <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
+        One <b><i>disabled</i></b> single <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
         <StatisticsGroup type='card'>
-          <StatisticsCard title='Is how many apples i have' size={select('Size', cardSize, 'small')} onClick={() => console.log('I have', apples, 'apples')}>
+          <StatisticsCard title='Is how many apples i have' size={select('Size', cardSize, 'small')} onClick={() => console.log('I have', apples, 'apples')} disabled>
             {
               apples
             }
