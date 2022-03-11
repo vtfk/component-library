@@ -1,0 +1,130 @@
+.vtfk-table-container {
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(255, 255, 255, 0.247); */
+  border-radius: 10px;
+  overflow: none;
+}
+
+.vtfk-table {
+  width: 100%;
+  text-align: left;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.vtfk-table-checkbox-cell {
+  width: 45px;
+  max-width: 45px;
+}
+
+.vtfk-table th {
+  padding: 0.5rem;
+  text-align: left;
+  background-color: #88A6B0;
+}
+
+.vtfk-table td {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.vtfk-table .td-dense {
+  padding: 0.15rem 0;
+}
+
+.vtfk-table tbody tr:nth-of-type(even) {
+  background-color: #D5E1E5;
+}
+
+.vtfk-table tbody tr:nth-of-type(odd) {
+  background-color: #ECECEC;
+}
+
+.vtfk-table tbody tr:hover {
+  background-color: rgba(206, 207, 207, 0.952)
+}
+
+.vtfk-table tbody .tr-selected {
+  background-color: #e69696!important;
+}
+
+.vtfk-table tbody .tr-select-onclick {
+  cursor: pointer;
+}
+
+.vtfk-table-loading-td {
+  width: 100%;
+  height: 100%;
+}
+
+.vtfk-table-loading-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+/*
+  Mobile
+*/
+.vtfk-table-mobile {
+  border-collapse: collapse;
+  border: none;
+}
+
+
+.vtfk-table-mobile-header-row {
+  background-color: #88A6B0;
+}
+
+.vtfk-table-mobile-header {
+  position: relative;
+  color: rgb(39, 39, 39);
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  border-collapse: collapse;
+  border: none;
+  display: flex;
+  justify-content: center;
+}
+
+.vtfk-table-mobile-header-text {
+  flex-grow: 1;
+}
+
+.vtfk-table-mobile-selectall {
+  /* position: absolute; */
+  display: inline-block;
+  right: -1.2rem;
+  width: 45px;
+  max-width: 45px;
+}
+
+.vtfk-table-mobile-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.vtfk-table-mobile tr {
+  padding: 0.2rem 0;
+}
+
+.vtfk-table-mobile-row {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.2rem!important;
+  padding-bottom: 0.2rem!important;
+}
+
+.vtfk-table-mobile-item-header {
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.vtfk-table-mobile-item-value {
+  text-align: right;
+  font-size: 14px;
+}
