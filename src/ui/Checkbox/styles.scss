@@ -1,92 +1,74 @@
 @import "../Tokens/tokens.scss";
 @import "../../common/scss/helpers";
 
+/* Checkbox component */
 .checkbox {
   display: inline-block;
+}
 
-  .checkbox-inner {
-    display: flex;
-    align-items: center;
+/* The inside container for items */
+.checkbox-container {
+  display: flex;
+  position: relative;
+}
+
+/* Input for checkbox, it is always hidden behind the checkarea */
+.checkbox-input {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  left: 5px;
+}
+
+/* The checkbox area */
+.checkbox-checkarea {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  border: 1px solid #A3A3A3;
+
+  svg {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 16px;
+    height: 16px;
   }
+}
 
-  .check-wrapper {
-    position: relative;
+/* Stying applied based in input state */
+.checkbox-input {
+  /* If it is checked, change style for checkarea */
+  &:checked + .checkbox-checkarea {
+    border-color: $deepSeaGreen;
 
-    .check {
-      width: 26px;
-      height: 26px;
-      margin: 0;
-
-      &:before {
-        content: "";
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 24px;
-        height: 24px;
-        background: #fff;
-        border: 1px solid #A3A3A3;
-        z-index: 1;
-      }
-
-      svg {
-        display: none;
-      }
-    }
-
-    input[type="checkbox"] {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 24px;
-      height: 24px;
+    svg {
       display: block;
-      margin: 0;
-      opacity: 0;
-      z-index: 3;
-
-      &:checked + .check {
-        position: relative;
-        z-index: 2;
-
-        &:before {
-          border-color: $deepSeaGreen;
-        }
-
-        svg {
-          display: block;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 3;
-          width: 16px;
-          height: 16px;
-        }
-      }
-
-      &:focus + .check {
-        &:before {
-          border-color: $deepSeaGreen;
-        }
-      }
-
-      &:focus-visible + .check {
-        &:before {
-          box-shadow: 0 0 0 4px $lightBlue;
-        }
-      }
     }
   }
 
-  label {
-    display: block;
-    line-height: 1em;
-    margin: 0 0 0 ($baseUnit * 1.5) ;
-    padding: 0;
+  /* If in focus, change style for checkarea */
+  &:focus + .checkbox-checkarea {
+    border-color: $deepSeaGreen;
+  }
 
-    &.disabled {
-      @include disabled();
-    }
+  &:focus-visible + .checkbox-checkarea {
+    box-shadow: 0 0 0 4px $lightBlue;
+  }
+}
+
+/* Label */
+label {
+  display: block;
+  line-height: 1em;
+  margin: auto 0 auto ($baseUnit * 1.5) ;
+  padding: 0;
+
+  &.disabled {
+    @include disabled();
   }
 }

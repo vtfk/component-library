@@ -224,7 +224,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                   {!mobileHeaderElement &&
                     <div className={mergeClasses('vtfk-table-mobile-header', headerClass)} style={mergeStyles(headerStyle)}>
                       <div className='vtfk-table-mobile-header-text'>{mobileHeaderText}</div>
-                      <div className='vtfk-table-mobile-selectall'><Checkbox checked={isAllSelected} name='checkAll' value='checkAll' label={' '} onChange={(e) => selectAll()} style={{ padding: 0, margin: 0, marginRight: 0, display: 'block' }} /></div>
+                      <div className='vtfk-table-mobile-selectall'><Checkbox checked={isAllSelected} name='checkAll' value='checkAll' onChange={(e) => selectAll()} /></div>
                     </div>}
                 </td>
               </tr>
@@ -258,7 +258,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                       showSelect &&
                         <td className='vtfk-table-mobile-row'>
                           <div />
-                          <div><Checkbox checked={isSelected(item)} onChange={(e) => updateSelected(item[itemId])} onClick={(e) => e.stopPropagation()} style={{ display: 'block', padding: '0', margin: '0' }} /></div>
+                          <div><Checkbox checked={isSelected(item)} onChange={(e) => updateSelected(item[itemId])} onClick={(e) => e.stopPropagation()} /></div>
                         </td>
                     }
                     {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { withKnobs, object } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
@@ -170,11 +170,8 @@ export function CustomItems () {
 }
 
 export function Mobile () {
-  const [checked, setChecked] = useState(false)
-
   return (
     <div>
-      <Checkbox checked={checked} onChange={() => { console.log('yoyo'); setChecked(!checked) }} />
       <Table
         headers={object('Headers', headers)}
         items={object('Items', items)}

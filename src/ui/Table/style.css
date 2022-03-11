@@ -13,11 +13,6 @@
   overflow-y: auto;
 }
 
-.vtfk-table-checkbox-cell {
-  width: 45px;
-  max-width: 45px;
-}
-
 .vtfk-table th {
   padding: 0.5rem;
   text-align: left;
@@ -89,6 +84,7 @@
   border: none;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .vtfk-table-mobile-header-text {
@@ -96,11 +92,8 @@
 }
 
 .vtfk-table-mobile-selectall {
-  /* position: absolute; */
-  display: inline-block;
-  right: -1.2rem;
-  width: 45px;
-  max-width: 45px;
+  display: flex;
+  align-items: center;
 }
 
 .vtfk-table-mobile-item {
