@@ -119,7 +119,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
   function getItemValue (item, header) {
     if (!item || !header || !header.value) return ''
     if (item._elements?.[header.value]) return item._elements?.[header.value]
-    if (typeof item[header.value] === 'boolean') return item[header.value].toString()
+    if (['number', 'boolean'].includes(typeof item[header.value])) return item[header.value].toString()
     return item[header.value] || ''
   }
 
