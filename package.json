@@ -80,7 +80,7 @@
     "marked": "4.0.12",
     "node-sass": "7.0.1",
     "plop": "3.0.5",
-    "postcss": "8.4.8",
+    "postcss": "8.4.12",
     "prop-types": "15.8.1",
     "react": "*",
     "react-dom": "*",
