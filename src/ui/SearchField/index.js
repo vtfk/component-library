@@ -10,7 +10,7 @@ import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 import { nanoid } from 'nanoid'
 
-export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, onShowDropdown, onClickOutside, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, onShowDropdown, onClickOutside, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, showSearchIcon, ...props }) {
   /*
     State
   */
@@ -208,9 +208,12 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
           }
           {...props}
         />
-        <div className='icon' onClick={handleSearchBtnClick}>
-          <Icon name='search' alt='' />
-        </div>
+        {
+          showSearchIcon &&
+            <div className='icon' onClick={handleSearchBtnClick}>
+              <Icon name='search' alt='' />
+            </div>
+        }
       </div>
       {
         /* Dropdown */
@@ -308,11 +311,13 @@ SearchField.propTypes = {
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
   showDropdown: PropTypes.bool,
+  showSearchIcon: PropTypes.bool,
   value: PropTypes.string
 }
 
 SearchField.defaultProps = {
   debounceMs: 0,
   emptyText: 'Søket gav ingen resultater...',
-  loadingText: 'Søker...'
+  loadingText: 'Søker...',
+  showSearchIcon: true
 }
