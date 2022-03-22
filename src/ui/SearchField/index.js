@@ -10,7 +10,7 @@ import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 import { nanoid } from 'nanoid'
 
-export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, onShowDropdown, onClickOutside, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, showSearchIcon, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, onShowDropdown, onClickOutside, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, showSearchIcon, showClearIcon, ...props }) {
   /*
     State
   */
@@ -158,6 +158,11 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     }
   }
 
+  // Handles clearing the textfield
+  const handleClear = () => {
+    console.log('Clear feltet')
+  }
+
   // Handles clicking the searchButton
   const handleSearchBtnClick = () => {
     handleSearch()
@@ -188,6 +193,15 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (onShowDropdown && typeof onShowDropdown === 'function') onShowDropdown(boolean)
   }
 
+  const getTextfieldPadding = () => {
+    const search = 60
+    const clear = 20
+    const none = 25
+    if ((showClearIcon && showSearchIcon) || (showClearIcon && !showSearchIcon)) return search + clear
+    if (!showClearIcon && showSearchIcon) return search
+    if (!showClearIcon && !showSearchIcon) return none
+  }
+
   return (
     <div id={componentId} className='header-search'>
       <div className={`search-field ${rounded ? 'rounded' : ''}`}>
@@ -203,11 +217,17 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
           onBlur={handleBlur}
           style={
             isShowDropdown && searchValue !== '' && (loading || items || children)
-              ? { boxShadow: 'none', paddingRight: 60, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderColor: '#979797', borderBottomWidth: 0 }
-              : { boxShadow: 'none', paddingRight: 60, borderColor: '#979797' }
+              ? { boxShadow: 'none', paddingRight: getTextfieldPadding(), borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderColor: '#979797', borderBottomWidth: 0 }
+              : { boxShadow: 'none', paddingRight: getTextfieldPadding(), borderColor: '#979797' }
           }
           {...props}
         />
+        {
+          showClearIcon &&
+            <div className='clear-icon' onClick={handleClear}>
+              <Icon name='close' alt='' />
+            </div>
+        }
         {
           showSearchIcon &&
             <div className='icon' onClick={handleSearchBtnClick}>
@@ -310,6 +330,7 @@ SearchField.propTypes = {
   onShowDropdown: PropTypes.func,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
+  showClearIcon: PropTypes.bool,
   showDropdown: PropTypes.bool,
   showSearchIcon: PropTypes.bool,
   value: PropTypes.string
@@ -319,5 +340,6 @@ SearchField.defaultProps = {
   debounceMs: 0,
   emptyText: 'Søket gav ingen resultater...',
   loadingText: 'Søker...',
-  showSearchIcon: true
+  showSearchIcon: true,
+  showClearIcon: false
 }

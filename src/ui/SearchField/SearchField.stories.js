@@ -93,6 +93,8 @@ export function Basic () {
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
           rounded
+          showClearIcon
+          showSearchIcon
         />
       </div>
       <br />
