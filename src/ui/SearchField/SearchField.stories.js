@@ -112,6 +112,48 @@ export function Basic () {
   )
 }
 
+export function BasicDebounce () {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchedValue, setSearchedValue] = useState('')
+
+  function onChange (e) {
+    console.log('onChange kjøres ved hver endring:', e.target.value)
+    setSearchTerm(e.target.value)
+  }
+
+  function onSearch (e) {
+    console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
+    setSearchedValue(e.target.value)
+  }
+
+  return (
+    <div>
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          placeholder='Dette er placeholderen'
+          debounceMs={1000}
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          rounded
+        />
+      </div>
+      <br />
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>onChange: </strong></td>
+            <td>{searchTerm}</td>
+          </tr>
+          <tr>
+            <td><strong>onSearch:</strong></td>
+            <td>{searchedValue}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
 export function Items () {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchedValue, setSearchedValue] = useState('')

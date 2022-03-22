@@ -153,6 +153,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
         handleSearch(event)
         handleShowDropdown(false)
       }
+    } else {
+      if (debounceMs > 0) debouncer(event)
     }
   }
 
