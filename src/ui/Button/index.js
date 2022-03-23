@@ -47,8 +47,6 @@ export const IconButton = forwardRef(({ className, type, icon, spinner, disabled
   </button>
 ))
 
-export const IconButtonLink = IconButton
-
 Button.propTypes = {
   children: PropTypes.string.isRequired,
   className: PropTypes.string,
