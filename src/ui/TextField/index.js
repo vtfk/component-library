@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid/non-secure'
 
 import './styles.scss'
 
-export function TextField ({ type, className, placeholder, required, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, hintTextOnFocus, ...props }) {
+export function TextField ({ type, className, placeholder, required, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, hint, showHint, ...props }) {
   const [focusState, setFocusState] = useState(false)
   const [labelId] = useState(id || `id${nanoid()}`)
 
@@ -20,27 +20,30 @@ export function TextField ({ type, className, placeholder, required, value, id, 
 
   return (
     <div className={`
+        text-field
         ${required ? 'required-input' : ''}
         ${rounded ? 'rounded-input' : 'text-field'}
         ${type || 'text'}
         ${error ? 'error' : ''}
-        ${hintTextOnFocus && hintTextOnFocus.length > 0 && inputRef ? 'has-hint-text' : ''}
+        ${hint && hint.length > 0 && inputRef ? 'has-hint-text' : ''}
     `}
     >
+      <div className='textfield-placeholder'>
+        {
+          value && value !== '' && placeholder && !rounded &&
+          <label htmlFor={labelId} className='placeholder-label'>
+            {placeholder}
+          </label>
+        }
+      </div>
+    
+
       <div className={`
         ${className || ''}
         ${noBorder && !rounded ? 'no-border' : ''}
         ${focusState ? 'focused' : ''}
       `}
       >
-        {
-          value && value !== '' && !rounded &&
-            <label htmlFor={labelId} className='placeholder-label'>
-              {placeholder}
-            </label>
-
-        }
-
         {
           rows &&
             <textarea
@@ -81,14 +84,14 @@ export function TextField ({ type, className, placeholder, required, value, id, 
             {error.message || error}
           </label>
       }
-
-      {
-        hintTextOnFocus &&
-        focusState &&
+      <div className='textfield-hint'>
+        {
+          (focusState || showHint !== false) &&
           <p role='alert' aria-live='assertive' className='hint-text'>
-            {hintTextOnFocus}
+            {hint}
           </p>
-      }
+        }
+      </div>
     </div>
   )
 }
@@ -100,7 +103,7 @@ TextField.propTypes = {
     PropTypes.string,
     PropTypes.bool
   ]),
-  hintTextOnFocus: PropTypes.string,
+  hint: PropTypes.string,
   id: PropTypes.string,
   inputRef: PropTypes.object,
   noBorder: PropTypes.bool,

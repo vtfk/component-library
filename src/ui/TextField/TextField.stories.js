@@ -57,10 +57,10 @@ export function WithHintText () {
   return (
     <div>
       <div style={{ marginBottom: 40 }}>
-        <TextField hintTextOnFocus='Dette er hint teksten til første input' placeholder='Placeholder..' value={value1} onChange={(e) => { setValue1(e.target.value) }} />
+        <TextField hint='Dette er hint teksten til første input' showHint placeholder='Placeholder..' value={value1} onChange={(e) => { setValue1(e.target.value) }} />
       </div>
       <div style={{ marginBottom: 40 }}>
-        <TextField noBorder hintTextOnFocus='Og her kommer hint tekst til andre input' placeholder='Placeholder..' value={value2} onChange={(e) => { setValue2(e.target.value) }} />
+        <TextField noBorder hint='Og her kommer hint tekst til andre input' showHint placeholder='Placeholder..' value={value2} onChange={(e) => { setValue2(e.target.value) }} />
       </div>
     </div>
   )
