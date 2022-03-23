@@ -59,7 +59,14 @@ export function Bordered () {
 }
 
 export function WithoutText () {
+  const [loading, setLoading] = useState(false)
+
+  const clickHandler = (msg) => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 3000)
+  }
+
   return (
-    <IconButton icon={select('Icon', icons, 'add')} />
+    <IconButton icon={select('Icon', icons, 'add')} onClick={() => clickHandler()} spinner={loading} />
   )
 }
