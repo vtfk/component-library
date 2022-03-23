@@ -202,7 +202,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }
 
   return (
-      <div id={componentId} className={`search-field ${rounded ? 'rounded' : ''}`} style={searchFieldStyle}>
+      <div id={componentId} className={`search-field ${rounded ? 'rounded' : ''}`} style={searchFieldStyle} {...props}>
         <input
           value={searchValue}
           placeholder={placeholder || 'Søk...'}

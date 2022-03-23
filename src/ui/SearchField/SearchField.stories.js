@@ -88,6 +88,13 @@ export function Basic () {
   return (
     <div>
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <h3>Regular</h3>
+        <SearchField
+          placeholder='Dette er placeholderen'
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+        />
+        <h3>Rounded</h3>
         <SearchField
           placeholder='Dette er placeholderen'
           onChange={e => onChange(e)}
@@ -186,6 +193,19 @@ export function Items () {
   return (
     <div>
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <h3>Regular</h3>
+        <SearchField
+          debounceMs={number('Delay i millisekunder', 1000)}
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          onSelected={(e, i) => onSelected(e, i)}
+          placeholder='Søk utføres først etter 1 sekund'
+          loading={searching}
+          loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
+          emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
+          items={items}
+        />
+        <h3>Rounded</h3>
         <SearchField
           debounceMs={number('Delay i millisekunder', 1000)}
           onChange={e => onChange(e)}
