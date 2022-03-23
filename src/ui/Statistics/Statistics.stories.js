@@ -34,7 +34,7 @@ export function Basic () {
           </StatisticsCard>
         </StatisticsGroup>
       </div>
-      <div>
+      <div style={{marginTop: '2rem'}}>
         Two <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
         <StatisticsGroup type='card'>
           <StatisticsCard title='Is half of my apples' size={select('Size', cardSize, 'small')}>
@@ -62,7 +62,7 @@ export function CardLink () {
           </StatisticsCard>
         </StatisticsGroup>
       </div>
-      <div>
+      <div style={{marginTop: '2rem'}}>
         Two <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
         <StatisticsGroup type='card'>
           <StatisticsCard title='Is half of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Half of my apples is', apples / 2)}>
@@ -73,7 +73,7 @@ export function CardLink () {
           <StatisticsCard title='Is a third of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
         </StatisticsGroup>
       </div>
-      <div>
+      <div style={{marginTop: '2rem'}}>
         Four <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
         <StatisticsGroup type='card'>
           <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} />
@@ -82,6 +82,20 @@ export function CardLink () {
           <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} onClick={() => console.log('Fourth of my apples is', apples / 4)} value={apples / 4} />
         </StatisticsGroup>
       </div>
+    </div>
+  )
+}
+
+export function Mixed () {
+  return(
+    <div>
+      A mix of <b>StatisticsCard</b> and <b>CardLink</b><br />
+      <StatisticsGroup>
+        <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} />
+        <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} value={apples / 2} style={{width: '100px!important'}} />
+        <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
+        <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} value={apples / 3} />
+      </StatisticsGroup>
     </div>
   )
 }
