@@ -47,15 +47,22 @@ const divStyle = { display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap' }
 const buttonStyle = { margin: '5px' }
 
 export function Primary () {
+  const [loading, setLoading] = useState(false)
+
+  const clickHandler = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 3000)
+  }
+
   return (
     <div style={divStyle}>
-      <Button type='primary' size='small' style={buttonStyle}>
+      <Button type='primary' size='small' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Liten knapp
       </Button>
-      <Button type='primary' style={buttonStyle}>
+      <Button type='primary' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Medium knapp
       </Button>
-      <Button type='primary' size='large' style={buttonStyle}>
+      <Button type='primary' size='large' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Stor knapp
       </Button>
     </div>
@@ -63,15 +70,22 @@ export function Primary () {
 }
 
 export function Secondary () {
+  const [loading, setLoading] = useState(false)
+
+  const clickHandler = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 3000)
+  }
+
   return (
     <div style={divStyle}>
-      <Button type='secondary' size='small' style={buttonStyle}>
+      <Button type='secondary' size='small' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Liten knapp
       </Button>
-      <Button type='secondary' style={buttonStyle}>
+      <Button type='secondary' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Medium knapp
       </Button>
-      <Button type='secondary' size='large' style={buttonStyle}>
+      <Button type='secondary' size='large' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Stor knapp
       </Button>
     </div>
@@ -79,15 +93,22 @@ export function Secondary () {
 }
 
 export function Secondary2 () {
+  const [loading, setLoading] = useState(false)
+
+  const clickHandler = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 3000)
+  }
+
   return (
     <div style={divStyle}>
-      <Button type='secondary2' size='small' style={buttonStyle}>
+      <Button type='secondary2' size='small' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Liten knapp
       </Button>
-      <Button type='secondary2' style={buttonStyle}>
+      <Button type='secondary2' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Medium knapp
       </Button>
-      <Button type='secondary2' size='large' style={buttonStyle}>
+      <Button type='secondary2' size='large' style={buttonStyle} onClick={clickHandler} spinner={loading}>
         Stor knapp
       </Button>
     </div>
