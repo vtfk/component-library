@@ -24,28 +24,30 @@ export const Button = forwardRef(({ className, type, size, spinner, disabled, ch
   </button>
 ))
 
-export const IconButton = forwardRef(({ className, type, icon, spinner, disabled, children, ...props }, ref) => (
-  <button
-    className={`icon-button ${type ? `icon-button-${type}` : ''} ${className || ''}`}
-    disabled={disabled || spinner || false}
-    ref={ref}
-    {...props}
-  >
-    <div className='icon-button-icon'>
+export const IconButton = ({ className, bordered, icon, spinner, disabled, onClick, children, ...props }) => {
+  return (
+    <button
+      className={`icon-button ${bordered ? 'icon-button-transparent-bordered' : ''} ${className || ''}`}
+      disabled={disabled || spinner || false}
+      onClick={() => onClick && typeof onClick === 'function' && onClick()}
+      {...props}
+    >
+      <div className='icon-button-icon'>
+        {
+          spinner
+            ? <Spinner size='small' transparent />
+            : <Icon name={icon || 'add'} size='small' />
+        }
+      </div>
       {
-        spinner
-          ? <Spinner size='small' transparent />
-          : <Icon name={icon || 'add'} size='small' />
+        children &&
+          <div className='icon-button-text'>
+            {children}
+          </div>
       }
-    </div>
-    {
-      children &&
-        <div className='icon-button-text'>
-          {children}
-        </div>
-    }
-  </button>
-))
+    </button>
+  )
+}
 
 Button.propTypes = {
   children: PropTypes.string.isRequired,
@@ -64,15 +66,17 @@ Button.defaultProps = {
 }
 
 IconButton.propTypes = {
+  bordered: PropTypes.bool,
   children: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   icon: PropTypes.string.isRequired,
-  spinner: PropTypes.bool,
-  type: PropTypes.string
+  onClick: PropTypes.func,
+  spinner: PropTypes.bool
 }
 
 IconButton.defaultProps = {
+  bordered: false,
   disabled: false,
   spinner: false
 }
