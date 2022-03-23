@@ -11,10 +11,10 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   const [id] = useState(`dialog-${nanoid()}`)
 
   const parsedStyles = useMemo(() => {
-    const _style = {...style};
-    if(width) _style.width = width;
-    if(height) _style.height = height;
-    return _style;
+    const _style = { ...style }
+    if (width) _style.width = width
+    if (height) _style.height = height
+    return _style
   }, [style, width, height])
 
   // onCreated lifecycle-hook
