@@ -80,7 +80,7 @@ describe('IconButton', () => {
   })
 
   test('assigning class works and doesn\'t override default classes', async () => {
-    render(<IconButton icon='add' type='transparent-bordered' className='testclass'>Bordered</IconButton>)
+    render(<IconButton icon='add' bordered className='testclass'>Bordered</IconButton>)
     const btn = screen.getByRole('button')
 
     expect(btn).toHaveClass('icon-button')
