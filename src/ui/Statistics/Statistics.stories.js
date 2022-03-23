@@ -1,6 +1,6 @@
 import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import { withKnobs, select } from '@storybook/addon-knobs'
+import { withKnobs, select, boolean } from '@storybook/addon-knobs'
 
 import { StatisticsCard, StatisticsGroup, StatisticsProgressBar } from '.'
 
@@ -88,15 +88,33 @@ export function CardLink () {
 
 export function Mixed () {
   return(
-    <div>
+    <>
+    <div style={{marginTop: '2rem'}}>
       A mix of <b>StatisticsCard</b> and <b>CardLink</b><br />
       <StatisticsGroup>
         <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} />
-        <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} value={apples / 2} style={{width: '100px!important'}} />
+        <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} value={apples / 2} />
         <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
         <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} value={apples / 3} />
       </StatisticsGroup>
     </div>
+    <div style={{marginTop: '2rem'}}>
+      These two are <b>Loading</b><br />
+      <StatisticsGroup>
+        <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} loading={boolean('Loading', true)} value={apples / 2} />
+        <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} loading={boolean('Loading', true)} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
+      </StatisticsGroup>
+    </div>
+    <div style={{marginTop: '2rem'}}>
+      These has different <b>maxWidth</b><br />
+      <StatisticsGroup>
+      <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} maxWidth="200px" />
+        <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} value={apples / 2} maxWidth="400px" />
+        <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} maxWidth="500px" />
+        <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} value={apples / 3} maxWidth="300px"/>
+      </StatisticsGroup>
+    </div>
+    </>
   )
 }
 
