@@ -105,6 +105,7 @@ export function DialogActions ({ children, style }) {
 Dialog.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
+  height: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onClickOutside: PropTypes.func,
   onCloseBtnClick: PropTypes.func,
