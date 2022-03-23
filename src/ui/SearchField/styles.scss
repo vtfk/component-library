@@ -1,17 +1,43 @@
 @import "../Tokens/tokens.scss";
 @import "../../common/scss/helpers";
 
-.header-search {
-  position: relative;
+$border-color: rgb(151, 151, 151);
 
-  .search-field {
-    position: relative;
+.search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgb(151, 151, 151);
+  border-radius: 24px;
+  padding: 0 ($baseUnit * 3);
+
+  input {
+    width: 100%;
+    height: 48px;
+    width: 100%;
+    line-height: 48px;
+    font-size: 16px;
+    border: none;
+    // padding: 0 ($baseUnit * 3);
+    // padding-right: $baseUnit * 7;
+  }
+
+  input:focus {
+    outline: 0;
+  }
+
+  &:focus-within {
+    border-color: $border-color;
+  }
+
+  .icon-group {
+    display: flex;
+    margin-left: auto;
+    gap: 0.2rem;
 
     .icon {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
       cursor: pointer;
 
       svg {
@@ -19,6 +45,10 @@
         height: 18px;
         display: block;
       }
+    }
+
+    .icon:hover {
+      transform: scale(1.1);
     }
 
     &.rounded {
@@ -31,24 +61,25 @@
   .search-result {
     position: absolute;
     top: calc(100% - 1px);
-    left: 0;
-    right: 0;
+    display: flex;
+    left: -1px;
+    right: -1px;
     background: #fff;
     z-index: 10;
-    border: 1px solid #979797;
+    border: 1px solid $border-color;
     border-radius: 0 0 24px 24px;
     padding-bottom: 20px;
     max-height: 300px;
-    overflow-y: scroll;
     box-shadow: 0 0 0 4px #aedcea;
     box-shadow: 0px 13px 10px 0px rgba(#000, 0.08);
-
+    
     .search-results-inner {
       margin: 0;
       padding: 0;
       list-style: none;
       border-collapse: collapse;
       width: 100%;
+      overflow-y: auto;
   
       .search-results-item-children {
         margin: 0;
@@ -94,29 +125,9 @@
 
       .search-alternatives {
         border-width: 0px;
-        border-color: #979797;
-        border-style: solid;
         background: #fff;
         font-size: 13px;
         color: #555;
-
-        button {
-          appearance: none;
-          outline: 0;
-          border: 0;
-          box-shadow: none;
-          color: #111;
-          padding: 3px 5px;
-          background: #f0f0f0;
-          border-radius: 3px;
-          display: inline-block;
-          margin: 0 1px;
-          cursor: pointer;
-
-          &:hover {
-            background: #D6EDF4;
-          }
-        }
       }
 
       .search-result-table {
