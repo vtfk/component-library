@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid'
 
@@ -6,9 +6,16 @@ import { ReactComponent as CloseIcon } from './icon-close.svg'
 
 import './styles.scss'
 
-export function Dialog ({ isOpen, title, className, persistent, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
+export function Dialog ({ isOpen, title, className, persistent, width, height, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
   const [id] = useState(`dialog-${nanoid()}`)
+
+  const parsedStyles = useMemo(() => {
+    const _style = {...style};
+    if(width) _style.width = width;
+    if(height) _style.height = height;
+    return _style;
+  }, [style, width, height])
 
   // onCreated lifecycle-hook
   useEffect(() => {
@@ -26,6 +33,7 @@ export function Dialog ({ isOpen, title, className, persistent, showCloseButton,
       // Check if is open, a onClickOutside function prop is passed and it has actually clicked outside
       if (isOpen && !e.path.find((i) => i.id === id)) {
         e.preventDefault()
+        e.stopPropagation()
         if (persistent && !onClickOutside) shakeDialogBox()
         else if (onClickOutside && typeof onClickOutside === 'function') onClickOutside()
         else if (onDismiss && typeof onDismiss === 'function') onDismiss()
@@ -58,7 +66,7 @@ export function Dialog ({ isOpen, title, className, persistent, showCloseButton,
     isOpen === true &&
       <>
         <div className={`dialog-backdrop ${className}`}>
-          <div id={id} className='dialog' css={`width: ${props.width || '100%'}`} aria-label='dialog' aria-modal='true' role='dialog' style={style}>
+          <div id={id} className='dialog' aria-label='dialog' aria-modal='true' role='dialog' style={parsedStyles}>
             {!persistent && showCloseButton &&
               <button className='dialog-close-btn' onClick={() => { handleCloseBtnClick() }} aria-label='Lukk'>
                 <CloseIcon alt='' />
@@ -72,31 +80,25 @@ export function Dialog ({ isOpen, title, className, persistent, showCloseButton,
 
 export function DialogTitle ({ children, style }) {
   return (
-    <>
-      <div className='dialog-title' style={style}>
-        {children}
-      </div>
-    </>
+    <div className='dialog-title' style={style}>
+      {children}
+    </div>
   )
 }
 
 export function DialogBody ({ children, style }) {
   return (
-    <>
-      <div className='dialog-body' style={style}>
-        {children}
-      </div>
-    </>
+    <div className='dialog-body' style={style}>
+      {children}
+    </div>
   )
 }
 
 export function DialogActions ({ children, style }) {
   return (
-    <>
-      <div className='dialog-actions' style={style}>
-        {children}
-      </div>
-    </>
+    <div className='dialog-actions' style={style}>
+      {children}
+    </div>
   )
 }
 
