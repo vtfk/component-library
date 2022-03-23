@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 import { CardLink } from '../CardLink'
@@ -6,27 +6,22 @@ import { Heading1, Heading3, Paragraph } from '../Typography'
 import { Skeleton } from '../../index'
 
 import './styles.scss'
-import { useMemo } from 'react'
 
 export function StatisticsCard ({ className, noStyle, size, title, value, onClick, children, loading, maxWidth, style, ...props }) {
-
   const parsedStyle = useMemo(() => {
-    const _style = style || {};
-    if(maxWidth) _style.maxWidth = maxWidth;
-    return _style;
+    const _style = style || {}
+    if (maxWidth) _style.maxWidth = maxWidth
+    return _style
   })
 
   if (onClick !== undefined) {
     return (
       <CardLink className={noStyle ? className || '' : `statistics-card ${className || ''}`} onClick={onClick} style={parsedStyle} {...props}>
-        <div className="statistics-card-header">
-        {
-          loading ?
-          <Skeleton style={{height: '50px'}} />
-          :
-          <Heading1 as='p' className='statistics-card-title'>
-            {children || value}
-          </Heading1>
+        <div className='statistics-card-header'>
+          {
+          loading
+            ? <Skeleton style={{ height: '50px' }} />
+            : <Heading1 as='p' className='statistics-card-title'>{children || value}</Heading1>
         }
         </div>
         {
@@ -40,14 +35,11 @@ export function StatisticsCard ({ className, noStyle, size, title, value, onClic
 
   return (
     <div className={noStyle ? className || '' : `statistics-card ${className || ''}`} style={parsedStyle}>
-      <div className="statistics-card-header">
+      <div className='statistics-card-header'>
         {
-          loading ?
-          <Skeleton style={{height: '50px'}} />
-          :
-          <Heading1 as='p' className='statistics-card-title'>
-            {children || value}
-          </Heading1>
+          loading
+            ? <Skeleton style={{ height: '50px' }} />
+            : <Heading1 as='p' className='statistics-card-title'>{children || value}</Heading1>
         }
       </div>
       {

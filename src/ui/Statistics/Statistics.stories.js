@@ -34,7 +34,7 @@ export function Basic () {
           </StatisticsCard>
         </StatisticsGroup>
       </div>
-      <div style={{marginTop: '2rem'}}>
+      <div style={{ marginTop: '2rem' }}>
         Two <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
         <StatisticsGroup type='card'>
           <StatisticsCard title='Is half of my apples' size={select('Size', cardSize, 'small')}>
@@ -62,7 +62,7 @@ export function CardLink () {
           </StatisticsCard>
         </StatisticsGroup>
       </div>
-      <div style={{marginTop: '2rem'}}>
+      <div style={{ marginTop: '2rem' }}>
         Two <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
         <StatisticsGroup type='card'>
           <StatisticsCard title='Is half of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Half of my apples is', apples / 2)}>
@@ -73,7 +73,7 @@ export function CardLink () {
           <StatisticsCard title='Is a third of my apples' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
         </StatisticsGroup>
       </div>
-      <div style={{marginTop: '2rem'}}>
+      <div style={{ marginTop: '2rem' }}>
         Four <b>StatisticsCard</b> in a <b>StatisticsGroup</b><br />
         <StatisticsGroup type='card'>
           <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} />
@@ -87,33 +87,33 @@ export function CardLink () {
 }
 
 export function Mixed () {
-  return(
+  return (
     <>
-    <div style={{marginTop: '2rem'}}>
-      A mix of <b>StatisticsCard</b> and <b>CardLink</b><br />
-      <StatisticsGroup>
-        <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} />
-        <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} value={apples / 2} />
-        <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
-        <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} value={apples / 3} />
-      </StatisticsGroup>
-    </div>
-    <div style={{marginTop: '2rem'}}>
-      These two are <b>Loading</b><br />
-      <StatisticsGroup>
-        <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} loading={boolean('Loading', true)} value={apples / 2} />
-        <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} loading={boolean('Loading', true)} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
-      </StatisticsGroup>
-    </div>
-    <div style={{marginTop: '2rem'}}>
-      These has different <b>maxWidth</b><br />
-      <StatisticsGroup>
-      <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} maxWidth="200px" />
-        <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} value={apples / 2} maxWidth="400px" />
-        <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} maxWidth="500px" />
-        <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} value={apples / 3} maxWidth="300px"/>
-      </StatisticsGroup>
-    </div>
+      <div style={{ marginTop: '2rem' }}>
+        A mix of <b>StatisticsCard</b> and <b>CardLink</b><br />
+        <StatisticsGroup>
+          <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} />
+          <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} value={apples / 2} />
+          <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
+          <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} value={apples / 3} />
+        </StatisticsGroup>
+      </div>
+      <div style={{ marginTop: '2rem' }}>
+        These two are <b>Loading</b><br />
+        <StatisticsGroup>
+          <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} loading={boolean('Loading', true)} value={apples / 2} />
+          <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} loading={boolean('Loading', true)} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} />
+        </StatisticsGroup>
+      </div>
+      <div style={{ marginTop: '2rem' }}>
+        These has different <b>maxWidth</b><br />
+        <StatisticsGroup>
+          <StatisticsCard title='All' size={select('Size', cardSize, 'small')} onClick={() => console.log('All of my apples is', apples)} value={apples} maxWidth='200px' />
+          <StatisticsCard title='Half' size={select('Size', cardSize, 'small')} value={apples / 2} maxWidth='400px' />
+          <StatisticsCard title='Third' size={select('Size', cardSize, 'small')} onClick={() => console.log('Third of my apples is', apples / 3)} value={apples / 3} maxWidth='500px' />
+          <StatisticsCard title='Fourth' size={select('Size', cardSize, 'small')} value={apples / 3} maxWidth='300px' />
+        </StatisticsGroup>
+      </div>
     </>
   )
 }
