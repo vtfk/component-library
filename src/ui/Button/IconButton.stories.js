@@ -44,8 +44,15 @@ export function ShowSpinner () {
 }
 
 export function Bordered () {
+  const [loading, setLoading] = useState(false)
+
+  const clickHandler = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 3000)
+  }
+
   return (
-    <IconButton icon={select('Icon', icons, 'add')} type='transparent-bordered'>
+    <IconButton icon={select('Icon', icons, 'add')} bordered onClick={() => clickHandler()} spinner={loading}>
       {text('Icon Button text', 'Legg til element')}
     </IconButton>
   )
