@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Icon } from '../Icon'
@@ -6,23 +6,24 @@ import { Spinner } from '../Spinner'
 
 import './styles.scss'
 
-export const Button = forwardRef(({ className, type, size, spinner, disabled, children, ...props }, ref) => (
-  <button
-    className={`button button-${type || 'primary'} button-${size || 'medium'} ${className || ''}`}
-    disabled={disabled || spinner || false}
-    ref={ref}
-    {...props}
-  >
-    {
-      spinner &&
-        <div className='button-spinner'><Spinner transparent /></div>
-    }
+export const Button = ({ className, type, size, spinner, disabled, children, ...props }) => {
+  return (
+    <button
+      className={`button button-${type || 'primary'} button-${size || 'medium'} ${className || ''}`}
+      disabled={disabled || spinner || false}
+      {...props}
+    >
+      {
+        spinner &&
+          <div className='button-spinner'><Spinner transparent /></div>
+      }
 
-    <div className={`button-text ${spinner ? 'hide-button-text' : ''}`}>
-      {children}
-    </div>
-  </button>
-))
+      <div className={`button-text ${spinner ? 'hide-button-text' : ''}`}>
+        {children}
+      </div>
+    </button>
+  )
+}
 
 export const IconButton = ({ className, bordered, icon, spinner, disabled, onClick, children, ...props }) => {
   return (
@@ -53,9 +54,17 @@ Button.propTypes = {
   children: PropTypes.string.isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  size: PropTypes.oneOf([
+    'small',
+    'medium',
+    'large'
+  ]),
   spinner: PropTypes.bool,
-  type: PropTypes.oneOf(['primary', 'secondary', 'secondary2'])
+  type: PropTypes.oneOf([
+    'primary',
+    'secondary',
+    'secondary2'
+  ])
 }
 
 Button.defaultProps = {
