@@ -5,7 +5,6 @@ import { useDebouncedCallback } from 'use-debounce'
 
 import './styles.scss'
 
-import { TextField } from '../TextField'
 import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 import { nanoid } from 'nanoid'
@@ -37,8 +36,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }, [items, itemMapping])
 
   const searchFieldStyle = useMemo(() => {
-    let _style = {};
-    if(isShowDropdown) _style = {..._style, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }
+    let _style = {}
+    if (isShowDropdown) _style = { ..._style, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }
     return _style
   }, [isShowDropdown])
 
@@ -173,8 +172,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
   // Handle when the cleanButton is clicked
   const handleClear = () => {
-    handleChange({target: {value: ''}});
-    handleItemClick(undefined, null);
+    handleChange({ target: { value: '' } })
+    handleItemClick(undefined, null)
   }
 
   // Handles clicking the searchResult items
@@ -202,30 +201,30 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }
 
   return (
-      <div id={componentId} className={`search-field ${rounded ? 'rounded' : ''}`} style={searchFieldStyle} {...props}>
-        <input
-          value={searchValue}
-          placeholder={placeholder || 'Søk...'}
-          onFocus={handleFocus}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          onBlur={handleBlur}
-        />
-        <div className="icon-group">
-          {
-            showClear &&
-            <div className='icon' onClick={handleClear}>
-              <Icon name='close' alt='' />
-            </div>
-          }
-          {
-            showSearch &&
-            <div className='icon' onClick={handleSearchBtnClick}>
-              <Icon name='search' alt='' />
-            </div>
-          }
-        </div>
+    <div id={componentId} className={`search-field ${rounded ? 'rounded' : ''}`} style={searchFieldStyle} {...props}>
+      <input
+        value={searchValue}
+        placeholder={placeholder || 'Søk...'}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
+      />
+      <div className='icon-group'>
         {
+            showClear &&
+              <div className='icon' onClick={handleClear}>
+                <Icon name='close' alt='' />
+              </div>
+          }
+        {
+            showSearch &&
+              <div className='icon search-icon' onClick={handleSearchBtnClick}>
+                <Icon name='search' alt='' />
+              </div>
+          }
+      </div>
+      {
         /* Dropdown */
         isShowDropdown && searchValue !== '' && (loading || items || children) &&
           <div className='search-result'>
@@ -277,7 +276,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
             </div>
           </div>
       }
-      </div>
+    </div>
   )
 }
 
@@ -331,5 +330,5 @@ SearchField.defaultProps = {
   emptyText: 'Søket gav ingen resultater...',
   loadingText: 'Søker...',
   showClear: true,
-  showSearch: true,
+  showSearch: true
 }
