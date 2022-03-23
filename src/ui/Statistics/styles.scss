@@ -3,7 +3,6 @@
 .statistics-card {
   padding: ($baseUnit * 2) ($baseUnit * 4) ($baseUnit * 2) ($baseUnit * 4);
   flex: 1;
-  max-width: 400px;
 
   @media(max-width: 1000px) {
     margin-left: 0;
