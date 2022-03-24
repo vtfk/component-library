@@ -21,7 +21,7 @@ export function Basic () {
   const [modalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <div>
+    <>
       <Button onClick={() => { setIsModalOpen(!modalOpen) }}>{`${!modalOpen ? 'Åpne' : 'Lukk'} modal`}</Button>
       <Dialog
         isOpen={modalOpen}
@@ -39,7 +39,7 @@ export function Basic () {
           <Button size='small'>Action2</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   )
 }
 
@@ -47,7 +47,7 @@ export function Persistent () {
   const [modalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <div>
+    <>
       If persistent=true clicking outside the dialog or pressing ESC will not close it.<br />
       To close it you will have to provide <b>onClickOutside</b> and <b>onPressEscape</b> functions to handle it yourself
       <Button onClick={() => { setIsModalOpen(!modalOpen) }}>{`${!modalOpen ? 'Åpne' : 'Lukk'} modal`}</Button>
@@ -66,6 +66,6 @@ export function Persistent () {
           <Button size='small' type='secondary' onClick={() => { setIsModalOpen(false) }}>Close</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   )
 }
