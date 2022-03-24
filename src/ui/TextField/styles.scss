@@ -172,7 +172,11 @@
     }
 
     .textfield-details {
-      padding-left: $baseUnit * 3;
+      padding-left: $baseUnit * 2.5;
+    }
+
+    textarea {
+      border-bottom-right-radius: 0;
     }
   }
 

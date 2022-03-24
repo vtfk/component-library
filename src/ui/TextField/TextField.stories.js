@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import { boolean } from '@storybook/addon-knobs'
+import { boolean, number, text } from '@storybook/addon-knobs'
 
 import { TextField } from '.'
 
@@ -11,12 +11,31 @@ export default getConfig(
 export function Basic () {
   return (
     <>
-      <TextField placeholder='Dette er placeholderen..' />
-      <TextField placeholder='Dette er placeholderen..' rounded />
-      <TextField placeholder='Alltid vis placeholder' alwaysPlaceholder />
-      <TextField placeholder='Alltid vis placeholder' alwaysPlaceholder rounded />
-      <TextField hint="Uten placeholder" alwaysHint />
-      <TextField hint="Uten placeholder" alwaysHint rounded />
+      <TextField
+        value={text('Value', '')}
+        placeholder={text('Placeholder', 'Placeholder...')}
+        hint={text('Hint', 'Dette er ett hint')}
+        required={boolean('Required', false)}
+        rounded={boolean('Rounded', false)}
+        noBorder={boolean('No boarder', false)}
+        alwaysHint={boolean('Always show hint', false)}
+        alwaysPlaceholder={boolean('Always show placeholder', false)}
+        hideDetails={boolean('Hide hint', false)}
+        hidePlaceholder={boolean('Hide placeholder', false)}
+      />
+      <TextField
+        value={text('Value', '')}
+        placeholder={text('Placeholder', 'Placeholder...')}
+        hint={text('Hint', 'Dette er ett hint')}
+        rows={number('Rows', 5)}
+        required={boolean('Required', false)}
+        rounded={boolean('Rounded', false)}
+        noBorder={boolean('No boarder', false)}
+        alwaysHint={boolean('Always show hint', false)}
+        alwaysPlaceholder={boolean('Always show placeholder', false)}
+        hideDetails={boolean('Hide hint', false)}
+        hidePlaceholder={boolean('Hide placeholder', false)}
+      />
     </>
   )
 }
@@ -50,8 +69,8 @@ export function Disabled () {
     <div>
       <TextField disabled placeholder='Placeholder..' />
       <TextField disabled placeholder='Placeholder..' rounded />
-      <TextField disabled placeholder='Placeholder..' rows="3" />
-      <TextField disabled placeholder='Placeholder..' rows="3" rounded />
+      <TextField disabled placeholder='Placeholder..' rows='3' />
+      <TextField disabled placeholder='Placeholder..' rows='3' rounded />
     </div>
   )
 }
@@ -63,8 +82,8 @@ export function Hints () {
       <TextField noBorder hint='Denne har alltid hint' alwaysHint placeholder='Placeholder..' />
       <TextField hint='Dette er hint teksten til første input' placeholder='Placeholder..' rounded />
       <TextField noBorder hint='Denne har alltid hint' alwaysHint placeholder='Placeholder..' rounded />
-      <TextField hint='Dette er hint teksten til første input' placeholder='Placeholder..' rows="3" />
-      <TextField noBorder hint='Denne har alltid hint' alwaysHint placeholder='Placeholder..' rows="3" rounded />
+      <TextField hint='Dette er hint teksten til første input' placeholder='Placeholder..' rows='3' />
+      <TextField noBorder hint='Denne har alltid hint' alwaysHint placeholder='Placeholder..' rows='3' rounded />
     </div>
   )
 }
@@ -73,22 +92,20 @@ export function TextNoBorder () {
   return (
     <div>
       <TextField placeholder='Placeholder..' noBorder />
-      <TextField placeholder='Placeholder..' noBorder rounded/>
-      <TextField placeholder='Placeholder..' noBorder rows="3"/>
-      <TextField placeholder='Placeholder..' noBorder rows="3" rounded/>
+      <TextField placeholder='Placeholder..' noBorder rounded />
+      <TextField placeholder='Placeholder..' noBorder rows='3' />
+      <TextField placeholder='Placeholder..' noBorder rows='3' rounded />
     </div>
   )
 }
 
 export function Required () {
-  const [value, setValue] = useState('')
-
   return (
     <div>
       <TextField placeholder='Placeholder' required />
       <TextField placeholder='Placeholder' required rounded />
-      <TextField placeholder='Placeholder' required rows="3" />
-      <TextField placeholder='Placeholder' required rows="3" rounded />
+      <TextField placeholder='Placeholder' required rows='3' />
+      <TextField placeholder='Placeholder' required rows='3' rounded />
     </div>
   )
 }
