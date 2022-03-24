@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withKnobs, number, text, object } from '@storybook/addon-knobs'
+import { withKnobs, number, text, object, boolean } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Paragraph } from '../Typography'
@@ -93,6 +93,8 @@ export function Basic () {
           placeholder='Dette er placeholderen'
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
         <h3>Rounded</h3>
         <SearchField
@@ -100,6 +102,8 @@ export function Basic () {
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
           rounded
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
       </div>
       <br />
@@ -142,6 +146,8 @@ export function BasicDebounce () {
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
           rounded
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
       </div>
       <br />
@@ -204,6 +210,8 @@ export function Items () {
           loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
           emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
           items={items}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
         <h3>Rounded</h3>
         <SearchField
@@ -217,6 +225,8 @@ export function Items () {
           loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
           emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
           items={items}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
       </div>
       <br />
@@ -301,6 +311,8 @@ export function CustomItems () {
           loading={isSearching}
           items={items}
           itemMapping={object('Item mapping', itemMapping)}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
       </div>
       <br />
@@ -391,6 +403,8 @@ export function Children () {
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         >
           {
             !searching && items.length > 0 && items.map((item, index) => {
@@ -523,6 +537,8 @@ export function AdvancedChildren () {
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         >
           {
             !searching && items.length > 0 && items.map((item, index) => {
