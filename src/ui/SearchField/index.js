@@ -138,7 +138,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   // Triggers when the searchFields is focused
   const handleFocus = (event) => {
     if (onFocus && typeof onFocus === 'function') onFocus(event)
-    if ((items && Array.isArray(items) && items.length > 0) || children) handleShowDropdown(true)
+    if ((items && Array.isArray(items) && items.length > 0) || (children && searchValue !== '')) handleShowDropdown(true)
   }
 
   // Handle when the searchField value changes
