@@ -230,13 +230,13 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
           <div className='search-result'>
             <div className='search-results-inner'>
               {
-              /* Render loading */
-              loading && !children &&
-                <div className='search-results-item-message search-alternatives'>
-                  <Paragraph>
-                    {loadingText}
-                  </Paragraph>
-                </div>
+                /* Render loading */
+                loading && !children &&
+                  <div className='search-results-item-message search-alternatives'>
+                    <Paragraph>
+                      {loadingText}
+                    </Paragraph>
+                  </div>
               }
               {
                 !loading && items && items.length === 0 &&
@@ -247,32 +247,32 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
                   </div>
               }
               {
-              /* Render items */
-              !loading && items && items.length > 0 &&
-                <table className='search-result-table'>
-                  <tbody>
-                    {
-                  items.map((item, index) => {
-                    return (
-                      <tr key={nanoid()} className={`${index === focusedItemIndex ? 'active' : ''}`} onClick={() => handleItemClick(item, index)}>
-                        {
-                          Array.isArray(_itemMapping) && _itemMapping.map((mapping) => {
-                            return (
-                              <td key={nanoid()} style={mapping.style}>{item[mapping.value]}</td>
-                            )
-                          })
-                        }
-                      </tr>
-                    )
-                  })
-                }
-                  </tbody>
-                </table>
-            }
+                /* Render items */
+                !loading && items && items.length > 0 &&
+                  <table className='search-result-table'>
+                    <tbody>
+                      {
+                        items.map((item, index) => {
+                          return (
+                            <tr key={nanoid()} id={`items-${componentId}:${index}`} className={`${index === focusedItemIndex ? 'active' : ''}`} onClick={() => handleItemClick(item, index)}>
+                              {
+                                Array.isArray(_itemMapping) && _itemMapping.map((mapping) => {
+                                  return (
+                                    <td key={nanoid()} style={mapping.style}>{item[mapping.value]}</td>
+                                  )
+                                })
+                              }
+                            </tr>
+                          )
+                        })
+                      }
+                    </tbody>
+                  </table>
+              }
               {
-              /* Render children */
-              children
-            }
+                /* Render children */
+                children
+              }
             </div>
           </div>
       }
