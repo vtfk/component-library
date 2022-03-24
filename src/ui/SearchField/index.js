@@ -5,12 +5,11 @@ import { useDebouncedCallback } from 'use-debounce'
 
 import './styles.scss'
 
-import { TextField } from '../TextField'
 import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 import { nanoid } from 'nanoid'
 
-export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, onShowDropdown, onClickOutside, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, showClear, showSearch, onShowDropdown, onClickOutside, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, ...props }) {
   /*
     State
   */
@@ -35,6 +34,12 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
     return [mappings]
   }, [items, itemMapping])
+
+  const searchFieldStyle = useMemo(() => {
+    let _style = {}
+    if (isShowDropdown) _style = { ..._style, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }
+    return _style
+  }, [isShowDropdown])
 
   /*
     Handle eventlisteners and externally updated state
@@ -84,6 +89,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     handleSearch(event)
   }, debounceMs)
 
+  // Handles searching
   const handleSearch = (event) => {
     // Run the onSearch callback
     setFocusedItemIndex(0)
@@ -132,7 +138,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   // Triggers when the searchFields is focused
   const handleFocus = (event) => {
     if (onFocus && typeof onFocus === 'function') onFocus(event)
-    if ((items && Array.isArray(items) && items.length > 0) || children) handleShowDropdown(true)
+    if ((items && Array.isArray(items) && items.length > 0) || (children && searchValue !== '')) handleShowDropdown(true)
   }
 
   // Handle when the searchField value changes
@@ -164,6 +170,12 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     handleShowDropdown(true)
   }
 
+  // Handle when the cleanButton is clicked
+  const handleClear = () => {
+    handleChange({ target: { value: '' } })
+    handleItemClick(undefined, null)
+  }
+
   // Handles clicking the searchResult items
   const handleItemClick = (item, index) => {
     if (onSelected && typeof onSelected === 'function') onSelected(item, index)
@@ -189,28 +201,28 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }
 
   return (
-    <div id={componentId} className='header-search'>
-      <div className={`search-field ${rounded ? 'rounded' : ''}`}>
-        <TextField
-          value={searchValue}
-          className={`${className || ''}`}
-          rounded={rounded}
-          placeholder={placeholder || 'Søk...'}
-          label={rounded ? null : placeholder}
-          onFocus={handleFocus}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          onBlur={handleBlur}
-          style={
-            isShowDropdown && searchValue !== '' && (loading || items || children)
-              ? { boxShadow: 'none', paddingRight: 60, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderColor: '#979797', borderBottomWidth: 0 }
-              : { boxShadow: 'none', paddingRight: 60, borderColor: '#979797' }
+    <div id={componentId} className={`search-field ${rounded ? 'rounded' : ''}`} style={searchFieldStyle} {...props}>
+      <input
+        value={searchValue}
+        placeholder={placeholder || 'Søk...'}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
+      />
+      <div className='icon-group'>
+        {
+            showClear &&
+              <div className='icon' onClick={handleClear}>
+                <Icon name='close' alt='' />
+              </div>
           }
-          {...props}
-        />
-        <div className='icon' onClick={handleSearchBtnClick}>
-          <Icon name='search' alt='' />
-        </div>
+        {
+            showSearch &&
+              <div className='icon search-icon' onClick={handleSearchBtnClick}>
+                <Icon name='search' alt='' />
+              </div>
+          }
       </div>
       {
         /* Dropdown */
@@ -307,12 +319,16 @@ SearchField.propTypes = {
   onShowDropdown: PropTypes.func,
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
+  showClear: PropTypes.bool,
   showDropdown: PropTypes.bool,
+  showSearch: PropTypes.bool,
   value: PropTypes.string
 }
 
 SearchField.defaultProps = {
   debounceMs: 0,
   emptyText: 'Søket gav ingen resultater...',
-  loadingText: 'Søker...'
+  loadingText: 'Søker...',
+  showClear: true,
+  showSearch: true
 }
