@@ -18,6 +18,8 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   const [focusedItemIndex, setFocusedItemIndex] = useState(0)
   const [isShowDropdown, setIsShowDropdown] = useState(showDropdown || false)
 
+  let focusInterval = null
+
   /*
     Memos
   */
@@ -80,6 +82,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
     return () => {
       window.removeEventListener('mouseup', handleMouseUp)
+      if (focusInterval) clearInterval(focusInterval)
     }
   }, [loading, value, showDropdown])
 
@@ -97,6 +100,21 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (onSearch && typeof onSearch === 'function') onSearch(event)
   }
 
+  const handleFocusedItem = index => {
+    const focusedElement = document.getElementById(`items-${componentId}:${index}`)
+    if (!focusedElement) return
+
+    const focusedElementBounds = focusedElement.getBoundingClientRect()
+    const component = document.getElementById(componentId)
+    if (!component) return
+
+    const parent = component.getElementsByClassName('search-results-inner')[0]
+    const parentBound = parent.getBoundingClientRect()
+    if (focusedElementBounds.bottom > parentBound.bottom) focusedElement.scrollIntoView({ behavior: 'smooth' })
+    else if (focusedElementBounds.top < parentBound.top) focusedElement.scrollIntoView({ behavior: 'smooth' })
+    clearInterval(focusInterval)
+  }
+
   // Handles keydown event for the SearchField component
   const handleKeyDown = (event) => {
     if (onKeyDown && typeof onKeyDown === 'function') onKeyDown(event)
@@ -110,12 +128,18 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (items && items.length > 0) {
       if (event.key === 'ArrowUp') {
         if (!isShowDropdown) handleShowDropdown(true)
-        else if (focusedItemIndex > 0) setFocusedItemIndex(focusedItemIndex - 1)
+        else if (focusedItemIndex > 0) {
+          setFocusedItemIndex(focusedItemIndex - 1)
+          handleFocusedItem(focusedItemIndex - 1)
+        }
         event.preventDefault()
       }
       if (event.key === 'ArrowDown') {
         if (!isShowDropdown) handleShowDropdown(true)
-        else if (focusedItemIndex < items.length - 1) setFocusedItemIndex(focusedItemIndex + 1)
+        else if (focusedItemIndex < items.length - 1) {
+          setFocusedItemIndex(focusedItemIndex + 1)
+          handleFocusedItem(focusedItemIndex + 1)
+        }
         event.preventDefault()
       } else if (event.key === 'Enter' && isShowDropdown) {
         handleItemClick(items[focusedItemIndex], focusedItemIndex)
@@ -197,6 +221,9 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
   const handleShowDropdown = (boolean) => {
     setIsShowDropdown(boolean)
+    if (boolean && items) {
+      focusInterval = setInterval(() => handleFocusedItem(focusedItemIndex), 10)
+    }
     if (onShowDropdown && typeof onShowDropdown === 'function') onShowDropdown(boolean)
   }
 
@@ -230,13 +257,13 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
           <div className='search-result'>
             <div className='search-results-inner'>
               {
-              /* Render loading */
-              loading && !children &&
-                <div className='search-results-item-message search-alternatives'>
-                  <Paragraph>
-                    {loadingText}
-                  </Paragraph>
-                </div>
+                /* Render loading */
+                loading && !children &&
+                  <div className='search-results-item-message search-alternatives'>
+                    <Paragraph>
+                      {loadingText}
+                    </Paragraph>
+                  </div>
               }
               {
                 !loading && items && items.length === 0 &&
@@ -247,32 +274,32 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
                   </div>
               }
               {
-              /* Render items */
-              !loading && items && items.length > 0 &&
-                <table className='search-result-table'>
-                  <tbody>
-                    {
-                  items.map((item, index) => {
-                    return (
-                      <tr key={nanoid()} className={`${index === focusedItemIndex ? 'active' : ''}`} onClick={() => handleItemClick(item, index)}>
-                        {
-                          Array.isArray(_itemMapping) && _itemMapping.map((mapping) => {
-                            return (
-                              <td key={nanoid()} style={mapping.style}>{item[mapping.value]}</td>
-                            )
-                          })
-                        }
-                      </tr>
-                    )
-                  })
-                }
-                  </tbody>
-                </table>
-            }
+                /* Render items */
+                !loading && items && items.length > 0 &&
+                  <table className='search-result-table'>
+                    <tbody>
+                      {
+                        items.map((item, index) => {
+                          return (
+                            <tr key={nanoid()} id={`items-${componentId}:${index}`} className={`${index === focusedItemIndex ? 'active' : ''}`} onClick={() => handleItemClick(item, index)}>
+                              {
+                                Array.isArray(_itemMapping) && _itemMapping.map((mapping) => {
+                                  return (
+                                    <td key={nanoid()} style={mapping.style}>{item[mapping.value]}</td>
+                                  )
+                                })
+                              }
+                            </tr>
+                          )
+                        })
+                      }
+                    </tbody>
+                  </table>
+              }
               {
-              /* Render children */
-              children
-            }
+                /* Render children */
+                children
+              }
             </div>
           </div>
       }
