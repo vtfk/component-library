@@ -16,6 +16,14 @@ export function Basic () {
   )
 }
 
+export function Rounded () {
+  const [value, setValue] = useState('')
+
+  return (
+    <TextField placeholder='Dette er placeholderen..' value={value} rounded onChange={(e) => { setValue(e.target.value) }} />
+  )
+}
+
 export function Types () {
   const [emailValue, setEmailValue] = useState('')
   const [numberValue, setNumberValue] = useState('')
