@@ -14,10 +14,27 @@
     font-size: 14px;
     font-weight: bold;
     color: rgba(#1D1C28, 0.5);
+
+    label {
+      margin-left: 0;
+    }
+
   }
 
   // If the input is required
   &.has-data.required-input {
+    .textfield-placeholder::before {
+      position: absolute;
+      left: 0;
+      @include required();
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+
+  &.always-placeholder.required-input {
     .textfield-placeholder::before {
       position: absolute;
       left: 0;
@@ -168,11 +185,11 @@
   // If rounded
   &.rounded {
     .textfield-placeholder {
-      padding-left: $baseUnit * 1.5;
+      padding-left: $baseUnit * 2;
     }
 
     .textfield-details {
-      padding-left: $baseUnit * 2.5;
+      padding-left: $baseUnit * 3;
     }
 
     textarea {

@@ -50,13 +50,14 @@ export function TextField ({ type, className, placeholder, required, value, id, 
     if (required) classes += ' required-input'
     if (rounded) classes += ' rounded'
     if (noBorder) classes += ' no-border'
+    if (alwaysPlaceholder) classes += ' always-placeholder'
     if (focusState) classes += ' focused'
     if (error) classes += ' error'
     if (hasData) classes += ' has-data'
     classes = classes.trim()
 
     return classes
-  }, [hasData, focusState, type, required, rounded, error])
+  }, [hasData, focusState, type, required, rounded, error, alwaysPlaceholder])
 
   // Determine what classes the input should have
   const inputClasses = useMemo(() => {
