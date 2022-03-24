@@ -18,32 +18,6 @@
     label {
       margin-left: 0;
     }
-
-  }
-
-  // If the input is required
-  &.has-data.required-input {
-    .textfield-placeholder::before {
-      position: absolute;
-      left: 0;
-      @include required();
-    }
-
-    &::before {
-      display: none;
-    }
-  }
-
-  &.always-placeholder.required-input {
-    .textfield-placeholder::before {
-      position: absolute;
-      left: 0;
-      @include required();
-    }
-
-    &::before {
-      display: none;
-    }
   }
 
   // Base style for component input
