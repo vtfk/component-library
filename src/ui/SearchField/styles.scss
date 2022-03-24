@@ -177,10 +177,4 @@ $border-color: rgb(151, 151, 151);
       }
     }
   }
-
-  &:not(.rounded) {
-    .search-result {
-      top: calc(100% + 1px);
-    }
-  }
 }
