@@ -6,11 +6,12 @@ import { Spinner } from '../Spinner'
 
 import './styles.scss'
 
-export const Button = ({ className, type, size, spinner, disabled, children, ...props }) => {
+export const Button = ({ className, type, size, spinner, disabled, children, onClick, ...props }) => {
   return (
     <button
       className={`button button-${type || 'primary'} button-${size || 'medium'} ${className || ''}`}
       disabled={disabled || spinner || false}
+      onClick={() => onClick && typeof onClick === 'function' && onClick()}
       {...props}
     >
       {
@@ -54,6 +55,7 @@ Button.propTypes = {
   children: PropTypes.string.isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  onClick: PropTypes.func,
   size: PropTypes.oneOf([
     'small',
     'medium',
