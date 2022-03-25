@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { CardLink } from '../CardLink'
 import { Heading1, Heading3, Paragraph } from '../Typography'
-import { Skeleton } from '../../index'
+import { Skeleton } from '../Skeleton'
 
 import './styles.scss'
 
