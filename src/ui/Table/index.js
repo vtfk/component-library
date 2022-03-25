@@ -1,9 +1,9 @@
 import './style.css'
-import { Checkbox, Spinner } from '../../'
+import { Checkbox } from '../Checkbox'
+import { Spinner } from '../Spinner'
 import React, { useEffect, useMemo, useState } from 'react'
 import { nanoid } from 'nanoid'
 import { mergeStyles, mergeClasses } from './lib/helpers'
-
 import PropTypes from 'prop-types'
 
 export function Table ({ headers, items, itemId = '_id', selectedIds, mode, showSelect = false, selectOnClick = false, isLoading, loadingText, loadingElement, noDataText, noDataElement, mobileHeaderText, mobileHeaderElement, onSelectedIdsChanged, onSelectedItemsChanged, style, headerClass, headerStyle, itemClass, itemStyle, trClass, trStyle }) {
