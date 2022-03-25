@@ -1,12 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid/non-secure'
 
 import './styles.scss'
 
-export function TextField ({ type, className, placeholder, required, value, id, disabled, noBorder, rows, rounded, onFocus, onBlur, error, inputRef, hintTextOnFocus, ...props }) {
+export function TextField ({ type, className, placeholder, required, value, id, disabled, noBorder, rows, rounded, onChange, onFocus, onBlur, error, hint, alwaysHint, alwaysPlaceholder, hidePlaceholder, hideDetails, style, ...props }) {
+  const [_value, setValue] = useState('')
   const [focusState, setFocusState] = useState(false)
   const [labelId] = useState(id || `id${nanoid()}`)
+
+  /*
+    Use effect
+  */
+  useEffect(() => {
+    if (value !== undefined) setValue(value)
+  }, [value])
+
+  /*
+    Functions
+  */
+  const handleChange = (event) => {
+    if (!event) return
+    setValue(event.target.value)
+  }
 
   const handleFocus = (event) => {
     setFocusState(true)
@@ -18,107 +34,143 @@ export function TextField ({ type, className, placeholder, required, value, id, 
     if (onBlur && typeof onBlur === 'function') onBlur(event)
   }
 
+  /*
+    Memos
+  */
+  // Determine if the component has data or not
+  const hasData = useMemo(() => {
+    if (_value !== undefined && _value !== '') return true
+    return false
+  }, [_value, value])
+
+  // Determine what classes the component should have
+  const componentClasses = useMemo(() => {
+    let classes = 'textfield'
+    if (type && typeof type === 'string') classes += ` ${type}`
+    if (required) classes += ' required-input'
+    if (rounded) classes += ' rounded'
+    if (noBorder) classes += ' no-border'
+    if (alwaysPlaceholder) classes += ' always-placeholder'
+    if (focusState) classes += ' focused'
+    if (error) classes += ' error'
+    if (hasData) classes += ' has-data'
+    classes = classes.trim()
+
+    return classes
+  }, [hasData, focusState, type, required, rounded, error, alwaysPlaceholder])
+
+  // Determine what classes the input should have
+  const inputClasses = useMemo(() => {
+    let classes = ''
+    if (type) classes += ` ${type}`
+    if (noBorder) classes += ' no-border'
+    if (focusState) classes += ' focused'
+    classes = classes.trim()
+
+    return classes
+  }, [className, noBorder, rounded, focusState])
+
+  /*
+    Render
+  */
   return (
-    <div className={`
-        ${required ? 'required-input' : ''}
-        ${rounded ? 'rounded-input' : 'text-field'}
-        ${type || 'text'}
-        ${error ? 'error' : ''}
-        ${hintTextOnFocus && hintTextOnFocus.length > 0 && inputRef ? 'has-hint-text' : ''}
-    `}
-    >
-      <div className={`
-        ${className || ''}
-        ${noBorder && !rounded ? 'no-border' : ''}
-        ${focusState ? 'focused' : ''}
-      `}
-      >
-        {
-          value && value !== '' && !rounded &&
-            <label htmlFor={labelId} className='placeholder-label'>
-              {placeholder}
-            </label>
-
-        }
-
-        {
-          rows &&
-            <textarea
-              id={labelId}
-              type={type || 'text'}
-              disabled={disabled || false}
-              aria-invalid={!!error}
-              placeholder={placeholder || ''}
-              rows={rows}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              value={value}
-              ref={inputRef}
-              {...props}
-            />
-        }
-
-        {
-          !rows &&
-            <input
-              id={labelId}
-              type={type || 'text'}
-              disabled={disabled || false}
-              aria-invalid={!!error}
-              placeholder={placeholder || ''}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              value={value}
-              ref={inputRef}
-              {...props}
-            />
-        }
-      </div>
-
+    <div className={componentClasses} style={style}>
       {
-        error &&
-          <label htmlFor={labelId} role='alert' aria-live='assertive' className='error-message'>
-            {error.message || error}
-          </label>
+        !hidePlaceholder &&
+          <div className='textfield-placeholder'>
+            {
+            (hasData || alwaysPlaceholder) && placeholder &&
+              <label htmlFor={labelId} className='placeholder-label'>
+                {placeholder}
+              </label>
+          }
+          </div>
       }
-
       {
-        hintTextOnFocus &&
-        focusState &&
-          <p role='alert' aria-live='assertive' className='hint-text'>
-            {hintTextOnFocus}
-          </p>
+        rows &&
+          <textarea
+            id={labelId}
+            type={type || 'text'}
+            disabled={disabled || false}
+            value={_value}
+            placeholder={placeholder || ''}
+            className={inputClasses}
+            rows={rows}
+            aria-invalid={!!error}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            {...props}
+          />
+      }
+      {
+        !rows &&
+          <input
+            id={labelId}
+            type={type || 'text'}
+            className={inputClasses}
+            disabled={disabled || false}
+            aria-invalid={!!error}
+            placeholder={placeholder || ''}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            value={_value}
+            {...props}
+          />
+      }
+      {
+        !hideDetails &&
+          <div className='textfield-details'>
+            {
+            error &&
+              <p role='alert' aria-live='assertive' className='details-text'>
+                {error.message || error}
+              </p>
+          }
+            {
+            (!error && (focusState || alwaysHint)) &&
+              <p role='alert' aria-live='assertive' className='details-text'>
+                {hint}
+              </p>
+          }
+          </div>
       }
     </div>
   )
 }
 
 TextField.propTypes = {
+  alwaysHint: PropTypes.bool,
+  alwaysPlaceholder: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool
   ]),
-  hintTextOnFocus: PropTypes.string,
+  hideDetails: PropTypes.bool,
+  hidePlaceholder: PropTypes.bool,
+  hint: PropTypes.string,
   id: PropTypes.string,
   inputRef: PropTypes.object,
   noBorder: PropTypes.bool,
   onBlur: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   rounded: PropTypes.bool,
   rows: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
   ]),
+  style: PropTypes.object,
   type: PropTypes.oneOf([
     'email',
     'number',
     'password',
     'text'
   ]),
-  value: PropTypes.string.isRequired
+  value: PropTypes.string
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withKnobs, number, text, object } from '@storybook/addon-knobs'
+import { withKnobs, number, text, object, boolean } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Paragraph } from '../Typography'
@@ -88,11 +88,66 @@ export function Basic () {
   return (
     <div>
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <h3>Regular</h3>
+        <SearchField
+          placeholder='Dette er placeholderen'
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
+        />
+        <h3>Rounded</h3>
         <SearchField
           placeholder='Dette er placeholderen'
           onChange={e => onChange(e)}
           onSearch={e => onSearch(e)}
           rounded
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
+        />
+      </div>
+      <br />
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>onChange: </strong></td>
+            <td>{searchTerm}</td>
+          </tr>
+          <tr>
+            <td><strong>onSearch:</strong></td>
+            <td>{searchedValue}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export function BasicDebounce () {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchedValue, setSearchedValue] = useState('')
+
+  function onChange (e) {
+    console.log('onChange kjøres ved hver endring:', e.target.value)
+    setSearchTerm(e.target.value)
+  }
+
+  function onSearch (e) {
+    console.log('onSearch kjøres først når delay er ferdig ELLER tekstfeltet blir tømt. Tekstfeltet inneholder:', e.target.value)
+    setSearchedValue(e.target.value)
+  }
+
+  return (
+    <div>
+      <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <SearchField
+          placeholder='Dette er placeholderen'
+          debounceMs={1000}
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          rounded
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
       </div>
       <br />
@@ -144,6 +199,21 @@ export function Items () {
   return (
     <div>
       <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
+        <h3>Regular</h3>
+        <SearchField
+          debounceMs={number('Delay i millisekunder', 1000)}
+          onChange={e => onChange(e)}
+          onSearch={e => onSearch(e)}
+          onSelected={(e, i) => onSelected(e, i)}
+          placeholder='Søk utføres først etter 1 sekund'
+          loading={searching}
+          loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
+          emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
+          items={items}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
+        />
+        <h3>Rounded</h3>
         <SearchField
           debounceMs={number('Delay i millisekunder', 1000)}
           onChange={e => onChange(e)}
@@ -155,6 +225,8 @@ export function Items () {
           loadingText={text('Loading text', 'Søker... (her kan man sette inn tekst eller HTML)')}
           emptyText={text('Empty text', 'Søket gav ingen resultater... (her kan man sette inn tekst eller HTML)')}
           items={items}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
       </div>
       <br />
@@ -239,6 +311,8 @@ export function CustomItems () {
           loading={isSearching}
           items={items}
           itemMapping={object('Item mapping', itemMapping)}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         />
       </div>
       <br />
@@ -329,6 +403,8 @@ export function Children () {
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         >
           {
             !searching && items.length > 0 && items.map((item, index) => {
@@ -461,6 +537,8 @@ export function AdvancedChildren () {
           rounded
           loading={searching}
           onKeyDown={e => handleKeyDown(e)}
+          showClear={boolean('Vis tøm', true)}
+          showSearch={boolean('Vis søkeknapp', true)}
         >
           {
             !searching && items.length > 0 && items.map((item, index) => {

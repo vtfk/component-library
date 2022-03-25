@@ -154,7 +154,7 @@ describe('Basic SearchField', () => {
   test('to have onSearch called after search icon is clicked', () => {
     const onSearch = jest.fn()
     const { textbox, container } = basicSetup({ onSearch })
-    const searchIcon = container.getElementsByClassName('icon')[0]
+    const searchIcon = container.getElementsByClassName('search-icon')[0]
 
     const event = { target: { value: 'Hey Basic there' } }
     fireEvent.change(textbox, event)
@@ -254,7 +254,7 @@ describe('Items SearchField', () => {
   test('to have onSearch called after search icon is clicked', () => {
     const onSearch = jest.fn()
     const { container } = itemsSetup({ onSearch, value: 'Hey there' })
-    const searchIcon = container.getElementsByClassName('icon')[0]
+    const searchIcon = container.getElementsByClassName('search-icon')[0]
 
     userEvent.click(searchIcon)
 
