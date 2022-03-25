@@ -84,7 +84,7 @@
     "prop-types": "15.8.1",
     "react": "*",
     "react-dom": "*",
-    "react-syntax-highlighter": "15.4.5",
+    "react-syntax-highlighter": "15.5.0",
     "release": "6.3.1",
     "rimraf": "3.0.2",
     "rollup": "2.67.3",
