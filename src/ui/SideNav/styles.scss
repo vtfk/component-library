@@ -9,6 +9,8 @@
   bottom: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  overflow-y: scroll;
 
   @media(max-width: 1000px) {
     display: none;
