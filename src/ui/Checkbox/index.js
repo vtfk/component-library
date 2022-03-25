@@ -14,22 +14,22 @@ export function Checkbox ({ name, value, label, disabled, checked, checkboxStyle
 
   useEffect(() => {
     // If checked has been passed as a prop, overrule any state
-    if(checked !== undefined) setIsChecked(checked)
-  },[checked, isChecked])
+    if (checked !== undefined) setIsChecked(checked)
+  }, [checked, isChecked])
 
-  function handleChange(e) {
+  function handleChange (e) {
     // Update the state
-    setIsChecked(e.target.checked);
+    setIsChecked(e.target.checked)
 
     // Trigger callbacks
-    if(onChange && typeof onChange === 'function') onChange(e);
-    if(onCheckedChange && typeof onCheckedChange === 'function') onCheckedChange(e.target.checked);
+    if (onChange && typeof onChange === 'function') onChange(e)
+    if (onCheckedChange && typeof onCheckedChange === 'function') onCheckedChange(e.target.checked)
   }
 
   return (
     <div className='checkbox' {...props}>
       <div className='checkbox-container'>
-        <input 
+        <input
           id={`check-${id}`}
           type='checkbox'
           ref={checkboxRef}
@@ -38,14 +38,14 @@ export function Checkbox ({ name, value, label, disabled, checked, checkboxStyle
           disabled={disabled || false}
           checked={isChecked}
           onClick={(e) => e.stopPropagation()}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           tabIndex='0'
           {...props}
         />
         <div
           className='checkbox-checkarea'
           style={checkboxStyle}
-          onClick={(e) => { e.stopPropagation(); checkboxRef.current.click()}}
+          onClick={(e) => { e.stopPropagation(); checkboxRef.current.click() }}
         >
           <IconCheck />
         </div>
@@ -58,8 +58,8 @@ export function Checkbox ({ name, value, label, disabled, checked, checkboxStyle
 }
 
 Checkbox.propTypes = {
-  checked: PropTypes.bool,
   checkboxStyle: PropTypes.object,
+  checked: PropTypes.bool,
   disabled: PropTypes.bool,
   label: PropTypes.string,
   name: PropTypes.string,
