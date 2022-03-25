@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
-import { boolean } from '@storybook/addon-knobs'
+import { boolean, number, text } from '@storybook/addon-knobs'
 
 import { TextField } from '.'
 
@@ -9,10 +9,34 @@ export default getConfig(
 )
 
 export function Basic () {
-  const [value, setValue] = useState('')
-
   return (
-    <TextField placeholder='Dette er placeholderen..' value={value} onChange={(e) => { setValue(e.target.value) }} />
+    <>
+      <TextField
+        value={text('Value', '')}
+        placeholder={text('Placeholder', 'Placeholder...')}
+        hint={text('Hint', 'Dette er ett hint')}
+        required={boolean('Required', false)}
+        rounded={boolean('Rounded', false)}
+        noBorder={boolean('No boarder', false)}
+        alwaysHint={boolean('Always show hint', false)}
+        alwaysPlaceholder={boolean('Always show placeholder', false)}
+        hideDetails={boolean('Hide hint', false)}
+        hidePlaceholder={boolean('Hide placeholder', false)}
+      />
+      <TextField
+        value={text('Value', '')}
+        placeholder={text('Placeholder', 'Placeholder...')}
+        hint={text('Hint', 'Dette er ett hint')}
+        rows={number('Rows', 5)}
+        required={boolean('Required', false)}
+        rounded={boolean('Rounded', false)}
+        noBorder={boolean('No boarder', false)}
+        alwaysHint={boolean('Always show hint', false)}
+        alwaysPlaceholder={boolean('Always show placeholder', false)}
+        hideDetails={boolean('Hide hint', false)}
+        hidePlaceholder={boolean('Hide placeholder', false)}
+      />
+    </>
   )
 }
 
@@ -25,27 +49,25 @@ export function Rounded () {
 }
 
 export function Types () {
-  const [emailValue, setEmailValue] = useState('')
-  const [numberValue, setNumberValue] = useState('')
-  const [passwordValue, setPasswordValue] = useState('')
-  const [textValue, setTextValue] = useState('')
-
   return (
     <div>
-      <TextField placeholder='Placeholder email' value={emailValue} type='email' onChange={e => { setEmailValue(e.target.value) }} />
-      <TextField placeholder='Placeholder number' value={numberValue} type='number' onChange={e => { setNumberValue(e.target.value) }} />
-      <TextField placeholder='Placeholder password' value={passwordValue} type='password' onChange={e => { setPasswordValue(e.target.value) }} />
-      <TextField placeholder='Placeholder text' value={textValue} type='text' onChange={e => { setTextValue(e.target.value) }} />
+      <TextField placeholder='Placeholder email' type='email' />
+      <TextField placeholder='Placeholder number' type='number' />
+      <TextField placeholder='Placeholder password' type='password' />
+      <TextField placeholder='Placeholder text' type='text' />
+      <TextField placeholder='Placeholder email' type='email' rounded />
+      <TextField placeholder='Placeholder number' type='number' rounded />
+      <TextField placeholder='Placeholder password' type='password' rounded />
+      <TextField placeholder='Placeholder text' type='text' rounded />
     </div>
   )
 }
 
 export function Textarea () {
-  const [value, setValue] = useState('')
-
   return (
     <div>
-      <TextField rows='4' placeholder='Placeholder..' value={value} onChange={(e) => { setValue(e.target.value) }} />
+      <TextField rows='4' placeholder='Placeholder..' />
+      <TextField rows='4' placeholder='Placeholder..' rounded />
     </div>
   )
 }
@@ -53,57 +75,45 @@ export function Textarea () {
 export function Disabled () {
   return (
     <div>
-      <TextField disabled placeholder='Placeholder..' value='' onChange={() => { /* This is here just to silence the 'onChange is required' warning */ }} />
+      <TextField disabled placeholder='Placeholder..' />
+      <TextField disabled placeholder='Placeholder..' rounded />
+      <TextField disabled placeholder='Placeholder..' rows='3' />
+      <TextField disabled placeholder='Placeholder..' rows='3' rounded />
     </div>
   )
 }
 
-export function WithHintText () {
-  const [value1, setValue1] = useState('')
-  const [value2, setValue2] = useState('')
-
+export function Hints () {
   return (
     <div>
-      <div style={{ marginBottom: 40 }}>
-        <TextField hintTextOnFocus='Dette er hint teksten til første input' placeholder='Placeholder..' value={value1} onChange={(e) => { setValue1(e.target.value) }} />
-      </div>
-      <div style={{ marginBottom: 40 }}>
-        <TextField noBorder hintTextOnFocus='Og her kommer hint tekst til andre input' placeholder='Placeholder..' value={value2} onChange={(e) => { setValue2(e.target.value) }} />
-      </div>
+      <TextField hint='Dette er hint teksten til første input' placeholder='Placeholder..' />
+      <TextField noBorder hint='Denne har alltid hint' alwaysHint placeholder='Placeholder..' />
+      <TextField hint='Dette er hint teksten til første input' placeholder='Placeholder..' rounded />
+      <TextField noBorder hint='Denne har alltid hint' alwaysHint placeholder='Placeholder..' rounded />
+      <TextField hint='Dette er hint teksten til første input' placeholder='Placeholder..' rows='3' />
+      <TextField noBorder hint='Denne har alltid hint' alwaysHint placeholder='Placeholder..' rows='3' rounded />
     </div>
   )
 }
 
 export function TextNoBorder () {
-  const [value, setValue] = useState('')
-
   return (
     <div>
-      <TextField noBorder placeholder='Placeholder..' value={value} onChange={(e) => { setValue(e.target.value) }} />
-    </div>
-  )
-}
-
-export function TextareaNoBorder () {
-  const [value, setValue] = useState('')
-
-  return (
-    <div>
-      <TextField noBorder placeholder='Placeholder..' rows={10} value={value} onChange={(e) => { setValue(e.target.value) }} />
+      <TextField placeholder='Placeholder..' noBorder />
+      <TextField placeholder='Placeholder..' noBorder rounded />
+      <TextField placeholder='Placeholder..' noBorder rows='3' />
+      <TextField placeholder='Placeholder..' noBorder rows='3' rounded />
     </div>
   )
 }
 
 export function Required () {
-  const [value, setValue] = useState('')
-
   return (
     <div>
-      <TextField
-        required={boolean('Initially required', true)}
-        placeholder='Dette er placeholderen..'
-        value={value} onChange={(e) => { setValue(e.target.value) }}
-      />
+      <TextField placeholder='Placeholder' required />
+      <TextField placeholder='Placeholder' required rounded />
+      <TextField placeholder='Placeholder' required rows='3' />
+      <TextField placeholder='Placeholder' required rows='3' rounded />
     </div>
   )
 }
