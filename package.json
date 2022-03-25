@@ -72,7 +72,7 @@
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.0.0",
-    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react": "7.29.4",
     "highlight.js": "11.5.0",
     "jest": "27.5.1",
     "jest-junit": "13.0.0",
