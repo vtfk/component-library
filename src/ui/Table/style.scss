@@ -1,0 +1,120 @@
+/* Base style */
+.vtfk-table-container {
+  width: 100%;
+  height: 100%;
+  overflow: none;
+
+  table {
+    width: 100%;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    tbody tr,thead tr {
+      &:nth-of-type(even) {
+        background-color: #dce7eb;
+      }
+
+      &:nth-of-type(odd) {
+        background-color: #f5f4f4;
+      }
+
+      &:hover {
+        background-color: rgba(206, 207, 207, 0.952)
+      }
+
+      &.tr-selected {
+        background-color: #e69696!important;
+      }
+
+      th {
+        padding: 0.5rem;
+        text-align: left;
+        background-color: #b0c9d1;
+      }
+
+      td {
+        padding: 0.5rem;
+        text-align: left;
+      }
+    }
+  }
+}
+
+/*
+  Loading
+*/
+.vtfk-table-loading-td {
+  width: 100%;
+  height: 100%;
+}
+
+.vtfk-table-loading-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+/*
+  Mobile
+*/
+.vtfk-table-container.mobile {
+  table {
+    border-collapse: collapse;
+    border: none;
+
+    /* Header */
+    thead tr.vtfk-table-mobile-header-row {
+      background-color: #88A6B0; 
+
+      .vtfk-table-mobile-header {
+        position: relative;
+        color: rgb(39, 39, 39);
+        font-weight: 700;
+        font-size: 24px;
+        text-align: center;
+        border-collapse: collapse;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .vtfk-table-mobile-header-text {
+          flex-grow: 1;
+        }
+
+        .vtfk-table-mobile-selectall {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+
+    /* Row */
+    tbody tr {
+      padding: 0.2rem 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Item */
+    tbody tr td {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 0.2rem!important;
+      padding-bottom: 0.2rem!important;
+
+      .vtfk-table-mobile-item-header {
+        font-weight: 900;
+        font-size: 14px;
+      }
+
+      .vtfk-table-mobile-item-value {
+        text-align: right;
+        font-size: 14px;
+      }
+    }
+  }
+}

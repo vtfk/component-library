@@ -1,4 +1,4 @@
-import './style.css'
+import './style.scss'
 import { Checkbox } from '../Checkbox'
 import { Spinner } from '../Spinner'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -127,7 +127,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     Render
   */
   return (
-    <div className='vtfk-table-container' style={style}>
+    <div className={`vtfk-table-container ${mode === 'mobile' ? 'mobile' : ''}`} style={style}>
       {validHeaders.length === 0 && <div>Table cannot be shown when no headers are specified</div>}
 
       {validHeaders.length > 0 &&
