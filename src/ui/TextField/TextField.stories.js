@@ -22,6 +22,7 @@ export function Basic () {
         alwaysPlaceholder={boolean('Always show placeholder', false)}
         hideDetails={boolean('Hide hint', false)}
         hidePlaceholder={boolean('Hide placeholder', false)}
+        onChange={(e) => console.log('Textfield changed: ' + e.target.value)}
       />
       <TextField
         value={text('Value', '')}
@@ -35,6 +36,7 @@ export function Basic () {
         alwaysPlaceholder={boolean('Always show placeholder', false)}
         hideDetails={boolean('Hide hint', false)}
         hidePlaceholder={boolean('Hide placeholder', false)}
+        onChange={(e) => console.log('Textfield changed: ' + e.target.value)}
       />
     </>
   )

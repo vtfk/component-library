@@ -22,6 +22,7 @@ export function TextField ({ type, className, placeholder, required, value, id, 
   const handleChange = (event) => {
     if (!event) return
     setValue(event.target.value)
+    if (onChange && typeof onChange === 'function') onChange(event)
   }
 
   const handleFocus = (event) => {
