@@ -1,3 +1,6 @@
+@import "../Tokens/tokens.scss";
+@import "../../common/scss/helpers";
+
 /* Base style */
 .vtfk-table-container {
   width: 100%;
@@ -19,12 +22,18 @@
         background-color: #f5f4f4;
       }
 
-      &:hover {
-        background-color: rgba(206, 207, 207, 0.952)
+      &.tr-selected {
+        &:nth-of-type(even) {
+          background-color: $dugg-2;
+        }
+  
+        &:nth-of-type(odd) {
+          background-color: $dugg-1;
+        }
       }
 
-      &.tr-selected {
-        background-color: #e69696!important;
+      &:hover {
+        background-color: rgba(206, 207, 207, 0.952) !important;
       }
 
       th {
