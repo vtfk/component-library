@@ -4,6 +4,8 @@ import { boolean, number, text } from '@storybook/addon-knobs'
 
 import { TextField } from '.'
 
+import './stories.styles.scss'
+
 export default getConfig(
   { title: 'TextField', component: TextField }
 )
@@ -116,6 +118,15 @@ export function Required () {
       <TextField placeholder='Placeholder' required rounded />
       <TextField placeholder='Placeholder' required rows='3' />
       <TextField placeholder='Placeholder' required rows='3' rounded />
+    </div>
+  )
+}
+
+export function WithClassName () {
+  return (
+    <div>
+      <TextField placeholder='red' className='red' value='className = red' />
+      <TextField placeholder='green' className='green' value='className = green' />
     </div>
   )
 }

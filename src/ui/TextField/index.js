@@ -47,6 +47,7 @@ export function TextField ({ type, className, placeholder, required, value, id, 
   // Determine what classes the component should have
   const componentClasses = useMemo(() => {
     let classes = 'textfield'
+    if (className) classes += ` ${className}`
     if (type && typeof type === 'string') classes += ` ${type}`
     if (required) classes += ' required-input'
     if (rounded) classes += ' rounded'
@@ -58,7 +59,7 @@ export function TextField ({ type, className, placeholder, required, value, id, 
     classes = classes.trim()
 
     return classes
-  }, [hasData, focusState, type, required, rounded, error, alwaysPlaceholder])
+  }, [hasData, focusState, type, required, rounded, error, alwaysPlaceholder, className])
 
   // Determine what classes the input should have
   const inputClasses = useMemo(() => {
