@@ -228,7 +228,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }
 
   return (
-    <div id={componentId} className={`search-field ${rounded ? 'rounded' : ''}`} style={searchFieldStyle} {...props}>
+    <div id={componentId} className={`search-field ${rounded ? 'rounded' : ''}`} style={searchFieldStyle}>
       <input
         value={searchValue}
         placeholder={placeholder || 'Søk...'}
@@ -236,6 +236,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
+        {...props}
       />
       <div className='icon-group'>
         {
@@ -315,6 +316,7 @@ SearchField.propTypes = {
     PropTypes.string,
     PropTypes.object
   ]),
+  inputRef: PropTypes.object,
   itemMapping: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string,
