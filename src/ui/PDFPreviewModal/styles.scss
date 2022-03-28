@@ -29,10 +29,6 @@
     height: 100vh;
     background: rgba(#000, 0.97);
     z-index: 1000;
-
-    @media (max-width: 1000px) {
-      background: #F8F6F0;
-    }
   }
 
   .preview-modal-title {
@@ -83,7 +79,6 @@
   height: 80vh;
 
   @media (max-width: 1000px) {
-    display: block;
     width: 100%;
     height: calc(100vh - 75px);
     max-width: 100%;
