@@ -9,7 +9,7 @@ import { Icon } from '../Icon'
 import { Paragraph } from '../Typography'
 import { nanoid } from 'nanoid'
 
-export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, showClear, showSearch, onShowDropdown, onClickOutside, loading, loadingText, emptyText, onKeyDown, children, onBlur, onFocus, ...props }) {
+export function SearchField ({ placeholder, value, debounceMs, onSelected, rounded, onSearch, onChange, className, items, itemMapping, showDropdown, showClear, showSearch, onShowDropdown, onClickOutside, loading, loadingText, emptyText, style, onKeyDown, children, onBlur, onFocus, ...props }) {
   /*
     State
   */
@@ -38,7 +38,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   }, [items, itemMapping])
 
   const searchFieldStyle = useMemo(() => {
-    let _style = {}
+    let _style = style || {}
     if (isShowDropdown) _style = { ..._style, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }
     return _style
   }, [isShowDropdown])
@@ -349,6 +349,7 @@ SearchField.propTypes = {
   showClear: PropTypes.bool,
   showDropdown: PropTypes.bool,
   showSearch: PropTypes.bool,
+  style: PropTypes.object,
   value: PropTypes.string
 }
 
