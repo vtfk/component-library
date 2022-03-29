@@ -208,7 +208,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
     if (index !== undefined && index >= 0 && index < items.length) setFocusedItemIndex(index)
 
     // Retreive primary value and set it as the searchValue
-    if (_itemMapping && Array.isArray(_itemMapping) && _itemMapping[0].value) {
+    if (item && _itemMapping && Array.isArray(_itemMapping) && _itemMapping[0].value) {
       const val = item[_itemMapping[0].value]
       setSearchValue(val)
     }
