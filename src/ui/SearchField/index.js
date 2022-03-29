@@ -39,7 +39,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
   const searchFieldStyle = useMemo(() => {
     let _style = style || {}
-    if (isShowDropdown) _style = { ..._style, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }
+    if (isShowDropdown && (items || !!children)) _style = { ..._style, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }
     return _style
   }, [isShowDropdown])
 
