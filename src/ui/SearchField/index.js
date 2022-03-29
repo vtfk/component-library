@@ -197,7 +197,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
   // Handle when the cleanButton is clicked
   const handleClear = () => {
     handleChange({ target: { value: '' } })
-    handleItemClick(undefined, null)
+    handleItemClick(undefined, undefined)
   }
 
   // Handles clicking the searchResult items
