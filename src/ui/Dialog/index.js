@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid'
 
@@ -23,14 +23,14 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
       console.log('Key', e)
       if (e.code === 'Escape' && isOpen) {
         // Determine if this is the active dialog
-        const dialogs = document.getElementsByClassName('dialog');
+        const dialogs = document.getElementsByClassName('dialog')
 
-        let isActiveDialog = false;
-        if(!dialogs || dialogs.length <= 1) isActiveDialog = true;
-        else if(dialogs[dialogs.length - 1].id === `dialog-${id}`) isActiveDialog = true;
+        let isActiveDialog = false
+        if (!dialogs || dialogs.length <= 1) isActiveDialog = true
+        else if (dialogs[dialogs.length - 1].id === `dialog-${id}`) isActiveDialog = true
 
         // If it is, run actions
-        if(isActiveDialog) {
+        if (isActiveDialog) {
           if (persistent && !onPressEscape) shakeDialogBox()
           else if (onPressEscape && typeof onPressEscape === 'function') onPressEscape()
           else if (onDismiss && typeof onDismiss === 'function') onDismiss()
@@ -44,7 +44,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
       document.removeEventListener('keydown', handleKeyDown)
     }
   })
-  
+
   // Plays the shaking animation-effect when the dialog is persistent
   function shakeDialogBox () {
     const dialog = document.getElementById(`dialog-${id}`)
@@ -57,7 +57,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
     dialog.addEventListener('animationend', animationEndCallback)
   }
 
-  function handleBackdropClick(e) {
+  function handleBackdropClick (e) {
     const clickedBackdrop = e.target.id === `dialog-backdrop-${id}`
 
     if (isOpen && clickedBackdrop) {
@@ -79,7 +79,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
         <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onClick={(e) => handleBackdropClick(e)}>
           <div id={`dialog-${id}`} className='dialog' aria-label='dialog' aria-modal='true' role='dialog' style={parsedStyles}>
             {!persistent && showCloseButton &&
-              <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault(); }} aria-label='Lukk'>
+              <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
                 <CloseIcon alt='' />
               </button>}
             {props.children}

@@ -76,17 +76,14 @@ export function Nested () {
 
   return (
     <>
-      <p>
-        
-      </p>
+      <p />
       <Button onClick={() => { setIsDialogOpen(!dialogOpen) }}>{`${!dialogOpen ? 'Åpne' : 'Lukk'} modal`}</Button>
       <Dialog
         isOpen={dialogOpen}
-
         onDismiss={() => { setIsDialogOpen(false) }}
         showCloseButton
-        width="60%"
-        height="50%"
+        width='60%'
+        height='50%'
       >
         <DialogTitle>This is the first dialog</DialogTitle>
         <DialogBody>
@@ -100,8 +97,8 @@ export function Nested () {
       <Dialog
         isOpen={dialog2Open}
         onDismiss={() => setDialog2Open(false)}
-        width="50%"
-        height="30%"
+        width='50%'
+        height='30%'
       >
         <DialogTitle>
           This is the second nested dialog
