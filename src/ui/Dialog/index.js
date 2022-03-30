@@ -20,7 +20,6 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   // onCreated lifecycle-hook
   useEffect(() => {
     function handleKeyDown (e) {
-      console.log('Key', e)
       if (e.code === 'Escape' && isOpen) {
         // Determine if this is the active dialog
         const dialogs = document.getElementsByClassName('dialog')
