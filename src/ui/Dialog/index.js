@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid'
 
@@ -8,7 +8,7 @@ import './styles.scss'
 
 export function Dialog ({ isOpen, title, className, persistent, width, height, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
-  const [id] = useState(`dialog-${nanoid()}`)
+  const [id] = useState(`${nanoid()}`)
 
   const parsedStyles = useMemo(() => {
     const _style = { ...style }
@@ -19,42 +19,53 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
 
   // onCreated lifecycle-hook
   useEffect(() => {
-    function shakeDialogBox () {
-      const dialog = document.getElementById(id)
-      function animationEndCallback () {
-        dialog.removeEventListener('animationend', animationEndCallback)
-        dialog.classList.remove('animation-shake')
-      }
-
-      dialog.classList.toggle('animation-shake')
-      dialog.addEventListener('animationend', animationEndCallback)
-    }
-    function handleMouseClick (e) {
-      // Check if is open, a onClickOutside function prop is passed and it has actually clicked outside
-      if (isOpen && !e.path.find((i) => i.id === id)) {
-        e.preventDefault()
-        e.stopPropagation()
-        if (persistent && !onClickOutside) shakeDialogBox()
-        else if (onClickOutside && typeof onClickOutside === 'function') onClickOutside()
-        else if (onDismiss && typeof onDismiss === 'function') onDismiss()
-      }
-    }
     function handleKeyDown (e) {
+      console.log('Key', e)
       if (e.code === 'Escape' && isOpen) {
-        if (persistent && !onPressEscape) shakeDialogBox()
-        else if (onPressEscape && typeof onPressEscape === 'function') onPressEscape()
-        else if (onDismiss && typeof onDismiss === 'function') onDismiss()
+        // Determine if this is the active dialog
+        const dialogs = document.getElementsByClassName('dialog');
+
+        let isActiveDialog = false;
+        if(!dialogs || dialogs.length <= 1) isActiveDialog = true;
+        else if(dialogs[dialogs.length - 1].id === `dialog-${id}`) isActiveDialog = true;
+
+        // If it is, run actions
+        if(isActiveDialog) {
+          if (persistent && !onPressEscape) shakeDialogBox()
+          else if (onPressEscape && typeof onPressEscape === 'function') onPressEscape()
+          else if (onDismiss && typeof onDismiss === 'function') onDismiss()
+        }
       }
     }
 
     // Register eventhandlers
-    document.addEventListener('mousedown', handleMouseClick)
     document.addEventListener('keydown', handleKeyDown)
     return () => {
-      document.removeEventListener('mousedown', handleMouseClick)
       document.removeEventListener('keydown', handleKeyDown)
     }
   })
+  
+  // Plays the shaking animation-effect when the dialog is persistent
+  function shakeDialogBox () {
+    const dialog = document.getElementById(`dialog-${id}`)
+    function animationEndCallback () {
+      dialog.removeEventListener('animationend', animationEndCallback)
+      dialog.classList.remove('animation-shake')
+    }
+
+    dialog.classList.toggle('animation-shake')
+    dialog.addEventListener('animationend', animationEndCallback)
+  }
+
+  function handleBackdropClick(e) {
+    const clickedBackdrop = e.target.id === `dialog-backdrop-${id}`
+
+    if (isOpen && clickedBackdrop) {
+      if (persistent) shakeDialogBox()
+      else if (onClickOutside && typeof onClickOutside === 'function') onClickOutside()
+      else if (onDismiss && typeof onDismiss === 'function') onDismiss()
+    }
+  }
 
   function handleCloseBtnClick () {
     if (onCloseBtnClick && typeof onCloseBtnClick === 'function') onCloseBtnClick()
@@ -65,10 +76,10 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   return (
     isOpen === true &&
       <>
-        <div className={`dialog-backdrop ${className}`}>
-          <div id={id} className='dialog' aria-label='dialog' aria-modal='true' role='dialog' style={parsedStyles}>
+        <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onClick={(e) => handleBackdropClick(e)}>
+          <div id={`dialog-${id}`} className='dialog' aria-label='dialog' aria-modal='true' role='dialog' style={parsedStyles}>
             {!persistent && showCloseButton &&
-              <button className='dialog-close-btn' onClick={() => { handleCloseBtnClick() }} aria-label='Lukk'>
+              <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault(); }} aria-label='Lukk'>
                 <CloseIcon alt='' />
               </button>}
             {props.children}
