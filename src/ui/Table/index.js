@@ -18,7 +18,10 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
   */
   useEffect(() => {
     // Update selected ids if updated externally
-    if (selectedIds !== undefined) setSelectedIds(selectedIds)
+    if (selectedIds !== undefined) {
+      setSelectedIds(selectedIds)
+      callbackSelected(selectedIds);
+    } 
 
     // Handle when window is resized
     function handleResize () {
@@ -87,8 +90,17 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     // Update the state
     setSelectedIds(newIds)
 
+    // Callback selected
+    callbackSelected(newIds)
+  }
+
+  function callbackSelected(ids) {
+    // Make sure that ids is valid
+    if(!ids || !Array.isArray(ids)) ids = [];
+
     // Determine what items are selected
-    const selectedItems = items.filter((i) => newIds.includes(i[itemId]))
+    let selectedItems = [];
+    if(ids.length > 0 && items && Array.isArray(items)) selectedItems = items.filter((i) => newIds.includes(i[itemId]))
 
     // Trigger callback
     if (onSelectedIdsChanged && typeof onSelectedIdsChanged === 'function') onSelectedIdsChanged(newIds)
