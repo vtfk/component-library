@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withKnobs, object } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 
 import { Checkbox, Table } from '../../'
+import { IconButton, Button } from '../Button'
+import { TextField } from '../TextField'
 
 export default getConfig({
   title: 'Table',
@@ -97,16 +99,22 @@ export function Basic () {
 }
 
 export function Select () {
+  const [selectedIds, setSelectedIds] = useState([])
   return (
-    <Table
-      headers={object('Headers', headers)}
-      items={object('Items', items)}
-      itemId='itemSecondary'
-      showSelect
-      selectOnClick
-      onSelectedIdsChanged={ids => console.log('Selected ids', ids)}
-      onSelectedItemsChanged={items => console.log('Selected items:', items)}
-    />
+    <>
+      <button onClick={() => setSelectedIds([])} style={{ marginBottom: '0.5rem' }}>Clear selected</button>
+      <Table
+        headers={object('Headers', headers)}
+        items={object('Items', items)}
+        itemId='itemSecondary'
+        showSelect
+        selectedIds={selectedIds}
+        selectOnClick
+        onSelectedIdsChanged={ids => { console.log('Selected ids', ids); setSelectedIds(ids) }}
+        onSelectedItemsChanged={items => console.log('Selected items:', items)}
+      />
+    </>
+
   )
 }
 
@@ -123,7 +131,7 @@ export function CustomStyle () {
       itemStyle: { backgroundColor: 'pink', textAlign: 'center' }
     },
     {
-      label: 'Description',
+      label: 'Skole',
       value: 'itemDescription'
     },
     {
@@ -146,7 +154,74 @@ export function CustomStyle () {
   )
 }
 
-export function CustomItems () {
+export function CustomRendering () {
+  const customHeaders = [
+    {
+      label: 'DisplayName',
+      value: 'itemTitle'
+    },
+    {
+      label: 'Username',
+      value: 'itemSecondary',
+      element: <div>This is a element</div>
+    },
+    {
+      label: 'Description',
+      value: 'itemDescription',
+      render: (h) => {
+        return (
+          <TextField
+            placeholder={h.label}
+            alwaysHint
+            hint='Header rendered as TextField...'
+            rounded
+            style={{ marginBottom: '0' }}
+            hidePlaceholder
+          />
+        )
+      }
+    },
+    {
+      label: 'Active',
+      value: 'enabled',
+      style: { textAlign: 'center' },
+      itemStyle: { display: 'flex', justifyContent: 'center' },
+      render: (header) => {
+        return (
+          <Button style={{ marginLeft: 'auto', marginRight: 'auto' }}>{header.label}</Button>
+        )
+      },
+      itemRender: (item, index, header) => {
+        return (
+          <div>
+            <IconButton
+              icon='add' onClick={(e) => {
+                console.log('Clicked item', item)
+                console.log('At index', index)
+                console.log('Under header', header)
+                console.log('Event', e)
+              }}
+            />
+          </div>
+        )
+      }
+    }
+  ]
+
+  return (
+    <Table
+      headers={customHeaders}
+      items={items}
+      itemId='itemSecondary'
+      showSelect
+      selectOnClick
+      onSelectedIdsChanged={ids => console.log('Selected ids', ids)}
+      onSelectedItemsChanged={items => console.log('Selected items:', items)}
+    />
+  )
+}
+
+export function ItemsWithElements () {
   const _items = JSON.parse(JSON.stringify(items))
   const newItems = _items.map(item => {
     item._elements = {
@@ -171,17 +246,16 @@ export function CustomItems () {
 
 export function Mobile () {
   return (
-    <div>
-      <Table
-        headers={object('Headers', headers)}
-        items={object('Items', items)}
-        itemId='itemSecondary'
-        showSelect
-        selectOnClick
-        onSelectedIdsChanged={ids => console.log('Selected ids', ids)}
-        onSelectedItemsChanged={items => console.log('Selected items:', items)}
-        mode='mobile'
-      />
-    </div>
+    <Table
+      headers={object('Headers', headers)}
+      items={object('Items', items)}
+      itemId='itemSecondary'
+      showSelect
+      selectOnClick
+      onSelectedIdsChanged={ids => console.log('Selected ids', ids)}
+      onSelectedItemsChanged={items => console.log('Selected items:', items)}
+      mobileHeaderText='Mobile header'
+      mode='mobile'
+    />
   )
 }

@@ -7,13 +7,13 @@
   height: 100%;
   overflow: none;
 
-  table {
+  & table {
     width: 100%;
     text-align: left;
     overflow-x: hidden;
     overflow-y: auto;
 
-    tbody tr,thead tr {
+    & tbody tr {
       &:nth-of-type(even) {
         background-color: #dce7eb;
       }
@@ -36,17 +36,22 @@
         background-color: rgba(206, 207, 207, 0.952) !important;
       }
 
-      th {
-        padding: 0.5rem;
-        text-align: left;
-        background-color: #b0c9d1;
-      }
-
       td {
         padding: 0.5rem;
         text-align: left;
       }
     }
+
+    & thead tr {
+      background-color: #b0c9d1;
+      
+      th {
+        padding: 0.5rem;
+        text-align: left;
+        background-color: #b0c9d1;
+      }
+    }
+
   }
 }
 
@@ -70,19 +75,19 @@
   Mobile
 */
 .vtfk-table-container.mobile {
-  table {
+  & table {
     border-collapse: collapse;
     border: none;
 
     /* Header */
-    thead tr.vtfk-table-mobile-header-row {
-      background-color: #88A6B0; 
+    & thead tr.vtfk-table-mobile-header-row {
+    
 
       .vtfk-table-mobile-header {
         position: relative;
         color: rgb(39, 39, 39);
         font-weight: 700;
-        font-size: 24px;
+        font-size: 20px;
         text-align: center;
         border-collapse: collapse;
         border: none;
@@ -102,14 +107,14 @@
     }
 
     /* Row */
-    tbody tr {
+    & tbody tr {
       padding: 0.2rem 0;
       display: flex;
       flex-direction: column;
     }
 
     /* Item */
-    tbody tr td {
+    & tbody tr td {
       display: flex;
       justify-content: space-between;
       padding-top: 0.2rem!important;
