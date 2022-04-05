@@ -10,7 +10,7 @@ export default getConfig({
   argTypes: { onClick: { action: 'clicked' } }
 })
 
-const icons = ['activity', 'add', 'arrowLeft', 'arrowRight', 'check', 'chevronDown', 'chevronUp', 'classes', 'close', 'help', 'home', 'menu', 'pause', 'search', 'statistics', 'students']
+const icons = ['activity', 'add', 'arrowLeft', 'arrowRight', 'check', 'chevronDown', 'chevronUp', 'classes', 'close', 'help', 'home', 'menu', 'pause', 'retry', 'search', 'statistics', 'students']
 
 export function Basic () {
   const [loading, setLoading] = useState(false)

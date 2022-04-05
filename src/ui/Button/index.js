@@ -99,6 +99,7 @@ IconButton.propTypes = {
     'home',
     'menu',
     'pause',
+    'retry',
     'search',
     'statistics',
     'students'

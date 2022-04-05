@@ -14,6 +14,7 @@ import { ReactComponent as Check } from './icon-check.svg'
 import { ReactComponent as Close } from './icon-close.svg'
 import { ReactComponent as Menu } from './icon-menu.svg'
 import { ReactComponent as Pause } from './icon-pause.svg'
+import { ReactComponent as Retry } from './icon-retry.svg'
 import { ReactComponent as Search } from './icon-search.svg'
 import { ReactComponent as ChevronUp } from './icon-chevron-up.svg'
 import { ReactComponent as ChevronDown } from './icon-chevron-down.svg'
@@ -37,7 +38,8 @@ export function Icon ({ name, size, className, ...props }) {
     close: <Close />,
     menu: <Menu />,
     search: <Search />,
-    pause: <Pause />
+    pause: <Pause />,
+    retry: <Retry />
   }
 
   return (
@@ -63,6 +65,7 @@ Icon.propTypes = {
     'home',
     'menu',
     'pause',
+    'retry',
     'search',
     'statistics',
     'students'
