@@ -85,7 +85,23 @@ IconButton.propTypes = {
   children: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.oneOf([
+    'activity',
+    'add',
+    'arrowLeft',
+    'arrowRight',
+    'check',
+    'chevronDown',
+    'chevronUp',
+    'classes',
+    'close',
+    'help',
+    'home',
+    'menu',
+    'search',
+    'statistics',
+    'students'
+  ]).isRequired,
   onClick: PropTypes.func,
   spinner: PropTypes.bool
 }

@@ -47,6 +47,22 @@ export function Icon ({ name, size, className, ...props }) {
 
 Icon.propTypes = {
   className: PropTypes.string,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.oneOf([
+    'activity',
+    'add',
+    'arrowLeft',
+    'arrowRight',
+    'check',
+    'chevronDown',
+    'chevronUp',
+    'classes',
+    'close',
+    'help',
+    'home',
+    'menu',
+    'search',
+    'statistics',
+    'students'
+  ]).isRequired,
   size: PropTypes.string
 }
