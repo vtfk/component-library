@@ -20,8 +20,8 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     // Update selected ids if updated externally
     if (selectedIds !== undefined) {
       setSelectedIds(selectedIds)
-      callbackSelected(selectedIds);
-    } 
+      callbackSelected(selectedIds)
+    }
 
     // Handle when window is resized
     function handleResize () {
@@ -94,13 +94,13 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     callbackSelected(newIds)
   }
 
-  function callbackSelected(ids) {
+  function callbackSelected (ids) {
     // Make sure that ids is valid
-    if(!ids || !Array.isArray(ids)) ids = [];
+    if (!ids || !Array.isArray(ids)) ids = []
 
     // Determine what items are selected
-    let selectedItems = [];
-    if(ids.length > 0 && items && Array.isArray(items)) selectedItems = items.filter((i) => ids.includes(i[itemId]))
+    let selectedItems = []
+    if (ids.length > 0 && items && Array.isArray(items)) selectedItems = items.filter((i) => ids.includes(i[itemId]))
 
     // Trigger callback
     if (onSelectedIdsChanged && typeof onSelectedIdsChanged === 'function') onSelectedIdsChanged(ids)
@@ -129,44 +129,44 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
 
   function getHeaderValue (header) {
     // If no header
-    if(!header) return '';
+    if (!header) return ''
 
     // If the header has a render function
-    if(header.render && typeof header.render === 'function') {
+    if (header.render && typeof header.render === 'function') {
       try {
-        const result = header.render(header);
+        const result = header.render(header)
         if (result && typeof result === 'object') return result
-      } catch(err) { console.error('Error rendering header', err)}
+      } catch (err) { console.error('Error rendering header', err) }
     }
 
     // If the header has a element
     if (header.element && typeof header.element === 'object') return header.element
-    
-    // If the header label is number or boolean 
+
+    // If the header label is number or boolean
     if (typeof header.label !== 'string') return header.label.toString()
 
     // Return
-    return header.label || '';
+    return header.label || ''
   }
 
   // Gets the appropriate value to render for a item
   function getItemValue (item, header, index) {
     // If no item or header, just return a empty string
-    if(!item || !header) return '';
+    if (!item || !header) return ''
 
     // If the header has a render function for the item
-    if(header.itemRender && typeof header.itemRender === 'function') {
+    if (header.itemRender && typeof header.itemRender === 'function') {
       try {
-        const result = header.itemRender(item, index, header);
+        const result = header.itemRender(item, index, header)
         if (result && typeof result === 'object') return result
-      } catch(err) { console.error('Error rendering item', err)}
+      } catch (err) { console.error('Error rendering item', err) }
     }
 
     // If the item contain a element
     if (item._elements?.[header.value]) return item._elements?.[header.value]
 
     // If item value is not string, convert it before returning
-    if(typeof item[header.value] !== 'string') return item[header.value].toString()
+    if (typeof item[header.value] !== 'string') return item[header.value].toString()
 
     // Return
     return item[header.value] || ''
@@ -316,8 +316,8 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                       validHeaders.map((header) => {
                         return (
                           <td key={`${item[itemId]}-${header.value}`} className='vtfk-table-mobile-row'>
-                            <div className='vtfk-table-mobile-item-header '>{ getHeaderValue(header) }</div>
-                            <div className='vtfk-table-mobile-item-value'>{ getItemValue(item, header, index) }</div>
+                            <div className='vtfk-table-mobile-item-header '>{getHeaderValue(header)}</div>
+                            <div className='vtfk-table-mobile-item-value'>{getItemValue(item, header, index)}</div>
                           </td>
                         )
                       })

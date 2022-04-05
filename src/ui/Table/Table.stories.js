@@ -102,7 +102,7 @@ export function Select () {
   const [selectedIds, setSelectedIds] = useState([])
   return (
     <>
-      <button onClick={() => setSelectedIds([])} style={{marginBottom: '0.5rem'}}>Clear selected</button>
+      <button onClick={() => setSelectedIds([])} style={{ marginBottom: '0.5rem' }}>Clear selected</button>
       <Table
         headers={object('Headers', headers)}
         items={object('Items', items)}
@@ -110,7 +110,7 @@ export function Select () {
         showSelect
         selectedIds={selectedIds}
         selectOnClick
-        onSelectedIdsChanged={ids => { console.log('Selected ids', ids), setSelectedIds(ids) }}
+        onSelectedIdsChanged={ids => { console.log('Selected ids', ids); setSelectedIds(ids) }}
         onSelectedItemsChanged={items => console.log('Selected items:', items)}
       />
     </>
@@ -154,12 +154,11 @@ export function CustomStyle () {
   )
 }
 
-
 export function CustomRendering () {
   const customHeaders = [
     {
       label: 'DisplayName',
-      value: 'itemTitle',
+      value: 'itemTitle'
     },
     {
       label: 'Username',
@@ -173,11 +172,11 @@ export function CustomRendering () {
         return (
           <TextField
             placeholder={h.label}
-            alwaysHint={true}
-            hint="Header rendered as TextField..."
+            alwaysHint
+            hint='Header rendered as TextField...'
             rounded
-            style={{marginBottom: '0'}}
-            hidePlaceholder={true}
+            style={{ marginBottom: '0' }}
+            hidePlaceholder
           />
         )
       }
@@ -189,17 +188,18 @@ export function CustomRendering () {
       itemStyle: { display: 'flex', justifyContent: 'center' },
       render: (header) => {
         return (
-          <Button style={{marginLeft: 'auto', marginRight: 'auto'}}>{header.label}</Button>
+          <Button style={{ marginLeft: 'auto', marginRight: 'auto' }}>{header.label}</Button>
         )
       },
       itemRender: (item, index, header) => {
         return (
           <div>
-            <IconButton onClick={(e) => {
-              console.log('Clicked item', item);
-              console.log('At index', index);
-              console.log('Under header', header);
-              console.log('Event', e)
+            <IconButton
+              icon='add' onClick={(e) => {
+                console.log('Clicked item', item)
+                console.log('At index', index)
+                console.log('Under header', header)
+                console.log('Event', e)
               }}
             />
           </div>
@@ -254,7 +254,7 @@ export function Mobile () {
       selectOnClick
       onSelectedIdsChanged={ids => console.log('Selected ids', ids)}
       onSelectedItemsChanged={items => console.log('Selected items:', items)}
-      mobileHeaderText="Mobile header"
+      mobileHeaderText='Mobile header'
       mode='mobile'
     />
   )
