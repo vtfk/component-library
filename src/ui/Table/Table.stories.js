@@ -180,6 +180,7 @@ export function Mobile () {
         selectOnClick
         onSelectedIdsChanged={ids => console.log('Selected ids', ids)}
         onSelectedItemsChanged={items => console.log('Selected items:', items)}
+        mobileHeaderText="Mobile header"
         mode='mobile'
       />
     </div>
