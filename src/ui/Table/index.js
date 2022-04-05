@@ -127,7 +127,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     Render
   */
   return (
-    <div className={`vtfk-table-container ${mode === 'mobile' ? 'mobile' : ''}`} style={style}>
+    <div className={`vtfk-table-container ${renderMode}`} style={style}>
       {validHeaders.length === 0 && <div>Table cannot be shown when no headers are specified</div>}
 
       {validHeaders.length > 0 &&
