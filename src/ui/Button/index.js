@@ -7,11 +7,6 @@ import { Spinner } from '../Spinner'
 import './styles.scss'
 
 function handleClick (e, callback) {
-  if (e) {
-    e.preventDefault()
-    e.stopPropagation()
-  }
-
   callback && typeof callback === 'function' && callback(e)
 }
 
