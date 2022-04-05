@@ -6,12 +6,21 @@ import { Spinner } from '../Spinner'
 
 import './styles.scss'
 
+function handleClick(e, callback) {
+  if(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  callback && typeof callback === 'function' && callback(e)
+}
+
 export const Button = ({ className, type, size, spinner, disabled, children, onClick, ...props }) => {
   return (
     <button
       className={`button button-${type || 'primary'} button-${size || 'medium'} ${className || ''}`}
       disabled={disabled || spinner || false}
-      onClick={() => onClick && typeof onClick === 'function' && onClick()}
+      onClick={(e) => handleClick(e, onClick)}
       {...props}
     >
       {
@@ -31,7 +40,7 @@ export const IconButton = ({ className, bordered, icon, spinner, disabled, onCli
     <button
       className={`icon-button ${bordered ? 'icon-button-transparent-bordered' : ''} ${className || ''}`}
       disabled={disabled || spinner || false}
-      onClick={() => onClick && typeof onClick === 'function' && onClick()}
+      onClick={(e) => handleClick(e, onClick)}
       {...props}
     >
       <div className='icon-button-icon'>

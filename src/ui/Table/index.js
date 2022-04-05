@@ -67,7 +67,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     if (!items || !Array.isArray(items) || items.length === 0) return false
     if (!_selectedIds || !Array.isArray(_selectedIds) || _selectedIds.length === 0) return false
     return items.length === _selectedIds.length
-  })
+  }, [_selectedIds, items])
 
   /*
     Functions
@@ -100,10 +100,10 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
 
     // Determine what items are selected
     let selectedItems = [];
-    if(ids.length > 0 && items && Array.isArray(items)) selectedItems = items.filter((i) => newIds.includes(i[itemId]))
+    if(ids.length > 0 && items && Array.isArray(items)) selectedItems = items.filter((i) => ids.includes(i[itemId]))
 
     // Trigger callback
-    if (onSelectedIdsChanged && typeof onSelectedIdsChanged === 'function') onSelectedIdsChanged(newIds)
+    if (onSelectedIdsChanged && typeof onSelectedIdsChanged === 'function') onSelectedIdsChanged(ids)
     if (onSelectedItemsChanged && typeof onSelectedItemsChanged === 'function') onSelectedItemsChanged(selectedItems)
   }
 
@@ -127,11 +127,48 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     return _selectedIds.includes(item[itemId])
   }
 
+  function getHeaderValue (header) {
+    // If no header
+    if(!header) return '';
+
+    // If the header has a render function
+    if(header.render && typeof header.render === 'function') {
+      try {
+        const result = header.render(header);
+        if (result && typeof result === 'object') return result
+      } catch(err) { console.error('Error rendering header', err)}
+    }
+
+    // If the header has a element
+    if (header.element && typeof header.element === 'object') return header.element
+    
+    // If the header label is number or boolean 
+    if (typeof header.label !== 'string') return header.label.toString()
+
+    // Return
+    return header.label || '';
+  }
+
   // Gets the appropriate value to render for a item
-  function getItemValue (item, header) {
-    if (!item || !header || !header.value) return ''
+  function getItemValue (item, header, index) {
+    // If no item or header, just return a empty string
+    if(!item || !header) return '';
+
+    // If the header has a render function for the item
+    if(header.itemRender && typeof header.itemRender === 'function') {
+      try {
+        const result = header.itemRender(item, index, header);
+        if (result && typeof result === 'object') return result
+      } catch(err) { console.error('Error rendering item', err)}
+    }
+
+    // If the item contain a element
     if (item._elements?.[header.value]) return item._elements?.[header.value]
-    if (['number', 'boolean'].includes(typeof item[header.value])) return item[header.value].toString()
+
+    // If item value is not string, convert it before returning
+    if(typeof item[header.value] !== 'string') return item[header.value].toString()
+
+    // Return
     return item[header.value] || ''
   }
 
@@ -161,7 +198,9 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
               // Render all headers
               headers.map((header) =>
                 <th key={nanoid()} className={mergeClasses(headerClass, header.class)} style={mergeStyles(headerStyle, header.style)}>
-                  {header.label}
+                  {
+                    getHeaderValue(header)
+                  }
                 </th>
               )
             }
@@ -184,7 +223,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
           }
               {
             !isLoading && hasData &&
-            items.map((item) => {
+            items.map((item, index) => {
               return (
                 <tr key={item[itemId]} onClick={(e) => selectOnClick && updateSelected(item[itemId])} className={mergeClasses(trClass, isSelected(item) ? 'tr-selected' : '', selectOnClick ? 'tr-select-onclick' : '')} style={mergeStyles(trStyle)}>
                   {
@@ -203,7 +242,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                           className={mergeClasses(itemClass, header.itemClass)}
                           style={mergeStyles(itemStyle, header.itemStyle)}
                         >
-                          {getItemValue(item, header)}
+                          {getItemValue(item, header, index)}
                         </td>
                       )
                     })
@@ -259,7 +298,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
             }
               {
               !isLoading && hasData &&
-              items.map((item) => {
+              items.map((item, index) => {
                 return (
                   <tr
                     key={item[itemId]}
@@ -277,13 +316,12 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                       validHeaders.map((header) => {
                         return (
                           <td key={`${item[itemId]}-${header.value}`} className='vtfk-table-mobile-row'>
-                            <div className='vtfk-table-mobile-item-header '>{header.label}</div>
-                            <div className='vtfk-table-mobile-item-value'>{getItemValue(item, header)}</div>
+                            <div className='vtfk-table-mobile-item-header '>{ getHeaderValue(header) }</div>
+                            <div className='vtfk-table-mobile-item-value'>{ getItemValue(item, header, index) }</div>
                           </td>
                         )
                       })
                     }
-
                   </tr>
                 )
               })

@@ -50,11 +50,6 @@
         text-align: left;
         background-color: #b0c9d1;
       }
-
-      td {
-        padding: 0.5rem;
-        text-align: left;
-      }
     }
 
   }
@@ -86,10 +81,7 @@
 
     /* Header */
     & thead tr.vtfk-table-mobile-header-row {
-      
-      &tr th {
-        background-color: #b0c9d1;
-      }
+    
 
       .vtfk-table-mobile-header {
         position: relative;
