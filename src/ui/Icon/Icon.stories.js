@@ -60,6 +60,10 @@ export function Variants () {
           <td><Icon name='menu' /></td>
         </tr>
         <tr>
+          <td>pause</td>
+          <td><Icon name='pause' /></td>
+        </tr>
+        <tr>
           <td>search</td>
           <td><Icon name='search' /></td>
         </tr>
