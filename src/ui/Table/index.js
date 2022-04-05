@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { nanoid } from 'nanoid'
 import { mergeStyles, mergeClasses } from './lib/helpers'
 import PropTypes from 'prop-types'
+import get from 'lodash.get'
 
 export function Table ({ headers, items, itemId = '_id', selectedIds, mode, showSelect = false, selectOnClick = false, isLoading, loadingText, loadingElement, noDataText, noDataElement, mobileHeaderText, mobileHeaderElement, onSelectedIdsChanged, onSelectedItemsChanged, style, headerClass, headerStyle, itemClass, itemStyle, trClass, trStyle }) {
   /*
@@ -165,11 +166,20 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     // If the item contain a element
     if (item._elements?.[header.value]) return item._elements?.[header.value]
 
+    // Retreive the value
+    const value = get(item, header.value)
+
+    // If the item has no matching value
+    if (!value) return ''
+
     // If item value is not string, convert it before returning
-    if (typeof item[header.value] !== 'string') return item[header.value].toString()
+    if (typeof value === 'object') return JSON.stringify(value)
+    else if (typeof value !== 'string' && value.toString) {
+      return value.toString()
+    }
 
     // Return
-    return item[header.value] || ''
+    return value
   }
 
   /*

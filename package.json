@@ -34,6 +34,7 @@
     "now-build": "npm run build-storybook"
   },
   "dependencies": {
+    "lodash.get": "^4.4.2",
     "nanoid": "3.3.2",
     "react-datepicker": "4.7.0",
     "react-scrolllock": "5.0.1",
