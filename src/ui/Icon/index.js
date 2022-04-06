@@ -26,6 +26,7 @@ import { ReactComponent as Copy } from './icon-copy.svg'
 import { ReactComponent as Lock } from './icon-lock.svg'
 import { ReactComponent as Link } from './icon-link.svg'
 import { ReactComponent as External } from './icon-external.svg'
+import { ReactComponent as Warning } from './icon-warning.svg'
 
 import './styles.scss'
 
@@ -37,6 +38,7 @@ export const icons = {
   statistics: <Statistics />,
   help: <Help />,
   info: <Info />,
+  warning: <Warning />,
   arrowRight: <ArrowRight />,
   arrowLeft: <ArrowLeft />,
   chevronUp: <ChevronUp />,
