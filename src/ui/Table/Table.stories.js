@@ -123,11 +123,14 @@ export function CustomStyle () {
     {
       label: 'DisplayName',
       value: 'itemTitle',
+      tooltip: 'This is a tooltip for the displayName header',
+      itemTooltip: 'itemSecondary',
       style: { textTransform: 'Uppercase', color: 'blue' }
     },
     {
       label: 'Username',
       value: 'itemSecondary',
+      itemTooltip: 'This is just a text tooltip that dont match any data',
       itemStyle: { backgroundColor: 'pink', textAlign: 'center' }
     },
     {
@@ -191,7 +194,7 @@ export function CustomRendering () {
           <Button style={{ marginLeft: 'auto', marginRight: 'auto' }}>{header.label}</Button>
         )
       },
-      itemRender: (item, index, header) => {
+      itemRender: (value, item, index, header) => {
         return (
           <div>
             <IconButton
@@ -200,8 +203,12 @@ export function CustomRendering () {
                 console.log('At index', index)
                 console.log('Under header', header)
                 console.log('Event', e)
+
+                e.preventDefault()
+                e.stopPropagation()
               }}
-            />
+            >{value.toString()}
+            </IconButton>
           </div>
         )
       }
@@ -209,15 +216,33 @@ export function CustomRendering () {
   ]
 
   return (
-    <Table
-      headers={customHeaders}
-      items={items}
-      itemId='itemSecondary'
-      showSelect
-      selectOnClick
-      onSelectedIdsChanged={ids => console.log('Selected ids', ids)}
-      onSelectedItemsChanged={items => console.log('Selected items:', items)}
-    />
+    <div>
+      <h2 style={{ margin: '0.2rem 0' }}>Custom rendering</h2>
+      Works by adding a callback functions to the header entries that returns JSX
+      <h4 style={{ marginBottom: '0.2rem' }}>Custom header renderer</h4>
+      {'render: (header) => { return ({<>{ header.label }</>}){}}'}
+      <ul style={{ marginTop: '0.3rem' }}>
+        <li>header = Header object</li>
+      </ul>
+      <h4 style={{ marginBottom: '0.2rem' }}>Custom item renderer</h4>
+      {/* eslint-disable-next-line */}
+      {'itemRender: (value, item, header, index) => { return (<>{`${item.firstname} ${item.lastName}`}</>)}'}
+      <ul style={{ marginTop: '0.3rem' }}>
+        <li>value = Value that would have been displayed in regular rendering</li>
+        <li>item = Item object for the row</li>
+        <li>header = Header object for the column</li>
+        <li>index = Array index of the item</li>
+      </ul>
+      <Table
+        headers={customHeaders}
+        items={items}
+        itemId='itemSecondary'
+        showSelect
+        selectOnClick
+        onSelectedIdsChanged={ids => console.log('Selected ids', ids)}
+        onSelectedItemsChanged={items => console.log('Selected items:', items)}
+      />
+    </div>
   )
 }
 
