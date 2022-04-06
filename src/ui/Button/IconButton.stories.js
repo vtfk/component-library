@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { withKnobs, select, text } from '@storybook/addon-knobs'
 import { getConfig } from '../../../scripts/storybook/storyConfig'
 import { IconButton } from '.'
+import { icons } from '../Icon'
+
+const iconList = Object.keys(icons)
 
 export default getConfig({
   title: 'IconButton',
@@ -9,8 +12,6 @@ export default getConfig({
   decorators: [withKnobs],
   argTypes: { onClick: { action: 'clicked' } }
 })
-
-const icons = ['activity', 'add', 'arrowLeft', 'arrowRight', 'check', 'chevronDown', 'chevronUp', 'classes', 'close', 'help', 'home', 'menu', 'pause', 'retry', 'search', 'statistics', 'students']
 
 export function Basic () {
   const [loading, setLoading] = useState(false)
@@ -21,7 +22,7 @@ export function Basic () {
   }
 
   return (
-    <IconButton icon={select('Icon', icons, 'add')} onClick={clickHandler} spinner={loading}>
+    <IconButton icon={select('Icon', iconList, 'add')} onClick={clickHandler} spinner={loading}>
       {text('Icon Button text', 'Legg til element')}
     </IconButton>
   )
@@ -29,7 +30,7 @@ export function Basic () {
 
 export function Disabled () {
   return (
-    <IconButton icon={select('Icon', icons, 'add')} disabled>
+    <IconButton icon={select('Icon', iconList, 'add')} disabled>
       {text('Icon Button text', 'Legg til element')}
     </IconButton>
   )
@@ -37,7 +38,7 @@ export function Disabled () {
 
 export function ShowSpinner () {
   return (
-    <IconButton icon={select('Icon', icons, 'add')} spinner>
+    <IconButton icon={select('Icon', iconList, 'add')} spinner>
       {text('Icon Button text', 'Legg til element')}
     </IconButton>
   )
@@ -52,7 +53,7 @@ export function Bordered () {
   }
 
   return (
-    <IconButton icon={select('Icon', icons, 'add')} bordered onClick={() => clickHandler()} spinner={loading}>
+    <IconButton icon={select('Icon', iconList, 'add')} bordered onClick={() => clickHandler()} spinner={loading}>
       {text('Icon Button text', 'Legg til element')}
     </IconButton>
   )
@@ -67,6 +68,6 @@ export function WithoutText () {
   }
 
   return (
-    <IconButton icon={select('Icon', icons, 'add')} onClick={() => clickHandler()} spinner={loading} />
+    <IconButton icon={select('Icon', iconList, 'add')} onClick={() => clickHandler()} spinner={loading} />
   )
 }
