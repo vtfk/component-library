@@ -4,7 +4,7 @@ import { getConfig } from '../../../scripts/storybook/storyConfig'
 import { IconButton } from '.'
 import { icons } from '../Icon'
 
-const iconList = Object.keys(icons);
+const iconList = Object.keys(icons)
 
 export default getConfig({
   title: 'IconButton',
