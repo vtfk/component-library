@@ -154,16 +154,15 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
   function getValueAsString (item, path) {
     try {
       // Retreive the value
-      const value = get(item, path)
+      let value = get(item, path)
 
       // If item value is not string, convert it before returning
-      if (typeof value === 'object') return JSON.stringify(value)
+      if (typeof value === 'object') value = JSON.stringify(value)
       else if (typeof value !== 'string' && value.toString) {
-        return value.toString()
+        value = value.toString()
       }
 
-      return value;
-
+      return value
     } catch { return '' }
   }
 

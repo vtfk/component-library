@@ -161,12 +161,12 @@ export function CustomRendering () {
   const customHeaders = [
     {
       label: 'DisplayName',
-      value: 'itemTitle',
+      value: 'itemTitle'
     },
     {
       label: 'Username',
       value: 'itemSecondary',
-      element: <div>This is a element</div>,
+      element: <div>This is a element</div>
     },
     {
       label: 'Description',
@@ -203,11 +203,12 @@ export function CustomRendering () {
                 console.log('At index', index)
                 console.log('Under header', header)
                 console.log('Event', e)
-                
-                e.preventDefault();
-                e.stopPropagation();
+
+                e.preventDefault()
+                e.stopPropagation()
               }}
-            >{value.toString()}</IconButton>
+            >{value.toString()}
+            </IconButton>
           </div>
         )
       }
@@ -216,21 +217,22 @@ export function CustomRendering () {
 
   return (
     <div>
-        <h2 style={{margin: '0.2rem 0'}}>Custom rendering</h2>
-        Works by adding a callback functions to the header entries that returns JSX
-        <h4 style={{marginBottom: '0.2rem'}}>Custom header renderer</h4>
-        render: (header) => {"{"} return ({`<>{ header.label }</>`}){"}" }
-        <ul style={{marginTop: '0.3rem'}}>
-          <li>header = Header object</li>
-        </ul>
-        <h4 style={{marginBottom: '0.2rem'}}>Custom item renderer</h4>
-        {"itemRender: (value, item, header, index) => { return (<>{`${item.firstname} ${item.lastName}`}</>)}"}
-        <ul style={{marginTop: '0.3rem'}}>
-          <li>value = Value that would have been displayed in regular rendering</li>
-          <li>item = Item object for the row</li>
-          <li>header = Header object for the column</li>
-          <li>index = Array index of the item</li>
-        </ul>
+      <h2 style={{ margin: '0.2rem 0' }}>Custom rendering</h2>
+      Works by adding a callback functions to the header entries that returns JSX
+      <h4 style={{ marginBottom: '0.2rem' }}>Custom header renderer</h4>
+      {'render: (header) => { return ({<>{ header.label }</>}){}}'}
+      <ul style={{ marginTop: '0.3rem' }}>
+        <li>header = Header object</li>
+      </ul>
+      <h4 style={{ marginBottom: '0.2rem' }}>Custom item renderer</h4>
+      {/* eslint-disable-next-line */}
+      {'itemRender: (value, item, header, index) => { return (<>{`${item.firstname} ${item.lastName}`}</>)}'}
+      <ul style={{ marginTop: '0.3rem' }}>
+        <li>value = Value that would have been displayed in regular rendering</li>
+        <li>item = Item object for the row</li>
+        <li>header = Header object for the column</li>
+        <li>index = Array index of the item</li>
+      </ul>
       <Table
         headers={customHeaders}
         items={items}
