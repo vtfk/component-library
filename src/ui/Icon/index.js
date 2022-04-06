@@ -8,6 +8,8 @@ import { ReactComponent as Students } from './icon-students.svg'
 import { ReactComponent as Statistics } from './icon-statistics.svg'
 import { ReactComponent as Help } from './icon-help.svg'
 import { ReactComponent as Info } from './icon-info.svg'
+import { ReactComponent as Warning } from './icon-warning.svg'
+import { ReactComponent as Error } from './icon-error.svg'
 import { ReactComponent as ArrowRight } from './icon-arrow-right.svg'
 import { ReactComponent as ArrowLeft } from './icon-arrow-left.svg'
 import { ReactComponent as Add } from './icon-add.svg'
@@ -26,7 +28,6 @@ import { ReactComponent as Copy } from './icon-copy.svg'
 import { ReactComponent as Lock } from './icon-lock.svg'
 import { ReactComponent as Link } from './icon-link.svg'
 import { ReactComponent as External } from './icon-external.svg'
-import { ReactComponent as Warning } from './icon-warning.svg'
 
 import './styles.scss'
 
@@ -39,6 +40,7 @@ export const icons = {
   help: <Help />,
   info: <Info />,
   warning: <Warning />,
+  error: <Error />,
   arrowRight: <ArrowRight />,
   arrowLeft: <ArrowLeft />,
   chevronUp: <ChevronUp />,
