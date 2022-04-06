@@ -150,24 +150,41 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     return header.label || ''
   }
 
+  // Gets a value from a given path in an object
+  function getValueAsString (item, path) {
+    try {
+      // Retreive the value
+      const value = get(item, path)
+
+      // If item value is not string, convert it before returning
+      if (typeof value === 'object') return JSON.stringify(value)
+      else if (typeof value !== 'string' && value.toString) {
+        return value.toString()
+      }
+
+      return value;
+
+    } catch { return '' }
+  }
+
   // Gets the appropriate value to render for a item
   function getItemValue (item, header, index) {
     // If no item or header, just return a empty string
     if (!item || !header) return ''
 
+    // Retreive the value
+    const value = get(item, header.value)
+
     // If the header has a render function for the item
     if (header.itemRender && typeof header.itemRender === 'function') {
       try {
-        const result = header.itemRender(item, index, header)
+        const result = header.itemRender(value, item, header, index)
         if (result && typeof result === 'object') return result
       } catch (err) { console.error('Error rendering item', err) }
     }
 
     // If the item contain a element
     if (item._elements?.[header.value]) return item._elements?.[header.value]
-
-    // Retreive the value
-    const value = get(item, header.value)
 
     // If the item has no matching value
     if (!value) return ''
@@ -207,7 +224,12 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                 {
               // Render all headers
               headers.map((header) =>
-                <th key={nanoid()} className={mergeClasses(headerClass, header.class)} style={mergeStyles(headerStyle, header.style)}>
+                <th
+                  key={nanoid()}
+                  className={mergeClasses(headerClass, header.class)}
+                  style={mergeStyles(headerStyle, header.style)}
+                  title={getValueAsString(header, header.itemTooltip) || header.tooltip}
+                >
                   {
                     getHeaderValue(header)
                   }
@@ -251,6 +273,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                           key={nanoid()}
                           className={mergeClasses(itemClass, header.itemClass)}
                           style={mergeStyles(itemStyle, header.itemStyle)}
+                          title={getValueAsString(item, header.itemTooltip) || header.itemTooltip}
                         >
                           {getItemValue(item, header, index)}
                         </td>
@@ -362,6 +385,10 @@ Table.propTypes = {
     itemStyle: PropTypes.object,
     class: PropTypes.string,
     itemClass: PropTypes.string,
+    render: PropTypes.func,
+    itemRender: PropTypes.func,
+    tooltip: PropTypes.string,
+    itemTooltip: PropTypes.string,
     element: PropTypes.element
   })).isRequired,
   isLoading: PropTypes.bool,
