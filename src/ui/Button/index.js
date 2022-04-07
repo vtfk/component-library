@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Icon } from '../Icon'
+import { Icon, icons } from '../Icon'
 import { Spinner } from '../Spinner'
 
 import './styles.scss'
@@ -85,25 +85,7 @@ IconButton.propTypes = {
   children: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  icon: PropTypes.oneOf([
-    'activity',
-    'add',
-    'arrowLeft',
-    'arrowRight',
-    'check',
-    'chevronDown',
-    'chevronUp',
-    'classes',
-    'close',
-    'help',
-    'home',
-    'menu',
-    'pause',
-    'retry',
-    'search',
-    'statistics',
-    'students'
-  ]).isRequired,
+  icon: PropTypes.oneOf(Object.keys(icons)).isRequired,
   onClick: PropTypes.func,
   spinner: PropTypes.bool
 }
