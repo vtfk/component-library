@@ -21,6 +21,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   border-radius: 10px;
   min-width: 200px;
   min-height: 100px;
@@ -41,13 +42,13 @@
 .dialog-title {
   font-weight: 500;
   font-size: x-large;
-  margin-bottom: $baseUnit;
   margin-right: $baseUnit * 3;
 }
 
 .dialog-body {
-  margin-bottom: $baseUnit * 2;
   flex-grow: 1;
+  overflow-y: auto;
+  padding: 0.15rem 0; /* This fixes a HTML issue where text lineheight is not accounted for making the dialog overflow if you only have text */
 }
 
 .dialog-actions {
