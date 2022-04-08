@@ -258,7 +258,12 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
             !isLoading && hasData &&
             items.map((item, index) => {
               return (
-                <tr key={item[itemId]} onClick={(e) => selectOnClick && updateSelected(item[itemId])} className={mergeClasses(trClass, isSelected(item) ? 'tr-selected' : '', selectOnClick ? 'tr-select-onclick' : '')} style={mergeStyles(trStyle)}>
+                <tr
+                  key={item[itemId]}
+                  onClick={(e) => selectOnClick && updateSelected(item[itemId])}
+                  className={mergeClasses(trClass, isSelected(item) ? 'tr-selected' : '', selectOnClick ? 'tr-select-onclick' : '')}
+                  style={mergeStyles(trStyle)}
+                >
                   {
                     // Render checkbox for selecting the item in the current row, if applicable
                     showSelect &&
@@ -338,6 +343,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                     key={item[itemId]}
                     onClick={(e) => selectOnClick && updateSelected(item[itemId])}
                     className={mergeClasses('vtfk-table-mobile-item', itemClass, isSelected(item) ? 'tr-selected' : '')}
+                    style={mergeStyles(trStyle)}
                   >
                     {
                       showSelect &&
@@ -350,8 +356,18 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                       validHeaders.map((header) => {
                         return (
                           <td key={`${item[itemId]}-${header.value}`} className='vtfk-table-mobile-row'>
-                            <div className='vtfk-table-mobile-item-header '>{getHeaderValue(header)}</div>
-                            <div className='vtfk-table-mobile-item-value'>{getItemValue(item, header, index)}</div>
+                            <div
+                              className={mergeClasses('vtfk-table-mobile-item-header', headerClass, header.class)}
+                              style={mergeStyles(headerStyle, header.style)}
+                            >
+                              {getHeaderValue(header)}
+                            </div>
+                            <div
+                              className={mergeClasses('vtfk-table-mobile-item-value', itemClass, header.itemClass)}
+                              style={mergeStyles(itemStyle, header.itemStyle)}
+                            >
+                              {getItemValue(item, header, index)}
+                            </div>
                           </td>
                         )
                       })
