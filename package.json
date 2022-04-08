@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/vtfk/component-library#readme",
   "scripts": {
-    "test": "npm run test:lint && npm run test:jest",
+    "test": "npm run lint:fix && npm run test:jest",
     "test:jest": "jest",
     "test:watch": "jest --watch",
     "test:lint": "eslint src",
