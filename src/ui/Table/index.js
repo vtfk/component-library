@@ -52,9 +52,17 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     if (!Array.isArray(headers) || headers.length === 0) return []
 
     const vHeaders = []
-    headers.forEach((h) => {
-      if (h.label && h.value) vHeaders.push(h)
-    })
+    for (const h of headers) {
+      if (!h.label && (!h.render && typeof h.render !== 'function')) {
+        console.error('Header is invalid because it got no label or render function', h);
+        continue
+      } 
+      if (!h.value && (!h.itemRender && typeof h.itemRender !== 'function')) {
+        console.error('Header is invalid because it got no value or itemRender function', h);
+        continue
+      } 
+      vHeaders.push(h)
+    }
 
     return vHeaders
   }, [headers])
@@ -222,7 +230,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
             }
                 {
               // Render all headers
-              headers.map((header) =>
+              validHeaders.map((header) =>
                 <th
                   key={nanoid()}
                   className={mergeClasses(headerClass, header.class)}
@@ -256,7 +264,12 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
             !isLoading && hasData &&
             items.map((item, index) => {
               return (
-                <tr key={item[itemId]} onClick={(e) => selectOnClick && updateSelected(item[itemId])} className={mergeClasses(trClass, isSelected(item) ? 'tr-selected' : '', selectOnClick ? 'tr-select-onclick' : '')} style={mergeStyles(trStyle)}>
+                <tr
+                  key={item[itemId]}
+                  onClick={(e) => selectOnClick && updateSelected(item[itemId])}
+                  className={mergeClasses(trClass, isSelected(item) ? 'tr-selected' : '', selectOnClick ? 'tr-select-onclick' : '')}
+                  style={mergeStyles(trStyle)}
+                >
                   {
                     // Render checkbox for selecting the item in the current row, if applicable
                     showSelect &&
@@ -266,7 +279,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                   }
                   {
                     // Render item
-                    headers.map((header) => {
+                    validHeaders.map((header) => {
                       return (
                         <td
                           key={nanoid()}
@@ -286,7 +299,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
               {
             !isLoading && !hasData &&
               <tr>
-                <td colSpan={headers.length + 1} style={{ textAlign: 'center' }}>
+                <td colSpan={validHeaders.length + 1} style={{ textAlign: 'center' }}>
                   {noDataElement || noDataText || 'Ingen data er funnet'}
                 </td>
               </tr>
@@ -336,6 +349,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                     key={item[itemId]}
                     onClick={(e) => selectOnClick && updateSelected(item[itemId])}
                     className={mergeClasses('vtfk-table-mobile-item', itemClass, isSelected(item) ? 'tr-selected' : '')}
+                    style={mergeStyles(trStyle)}
                   >
                     {
                       showSelect &&
@@ -348,8 +362,18 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                       validHeaders.map((header) => {
                         return (
                           <td key={`${item[itemId]}-${header.value}`} className='vtfk-table-mobile-row'>
-                            <div className='vtfk-table-mobile-item-header '>{getHeaderValue(header)}</div>
-                            <div className='vtfk-table-mobile-item-value'>{getItemValue(item, header, index)}</div>
+                            <div
+                              className={mergeClasses('vtfk-table-mobile-item-header', headerClass, header.class)}
+                              style={mergeStyles(headerStyle, header.style)}
+                            >
+                              {getHeaderValue(header)}
+                            </div>
+                            <div
+                              className={mergeClasses('vtfk-table-mobile-item-value', itemClass, header.itemClass)}
+                              style={mergeStyles(itemStyle, header.itemStyle)}
+                            >
+                              {getItemValue(item, header, index)}
+                            </div>
                           </td>
                         )
                       })
@@ -361,7 +385,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
               {
               !isLoading && !hasData &&
                 <tr>
-                  <td colSpan={headers.length + 1} style={{ textAlign: 'center' }}>
+                  <td colSpan={validHeaders.length + 1} style={{ textAlign: 'center' }}>
                     {noDataElement || noDataText || 'Ingen data er funnet'}
                   </td>
                 </tr>
@@ -379,7 +403,7 @@ Table.propTypes = {
   headerStyle: PropTypes.object,
   headers: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     style: PropTypes.object,
     itemStyle: PropTypes.object,
     class: PropTypes.string,
