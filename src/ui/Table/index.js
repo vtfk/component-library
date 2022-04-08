@@ -52,9 +52,11 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     if (!Array.isArray(headers) || headers.length === 0) return []
 
     const vHeaders = []
-    headers.forEach((h) => {
-      if (h.label && h.value) vHeaders.push(h)
-    })
+    for (const h of headers) {
+      if (!h.label && (!h.render && typeof h.render !== 'function')) continue
+      if (!h.value && (!h.itemRender && typeof h.itemRender !== 'function')) continue
+      vHeaders.push(h)
+    }
 
     return vHeaders
   }, [headers])
@@ -222,7 +224,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
             }
                 {
               // Render all headers
-              headers.map((header) =>
+              validHeaders.map((header) =>
                 <th
                   key={nanoid()}
                   className={mergeClasses(headerClass, header.class)}
@@ -266,7 +268,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                   }
                   {
                     // Render item
-                    headers.map((header) => {
+                    validHeaders.map((header) => {
                       return (
                         <td
                           key={nanoid()}
@@ -286,7 +288,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
               {
             !isLoading && !hasData &&
               <tr>
-                <td colSpan={headers.length + 1} style={{ textAlign: 'center' }}>
+                <td colSpan={validHeaders.length + 1} style={{ textAlign: 'center' }}>
                   {noDataElement || noDataText || 'Ingen data er funnet'}
                 </td>
               </tr>
@@ -361,7 +363,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
               {
               !isLoading && !hasData &&
                 <tr>
-                  <td colSpan={headers.length + 1} style={{ textAlign: 'center' }}>
+                  <td colSpan={validHeaders.length + 1} style={{ textAlign: 'center' }}>
                     {noDataElement || noDataText || 'Ingen data er funnet'}
                   </td>
                 </tr>
@@ -379,7 +381,7 @@ Table.propTypes = {
   headerStyle: PropTypes.object,
   headers: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     style: PropTypes.object,
     itemStyle: PropTypes.object,
     class: PropTypes.string,
