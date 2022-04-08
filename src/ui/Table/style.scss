@@ -121,11 +121,16 @@
       
 
       .vtfk-table-mobile-item-header {
+        display: flex;
+        align-items: center;
         font-weight: 900;
         font-size: 14px;
+        
       }
 
       .vtfk-table-mobile-item-value {
+        display: flex;
+        align-items: center;
         text-align: right;
         font-size: 14px;
       }
