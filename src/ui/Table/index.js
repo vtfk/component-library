@@ -53,8 +53,14 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
 
     const vHeaders = []
     for (const h of headers) {
-      if (!h.label && (!h.render && typeof h.render !== 'function')) continue
-      if (!h.value && (!h.itemRender && typeof h.itemRender !== 'function')) continue
+      if (!h.label && (!h.render && typeof h.render !== 'function')) {
+        console.error('Header is invalid because it got no label or render function', h);
+        continue
+      } 
+      if (!h.value && (!h.itemRender && typeof h.itemRender !== 'function')) {
+        console.error('Header is invalid because it got no value or itemRender function', h);
+        continue
+      } 
       vHeaders.push(h)
     }
 
