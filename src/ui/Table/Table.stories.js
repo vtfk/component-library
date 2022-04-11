@@ -5,6 +5,7 @@ import { getConfig } from '../../../scripts/storybook/storyConfig'
 import { Checkbox, Table } from '../../'
 import { IconButton, Button } from '../Button'
 import { TextField } from '../TextField'
+import { nanoid } from 'nanoid'
 
 export default getConfig({
   title: 'Table',
@@ -282,5 +283,76 @@ export function Mobile () {
       mobileHeaderText='Mobile header'
       mode='mobile'
     />
+  )
+}
+
+export function BigTables () {
+  const headers = [
+    {
+      label: 'Field A',
+      value: 'fieldA'
+    },
+    {
+      label: 'Field B',
+      value: 'fieldB'
+    },
+    {
+      label: 'Field C',
+      value: 'fieldC'
+    },
+    {
+      label: 'Field D',
+      value: 'fieldD'
+    },
+    {
+      label: 'Field E',
+      value: 'fieldD'
+    },
+    {
+      label: 'Field F',
+      value: 'fieldD'
+    }
+  ]
+
+  const items = []
+  for (let i = 1; i < 100; i++) {
+    items.push({
+      fieldA: nanoid(),
+      fieldB: nanoid(),
+      fieldC: nanoid(),
+      fieldD: nanoid(),
+      fieldE: nanoid(),
+      fieldF: nanoid()
+    })
+  }
+
+  return (
+    <>
+      <p>This table is inside a div with a height of <b>250px</b></p>
+      <div style={{ height: '250px' }}>
+        <Table
+          headers={headers}
+          items={items}
+        />
+      </div>
+      <p>This table has a height of <b>250px</b> set in the style props</p>
+      <Table
+        headers={headers}
+        items={items}
+        style={{ height: '250px' }}
+      />
+      <p>This table inside a parent with a width of <b>250px</b> and height of <b>150px</b></p>
+      <div style={{ width: '500px', height: '150px' }}>
+        <Table
+          headers={headers}
+          items={items}
+        />
+      </div>
+      <p>This table has no size limitations</p>
+      <Table
+        headers={headers}
+        items={items}
+      />
+    </>
   )
 }
