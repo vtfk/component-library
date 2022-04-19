@@ -49,6 +49,11 @@
         padding: 0.5rem;
         text-align: left;
         background-color: #b0c9d1;
+
+        &.clickable {
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
     }
 
