@@ -233,9 +233,10 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
               validHeaders.map((header) =>
                 <th
                   key={nanoid()}
-                  className={mergeClasses(headerClass, header.class)}
+                  className={mergeClasses(headerClass, header.class, header.onClick && typeof header.onClick === 'function' ? 'clickable' : undefined)}
                   style={mergeStyles(headerStyle, header.style)}
                   title={getValueAsString(header, header.itemTooltip) || header.tooltip}
+                  onClick={header.onClick && typeof header.onClick === 'function' && (() => header.onClick())}
                 >
                   {
                     getHeaderValue(header)
@@ -412,7 +413,8 @@ Table.propTypes = {
     itemRender: PropTypes.func,
     tooltip: PropTypes.string,
     itemTooltip: PropTypes.string,
-    element: PropTypes.element
+    element: PropTypes.element,
+    onClick: PropTypes.func
   })).isRequired,
   isLoading: PropTypes.bool,
   itemClass: PropTypes.string,

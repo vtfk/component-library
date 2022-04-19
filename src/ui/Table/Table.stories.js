@@ -99,6 +99,21 @@ export function Basic () {
   )
 }
 
+export function ActiveHeaders () {
+  const activeHeaders = JSON.parse(JSON.stringify(headers)).map(header => {
+    header.onClick = () => console.log('You have click the header', header.label)
+    return header
+  })
+
+  return (
+    <Table
+      headers={object('Headers', activeHeaders)}
+      items={object('Items', items)}
+      itemId='itemSecondary'
+    />
+  )
+}
+
 export function Select () {
   const [selectedIds, setSelectedIds] = useState([])
   return (
