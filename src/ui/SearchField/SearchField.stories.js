@@ -95,6 +95,7 @@ export function Basic () {
           onSearch={e => onSearch(e)}
           showClear={boolean('Vis tøm', true)}
           showSearch={boolean('Vis søkeknapp', true)}
+          onClear={() => console.log('onClear triggered')}
         />
         <h3>Rounded</h3>
         <SearchField
@@ -104,6 +105,7 @@ export function Basic () {
           rounded
           showClear={boolean('Vis tøm', true)}
           showSearch={boolean('Vis søkeknapp', true)}
+          onClear={() => console.log('onClear triggered')}
         />
       </div>
       <br />
