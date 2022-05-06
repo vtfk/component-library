@@ -139,14 +139,11 @@ export function CustomStyle () {
     {
       label: 'DisplayName',
       value: 'itemTitle',
-      tooltip: 'This is a tooltip for the displayName header',
-      itemTooltip: 'itemSecondary',
       style: { textTransform: 'Uppercase', color: 'blue' }
     },
     {
       label: 'Username',
       value: 'itemSecondary',
-      itemTooltip: 'This is just a text tooltip that dont match any data',
       itemStyle: { backgroundColor: 'pink', textAlign: 'center' }
     },
     {
@@ -283,6 +280,63 @@ export function ItemsWithElements () {
       onSelectedItemsChanged={items => console.log('Selected items:', items)}
     />
   )
+}
+
+
+export function Tooltips () {
+
+  const headers = [
+    {
+      label: 'Name',
+      value: 'itemTitle',
+      tooltip: 'This is a tooltip',
+      itemTooltip: 'This is a item tooltip'
+    },
+    {
+      label: 'Username',
+      value: 'itemSecondary',
+      tooltip: 'This is header #2',
+      itemTooltip: 'itemSecondary'
+    },
+    {
+      label: 'Description',
+      value: 'itemDescription',
+      tooltip: (header, index) => { return `Header with index ${index}`},
+      itemTooltip: (value, item, header, index) => { return `${value} @ index ${index}`}
+    }
+  ]
+
+  return (
+    <>
+      <p>
+        Tooltips shows up when hovering header or row cells.<br />
+        They are setup using the <b>tooltip</b> or <b>itemTooltip</b> header property<br />
+      </p>
+      <div style={{marginTop: '1rem'}}>
+        <h3 style={{marginTop: 0, marginBottom: 0}}>tooltip</h3>
+        tooltip behaves different if provided as <b>string</b> or <b>function</b><br/><br/>
+        <b>string</b>: This text will be the tooltip<br/>
+        <b>function:</b> <i>{`(header, index) => { return 'This will be the header' }`}</i>
+      </div>
+      <div style={{marginTop: '1rem'}}>
+        <h3 style={{marginTop: 0, marginBottom: 0}}>itemTooltip</h3>
+        itemTooltip behaves different if provided as <b>string</b> or <b>function</b><br/><br/>
+        <b>string</b>: If a item property is provided, that will be returned. The string will be returned as is<br/>
+        <b>function:</b> <i>{`(value, item, header, index) => { return 'This will be the header' }`}</i>
+      </div>  
+
+
+      <Table
+        headers={headers}
+        items={object('Items', items)}
+        itemId='itemSecondary'
+        showSelect
+        selectOnClick
+        style={{marginTop: '1rem'}}
+      />
+    </>
+  )
+  
 }
 
 export function Mobile () {

@@ -206,6 +206,57 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
     return value
   }
 
+  function getHeaderTooltip (header, index) {
+    try {
+      // Input validation
+      if (!header?.tooltip) return ''
+
+      // If type is string, just return the text
+      if (typeof header.tooltip === 'string') return header.tooltip.toString();
+
+      // If the type is function, attempt to execute it
+      if (typeof header.tooltip === 'function') {
+        const val = header.tooltip(header, index)
+        return val.toString();
+      }
+
+      // Return default
+      return '';
+    } catch {
+      return '';
+    }
+  }
+
+  /**
+   *
+   * @param {string | function} toolTipRequest Prop-name, text or callback function
+   * @param {*} item
+   * @returns
+   */
+  function getTooltipValue (header, item, index) {
+    try {
+      // Input validation
+      if (!header?.itemTooltip || !item) return
+
+      // Retreive the value of the current cell
+      const value = get(item, header.value)
+
+      // If string, first attempt to find a matching property for the value, if not just return the text
+      if (typeof header.itemTooltip === 'string') return getValueAsString(item, header.itemTooltip) || header.itemTooltip.toString()
+
+      // If callback function - execute it then return
+      if (typeof header.itemTooltip === 'function') {
+        const val = header.itemTooltip(value, item, header, index)
+        return val.toString();
+      }
+      
+      // Return default
+      return ''
+    } catch {
+      return '';
+    }
+  }
+
   /*
     Render
   */
@@ -224,22 +275,22 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                 {
               // Render checkboxs for selecting all items if applicable
               showSelect && items &&
-                <th className={mergeClasses('vtfk-table-checkbox-cell', headerClass)} style={headerStyle}>
+                <th className={mergeClasses('vtfk-table-checkbox-cell', headerClass)} style={{...headerStyle }}>
                   <Checkbox checked={isAllSelected} name='checkAll' value='checkAll' label={' '} onChange={(e) => selectAll()} style={{ padding: 0, margin: 0, marginRight: 0, display: 'block' }} />
                 </th>
             }
                 {
               // Render all headers
-              validHeaders.map((header) =>
+              validHeaders.map((header, idx) =>
                 <th
                   key={nanoid()}
                   className={mergeClasses(headerClass, header.class, header.onClick && typeof header.onClick === 'function' ? 'clickable' : undefined)}
                   style={mergeStyles(headerStyle, header.style)}
-                  title={getValueAsString(header, header.itemTooltip) || header.tooltip}
+                  title={getHeaderTooltip(header, idx)}
                   onClick={header.onClick && typeof header.onClick === 'function' && (() => header.onClick())}
                 >
                   {
-                    getHeaderValue(header)
+                    getHeaderValue(header, idx)
                   }
                 </th>
               )
@@ -286,7 +337,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                           key={nanoid()}
                           className={mergeClasses(itemClass, header.itemClass)}
                           style={mergeStyles(itemStyle, header.itemStyle)}
-                          title={getValueAsString(item, header.itemTooltip) || header.itemTooltip}
+                          title={getTooltipValue(header, item, index)}
                         >
                           {getItemValue(item, header, index)}
                         </td>
@@ -411,8 +462,8 @@ Table.propTypes = {
     itemClass: PropTypes.string,
     render: PropTypes.func,
     itemRender: PropTypes.func,
-    tooltip: PropTypes.string,
-    itemTooltip: PropTypes.string,
+    tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    itemTooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     element: PropTypes.element,
     onClick: PropTypes.func
   })).isRequired,
