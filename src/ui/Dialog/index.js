@@ -44,6 +44,40 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
     }
   })
 
+  useEffect(() => {
+    function disableScrolling(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.returnValue = false; 
+    }
+
+    function enableScrolling() {
+      // Retreive all dialogs
+      const dialogs = document.getElementsByClassName('dialog')
+      console.log('All dialogs', dialogs)
+      
+      if(dialogs.length > 1) return;
+
+      document.querySelector("body").style.overflow = 'auto'
+      window.removeEventListener('scroll', disableScrolling)
+      window.removeEventListener('DOMMouseScroll', disableScrolling)
+    }
+
+    if(isOpen) {
+      window.addEventListener('scroll', disableScrolling)
+      window.addEventListener('DOMMouseScroll', disableScrolling)
+      document.querySelector("body").style.overflow = 'hidden'
+    } else {
+      console.log('I am here')
+      enableScrolling();
+    }
+
+    return () => {
+      enableScrolling();
+    }
+  }, [isOpen])
+
+
   // Plays the shaking animation-effect when the dialog is persistent
   function shakeDialogBox () {
     const dialog = document.getElementById(`dialog-${id}`)
@@ -76,7 +110,14 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
     isOpen === true &&
       <>
         <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onClick={(e) => handleBackdropClick(e)}>
-          <div id={`dialog-${id}`} className='dialog' aria-label='dialog' aria-modal='true' role='dialog' style={parsedStyles}>
+          <div
+            id={`dialog-${id}`}
+            className='dialog'
+            aria-label='dialog'
+            aria-modal='true'
+            role='dialog'
+            style={parsedStyles}
+          >
             {!persistent && showCloseButton &&
               <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
                 <CloseIcon alt='' />
