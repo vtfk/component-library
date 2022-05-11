@@ -207,7 +207,7 @@ export function CustomRendering () {
           <Button style={{ marginLeft: 'auto', marginRight: 'auto' }}>{header.label}</Button>
         )
       },
-      itemRender: (value, item, index, header) => {
+      itemRender: (value, item, header, index) => {
         return (
           <div>
             <IconButton
