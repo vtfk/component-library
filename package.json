@@ -27,9 +27,9 @@
     "build-watch": "npm run build -- -w",
     "storybook": "npm run test && cross-env STORYBOOK_DEBUG=true SBCONFIG_CONFIG_DIR=scripts/storybook start-storybook -p 4000 --quiet --ci",
     "build-storybook": "build-storybook -c scripts/storybook -o storybook-static",
-    "release:patch": "npm run test && npm run build && release patch",
-    "release:minor": "npm run test && npm run build && release minor",
-    "release:major": "npm run test && npm run build && release major",
+    "release:patch": "npm run test && npm run build && npm run build-storybook && release patch",
+    "release:minor": "npm run test && npm run build && npm run build-storybook && release minor",
+    "release:major": "npm run test && npm run build && npm run build-storybook && release major",
     "refresh": "rm -rf node_modules/ && rm package-lock.json && npm install",
     "now-build": "npm run build-storybook"
   },
