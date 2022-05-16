@@ -18,6 +18,7 @@ import { ReactComponent as Edit } from './icon-edit.svg'
 import { ReactComponent as Close } from './icon-close.svg'
 import { ReactComponent as Menu } from './icon-menu.svg'
 import { ReactComponent as Pause } from './icon-pause.svg'
+import { ReactComponent as Play } from './icon-play.svg'
 import { ReactComponent as Retry } from './icon-retry.svg'
 import { ReactComponent as Search } from './icon-search.svg'
 import { ReactComponent as ChevronUp } from './icon-chevron-up.svg'
@@ -51,6 +52,7 @@ export const icons = {
   menu: <Menu />,
   search: <Search />,
   pause: <Pause />,
+  play: <Play />,
   retry: <Retry />,
   delete: <Delete />,
   edit: <Edit />,

@@ -212,18 +212,18 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
       if (!header?.tooltip) return ''
 
       // If type is string, just return the text
-      if (typeof header.tooltip === 'string') return header.tooltip.toString();
+      if (typeof header.tooltip === 'string') return header.tooltip.toString()
 
       // If the type is function, attempt to execute it
       if (typeof header.tooltip === 'function') {
         const val = header.tooltip(header, index)
-        return val.toString();
+        return val.toString()
       }
 
       // Return default
-      return '';
+      return ''
     } catch {
-      return '';
+      return ''
     }
   }
 
@@ -247,13 +247,13 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
       // If callback function - execute it then return
       if (typeof header.itemTooltip === 'function') {
         const val = header.itemTooltip(value, item, header, index)
-        return val.toString();
+        return val.toString()
       }
-      
+
       // Return default
       return ''
     } catch {
-      return '';
+      return ''
     }
   }
 
@@ -275,7 +275,7 @@ export function Table ({ headers, items, itemId = '_id', selectedIds, mode, show
                 {
               // Render checkboxs for selecting all items if applicable
               showSelect && items &&
-                <th className={mergeClasses('vtfk-table-checkbox-cell', headerClass)} style={{...headerStyle }}>
+                <th className={mergeClasses('vtfk-table-checkbox-cell', headerClass)} style={{ ...headerStyle }}>
                   <Checkbox checked={isAllSelected} name='checkAll' value='checkAll' label={' '} onChange={(e) => selectAll()} style={{ padding: 0, margin: 0, marginRight: 0, display: 'block' }} />
                 </th>
             }
