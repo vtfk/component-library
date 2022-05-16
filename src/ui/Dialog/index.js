@@ -11,6 +11,8 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   // Set an unique ID for the dialog
   const [id] = useState(`${nanoid()}`)
 
+  const [clickStartedInsideDialog, setClickStartedInsideDialog] = useState(undefined)
+
   const parsedStyles = useMemo(() => {
     const _style = { ...style }
     if (width) _style.width = width
@@ -38,10 +40,16 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
       }
     }
 
+    function handleMouseUp(e) {
+      setClickStartedInsideDialog(false);
+    }
+
     // Register eventhandlers
-    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mouseup', handleMouseUp);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mouseup', handleMouseUp)
     }
   })
 
@@ -58,6 +66,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   }
 
   function handleBackdropClick (e) {
+    if(clickStartedInsideDialog) return;
     const clickedBackdrop = e.target.id === `dialog-backdrop-${id}`
 
     if (isOpen && clickedBackdrop) {
@@ -76,7 +85,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   return (
     isOpen === true &&
       <ScrollLock isActive={isOpen}>
-        <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onClick={(e) => handleBackdropClick(e)}>
+        <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onMouseUp={(e) => handleBackdropClick(e)}>
           <div
             id={`dialog-${id}`}
             className='dialog'
@@ -84,7 +93,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
             aria-modal='true'
             role='dialog'
             style={parsedStyles}
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+            onMouseDown={(e) => { setClickStartedInsideDialog(true); e.preventDefault(); e.stopPropagation(); }}
           >
             {!persistent && showCloseButton &&
               <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
