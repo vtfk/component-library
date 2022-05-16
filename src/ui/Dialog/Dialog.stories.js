@@ -113,3 +113,51 @@ export function Nested () {
     </>
   )
 }
+
+export function PreventScrollingBehind () {
+  const [dialogOpen, setIsDialogOpen] = useState(false)
+  const [dialog2Open, setDialog2Open] = useState(false)
+
+  return (
+    <>
+      <div style={{ height: '200vh' }}>
+        This is big div twice the height of the screen, it should not scroll when dialog is open
+        <Button onClick={() => { setIsDialogOpen(!dialogOpen) }}>{`${!dialogOpen ? 'Åpne' : 'Lukk'} modal`}</Button>
+      </div>
+      <p />
+
+      <Dialog
+        isOpen={dialogOpen}
+        onDismiss={() => { setIsDialogOpen(false) }}
+        showCloseButton
+        width='60%'
+        height='50%'
+      >
+        <DialogTitle>This is the first dialog</DialogTitle>
+        <DialogBody>
+          Click to open another dialog
+        </DialogBody>
+        <DialogActions>
+          <Button size='small' onClick={() => setDialog2Open(true)}>Open nested dialog</Button>
+          <Button size='small' type='secondary' onClick={() => { setIsDialogOpen(false) }}>Close</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        isOpen={dialog2Open}
+        onDismiss={() => setDialog2Open(false)}
+        width='50%'
+        height='30%'
+      >
+        <DialogTitle>
+          This is the second nested dialog
+        </DialogTitle>
+        <DialogBody>
+          Test
+        </DialogBody>
+        <DialogActions>
+          <Button size='small' onClick={() => setDialog2Open(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
+}

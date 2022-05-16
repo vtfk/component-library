@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid'
 import { ReactComponent as CloseIcon } from './icon-close.svg'
 
 import './styles.scss'
+import ScrollLock from 'react-scrolllock'
 
 export function Dialog ({ isOpen, title, className, persistent, width, height, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
@@ -74,9 +75,17 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   // Render the component
   return (
     isOpen === true &&
-      <>
+      <ScrollLock isActive={isOpen}>
         <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onClick={(e) => handleBackdropClick(e)}>
-          <div id={`dialog-${id}`} className='dialog' aria-label='dialog' aria-modal='true' role='dialog' style={parsedStyles}>
+          <div
+            id={`dialog-${id}`}
+            className='dialog'
+            aria-label='dialog'
+            aria-modal='true'
+            role='dialog'
+            style={parsedStyles}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          >
             {!persistent && showCloseButton &&
               <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
                 <CloseIcon alt='' />
@@ -84,7 +93,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
             {props.children}
           </div>
         </div>
-      </>
+      </ScrollLock>
   )
 }
 
