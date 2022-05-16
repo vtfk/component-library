@@ -5,12 +5,11 @@ import { nanoid } from 'nanoid'
 import { ReactComponent as CloseIcon } from './icon-close.svg'
 
 import './styles.scss'
+import ScrollLock from 'react-scrolllock'
 
 export function Dialog ({ isOpen, title, className, persistent, width, height, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
   const [id] = useState(`${nanoid()}`)
-  // Parents that have overflow set
-  const [overflowParents, setoverflowParents] = useState();
 
   const parsedStyles = useMemo(() => {
     const _style = { ...style }
@@ -46,79 +45,6 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
     }
   })
 
-  useEffect(() => {
-    const dialogs = document.getElementsByClassName('dialog')
-    const thisDialog = document.getElementById(`dialog-${id}`);
-
-    /**
-     * Retreives all parents of an element
-     * @param {HTMLElement} element 
-     * @returns {HTMLElement[] | undefined}
-     */
-    function getParents(element) {
-      if(!element) return;
-      if(!element.parentNode) return;
-      const parents = [];
-      let currentElement = element;
-      while(currentElement.parentNode && currentElement.parentNode.style) {
-        currentElement = currentElement.parentNode;
-        console.log('Current name', currentElement.nodeName)
-        parents.push(currentElement);
-      }
-      return parents;
-    }
-
-    function enableScrolling() {
-      if(dialogs.length > 0) return;
-
-      // Reset all overflow settings
-      if(overflowParents && overflowParents.length > 0) {
-        for(const parent of overflowParents) {
-          parent.element.style = {
-            ...parent.element.style,
-            ...parent.style
-          }
-        }
-        setoverflowParents([]);
-      }
-    }
-
-    if(isOpen) {
-      // Get all parents
-      let parents = getParents(thisDialog);
-      
-      if(parents && parents.length > 0) {
-        // Filter to only the parents where overflow is specified
-        console.log('Found parents', parents)
-        // Parent state
-        let parentState = [];
-        for(const parent of parents) {
-          // Retreive the parents overflow state
-          parentState.push({
-            element: parent,
-            style: {
-              overflow: parent.style.overflow,
-              overflowX: parent.style.overflowX,
-              overflowY: parent.style.overflowY
-            }
-          })
-          // Set the overflow to hidden
-          parent.style.overflow = 'hidden';
-          parent.style.overflowX = 'hidden';
-          parent.style.overflowY = 'hidden';
-        }
-        setoverflowParents(parentState);
-      }
-    } else {
-      enableScrolling();
-    }
-
-    return () => {
-      enableScrolling();
-    }
-  }, [isOpen])
-
-
   // Plays the shaking animation-effect when the dialog is persistent
   function shakeDialogBox () {
     const dialog = document.getElementById(`dialog-${id}`)
@@ -149,7 +75,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   // Render the component
   return (
     isOpen === true &&
-      <>
+      <ScrollLock isActive={isOpen}>
         <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onClick={(e) => handleBackdropClick(e)}>
           <div
             id={`dialog-${id}`}
@@ -158,6 +84,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
             aria-modal='true'
             role='dialog'
             style={parsedStyles}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
           >
             {!persistent && showCloseButton &&
               <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
@@ -166,7 +93,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
             {props.children}
           </div>
         </div>
-      </>
+      </ScrollLock>
   )
 }
 
