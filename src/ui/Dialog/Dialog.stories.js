@@ -125,7 +125,7 @@ export function PreventScrollingBehind () {
         <Button onClick={() => { setIsDialogOpen(!dialogOpen) }}>{`${!dialogOpen ? 'Åpne' : 'Lukk'} modal`}</Button>
       </div>
       <p />
-      
+
       <Dialog
         isOpen={dialogOpen}
         onDismiss={() => { setIsDialogOpen(false) }}

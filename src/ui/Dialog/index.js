@@ -9,6 +9,8 @@ import './styles.scss'
 export function Dialog ({ isOpen, title, className, persistent, width, height, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
   const [id] = useState(`${nanoid()}`)
+  // Parents that have overflow set
+  const [overflowParents, setoverflowParents] = useState();
 
   const parsedStyles = useMemo(() => {
     const _style = { ...style }
@@ -45,30 +47,69 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   })
 
   useEffect(() => {
-    function disableScrolling(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.returnValue = false; 
+    const dialogs = document.getElementsByClassName('dialog')
+    const thisDialog = document.getElementById(`dialog-${id}`);
+
+    /**
+     * Retreives all parents of an element
+     * @param {HTMLElement} element 
+     * @returns {HTMLElement[] | undefined}
+     */
+    function getParents(element) {
+      if(!element) return;
+      if(!element.parentNode) return;
+      const parents = [];
+      let currentElement = element;
+      while(currentElement.parentNode && currentElement.parentNode.style) {
+        currentElement = currentElement.parentNode;
+        console.log('Current name', currentElement.nodeName)
+        parents.push(currentElement);
+      }
+      return parents;
     }
 
     function enableScrolling() {
-      // Retreive all dialogs
-      const dialogs = document.getElementsByClassName('dialog')
-      console.log('All dialogs', dialogs)
-      
-      if(dialogs.length > 1) return;
+      if(dialogs.length > 0) return;
 
-      document.querySelector("body").style.overflow = 'auto'
-      window.removeEventListener('scroll', disableScrolling)
-      window.removeEventListener('DOMMouseScroll', disableScrolling)
+      // Reset all overflow settings
+      if(overflowParents && overflowParents.length > 0) {
+        for(const parent of overflowParents) {
+          parent.element.style = {
+            ...parent.element.style,
+            ...parent.style
+          }
+        }
+        setoverflowParents([]);
+      }
     }
 
     if(isOpen) {
-      window.addEventListener('scroll', disableScrolling)
-      window.addEventListener('DOMMouseScroll', disableScrolling)
-      document.querySelector("body").style.overflow = 'hidden'
+      // Get all parents
+      let parents = getParents(thisDialog);
+      
+      if(parents && parents.length > 0) {
+        // Filter to only the parents where overflow is specified
+        console.log('Found parents', parents)
+        // Parent state
+        let parentState = [];
+        for(const parent of parents) {
+          // Retreive the parents overflow state
+          parentState.push({
+            element: parent,
+            style: {
+              overflow: parent.style.overflow,
+              overflowX: parent.style.overflowX,
+              overflowY: parent.style.overflowY
+            }
+          })
+          // Set the overflow to hidden
+          parent.style.overflow = 'hidden';
+          parent.style.overflowX = 'hidden';
+          parent.style.overflowY = 'hidden';
+        }
+        setoverflowParents(parentState);
+      }
     } else {
-      console.log('I am here')
       enableScrolling();
     }
 
