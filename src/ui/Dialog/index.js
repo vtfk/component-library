@@ -8,7 +8,7 @@ import './styles.scss'
 import ScrollLock from 'react-scrolllock'
 import { Draggable } from '../Draggable'
 
-export function Dialog ({ isOpen, title, className, persistent, width, height, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
+export function Dialog ({ isOpen, title, className, persistent, width, height, draggable, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
   const [id] = useState(`${nanoid()}`)
 
@@ -34,18 +34,31 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
       }
     }
 
-    function handleMouseUp(e) {
-      setClickStartedInsideDialog(false);
+    function handleMouseUp (e) {
+      setClickStartedInsideDialog(false)
     }
 
     // Register eventhandlers
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('mouseup', handleMouseUp)
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown)
       document.removeEventListener('mouseup', handleMouseUp)
     }
   })
+
+  const dialogStyle = useMemo(() => {
+    const _s = {}
+    if (!draggable) {
+      _s.width = width || '100%'
+      _s.height = height || '100%'
+    } else {
+      _s.width = '100%';
+      _s.height = '100%';
+    }
+
+    return _s
+  }, [draggable, width, height])
 
   // Plays the shaking animation-effect when the dialog is persistent
   function shakeDialogBox () {
@@ -60,7 +73,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   }
 
   function handleBackdropClick (e) {
-    if(clickStartedInsideDialog) return;
+    if (clickStartedInsideDialog) return
     const clickedBackdrop = e.target.id === `dialog-backdrop-${id}`
 
     if (isOpen && clickedBackdrop) {
@@ -79,26 +92,27 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, s
   return (
     isOpen === true &&
       <ScrollLock isActive={isOpen}>
-          <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onMouseUp={(e) => handleBackdropClick(e)}>
-            <Draggable width={width} height={height}>
-              <div
-                id={`dialog-${id}`}
-                className='dialog'
-                aria-label='dialog'
-                aria-modal='true'
-                role='dialog'
-                style={style}
-                onMouseDown={(e) => { setClickStartedInsideDialog(true); }}
-              >
-                {!persistent && showCloseButton &&
-                  <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
-                    <CloseIcon alt='' />
-                  </button>}
-                {props.children}
-              </div>
-            </Draggable>
-          </div>
-        
+        <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onMouseUp={(e) => handleBackdropClick(e)}>
+          <Draggable active={draggable} width={width} height={height}>
+            <div
+              id={`dialog-${id}`}
+              className='dialog'
+              aria-label='dialog'
+              aria-modal='true'
+              role='dialog'
+              style={style}
+              onMouseDown={(e) => { setClickStartedInsideDialog(true) }}
+            >
+              <div className='dialog-drag-area'/>
+              {!persistent && showCloseButton &&
+                <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
+                  <CloseIcon alt='' />
+                </button>}
+              {props.children}
+            </div>
+          </Draggable>
+        </div>
+
       </ScrollLock>
   )
 }
@@ -130,6 +144,7 @@ export function DialogActions ({ children, style }) {
 Dialog.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
+  draggable: PropTypes.bool,
   height: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onClickOutside: PropTypes.func,

@@ -41,6 +41,15 @@
   z-index: 1001;
 }
 
+.dialog-drag-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 20%;
+  height: $baseUnit * 4;
+  cursor: move;
+}
+
 .dialog-title {
   font-weight: 500;
   font-size: x-large;
