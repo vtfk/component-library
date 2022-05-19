@@ -45,9 +45,13 @@
   position: absolute;
   top: 0;
   left: 0;
-  right: 20%;
+  right: 0;
   height: $baseUnit * 4;
   cursor: move;
+}
+
+.dialog-no-select {
+  user-select: none!important;
 }
 
 .dialog-title {

@@ -1,85 +1,93 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import PropTypes from 'prop-types'
 import './styles.scss'
 
-export function Draggable ({ children, active, width, height }) {
+export function Draggable ({ children, active, contained, width, height }) {
   const [isDragging, setIsDragging] = useState(false)
   const [coordinates, setCoordinates] = useState(undefined)
+  const [mouseSelfDelta, setMouseSelfDelta] = useState(undefined)
   const thisRef = useRef(undefined)
 
   const parsedStyle = useMemo(() => {
-    let _s = { width, height };
-    if(coordinates?.x && coordinates?.y) {
+    const _s = { width, height }
+    if (coordinates?.x && coordinates?.y) {
       _s.top = `${coordinates.y}px`
       _s.left = `${coordinates.x}px`
     }
-    console.log('Style', _s);
-    return _s;
+    return _s
   }, [width, height, coordinates])
 
   useEffect(() => {
+    /**
+     *
+     * @param {MouseEvent} e
+     * @returns
+     */
     function handleMouseMove (e) {
-      if(!isDragging) return;
-      console.log('Moving', e)
-      console.log(`Client - ${e.clientX}:${e.clientY}`)
-      console.log(`Layer - ${e.layerX}:${e.layerY}`)
-      console.log(`Offset - ${e.offsetX}:${e.offsetY}`)
-      console.log(`Page - ${e.pageX}:${e.pageY}`)
-      console.log(`Screen - ${e.screenX}:${e.screenY}`)
-      console.log('Ref', thisRef?.current)
+      if (!active || !isDragging) return
 
+      if (thisRef?.current) {
+        let x = e.clientX - mouseSelfDelta.x
+        let y = e.clientY - mouseSelfDelta.y
 
-      if(thisRef?.current) {
-        console.dir(thisRef.current)
-        console.log(`Client - ${e.clientX}:${e.clientY}`)
-        console.log(`Dialog - ${thisRef.current.offsetLeft} : ${thisRef.current.offsetTop} `)
+        const width = thisRef.current.clientWidth
+        const height = thisRef.current.clientHeight
+        const bboxRight = x + thisRef.current.clientWidth
+        const bboxBottom = y + height
+        const parentWidth = thisRef.current.parentNode.clientWidth
+        const parentHeight = thisRef.current.parentNode.clientHeight
 
-        let deltaX = e.clientX - (thisRef.current.offsetLeft / 2);
-        let deltaY = e.clientY - (thisRef.current.offsetTop / 2);
-
-        // deltaX = Math.max(deltaX, 0);
-        // deltaY = Math.min(1080, deltaY);
+        if (contained) {
+          if (x <= 1) x = 1
+          else if (bboxRight >= parentWidth) x = parentWidth - width
+          if (y <= 1) y = 1
+          else if (bboxBottom >= parentHeight) y = parentHeight - height
+        } else {
+          if (x === 0) x = -1
+          if (y === 0) y = -1
+        }
 
         setCoordinates({
-          x: deltaX,
-          y: deltaY
+          x,
+          y
         })
       }
     }
-    console.log('Registering event listerner');
+
     document.addEventListener('mousemove', handleMouseMove)
 
     return () => {
-      console.log('Unregistering')
       document.removeEventListener('mousemove', handleMouseMove)
     }
-  }, [isDragging])
+  }, [active, isDragging])
 
   useEffect(() => {
-    function handleMouseUp() {
-      setIsDragging(false);
+    function handleMouseUp () {
+      setIsDragging(false)
     }
 
     document.addEventListener('mouseup', handleMouseUp)
 
     return () => {
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mouseup', handleMouseUp)
     }
   })
 
-  useEffect(() => {
-    if (thisRef) {
-      setCoordinates(thisRef)
-    }
-    console.log(coordinates)
-  }, [thisRef])
-
   function handleDragStart (e) {
-    console.log('Drag started', e)
-    setIsDragging(true)
+    if (thisRef) {
+      setIsDragging(true)
+      setMouseSelfDelta({
+        x: e.clientX - thisRef.current.offsetLeft,
+        y: e.clientY - thisRef.current.offsetTop
+      })
+      setCoordinates({
+        x: thisRef.current.offsetLeft,
+        y: thisRef.current.offsetTop
+      })
+    }
   }
 
   function handleDragEnd (e) {
-    console.log('Drag stopped')
     setIsDragging(false)
   }
 
@@ -88,4 +96,12 @@ export function Draggable ({ children, active, width, height }) {
       {children && children}
     </div>
   )
+}
+
+Draggable.propTypes = {
+  active: PropTypes.bool,
+  children: PropTypes.node,
+  contained: PropTypes.bool,
+  height: PropTypes.string,
+  width: PropTypes.string
 }

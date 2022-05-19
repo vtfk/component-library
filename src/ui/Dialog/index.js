@@ -8,11 +8,12 @@ import './styles.scss'
 import ScrollLock from 'react-scrolllock'
 import { Draggable } from '../Draggable'
 
-export function Dialog ({ isOpen, title, className, persistent, width, height, draggable, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
+export function Dialog ({ isOpen, title, className, persistent, width, height, draggable, contained, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
   const [id] = useState(`${nanoid()}`)
 
   const [clickStartedInsideDialog, setClickStartedInsideDialog] = useState(undefined)
+  const [isDragging, setIsDragging] = useState(false)
 
   // onCreated lifecycle-hook
   useEffect(() => {
@@ -36,6 +37,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
 
     function handleMouseUp (e) {
       setClickStartedInsideDialog(false)
+      setIsDragging(false)
     }
 
     // Register eventhandlers
@@ -53,12 +55,19 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
       _s.width = width || '100%'
       _s.height = height || '100%'
     } else {
-      _s.width = '100%';
-      _s.height = '100%';
+      _s.width = '100%'
+      _s.height = '100%'
     }
 
     return _s
   }, [draggable, width, height])
+
+  const dialogClasses = useMemo(() => {
+    let classes = 'dialog'
+    if (isDragging) classes += ' dialog-no-select'
+
+    return classes
+  }, [isDragging])
 
   // Plays the shaking animation-effect when the dialog is persistent
   function shakeDialogBox () {
@@ -93,17 +102,17 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
     isOpen === true &&
       <ScrollLock isActive={isOpen}>
         <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onMouseUp={(e) => handleBackdropClick(e)}>
-          <Draggable active={draggable} width={width} height={height}>
+          <Draggable active={draggable && isDragging} contained={contained} width={width} height={height}>
             <div
               id={`dialog-${id}`}
-              className='dialog'
+              className={dialogClasses}
               aria-label='dialog'
               aria-modal='true'
               role='dialog'
-              style={style}
-              onMouseDown={(e) => { setClickStartedInsideDialog(true) }}
+              style={dialogStyle}
+              onMouseDown={() => { setClickStartedInsideDialog(true) }}
             >
-              <div className='dialog-drag-area'/>
+              <div className='dialog-drag-area' onMouseDown={() => setIsDragging(true)} />
               {!persistent && showCloseButton &&
                 <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
                   <CloseIcon alt='' />
@@ -144,6 +153,7 @@ export function DialogActions ({ children, style }) {
 Dialog.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
+  contained: PropTypes.bool,
   draggable: PropTypes.bool,
   height: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,

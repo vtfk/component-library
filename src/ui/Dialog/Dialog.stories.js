@@ -161,3 +161,54 @@ export function PreventScrollingBehind () {
     </>
   )
 }
+
+export function Draggable () {
+  const [dialogOpen, setIsDialogOpen] = useState(false)
+  const [dialog2Open, setDialog2Open] = useState(false)
+
+  return (
+    <>
+      <div>
+        <Button onClick={() => { setIsDialogOpen(!dialogOpen) }}>{`${!dialogOpen ? 'Åpne' : 'Lukk'} modal`}</Button>
+      </div>
+      <p />
+
+      <Dialog
+        isOpen={dialogOpen}
+        onDismiss={() => { setIsDialogOpen(false) }}
+        showCloseButton
+        draggable
+        contained
+        width='60%'
+        height='50%'
+      >
+        <DialogTitle>This is the first dialog</DialogTitle>
+        <DialogBody>
+          Click and drag the top part of the dialog to move it.<br />
+          This dialog is <b>contained</b> and is not allowed to move outside it's parents bounds
+        </DialogBody>
+        <DialogActions>
+          <Button size='small' onClick={() => setDialog2Open(true)}>Open nested dialog</Button>
+          <Button size='small' type='secondary' onClick={() => { setIsDialogOpen(false) }}>Close</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        isOpen={dialog2Open}
+        onDismiss={() => setDialog2Open(false)}
+        width='50%'
+        draggable
+        height='30%'
+      >
+        <DialogTitle>
+          Draggable nested dialog
+        </DialogTitle>
+        <DialogBody>
+          This dialog is also draggable, but it is not <b>contained</b>
+        </DialogBody>
+        <DialogActions>
+          <Button size='small' onClick={() => setDialog2Open(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
+}
