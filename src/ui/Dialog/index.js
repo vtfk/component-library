@@ -49,19 +49,6 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
     }
   })
 
-  const dialogStyle = useMemo(() => {
-    const _s = {}
-    if (!draggable) {
-      _s.width = width || '100%'
-      _s.height = height || '100%'
-    } else {
-      _s.width = '100%'
-      _s.height = '100%'
-    }
-
-    return _s
-  }, [draggable, width, height])
-
   const dialogClasses = useMemo(() => {
     let classes = 'dialog'
     if (isDragging) classes += ' dialog-no-select'
@@ -109,10 +96,10 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
               aria-label='dialog'
               aria-modal='true'
               role='dialog'
-              style={dialogStyle}
+              style={style}
               onMouseDown={() => { setClickStartedInsideDialog(true) }}
             >
-              <div className='dialog-drag-area' onMouseDown={() => setIsDragging(true)} />
+              { draggable && <div className='dialog-drag-area' onMouseDown={() => setIsDragging(true)} /> }
               {!persistent && showCloseButton &&
                 <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
                   <CloseIcon alt='' />
