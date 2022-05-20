@@ -21,6 +21,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
   gap: 0.5rem;
   border-radius: 10px;
   min-width: 200px;
@@ -37,6 +39,19 @@
   top: $baseUnit * 2;
   right: $baseUnit * 2;
   z-index: 1001;
+}
+
+.dialog-drag-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $baseUnit * 4;
+  cursor: move;
+}
+
+.dialog-no-select {
+  user-select: none!important;
 }
 
 .dialog-title {
