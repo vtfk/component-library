@@ -99,7 +99,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
               style={style}
               onMouseDown={() => { setClickStartedInsideDialog(true) }}
             >
-              { draggable && <div className='dialog-drag-area' onMouseDown={() => setIsDragging(true)} /> }
+              {draggable && <div className='dialog-drag-area' onMouseDown={() => setIsDragging(true)} />}
               {!persistent && showCloseButton &&
                 <button className='dialog-close-btn' onClick={(e) => { handleCloseBtnClick(); e.preventDefault() }} aria-label='Lukk'>
                   <CloseIcon alt='' />
