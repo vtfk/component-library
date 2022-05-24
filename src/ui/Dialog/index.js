@@ -160,6 +160,8 @@ Dialog.propTypes = {
 }
 
 Dialog.defaultProps = {
+  contained: true,
+  draggable: true,
   persistent: false,
   resizeable: true,
   showCloseButton: true

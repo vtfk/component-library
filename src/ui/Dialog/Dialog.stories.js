@@ -26,6 +26,8 @@ export function Basic () {
       <Dialog
         isOpen={modalOpen}
         onDismiss={() => { setIsModalOpen(false) }}
+        draggable={false}
+        resizeable={false}
       >
         <DialogTitle isShowCloseButton><Heading3>This is the title of the modal</Heading3></DialogTitle>
         <DialogBody>
@@ -119,6 +121,8 @@ export function Persistent () {
       <Dialog
         isOpen={modalOpen}
         persistent
+        draggable={false}
+        resizeable={false}
         onDismiss={() => { setIsModalOpen(false) }}
         showCloseButton
       >
@@ -147,6 +151,8 @@ export function Nested () {
         isOpen={dialogOpen}
         onDismiss={() => { setIsDialogOpen(false) }}
         showCloseButton
+        draggable={false}
+        resizeable={false}
         width='60%'
         height='50%'
       >
@@ -162,6 +168,8 @@ export function Nested () {
       <Dialog
         isOpen={dialog2Open}
         onDismiss={() => setDialog2Open(false)}
+        draggable={false}
+        resizeable={false}
         width='50%'
         height='30%'
       >
@@ -194,6 +202,8 @@ export function PreventScrollingBehind () {
       <Dialog
         isOpen={dialogOpen}
         onDismiss={() => { setIsDialogOpen(false) }}
+        draggable={false}
+        resizeable={false}
         showCloseButton
         width='60%'
         height='50%'
@@ -210,6 +220,8 @@ export function PreventScrollingBehind () {
       <Dialog
         isOpen={dialog2Open}
         onDismiss={() => setDialog2Open(false)}
+        draggable={false}
+        resizeable={false}
         width='50%'
         height='30%'
       >
@@ -262,6 +274,8 @@ export function Draggable () {
         onDismiss={() => setDialog2Open(false)}
         width='50%'
         draggable
+        contained={false}
+        resizeable={false}
         height='30%'
       >
         <DialogTitle>
