@@ -43,6 +43,71 @@ export function Basic () {
   )
 }
 
+export function Resizeable () {
+  const [dialogOpen, setIsDialogOpen] = useState(false)
+  const [dialog2Open, setDialog2Open] = useState(false)
+  const [dialog3Open, setDialog3Open] = useState(false)
+
+  return (
+    <>
+      <p />
+      <Button onClick={() => { setIsDialogOpen(!dialogOpen) }}>{`${!dialogOpen ? 'Åpne' : 'Lukk'} modal`}</Button>
+      <Dialog
+        isOpen={dialogOpen}
+        onDismiss={() => { setIsDialogOpen(false) }}
+        showCloseButton
+        width='60%'
+        height='50%'
+        resizeable
+      >
+        <DialogTitle>This is the first dialog, and it is resizeable</DialogTitle>
+        <DialogBody>
+          Click to open another dialog
+        </DialogBody>
+        <DialogActions>
+          <Button size='small' onClick={() => setDialog2Open(true)}>Open nested dialog</Button>
+          <Button size='small' onClick={() => setDialog3Open(true)}>Open nested, resizeable dialog</Button>
+          <Button size='small' type='secondary' onClick={() => { setIsDialogOpen(false) }}>Close</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        isOpen={dialog2Open}
+        onDismiss={() => setDialog2Open(false)}
+        width='50%'
+        height='30%'
+        resizeable={false}
+      >
+        <DialogTitle>
+          This is a nested dialog, this should not be resizeable
+        </DialogTitle>
+        <DialogBody>
+          Test
+        </DialogBody>
+        <DialogActions>
+          <Button size='small' onClick={() => setDialog2Open(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        isOpen={dialog3Open}
+        onDismiss={() => setDialog3Open(false)}
+        width='50%'
+        height='30%'
+        resizeable
+      >
+        <DialogTitle>
+          This is a nested dialog, this should be resizeable
+        </DialogTitle>
+        <DialogBody>
+          Test
+        </DialogBody>
+        <DialogActions>
+          <Button size='small' onClick={() => setDialog3Open(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
+}
+
 export function Persistent () {
   const [modalOpen, setIsModalOpen] = useState(false)
 

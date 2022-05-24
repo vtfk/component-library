@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid'
 
@@ -8,12 +8,13 @@ import './styles.scss'
 import ScrollLock from 'react-scrolllock'
 import { Draggable } from '../Draggable'
 
-export function Dialog ({ isOpen, title, className, persistent, width, height, draggable, contained, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
+export function Dialog ({ isOpen, title, className, persistent, width, height, draggable, contained, resizeable, showCloseButton, onDismiss, onCloseBtnClick, onClickOutside, onPressEscape, style, ...props }) {
   // Set an unique ID for the dialog
   const [id] = useState(`${nanoid()}`)
 
   const [clickStartedInsideDialog, setClickStartedInsideDialog] = useState(undefined)
   const [isDragging, setIsDragging] = useState(false)
+  const dialogRef = useRef(null)
 
   // onCreated lifecycle-hook
   useEffect(() => {
@@ -52,6 +53,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
   const dialogClasses = useMemo(() => {
     let classes = 'dialog'
     if (isDragging) classes += ' dialog-no-select'
+    if (resizeable) classes += ' dialog-resizeable'
 
     return classes
   }, [isDragging])
@@ -89,7 +91,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
     isOpen === true &&
       <ScrollLock isActive={isOpen}>
         <div id={`dialog-backdrop-${id}`} className={`dialog-backdrop ${className}`} onMouseUp={(e) => handleBackdropClick(e)}>
-          <Draggable active={draggable && isDragging} contained={contained} width={width} height={height}>
+          <Draggable active={draggable && isDragging} contained={contained} width={dialogRef?.current?.offsetWidth || width} height={dialogRef?.current?.offsetHeight || height}>
             <div
               id={`dialog-${id}`}
               className={dialogClasses}
@@ -98,6 +100,7 @@ export function Dialog ({ isOpen, title, className, persistent, width, height, d
               role='dialog'
               style={style}
               onMouseDown={() => { setClickStartedInsideDialog(true) }}
+              ref={dialogRef}
             >
               {draggable && <div className='dialog-drag-area' onMouseDown={() => setIsDragging(true)} />}
               {!persistent && showCloseButton &&
@@ -149,6 +152,7 @@ Dialog.propTypes = {
   onDismiss: PropTypes.func.isRequired,
   onPressEscape: PropTypes.func,
   persistent: PropTypes.bool,
+  resizeable: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   style: PropTypes.object,
   title: PropTypes.string,
@@ -157,6 +161,7 @@ Dialog.propTypes = {
 
 Dialog.defaultProps = {
   persistent: false,
+  resizeable: true,
   showCloseButton: true
 }
 

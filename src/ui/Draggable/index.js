@@ -102,6 +102,12 @@ Draggable.propTypes = {
   active: PropTypes.bool,
   children: PropTypes.node,
   contained: PropTypes.bool,
-  height: PropTypes.string,
-  width: PropTypes.string
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 }

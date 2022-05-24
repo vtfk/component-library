@@ -54,6 +54,10 @@
   user-select: none!important;
 }
 
+.dialog-resizeable {
+  resize: both;
+}
+
 .dialog-title {
   font-weight: 500;
   font-size: x-large;
