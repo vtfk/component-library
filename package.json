@@ -62,7 +62,7 @@
     "@storybook/theming": "6.4.22",
     "@svgr/rollup": "6.2.1",
     "@testing-library/jest-dom": "5.16.4",
-    "@testing-library/react": "12.1.5",
+    "@testing-library/react": "13.3.0",
     "@testing-library/user-event": "13.5.0",
     "@whitespace/storybook-addon-html": "5.0.0",
     "babel-plugin-inline-react-svg": "1.1.2",
