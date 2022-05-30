@@ -37,6 +37,7 @@
     "lodash.get": "^4.4.2",
     "nanoid": "3.3.3",
     "react-datepicker": "4.7.0",
+    "react-router-dom": "^6.3.0",
     "react-scrolllock": "5.0.1",
     "use-debounce": "7.0.1"
   },

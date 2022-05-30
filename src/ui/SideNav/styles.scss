@@ -63,7 +63,7 @@
 .sidenav-item {
   display: block;
 
-  a {
+  a, .sidenav-item-onclick {
     display: block;
     padding: ($baseUnit * 2.5) ($baseUnit * 4);
     text-decoration: none;
@@ -100,7 +100,7 @@
   }
 
   &:not(.active) {
-    a {
+    a, .sidenav-item-onclick {
       &:hover,
       &:focus {
         background: rgba($swansDown, 0.3);
