@@ -7,7 +7,7 @@ import { Logo } from '../Logo'
 
 import './styles.scss'
 
-export function SideNav ({ items, title, useMini, ...props }) {
+export function SideNav ({ items, title, useMini, children, ...props }) {
   function handleItemClick (item) {
     if (item.href) {
       window.location = item.href
@@ -34,7 +34,7 @@ export function SideNav ({ items, title, useMini, ...props }) {
         <div className='sidenav-list-wrapper'>
           <ul className='sidenav-list'>
             {
-              !!props.children && props.children
+              !!children && children
             }
 
             {
@@ -66,7 +66,7 @@ export function SideNav ({ items, title, useMini, ...props }) {
             </a>
             <IconDropdownNav>
               {
-                !!props.children && props.children
+                !!children && children
               }
 
               {
