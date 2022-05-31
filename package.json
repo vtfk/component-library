@@ -83,7 +83,7 @@
     "jest-transform-css": "4.0.1",
     "marked": "4.0.16",
     "node-sass": "7.0.1",
-    "plop": "3.0.5",
+    "plop": "3.0.6",
     "postcss": "8.4.12",
     "prop-types": "15.8.1",
     "react": "*",
