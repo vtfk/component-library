@@ -61,14 +61,14 @@ describe('Select', () => {
     expect(screen.getByRole('button')).toHaveTextContent('Placeholder')
   })
 
-  test('opening adds correct class', () => {
+  test('opening adds correct class', async () => {
     render(<SelectComponent />)
     expect(screen.getByTestId('container')).toHaveClass('is-closed')
 
-    userEvent.click(screen.getByRole('button')) // open select
+    await userEvent.click(screen.getByRole('button')) // open select
     expect(screen.getByTestId('container')).toHaveClass('is-open')
 
-    userEvent.click(screen.getByRole('button')) // close select
+    await userEvent.click(screen.getByRole('button')) // close select
     expect(screen.getByTestId('container')).toHaveClass('is-closed')
   })
 
@@ -76,7 +76,7 @@ describe('Select', () => {
     render(<SelectComponent />)
     expect(screen.getByTestId('container')).toHaveClass('not-selected')
 
-    userEvent.click(screen.getAllByRole('radio')[0]) // select first item
+    await userEvent.click(screen.getAllByRole('radio')[0]) // select first item
     expect(screen.getByTestId('container')).toHaveClass('has-selected')
   })
 
@@ -86,12 +86,12 @@ describe('Select', () => {
     expect(mockChange).toBeCalledTimes(0)
 
     // select first item
-    userEvent.click(screen.getAllByRole('radio')[0])
+    await userEvent.click(screen.getAllByRole('radio')[0])
     expect(mockChange).toBeCalledTimes(2) // onClick triggers onChange
     expect(mockChange.mock.calls[1][0]).toBe(items[0])
 
     // select second item
-    userEvent.click(screen.getAllByRole('radio')[1])
+    await userEvent.click(screen.getAllByRole('radio')[1])
     expect(mockChange).toBeCalledTimes(4)
     expect(mockChange.mock.calls[3][0]).toBe(items[1])
   })
@@ -108,14 +108,14 @@ describe('SelectMultiple', () => {
     expect(screen.getByRole('button')).toHaveTextContent('Placeholder')
   })
 
-  test('opening adds correct class', () => {
+  test('opening adds correct class', async () => {
     render(<SelectMultipleComponent />)
     expect(screen.getByTestId('container')).toHaveClass('is-closed')
 
-    userEvent.click(screen.getByRole('button')) // open select
+    await userEvent.click(screen.getByRole('button')) // open select
     expect(screen.getByTestId('container')).toHaveClass('is-open')
 
-    userEvent.click(screen.getByRole('button')) // close select
+    await userEvent.click(screen.getByRole('button')) // close select
     expect(screen.getByTestId('container')).toHaveClass('is-closed')
   })
 
@@ -123,7 +123,7 @@ describe('SelectMultiple', () => {
     render(<SelectMultipleComponent />)
     expect(screen.getByTestId('container')).toHaveClass('not-selected')
 
-    userEvent.click(screen.getAllByRole('checkbox')[1]) // select first item
+    await userEvent.click(screen.getAllByRole('checkbox')[1]) // select first item
     expect(screen.getByTestId('container')).toHaveClass('has-selected')
   })
 
@@ -133,17 +133,17 @@ describe('SelectMultiple', () => {
     expect(mockChange).toBeCalledTimes(0)
 
     // select first item
-    userEvent.click(screen.getAllByRole('checkbox')[0])
+    await userEvent.click(screen.getAllByRole('checkbox')[0])
     expect(mockChange).toBeCalledTimes(1)
     expect(mockChange.mock.calls[0][0]).toStrictEqual([items[0]])
 
     // select second item
-    userEvent.click(screen.getAllByRole('checkbox')[1])
+    await userEvent.click(screen.getAllByRole('checkbox')[1])
     expect(mockChange).toBeCalledTimes(2)
     expect(mockChange.mock.calls[1][0]).toStrictEqual([items[0], items[1]])
 
     // unselect first item
-    userEvent.click(screen.getAllByRole('checkbox')[0])
+    await userEvent.click(screen.getAllByRole('checkbox')[0])
     expect(mockChange).toBeCalledTimes(3)
     expect(mockChange.mock.calls[2][0]).toStrictEqual([items[1]])
   })

@@ -137,21 +137,21 @@ describe('Basic SearchField', () => {
     expect(onSearch).toHaveBeenCalledTimes(0)
   })
 
-  test('to have onSearch called after Enter is pressed', () => {
+  test('to have onSearch called after Enter is pressed', async () => {
     const onSearch = jest.fn()
     const { textbox, container } = basicSetup({ onSearch })
 
     const event = { target: { value: 'Hey Basic there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{enter}')
+    await userEvent.type(textbox, '{enter}')
 
     expect(textbox).toHaveValue(event.target.value)
     expect(container.getElementsByClassName('search-result').length).toBe(0)
     expect(onSearch).toHaveBeenCalledTimes(1)
   })
 
-  test('to have onSearch called after search icon is clicked', () => {
+  test('to have onSearch called after search icon is clicked', async () => {
     const onSearch = jest.fn()
     const { textbox, container } = basicSetup({ onSearch })
     const searchIcon = container.getElementsByClassName('search-icon')[0]
@@ -159,44 +159,44 @@ describe('Basic SearchField', () => {
     const event = { target: { value: 'Hey Basic there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.click(searchIcon)
+    await userEvent.click(searchIcon)
 
     expect(textbox).toHaveValue(event.target.value)
     expect(container.getElementsByClassName('search-result').length).toBe(0)
     expect(onSearch).toHaveBeenCalledTimes(1)
   })
 
-  test('doesn\'t have search results container after ArrowDown is pressed', () => {
+  test('doesn\'t have search results container after ArrowDown is pressed', async () => {
     const { textbox, container } = basicSetup()
 
     const event = { target: { value: 'Hey Basic there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{arrowdown}')
+    await userEvent.type(textbox, '{arrowdown}')
 
     expect(textbox).toHaveValue(event.target.value)
     expect(container.getElementsByClassName('search-result').length).toBe(0)
   })
 
-  test('doesn\'t have search results container after ArrowUp is pressed', () => {
+  test('doesn\'t have search results container after ArrowUp is pressed', async () => {
     const { textbox, container } = basicSetup()
 
     const event = { target: { value: 'Hey Basic there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{arrowup}')
+    await userEvent.type(textbox, '{arrowup}')
 
     expect(textbox).toHaveValue(event.target.value)
     expect(container.getElementsByClassName('search-result').length).toBe(0)
   })
 
-  test('does nothing after Escape is pressed', () => {
+  test('does nothing after Escape is pressed', async () => {
     const { textbox, container } = basicSetup()
 
     const event = { target: { value: 'Hey Basic there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{esc}')
+    await userEvent.type(textbox, '{escape}')
 
     expect(textbox).toHaveValue(event.target.value)
     expect(container.getElementsByClassName('search-result').length).toBe(0)
@@ -251,62 +251,62 @@ describe('Items SearchField', () => {
     expect(onSearch).toHaveBeenCalledTimes(1)
   })
 
-  test('to have onSearch called after search icon is clicked', () => {
+  test('to have onSearch called after search icon is clicked', async () => {
     const onSearch = jest.fn()
     const { container } = itemsSetup({ onSearch, value: 'Hey there' })
     const searchIcon = container.getElementsByClassName('search-icon')[0]
 
-    userEvent.click(searchIcon)
+    await userEvent.click(searchIcon)
 
     expect(container.getElementsByClassName('search-result').length).toBe(1)
     expect(onSearch).toHaveBeenCalledTimes(1)
   })
 
-  test('to have onSelected called after Enter is pressed - and search results container to be closed', () => {
+  test('to have onSelected called after Enter is pressed - and search results container to be closed', async () => {
     const onSelected = jest.fn()
     const { textbox, container } = itemsSetup({ onSelected })
 
     const event = { target: { value: 'Hey there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{enter}')
+    await userEvent.type(textbox, '{enter}')
 
     expect(textbox).toHaveValue(items[0].itemTitle) // the component sets "itemTitle" as value when selected
     expect(container.getElementsByClassName('search-result').length).toBe(0)
     expect(onSelected).toHaveBeenCalledTimes(1)
   })
 
-  test('should have search results container after ArrowDown is pressed', () => {
+  test('should have search results container after ArrowDown is pressed', async () => {
     const { textbox, container } = itemsSetup()
 
     const event = { target: { value: 'Hey there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{arrowdown}')
+    await userEvent.type(textbox, '{arrowdown}')
 
     expect(textbox).toHaveValue(event.target.value)
     expect(container.getElementsByClassName('search-result').length).toBe(1)
   })
 
-  test('should have search results container after ArrowUp is pressed', () => {
+  test('should have search results container after ArrowUp is pressed', async () => {
     const { textbox, container } = itemsSetup()
 
     const event = { target: { value: 'Hey there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{arrowup}')
+    await userEvent.type(textbox, '{arrowup}')
 
     expect(textbox).toHaveValue(event.target.value)
     expect(container.getElementsByClassName('search-result').length).toBe(1)
   })
 
-  test('should close search results container after Escape is pressed', () => {
+  test('should close search results container after Escape is pressed', async () => {
     const { textbox, container } = itemsSetup()
 
     const event = { target: { value: 'Hey there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{esc}')
+    await userEvent.type(textbox, '{escape}')
 
     expect(textbox).toHaveValue(event.target.value)
     expect(container.getElementsByClassName('search-result').length).toBe(0)
@@ -323,43 +323,43 @@ describe('Items SearchField', () => {
     expect(screen.getAllByRole('row').length).toBe(3)
   })
 
-  test('item 2 should be selected when ArrowDown is clicked followed by Enter', () => {
+  test('item 2 should be selected when ArrowDown is clicked followed by Enter', async () => {
     const { textbox, container } = itemsSetup()
 
     const event = { target: { value: 'Hey there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{arrowdown}{enter}')
+    await userEvent.type(textbox, '{arrowdown}{enter}')
 
     expect(textbox).toHaveValue(items[1].itemTitle) // the component sets "itemTitle" as value when selected
     expect(container.getElementsByClassName('search-result').length).toBe(0)
   })
 
-  test('shouldn\'t have search results container after ArrowDown is pressed when there\'s no input', () => {
+  test('shouldn\'t have search results container after ArrowDown is pressed when there\'s no input', async () => {
     const { textbox, container } = itemsSetup()
 
-    userEvent.type(textbox, '{arrowdown}')
+    await userEvent.type(textbox, '{arrowdown}')
 
     expect(textbox).toHaveValue('')
     expect(container.getElementsByClassName('search-result').length).toBe(0)
   })
 
-  test('shouldn\'t have search results container after ArrowUp is pressed when there\'s no input', () => {
+  test('shouldn\'t have search results container after ArrowUp is pressed when there\'s no input', async () => {
     const { textbox, container } = itemsSetup()
 
-    userEvent.type(textbox, '{arrowup}')
+    await userEvent.type(textbox, '{arrowup}')
 
     expect(textbox).toHaveValue('')
     expect(container.getElementsByClassName('search-result').length).toBe(0)
   })
 
-  test('item 3 should be selected when ArrowDown is clicked followed by Enter followed by a new search and two ArrawDown\'s and Enter', () => {
+  test('item 3 should be selected when ArrowDown is clicked followed by Enter followed by a new search and two ArrawDown\'s and Enter', async () => {
     const { textbox, container } = itemsSetup()
 
     const event = { target: { value: 'Hey there' } }
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{arrowdown}{arrowdown}{enter}')
+    await userEvent.type(textbox, '{arrowdown}{arrowdown}{enter}')
 
     expect(textbox).toHaveValue(items[2].itemTitle)
     expect(container.getElementsByClassName('search-result').length).toBe(0)
@@ -367,7 +367,7 @@ describe('Items SearchField', () => {
     event.target.value = 'Hey'
     fireEvent.change(textbox, event)
 
-    userEvent.type(textbox, '{enter}')
+    await userEvent.type(textbox, '{enter}')
 
     expect(textbox).toHaveValue(items[0].itemTitle)
     expect(container.getElementsByClassName('search-result').length).toBe(0)
