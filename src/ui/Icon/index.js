@@ -29,6 +29,7 @@ import { ReactComponent as Copy } from './icon-copy.svg'
 import { ReactComponent as Lock } from './icon-lock.svg'
 import { ReactComponent as Link } from './icon-link.svg'
 import { ReactComponent as External } from './icon-external.svg'
+import { ReactComponent as Graph } from './icon-graph.svg'
 
 import './styles.scss'
 
@@ -38,6 +39,7 @@ export const icons = {
   classes: <Classes />,
   students: <Students />,
   statistics: <Statistics />,
+  graph: <Graph />,
   help: <Help />,
   info: <Info />,
   warning: <Warning />,
