@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useMatch, useResolvedPath } from 'react-router-dom'
+import { Link, useMatch, useNavigate, useResolvedPath } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { Icon } from '../Icon'
@@ -9,7 +9,7 @@ import { Logo } from '../Logo'
 import './styles.scss'
 
 export function SideNav ({ items, title, useMini, children, ...props }) {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   function handleItemClick (item) {
     if (item.href) {
@@ -19,7 +19,7 @@ export function SideNav ({ items, title, useMini, children, ...props }) {
       item.onClick(item)
     }
     if (item.to) {
-      // navigate(item.to)
+      navigate(item.to)
     }
   }
 
