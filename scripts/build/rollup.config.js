@@ -59,5 +59,5 @@ export default {
     }),
     terser()
   ],
-  external: ['react', 'react-dom', 'prop-types']
+  external: ['react', 'react-dom', 'react-router-dom', 'prop-types']
 }
