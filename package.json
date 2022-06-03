@@ -37,7 +37,6 @@
     "lodash.get": "^4.4.2",
     "nanoid": "3.3.4",
     "react-datepicker": "4.7.0",
-    "react-router-dom": "6.3.0",
     "react-scrolllock": "5.0.1",
     "use-debounce": "7.0.1"
   },
@@ -88,6 +87,7 @@
     "prop-types": "15.8.1",
     "react": "*",
     "react-dom": "*",
+    "react-router-dom": "*",
     "react-syntax-highlighter": "15.5.0",
     "release": "6.3.1",
     "rimraf": "3.0.2",
@@ -103,7 +103,8 @@
   "peerDependencies": {
     "prop-types": ">=15.7.2",
     "react": "^16.14.0 || ^17.0.0 || ^17.0.1 || ^17.0.1 || ^17.0.1 || ^18.0.0",
-    "react-dom": "^16.14.0 || ^17.0.0 || ^17.0.1 || ^17.0.1 || ^17.0.1 || ^18.0.0"
+    "react-dom": "^16.14.0 || ^17.0.0 || ^17.0.1 || ^17.0.1 || ^17.0.1 || ^18.0.0",
+    "react-router-dom": "^6.x.x"
   },
   "babel": {
     "plugins": [
