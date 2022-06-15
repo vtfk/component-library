@@ -1,14 +1,12 @@
 @import "../Tokens/tokens.scss";
 
 .top-bar {
-  margin: ($baseUnit * 2) 0 ($baseUnit * 9) 0;
   display: flex;
-  justify-content: space-between;
-  
-  @media(min-width: 1001px) {
-    margin-left: 216px; // (sidenav min-width) + ($baseUnit * 2)
-    min-width: -200px;
-  }
+  margin-left: auto;
+  margin-top: ($baseUnit * 2);
+  margin-bottom: ($baseUnit * 9);
+  flex-direction: row;
+  align-items: center;
 
   @media(max-width: 1000px) {
     display: none;
