@@ -29,7 +29,7 @@ const items = [
   }
 ]
 
-export function Basic () {
+const Description = () => {
   const [width, setWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -41,6 +41,29 @@ export function Basic () {
     return () => window.removeEventListener('resize', handleResize)
   })
 
+  return (
+    <>
+      <p><strong>TopBar</strong> vil være synlig når <i>innerWidth</i> er større enn <strong>1000px</strong>.</p>
+      <p>Går <i>innerWidth</i> til <strong>1000px</strong> eller mindre skjules den automatisk</p>
+      <p><strong>innerWidth</strong>: {width}px</p>
+    </>
+  )
+}
+
+export function Basic () {
+  return (
+    <div>
+      <TopBar
+        includeUserInfo={boolean('Inkluder brukerinfo', true)}
+        displayName={text('Visningsnavn', user.displayName)}
+        firstName={text('Fornavn', user.firstName)}
+        lastName={text('Etternavn', user.lastName)}
+        items={object('Menyvalg', items)}
+      />
+      <Description />
+    </div>
+  )
+}
   return (
     <div>
       <TopBar
