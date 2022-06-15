@@ -12,11 +12,21 @@
     display: none;
   }
 
+  .top-bar-left {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
   .top-bar-user {
+    flex: 1;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     margin: 0 ($baseUnit * 2) 0 auto;
+    justify-content: flex-end;
 
     .user-name {
       margin-right: $baseUnit * 1.5;

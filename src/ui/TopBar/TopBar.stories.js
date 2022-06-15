@@ -3,6 +3,7 @@ import { getConfig } from '../../../scripts/storybook/storyConfig'
 import { withKnobs, text, boolean, object } from '@storybook/addon-knobs'
 
 import { TopBar } from '.'
+import { SearchField } from '../SearchField'
 
 export default getConfig({
   title: 'TopBar',
@@ -64,6 +65,8 @@ export function Basic () {
     </div>
   )
 }
+
+export function Children () {
   return (
     <div>
       <TopBar
@@ -72,10 +75,14 @@ export function Basic () {
         firstName={text('Fornavn', user.firstName)}
         lastName={text('Etternavn', user.lastName)}
         items={object('Menyvalg', items)}
-      />
-      <p><strong>TopBar</strong> vil være synlig når <i>innerWidth</i> er større enn <strong>1000px</strong>.</p>
-      <p>Går <i>innerWidth</i> til <strong>1000px</strong> eller mindre skjules den automatisk</p>
-      <p><strong>innerWidth</strong>: {width}px</p>
+      >
+        <SearchField
+          onSearch={e => console.log(`Søkte etter "${e.target.value}"`)}
+          rounded
+          showClear={false}
+        />
+      </TopBar>
+      <Description />
     </div>
   )
 }
