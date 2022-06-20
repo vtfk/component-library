@@ -34,3 +34,13 @@ export function Disabled () {
 
   )
 }
+
+export function OwnState () {
+  const [isActive, setIsActive] = useState(false)
+  return (
+    <div>
+      <Switch onClick={(e) => { setIsActive(e.target.checked) }} label="This uses it's own state" /> <br />
+      Is active { JSON.stringify(isActive) }
+    </div>
+  )
+}
