@@ -91,3 +91,19 @@ export function Required () {
     </div>
   )
 }
+
+export function OwnState () {
+  return (
+    <>
+      <p>The datepicker below keeps track of its own state</p>
+      <Datepicker
+        placeholder='Dette er placeholderen'
+        placement={select('Popup placement', placements, 'bottom-start')}
+        onChange={(e) => { console.log('onChange!', e) }}
+        hint="Dette er ett hint"
+        alwaysHint={true}
+        closeOnSelect
+      />
+    </>
+  )
+}

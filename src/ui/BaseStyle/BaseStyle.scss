@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap');
 
+@import "../Tokens/tokens.scss";
+
 body {
   margin: 0;
   font-family: 'Nunito Sans', Lato, 'Trebuchet MS', sans-serif;
@@ -13,4 +15,98 @@ body {
   -moz-osx-font-smoothing: grayscale;
   image-rendering: -webkit-optimize-contrast;
   -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+
+/*
+  Input
+  ---
+  Common styles for all input elements
+*/
+
+// Placeholder text on top of the input
+.input-placeholder {
+  position: relative;
+  height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(#1D1C28, 0.5);
+
+  label {
+    margin-left: 0;
+  }
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  background: #fff;
+  border-bottom: 1px solid #1D1D26;
+  
+  input, textarea {
+    &:active,
+    &:visited,
+    &:focus {
+        color: inherit;
+        outline: 0;
+    }
+  }
+
+  :focus-within {
+    &::after {
+      content: " ";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -5px;
+      border-bottom: 4px solid #AEDCEA;
+    }
+
+    &.error {
+      .textfield-details::before {
+        border-top: 2px solid $red;
+      }
+    }
+  }
+
+  // Groups of icons inside the input
+  .input-icon-group {
+    margin-left: auto;
+    gap: 0.2rem;
+
+    .icon {
+      cursor: pointer;
+
+      svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+      }
+    }
+
+    .icon:hover {
+      transform: scale(1.1);
+    }
+
+    &.rounded {
+      .icon {
+        right: 0.3em;
+      }
+    }
+  }
+}
+
+// Details (Hints and errors) on the bottom of the input
+.input-details {
+  position: relative;
+  height: 20px;
+  overflow: hidden;
+
+  p {
+    padding: 0;
+    margin-top: 0.3rem;
+    // margin-block-start: 0!important;
+    margin-block-end: 0!important;
+    font-size: 12px;
+    color: #777;
+  }
 }
