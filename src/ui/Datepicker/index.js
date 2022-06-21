@@ -173,8 +173,6 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
   )
 }
 
-// id, selected, isOpen, placeholder, hidePlaceholder, alwaysPlaceholder, hint, alwaysHint, hideDetails, showClear, closeOnSelect, disabled, required, error, placement, onChange, onFocus, onBlur
-
 /*
   Prop types
 */
