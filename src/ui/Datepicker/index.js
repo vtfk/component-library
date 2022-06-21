@@ -10,7 +10,7 @@ import { Icon } from '../Icon'
 
 import './styles.scss'
 
-export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, hint, alwaysHint, hideDetails, showClear, closeOnSelect, label, selected, id, isOpen, disabled, required, error, placement, onChange, onFocus, onBlur, ...props }) {
+export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder, alwaysPlaceholder, hint, alwaysHint, hideDetails, showClear, closeOnSelect, disabled, required, error, placement, onChange, onFocus, onBlur, ...props }) {
   /*
     State
   */
@@ -29,7 +29,9 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
   // Update the local selected state with anything provided by prop
   useEffect(() => {
     if(selected !== undefined) setSelected(selected)
-  }, [selected])
+    if(isOpen !== undefined) setOpen(isOpen)
+    if(error !== undefined) setError(error)
+  }, [selected, isOpen])
 
   /*
     Memos
@@ -37,26 +39,32 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
   // Make sure that the selected date is always in the same format because DatePicker will crash if it is a unsupported format
   const safeSelected = useMemo(() => {
     // Input validation
-    // if(!_selected) return undefined
+    if(!_selected) return undefined
     let _safeSelected = undefined
 
     // Make sure that the date is safe to use
-    if(_selected) {
-      // Convert to date object
+    try {
       if(_selected instanceof Date) _safeSelected = _selected
       else if(typeof _selected === 'string') _safeSelected = new Date(_selected)
       else if(typeof _selected === 'number') _safeSelected = new Date(_selected)
       // If _safeSelected is set, return it
-      if(_safeSelected) {
-        setError(undefined)
-        return _safeSelected
-      }
+      setError(undefined)
+      return _safeSelected
+    } catch (err) {
+      // If the date is not a valid format
+      setError(err)
+      return
     }
-
-    // If _safeSelected is in a valid format, output and error and return undefined
-    setError('The provided date is not in a supported format');
-    return
   }, [_selected])
+
+  const classes = useMemo(() => {
+    const _classes = ['input-field']
+
+    if(_error) _classes.push('error')
+    if(disabled) _classes.push('disabled')
+
+    return _classes.join(' ')
+  }, [_error, disabled])
 
   /*
     Functions
@@ -87,10 +95,11 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
   const clear = () => {
     setOpen(false)
     setSelected(undefined)
+    if(required) setError('Dette feltet er påkrevd')
   }
 
   return (
-    <div className={`input-field ${_error ? 'error' : ''}`}>
+    <div className={classes}>
       {
         !hidePlaceholder &&
           <div className='input-placeholder'>
@@ -105,7 +114,7 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
       <div className={`input-container ${required ? 'required-input' : ''} ${_error ? 'error' : ''}`}>
         <DatePicker
           id={_id}
-          open={false}
+          open={open}
           selected={safeSelected}
           disabled={disabled || false}
           placeholderText={placeholder || ''}
@@ -120,10 +129,8 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
           {...props}
         />
         <div className='input-icon-group'>
-          { showClear && <Icon name="close" onClick={clear}/> }
-          <div className={`icon ${disabled ? 'icon-disabled' : ''}`} onClick={() => setOpen(!open)} disabled={disabled || false}>
-            <IconCalendar alt='' disabled={disabled || false} />
-          </div>
+          { showClear && <Icon name="close" disabled={disabled} onClick={clear}/> }
+          <Icon name="calendar" disabled={disabled} onClick={() => setOpen(!open)} />
         </div>
       </div>
       {
@@ -152,7 +159,6 @@ Datepicker.propTypes = {
   error: PropTypes.string,
   id: PropTypes.string,
   isOpen: PropTypes.bool,
-  label: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   placement: PropTypes.oneOf([
     'auto',

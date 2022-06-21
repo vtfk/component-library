@@ -1,3 +1,5 @@
+@import "../../common/scss/helpers";
+
 .icon {
   width: 24px;
   height: auto;
@@ -33,6 +35,15 @@
     &,
     svg {
       width: 14px;
+    }
+  }
+
+  &.disabled {
+    fill: gray;
+    @include disabled();
+
+    &:hover {
+      transform: none!important;
     }
   }
 }

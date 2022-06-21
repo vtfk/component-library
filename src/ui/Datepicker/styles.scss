@@ -187,10 +187,4 @@
       font-weight: bold;
     }
   }
-
-  .required-input::before {
-    position: absolute;
-    margin: 0px 0px 0px -10px;  
-    @include required();
-  }
 }

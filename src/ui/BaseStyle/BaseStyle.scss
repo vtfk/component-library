@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap');
 
+@import "../../common/scss/helpers";
 @import "../Tokens/tokens.scss";
 
 body {
@@ -24,8 +25,10 @@ body {
 */
 $details-color: #5d5d5d;
 
-/* Default styling */
 .input-field {
+  /*
+    Default styling
+  */
   // Placeholder text on top of the input
   .input-placeholder {
     position: relative;
@@ -40,7 +43,7 @@ $details-color: #5d5d5d;
     }
   }
 
-    // The input container contains the input field as well as the icons
+  // The input container contains the input field as well as the icons
   .input-container {
     position: relative;
     display: flex;
@@ -79,6 +82,13 @@ $details-color: #5d5d5d;
       }
     }
     
+    &.required-input::before {
+      content:"*";
+      position: absolute;
+      margin: -10px 0px 0px -8px;  
+      color: red;
+    }
+
     // Groups of icons inside the input
     .input-icon-group {
       display: flex;
@@ -129,7 +139,18 @@ $details-color: #5d5d5d;
   }
 }
 
-/* If error */
+/*
+  If disabled
+*/
+.input-field.disabled {
+  * {
+    @include disabled();
+  }
+}
+
+/*
+  If error
+*/
 .input-field.error {
   .input-placeholder {
     color: $red

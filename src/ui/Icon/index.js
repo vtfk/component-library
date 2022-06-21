@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { ReactComponent as Home } from './icon-home.svg'
 import { ReactComponent as Activity } from './icon-activity.svg'
+import { ReactComponent as Calendar } from './icon-calendar.svg'
 import { ReactComponent as Classes } from './icon-classes.svg'
 import { ReactComponent as Students } from './icon-students.svg'
 import { ReactComponent as Statistics } from './icon-statistics.svg'
@@ -36,6 +37,7 @@ import './styles.scss'
 export const icons = {
   home: <Home />,
   activity: <Activity />,
+  calendar: <Calendar />,
   classes: <Classes />,
   students: <Students />,
   statistics: <Statistics />,
@@ -65,9 +67,9 @@ export const icons = {
   external: <External />
 }
 
-export function Icon ({ name, size, className, ...props }) {
+export function Icon ({ name, size, className, disabled, ...props }) {
   return (
-    <span className={`icon ${size} ${className}`} {...props}>
+    <span className={`icon ${size} ${className} ${disabled ? 'disabled': ''}`} {...props}>
       {icons[name]}
     </span>
   )

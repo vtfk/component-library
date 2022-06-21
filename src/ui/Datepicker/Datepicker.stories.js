@@ -104,7 +104,9 @@ export function OwnState () {
         alwaysHint={true}
         alwaysPlaceholder={true}
         showClear
+        required
         closeOnSelect
+        disabled
       />
     </>
   )
