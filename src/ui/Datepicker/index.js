@@ -57,6 +57,7 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
     }
   }, [_selected])
 
+  // Determines the classes of the main input-field component
   const classes = useMemo(() => {
     const _classes = ['input-field']
 
@@ -66,10 +67,43 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
     return _classes.join(' ')
   }, [_error, disabled])
 
+  // Determines if and what should be shown in the placeholder-field
+  const placeholderComponent = useMemo(() => {
+    if(hidePlaceholder) return <></>
+    if((_selected || alwaysPlaceholder) && placeholder) {
+      return <div className='input-placeholder'>
+        <label htmlFor={_id} className='placeholder-label'>
+          {placeholder}
+        </label>
+      </div>
+    }
+    return <></>
+  }, [_selected, alwaysPlaceholder, placeholder, hidePlaceholder])
+
+  // Dermines if and what should be shown in the details-field
+  const detailsComponent = useMemo(() => {
+    if(hideDetails) return <></>
+    if(_error) {
+      return <div className='input-details'>
+        <p role='alert' aria-live='assertive' className='details-text error'>
+          {_error.message || _error}
+        </p>
+      </div>
+    } else if (isFocused || alwaysHint) {
+      return <div className='input-details'>
+        <p aria-live='assertive' className='details-text'>
+         {hint}
+        </p>
+      </div> 
+    }
+    return <></>
+  })
+
   /*
     Functions
   */
-  function handleDateChange(e) {
+  // Handles the onChange event of the component
+  function handleOnChange(e) {
     // Input validation
     if(!e) return
     // Update the local state
@@ -80,18 +114,21 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
     if(onChange && typeof onChange === 'function') onChange(e)
   }
 
+  // Handles the onFocus event of the component
   const handleFocus = (event) => {
     setIsFocused(true)
     setOpen(true)
     if (onFocus && typeof onFocus === 'function') onFocus(event)
   }
 
+  // Handles the onBlur event of the component
   const handleBlur = (event) => {
     setIsFocused(false)
     setOpen(false)
     if (onBlur && typeof onBlur === 'function') onBlur(event)
   }
 
+  // Handles clearing the components data
   const clear = () => {
     setOpen(false)
     setSelected(undefined)
@@ -100,17 +137,7 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
 
   return (
     <div className={classes}>
-      {
-        !hidePlaceholder &&
-          <div className='input-placeholder'>
-            {
-            (_selected || alwaysPlaceholder) && placeholder &&
-              <label htmlFor={_id} className='placeholder-label'>
-                {placeholder}
-              </label>
-            }
-          </div>
-      }
+      { placeholderComponent }
       <div className={`input-container ${required ? 'required-input' : ''} ${_error ? 'error' : ''}`}>
         <DatePicker
           id={_id}
@@ -124,7 +151,7 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
           aria-invalid={!!error}
           onFocus={(e) => handleFocus(e)}
           onBlur={(e) => handleBlur(e)}
-          onChange={(e) => handleDateChange(e)}
+          onChange={(e) => handleOnChange(e)}
           onClickOutside={() => setOpen(false)}
           {...props}
         />
@@ -133,23 +160,7 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
           <Icon name="calendar" disabled={disabled} onClick={() => setOpen(!open)} />
         </div>
       </div>
-      {
-        !hideDetails &&
-          <div className='input-details'>
-            {
-            _error &&
-              <p role='alert' aria-live='assertive' className='details-text error'>
-                {_error.message || _error}
-              </p>
-            }
-            {
-            (!error && (isFocused || alwaysHint)) &&
-              <p aria-live='assertive' className='details-text'>
-                {hint}
-              </p>
-          }
-          </div>
-      }
+      { detailsComponent }
     </div>
   )
 }

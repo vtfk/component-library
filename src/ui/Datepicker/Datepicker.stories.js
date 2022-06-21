@@ -106,7 +106,6 @@ export function OwnState () {
         showClear
         required
         closeOnSelect
-        disabled
       />
     </>
   )
