@@ -5,7 +5,6 @@ import { nanoid } from 'nanoid/non-secure'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import nb from 'date-fns/locale/nb'
 
-import { ReactComponent as IconCalendar } from './icon-calendar.svg'
 import { Icon } from '../Icon'
 
 import './styles.scss'
