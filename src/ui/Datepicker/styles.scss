@@ -3,19 +3,6 @@
 
 @import "~react-datepicker/dist/react-datepicker.css";
 
-.picker {
-  display: flex;
-  
-  :disabled {
-    @include disabled();
-  }
-
-  .icon-disabled {
-    @include disabled();
-    pointer-events: none;
-  }
-}
-
 .input-field {
   position: relative;
   .react-datepicker-wrapper {
@@ -118,73 +105,6 @@
         color: inherit;
         font-weight: bold;
       }
-    }
-  }
-
-  input {
-    // reset
-    background: none;
-    border: 0;
-    color: inherit;
-    font: inherit;
-    line-height: normal;
-    overflow: visible;
-    padding: 0;
-    text-decoration: none;
-    border-radius: 0;
-    font-weight: normal;
-    box-shadow: none;
-    outline: 0;
-    position: relative;
-    font-size: 18px;
-    line-height: 24px;
-    position: relative;
-    display: block;
-    width: 100%;
-
-    &::placeholder {
-      color: rgba(#1D1C28, 0.58);
-      font-style: italic;
-    }
-
-    &:active,
-    &:visited,
-    &:focus {
-        color: inherit;
-    }
-
-    &:active,
-    &:focus {
-      // box-shadow: 0 0 0 4px $lightBlue;
-    }
-  }
-
-  &.focused {
-    &:after {
-      content: "";
-      position: absolute;
-      top: calc(100% + 1px);
-      left: 0;
-      right: 0;
-      border-bottom: 4px solid $lightBlue;
-    }
-  }
-
-  &.error {
-    // Rødt input-felt
-    input,
-    textarea {
-      &::placeholder {
-        color: $red;
-      }
-    }
-
-    .error-message {
-      display: inline-block;
-      margin-top: $baseUnit;
-      color: $red;
-      font-size: 14px;
-      font-weight: bold;
     }
   }
 }

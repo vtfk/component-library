@@ -51,7 +51,27 @@ $details-color: #5d5d5d;
     align-items: center;
     background: #fff;
 
+    // Reset the default input styles
     input, textarea {
+      background: none;
+      border: 0;
+      color: inherit;
+      font: inherit;
+      line-height: normal;
+      overflow: visible;
+      padding: 0;
+      text-decoration: none;
+      border-radius: 0;
+      font-weight: normal;
+      box-shadow: none;
+      outline: 0;
+      position: relative;
+      font-size: 18px;
+      line-height: 24px;
+      position: relative;
+      display: block;
+      width: 100%;
+
       &:active,
       &:visited,
       &:focus {
