@@ -95,14 +95,14 @@ export function Required () {
 export function OwnState () {
   return (
     <>
-      <p>The datepicker below keeps track of its own state</p>
+      <p>The datepicker below keeps track of its own state, it also closes on select</p>
       <Datepicker
         placeholder='Dette er placeholderen'
         placement={select('Popup placement', placements, 'bottom-start')}
         onChange={(e) => { console.log('onChange!', e) }}
-        hint="Dette er ett hint"
-        alwaysHint={true}
-        alwaysPlaceholder={true}
+        hint='Dette er ett hint'
+        alwaysHint
+        alwaysPlaceholder
         showClear
         required
         closeOnSelect

@@ -69,7 +69,7 @@ export const icons = {
 
 export function Icon ({ name, size, className, disabled, ...props }) {
   return (
-    <span className={`icon ${size} ${className} ${disabled ? 'disabled': ''}`} {...props}>
+    <span className={`icon ${size} ${className} ${disabled ? 'disabled' : ''}`} {...props}>
       {icons[name]}
     </span>
   )
@@ -77,6 +77,7 @@ export function Icon ({ name, size, className, disabled, ...props }) {
 
 Icon.propTypes = {
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   name: PropTypes.oneOf(Object.keys(icons)).isRequired,
   size: PropTypes.string
 }
