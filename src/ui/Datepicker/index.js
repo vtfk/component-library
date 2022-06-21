@@ -6,16 +6,18 @@ import DatePicker, { registerLocale } from 'react-datepicker'
 import nb from 'date-fns/locale/nb'
 
 import { ReactComponent as IconCalendar } from './icon-calendar.svg'
+import { Icon } from '../Icon'
 
 import './styles.scss'
 
-export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, hint, hideDetails, closeOnSelect, alwaysHint, label, selected, id, isOpen, disabled, required, error, placement, onChange, onFocus, onBlur, ...props }) {
+export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, hint, alwaysHint, hideDetails, showClear, closeOnSelect, label, selected, id, isOpen, disabled, required, error, placement, onChange, onFocus, onBlur, ...props }) {
   /*
     State
   */
+  const [_id] = useState(id || `input-${nanoid()}`)
   const [_selected, setSelected] = useState(selected || null)
+  const [_error, setError] = useState(error || null)
   const [open, setOpen] = useState(isOpen || false)
-  const [labelId] = useState(id || `id${nanoid()}`)
   const [isFocused, setIsFocused] = useState(false)
 
   // Register locale for the datepicker
@@ -34,7 +36,9 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
   */
   // Make sure that the selected date is always in the same format because DatePicker will crash if it is a unsupported format
   const safeSelected = useMemo(() => {
-    let _safeSelected = undefined;
+    // Input validation
+    // if(!_selected) return undefined
+    let _safeSelected = undefined
 
     // Make sure that the date is safe to use
     if(_selected) {
@@ -43,11 +47,14 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
       else if(typeof _selected === 'string') _safeSelected = new Date(_selected)
       else if(typeof _selected === 'number') _safeSelected = new Date(_selected)
       // If _safeSelected is set, return it
-      if(_safeSelected) return _safeSelected
+      if(_safeSelected) {
+        setError(undefined)
+        return _safeSelected
+      }
     }
 
     // If _safeSelected is in a valid format, output and error and return undefined
-    console.error('Datepicker: The selected date is not in a supported format')
+    setError('The provided date is not in a supported format');
     return
   }, [_selected])
 
@@ -77,23 +84,28 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
     if (onBlur && typeof onBlur === 'function') onBlur(event)
   }
 
+  const clear = () => {
+    setOpen(false)
+    setSelected(undefined)
+  }
+
   return (
-    <div className={`datepicker-field ${error ? 'error' : ''}`}>
+    <div className={`input-field ${_error ? 'error' : ''}`}>
       {
         !hidePlaceholder &&
           <div className='input-placeholder'>
             {
             (_selected || alwaysPlaceholder) && placeholder &&
-              <label htmlFor={labelId} className='placeholder-label'>
+              <label htmlFor={_id} className='placeholder-label'>
                 {placeholder}
               </label>
             }
           </div>
       }
-      <div className={`input-container ${required ? 'required-input' : ''}`}>
+      <div className={`input-container ${required ? 'required-input' : ''} ${_error ? 'error' : ''}`}>
         <DatePicker
-          id={labelId}
-          open={open}
+          id={_id}
+          open={false}
           selected={safeSelected}
           disabled={disabled || false}
           placeholderText={placeholder || ''}
@@ -108,6 +120,7 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
           {...props}
         />
         <div className='input-icon-group'>
+          { showClear && <Icon name="close" onClick={clear}/> }
           <div className={`icon ${disabled ? 'icon-disabled' : ''}`} onClick={() => setOpen(!open)} disabled={disabled || false}>
             <IconCalendar alt='' disabled={disabled || false} />
           </div>
@@ -117,9 +130,9 @@ export function Datepicker ({ placeholder, hidePlaceholder, alwaysPlaceholder, h
         !hideDetails &&
           <div className='input-details'>
             {
-            error &&
-              <p role='alert' aria-live='assertive' className='details-text'>
-                {error.message || error}
+            _error &&
+              <p role='alert' aria-live='assertive' className='details-text error'>
+                {_error.message || _error}
               </p>
             }
             {

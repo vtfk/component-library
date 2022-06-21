@@ -16,11 +16,8 @@
   }
 }
 
-.datepicker-field {
+.input-field {
   position: relative;
-
-
-
   .react-datepicker-wrapper {
     width: 100%;
   }
@@ -145,8 +142,6 @@
     display: block;
     width: 100%;
 
-    border-bottom: 1px solid #A3A3A3;
-
     &::placeholder {
       color: rgba(#1D1C28, 0.58);
       font-style: italic;
@@ -161,20 +156,6 @@
     &:active,
     &:focus {
       // box-shadow: 0 0 0 4px $lightBlue;
-    }
-  }
-
-  .icon {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-
-    svg {
-      width: 18px;
-      height: 18px;
-      display: block;
     }
   }
 
@@ -193,8 +174,6 @@
     // Rødt input-felt
     input,
     textarea {
-      border-bottom: 1px solid $red;
-
       &::placeholder {
         color: $red;
       }

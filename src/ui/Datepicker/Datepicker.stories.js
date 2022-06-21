@@ -102,6 +102,8 @@ export function OwnState () {
         onChange={(e) => { console.log('onChange!', e) }}
         hint="Dette er ett hint"
         alwaysHint={true}
+        alwaysPlaceholder={true}
+        showClear
         closeOnSelect
       />
     </>
