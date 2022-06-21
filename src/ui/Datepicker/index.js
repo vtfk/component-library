@@ -58,11 +58,12 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
   }, [_selected])
 
   // Determines the classes of the main input-field component
-  const classes = useMemo(() => {
+  const inputfieldClasses = useMemo(() => {
     const _classes = ['input-field']
 
     if(_error) _classes.push('error')
     if(disabled) _classes.push('disabled')
+    if(required) _classes.push('required')
 
     return _classes.join(' ')
   }, [_error, disabled])
@@ -135,10 +136,13 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
     if(required) setError('Dette feltet er påkrevd')
   }
 
+  /*
+    JSX
+  */
   return (
-    <div className={classes}>
+    <div className={inputfieldClasses}>
       { placeholderComponent }
-      <div className={`input-container ${required ? 'required-input' : ''} ${_error ? 'error' : ''}`}>
+      <div className="input-container">
         <DatePicker
           id={_id}
           open={open}
@@ -148,7 +152,7 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
           popperPlacement={placement}
           locale='nb'
           dateFormat='dd.MM.yyyy'
-          aria-invalid={!!error}
+          aria-invalid={!!_error}
           onFocus={(e) => handleFocus(e)}
           onBlur={(e) => handleBlur(e)}
           onChange={(e) => handleOnChange(e)}
@@ -165,6 +169,9 @@ export function Datepicker ({ id, selected, isOpen, placeholder, hidePlaceholder
   )
 }
 
+/*
+  Prop types
+*/
 Datepicker.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.string,
@@ -192,6 +199,9 @@ Datepicker.propTypes = {
   selected: PropTypes.instanceOf(Date)
 }
 
+/*
+  Default values
+*/
 Datepicker.defaultProps = {
   placement: 'bottom-start'
 }

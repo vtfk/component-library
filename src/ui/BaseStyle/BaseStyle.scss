@@ -102,13 +102,6 @@ $details-color: #5d5d5d;
       }
     }
     
-    &.required-input::before {
-      content:"*";
-      position: absolute;
-      margin: -10px 0px 0px -8px;  
-      color: red;
-    }
-
     // Groups of icons inside the input
     .input-icon-group {
       display: flex;
@@ -160,6 +153,18 @@ $details-color: #5d5d5d;
 }
 
 /*
+  If required
+*/
+.input-field.required {
+  .input-container::before {
+    content: "*";
+    position: absolute;
+    margin: -10px 0px 0px -8px;  
+    color: red;
+  }
+}
+
+/*
   If disabled
 */
 .input-field.disabled {
@@ -177,23 +182,19 @@ $details-color: #5d5d5d;
   }
   
   .input-container {
-    &.error {
-      border-bottom: 0;
+    &::after {
+      content: " ";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      border-bottom: 2px solid $red;
+    }
 
-      &::after {
-        content: " ";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -2px;
-        border-bottom: 2px solid $red;
-      }
-
-      input,
-      textarea {
-        &::placeholder {
-          color: $red;
-        }
+    input,
+    textarea {
+      &::placeholder {
+        color: $red;
       }
     }
   }
