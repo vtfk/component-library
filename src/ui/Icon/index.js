@@ -30,6 +30,7 @@ import { ReactComponent as Lock } from './icon-lock.svg'
 import { ReactComponent as Link } from './icon-link.svg'
 import { ReactComponent as External } from './icon-external.svg'
 import { ReactComponent as Graph } from './icon-graph.svg'
+import { ReactComponent as Pdf } from './icon-pdf.svg'
 
 import './styles.scss'
 
@@ -62,7 +63,8 @@ export const icons = {
   copy: <Copy />,
   lock: <Lock />,
   link: <Link />,
-  external: <External />
+  external: <External />,
+  pdf: <Pdf />
 }
 
 export function Icon ({ name, size, className, ...props }) {
