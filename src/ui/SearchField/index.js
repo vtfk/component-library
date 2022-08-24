@@ -203,7 +203,7 @@ export function SearchField ({ placeholder, value, debounceMs, onSelected, round
 
   // Handles clicking the searchResult items
   const handleItemClick = (item, index) => {
-    if (onSelected && typeof onSelected === 'function') onSelected(item, index)
+    if (onSelected && typeof onSelected === 'function' && item !== undefined && index !== undefined) onSelected(item, index)
 
     // Set the index of the selected item
     if (index !== undefined && index >= 0 && index < items.length) setFocusedItemIndex(index)
