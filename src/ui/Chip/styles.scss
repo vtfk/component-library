@@ -1,0 +1,58 @@
+.chip {
+  /* border: 1px solid black; */
+  display: inline-block;
+  padding: 0.3rem 0.5rem;
+  border-radius: 1rem;
+
+  &.error {
+    background-color: red;
+  }
+
+  &.information {
+    background-color: #f1f1f1;
+  }
+
+  &.success {
+    background-color: lightgreen;
+  }
+
+  &.warning {
+    background-color: yellow;
+  }
+
+  .chip-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .chip-message {
+    &.bold {
+      font-weight: bold;
+    }
+
+    &.italic {
+      font-style: italic;
+    }
+
+    &.lowercase {
+      text-transform: lowercase;
+    }
+
+    &.uppercase {
+      text-transform: uppercase;
+    }
+
+    &.overline {
+      text-decoration: overline;
+    }
+
+    &.striketrough {
+      text-decoration: line-through;
+    }
+
+    &.underline {
+      text-decoration: underline;
+    }
+  }
+}
