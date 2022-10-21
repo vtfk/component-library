@@ -44,12 +44,6 @@ export function Information () {
         key='1'
         message='information'
         type='information'
-      />,
-      <Chip
-        key='2'
-        icon={<Icon name='check' size='small' />}
-        message='information'
-        type='information'
       />
     ]}
     />
@@ -61,6 +55,12 @@ export function Success () {
     <Table chips={[
       <Chip
         key='1'
+        message='success'
+        type='success'
+      />,
+      <Chip
+        key='2'
+        icon={<Icon name='check' size='small' />}
         message='success'
         type='success'
       />
