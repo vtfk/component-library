@@ -41,11 +41,11 @@
     "use-debounce": "7.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.17.12",
-    "@babel/eslint-parser": "7.17.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.17.12",
-    "@babel/preset-env": "7.16.11",
-    "@babel/preset-react": "7.16.7",
+    "@babel/core": "7.28.5",
+    "@babel/eslint-parser": "7.28.5",
+    "@babel/plugin-proposal-object-rest-spread": "7.20.7",
+    "@babel/preset-env": "7.28.5",
+    "@babel/preset-react": "7.28.5",
     "@rollup/plugin-commonjs": "22.0.2",
     "@rollup/plugin-node-resolve": "13.2.2",
     "@rollup/plugin-replace": "4.0.0",
