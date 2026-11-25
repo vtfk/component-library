@@ -65,7 +65,7 @@
     "@testing-library/react": "13.3.0",
     "@testing-library/user-event": "14.2.0",
     "@whitespace/storybook-addon-html": "5.0.0",
-    "babel-plugin-inline-react-svg": "1.1.2",
+    "babel-plugin-inline-react-svg": "2.0.2",
     "babel-polyfill": "6.26.0",
     "cross-env": "7.0.3",
     "eslint": "8.16.0",
